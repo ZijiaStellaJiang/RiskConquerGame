@@ -49,7 +49,7 @@
   :type 'color)
 
 
-(defcustom dcoverage-run-clover-function (lambda() (gradle-run "clean cloverAggregateReport"))
+(defcustom dcoverage-run-clover-function (lambda() (gradle-run "clean cloverAggregateReports"))
   "The elisp function to execute in order to run clover to generate test coverage results."
   :tag "dcoverage clover execution function"
   :group 'dcoverage
