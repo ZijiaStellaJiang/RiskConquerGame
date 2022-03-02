@@ -10,7 +10,7 @@ stages:
    - test
    - coverage
    - deploy
-
+   - test-deployment
    
 build:
   tags:
@@ -44,5 +44,13 @@ deploy:
       - ece651
   stage: deploy
   script: ./scripts/redeploy.sh
+
+test-deployment: 
+  tags:
+      - ece651
+  stage: test-deployment 
+  dependencies:
+      - deploy
+  script: ./scripts/test-deployment.sh
 
   
