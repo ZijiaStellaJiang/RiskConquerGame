@@ -3,17 +3,12 @@
  */
 package edu.duke.ece651.group4.risc.client;
 
-import edu.duke.ece651.group4.risc.shared.LinkedList;
 import edu.duke.ece651.group4.risc.shared.Territory;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
 
 public class Client {
-  // public static void main(String[] args) {
-  // Territory<Character> test_terr = new Territory<Character>("test client");
-  // System.out.println(test_terr.getName());
-  // LinkedList tokens;
   public static void main(String[] args) throws ClassNotFoundException {
     String serverName = "localhost";
     int port = 6066;

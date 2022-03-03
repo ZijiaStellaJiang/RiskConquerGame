@@ -14,15 +14,6 @@ public class Server extends Thread{
     this.serverSocket = serverSocket;
   }
 
-  //public static void main(String[] args) {
-  //      System.out.println("Hello from server");
-      //      ArrayList<int> test = new ArrayList<int>();
-      /*LinkedList tokens;
-        tokens = split(getMessage());
-        String result = join(tokens);
-        System.out.println(WordUtils.capitalize(result));
-      */
-  //}
   private ServerSocket serverSocket;
    
     public Server(int port) throws IOException
