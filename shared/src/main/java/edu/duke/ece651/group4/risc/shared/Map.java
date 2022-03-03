@@ -5,9 +5,10 @@ public class Map<T> {
   public Map(Territory<T> territory){
     myTerritory = territory;
   }
-
-
-  public Boolean checkTerritoryExists(Territory territory){
+  public Boolean checkTerritoryExists(Territory<T> territory){
     return territory.getName().equals(myTerritory.getName());
+  }
+  public String getMyTerritoriesName() {
+    return myTerritory.getName();
   }
 }
