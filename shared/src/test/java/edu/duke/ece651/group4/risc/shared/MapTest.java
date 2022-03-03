@@ -13,5 +13,11 @@ public class MapTest {
         assertEquals(true, map.checkTerritoryExists(territory));
         assertEquals(false, map.checkTerritoryExists(territory1));
     }
+    @Test
+    public void test_get_territories_name() {
+        Territory<Character> territory = new Territory<Character>("test");
+        Map<Character> map = new Map<Character>(territory);
+        assertEquals("test",map.getMyTerritoriesName());
+    }
 
 }
