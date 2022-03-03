@@ -13,9 +13,11 @@ public class Territory<T> {
     return this.name;
   }
 
+  /*temporarily delete, for goal1 just one territory, to make test coverage complete
   public void addNeigh(Territory<T> neighToAdd){
     myNeigh.add(neighToAdd);
   }
+  */
 
   /*  public void removeNeigh(Territory<T> neighToRemove){
     for(int i=0; i<myNeigh.size():i++){
