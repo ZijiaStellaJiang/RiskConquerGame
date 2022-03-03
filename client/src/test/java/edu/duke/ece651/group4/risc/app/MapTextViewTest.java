@@ -1,4 +1,4 @@
-package edu.duke.ece651.group4.risc.app;
+package edu.duke.ece651.group4.risc;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
