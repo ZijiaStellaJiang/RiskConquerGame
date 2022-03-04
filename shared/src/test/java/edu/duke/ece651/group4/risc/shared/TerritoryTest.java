@@ -29,10 +29,9 @@ public class TerritoryTest {
     territory2.removeNeigh(territory3);
     territory1.addNeigh(territory3);
     territory1.removeNeigh(territory2);
-
-   
   }
 
+ 
   @Test
   public void test_equals(){
     Territory<Character> territory1 = new Territory<Character>("test1");
