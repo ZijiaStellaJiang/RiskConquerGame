@@ -5,10 +5,19 @@ import java.util.ArrayList;
 public class Territory<T> {
   private String name;
   private ArrayList<Territory<T>> myNeigh;//used to store neighbourhood information
-
+  private Player myPlayer;
   public Territory(String name){
     this.name = name;
     myNeigh = new ArrayList<Territory<T>>();
+  }
+
+  public void changePlayer(Player playerToChange){
+    if(myPlayer == null || playerToChange.equals(myPlayer)==false){
+      myPlayer = playerToChange;
+    }
+  }
+  public String getPlayerName(){
+    return myPlayer.getName();
   }
   public String getName(){
     return this.name;

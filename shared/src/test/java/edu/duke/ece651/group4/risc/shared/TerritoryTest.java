@@ -55,4 +55,15 @@ public class TerritoryTest {
     assertEquals(neigh,territory1.getMyNeigh());
   }
 
+
+  @Test
+  public void test_change_player(){
+    Player player = new Player("test");
+    Territory<Character> territory1 = new Territory<Character>("test1");
+    territory1.changePlayer(player);
+    assertEquals("test", territory1.getPlayerName());
+    territory1.changePlayer(player);
+    assertEquals("test", territory1.getPlayerName()); 
+  }
+
 }

@@ -34,6 +34,7 @@ public class MapTest {
         Map<Character> map = new Map<Character>();
         map.addTerritory(t1);
         map.addTerritory(t2);
+        map.addTerritory(t1); 
         ArrayList<Territory<Character>> myTerri = new ArrayList<>();
         myTerri.add(t1);
         myTerri.add(t2);
