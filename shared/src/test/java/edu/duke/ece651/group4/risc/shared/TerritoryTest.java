@@ -65,4 +65,13 @@ public class TerritoryTest {
     assertEquals("test", territory1.getPlayerName()); 
   }
 
+
+  @Test
+  public void test_units(){
+    Territory<Character> territory1 = new Territory<Character>("test1");
+    Unit<Integer> units = new Unit<Integer>(1);
+    territory1.setMyUnits(units);
+    assertEquals(1, territory1.getMyUnits());
+  }
+
 }

@@ -6,9 +6,18 @@ public class Territory<T> {
   private String name;
   private ArrayList<Territory<T>> myNeigh;//used to store neighbourhood information
   private Player myPlayer;
+  private Unit<Integer> myUnits;
   public Territory(String name){
     this.name = name;
     myNeigh = new ArrayList<Territory<T>>();
+  }
+
+  public void setMyUnits(Unit<Integer> units){
+    myUnits = units;
+  }
+
+  public Integer getMyUnits(){
+    return myUnits.getUnit();
   }
 
   public void changePlayer(Player playerToChange){
