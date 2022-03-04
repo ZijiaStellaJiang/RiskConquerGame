@@ -29,10 +29,9 @@ public class TerritoryTest {
     territory2.removeNeigh(territory3);
     territory1.addNeigh(territory3);
     territory1.removeNeigh(territory2);
-
-   
   }
 
+ 
   @Test
   public void test_equals(){
     Territory<Character> territory1 = new Territory<Character>("test1");
@@ -53,6 +52,17 @@ public class TerritoryTest {
     neigh.add(territory2);
     neigh.add(territory3);
     assertEquals(neigh,territory1.getMyNeigh());
+  }
+
+
+  @Test
+  public void test_change_player(){
+    Player player = new Player("test");
+    Territory<Character> territory1 = new Territory<Character>("test1");
+    territory1.changePlayer(player);
+    assertEquals("test", territory1.getPlayerName());
+    territory1.changePlayer(player);
+    assertEquals("test", territory1.getPlayerName()); 
   }
 
 }

@@ -15,10 +15,30 @@ public class PlayerTest {
   public void test_my_territory(){
     Player player = new Player("test_player");
     Territory<Character> territory = new Territory<Character>("test1");
-    Territory<Character> territory1 = new Territory<Character>("test2");    
+    Territory<Character> territory1 = new Territory<Character>("test2");
+    assertEquals(false, player.checkMyTerritory(territory));
+    assertEquals(false, player.checkMyTerritory(territory1)); 
+    player.addToTerritory(territory);
+    player.removeFromTerriroty(territory1); 
+    assertEquals(true, player.checkMyTerritory(territory));
+    assertEquals(false, player.checkMyTerritory(territory1));   
+    //player.addToTerritory(territory1);
+    player.removeFromTerriroty(territory);
+    assertEquals(false, player.checkMyTerritory(territory));
+    assertEquals(false, player.checkMyTerritory(territory1));
+  }
 
-    
-    player.addToTerritory(null);
+
+  @Test
+  public void test_equals(){
+    Player player = new Player("test_player");
+    Player player1 = new Player("test_player1");
+    assertEquals(false, player1.equals(player));
+    assertEquals(false, player1.equals(1));
+    assertEquals(false, player1.equals("test_player1"));
+    assertEquals(true, player1.equals(player1));
+    Player player2 = new Player("test_player1");   
+    assertEquals(true, player1.equals(player2));
   }
 
 }
