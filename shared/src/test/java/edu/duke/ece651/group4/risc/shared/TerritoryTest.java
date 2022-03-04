@@ -2,6 +2,8 @@ package edu.duke.ece651.group4.risc.shared;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TerritoryTest {
@@ -38,6 +40,19 @@ public class TerritoryTest {
     assertEquals(true, territory1.equals(territory1));
     assertEquals(false, territory1.equals("test1"));
     assertEquals(false, territory1.equals(territory2));
+  }
+
+  @Test
+  public void test_get_my_neigh(){
+    Territory<Character> territory1 = new Territory<Character>("A");
+    Territory<Character> territory2 = new Territory<Character>("B");
+    Territory<Character> territory3 = new Territory<Character>("C");
+    territory1.addNeigh(territory2);
+    territory1.addNeigh(territory3);
+    ArrayList<Territory<Character>> neigh = new ArrayList<>();
+    neigh.add(territory2);
+    neigh.add(territory3);
+    assertEquals(neigh,territory1.getMyNeigh());
   }
 
 }
