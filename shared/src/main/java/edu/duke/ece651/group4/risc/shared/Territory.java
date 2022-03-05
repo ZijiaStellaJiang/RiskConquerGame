@@ -34,9 +34,18 @@ public class Territory<T> implements java.io.Serializable {
     return this.name;
   }
 
+  /**
+   * add a territory as this one's neighbour
+   * at the same time, add this territory to neighToAdd's neighbour
+   */
   public void addNeigh(Territory<T> neighToAdd){
-    if(neighToAdd.equals(this)==false){
-      myNeigh.add(neighToAdd); 
+    if(!neighToAdd.equals(this)){
+      if(!this.checkNeigh(neighToAdd)){
+        myNeigh.add(neighToAdd);
+      }
+      if(!neighToAdd.checkNeigh(this)){
+        neighToAdd.addNeigh(this);
+      }
     }
   }
 

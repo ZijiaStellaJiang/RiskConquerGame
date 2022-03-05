@@ -22,9 +22,7 @@ public class MapTextViewTest {
         Territory<Character> t2 = new Territory<Character>("A2");
         Territory<Character> t3 = new Territory<Character>("B1");
         t1.addNeigh(t2);
-        t2.addNeigh(t1);
         t1.addNeigh(t3);
-        t3.addNeigh(t1);
         Map<Character> map = new Map<>();
         map.addTerritory(t1);
         map.addTerritory(t2);
@@ -43,9 +41,7 @@ public class MapTextViewTest {
         Territory<Character> t2 = new Territory<Character>("A2");
         Territory<Character> t3 = new Territory<Character>("B1");
         t1.addNeigh(t2);
-        t2.addNeigh(t1);
         t1.addNeigh(t3);
-        t3.addNeigh(t1);
         TextPlayer p1 = new TextPlayer("A");
         TextPlayer p2 = new TextPlayer("B");
         p1.addToTerritory(t1);

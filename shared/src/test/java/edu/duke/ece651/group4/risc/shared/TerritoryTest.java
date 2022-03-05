@@ -24,6 +24,7 @@ public class TerritoryTest {
     assertEquals(true, territory1.checkNeigh(territory3));
     assertEquals(false, territory1.checkNeigh(territory2));
     assertEquals(false, territory1.checkNeigh(territory1));
+    assertEquals(true, territory3.checkNeigh(territory1));
     territory1.removeNeigh(territory3);
     assertEquals(false, territory1.checkNeigh(territory3));
     territory2.removeNeigh(territory3);
@@ -54,7 +55,6 @@ public class TerritoryTest {
     assertEquals(neigh,territory1.getMyNeigh());
   }
 
-
   @Test
   public void test_change_player(){
     Player<Character> player = new TextPlayer("p");
@@ -64,7 +64,6 @@ public class TerritoryTest {
     territory1.changePlayer(player);
     assertEquals("p", territory1.getPlayerName());
   }
-
 
   @Test
   public void test_units(){
