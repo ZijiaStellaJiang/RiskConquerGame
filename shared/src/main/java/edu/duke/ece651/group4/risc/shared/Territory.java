@@ -34,28 +34,45 @@ public class Territory<T> implements java.io.Serializable {
     return this.name;
   }
 
+  /**
+   * add a territory as this one's neighbour
+   * at the same time, add this territory to neighToAdd's neighbour
+   */
   public void addNeigh(Territory<T> neighToAdd){
-    if(neighToAdd.equals(this)==false){
-      myNeigh.add(neighToAdd); 
+    if(!neighToAdd.equals(this)){
+      if(!this.checkNeigh(neighToAdd)){
+        myNeigh.add(neighToAdd);
+      }
+      if(!neighToAdd.checkNeigh(this)){
+        neighToAdd.addNeigh(this);
+      }
     }
   }
 
+  /**
+   * remove a territory from its neighbour
+   * at the same time, remove this territory from neighToRemove's neighbour
+   */
   public void removeNeigh(Territory<T> neighToRemove){
-    for(int i=0; i<myNeigh.size();i++){
-      if(neighToRemove.equals(myNeigh.get(i))){
-        myNeigh.remove(i);
-        break;
-      }
+    if(myNeigh.remove(neighToRemove)){
+      neighToRemove.removeNeigh(this);
     }
+//    for(int i=0; i<myNeigh.size();i++){
+//      if(neighToRemove.equals(myNeigh.get(i))){
+//        myNeigh.remove(i);
+//        break;
+//      }
+//    }
   }
 
   public boolean checkNeigh(Territory<T> neighToCheck){
-    for(int i=0; i<myNeigh.size();i++){
-      if(neighToCheck.equals(myNeigh.get(i))){
-        return true;
-      }
-    }
-    return false;
+    return myNeigh.contains(neighToCheck);
+//    for(int i=0; i<myNeigh.size();i++){
+//      if(neighToCheck.equals(myNeigh.get(i))){
+//        return true;
+//      }
+//    }
+//    return false;
   }
 
   public ArrayList<Territory<T>> getMyNeigh(){
