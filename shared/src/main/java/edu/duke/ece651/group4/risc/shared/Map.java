@@ -3,16 +3,16 @@ package edu.duke.ece651.group4.risc.shared;
 import java.util.ArrayList;
 
 public class Map<T> {
-  private ArrayList<Player> myPlayers;
+  private ArrayList<Player<T>> myPlayers;
   private ArrayList<Territory<T>> myTerritory;
   public Map(){
     myPlayers = new ArrayList<>();
     myTerritory = new ArrayList<>();
   }
   /**
-   * add a player to this map, then add all his territories in the map
+   * add a player to this map
    */
-  public void addPlayer(Player playerToAdd){
+  public void addPlayer(Player<T> playerToAdd){
     if(!myPlayers.contains(playerToAdd)){
       myPlayers.add(playerToAdd);
     }
@@ -39,7 +39,7 @@ public class Map<T> {
     return false;
   }
 
-  public ArrayList<Player> getMyPlayers(){
+  public ArrayList<Player<T>> getMyPlayers(){
     return myPlayers;
   }
 }

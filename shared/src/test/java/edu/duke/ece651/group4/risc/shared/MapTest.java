@@ -5,8 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class MapTest {
     @Test
@@ -22,20 +21,20 @@ public class MapTest {
     }
     @Test
     public void test_add_player_and_get(){
-        Player p1 = new Player("A");
-        Player p2 = new Player("B");
-        Player p3 = new Player("C");
+        TextPlayer p1 = new TextPlayer("A");
+        TextPlayer p2 = new TextPlayer("B");
+        TextPlayer p3 = new TextPlayer("C");
         Map<Character> map = new Map<>();
         map.addPlayer(p1);
         map.addPlayer(p2);
         map.addPlayer(p1);
-        ArrayList<Player> expected = new ArrayList<>();
+        ArrayList<TextPlayer> expected = new ArrayList<>();
         expected.add(p1);
         expected.add(p2);
-        ArrayList<Player> falseAns = new ArrayList<>();
+        ArrayList<TextPlayer> falseAns = new ArrayList<>();
         falseAns.add(p3);
         assertEquals(expected,map.getMyPlayers());
-        assertFalse(falseAns.equals(map.getMyPlayers()));
+        assertNotEquals(falseAns, map.getMyPlayers());
     }
 //    @Test
 //    public void test_get_my_players(){

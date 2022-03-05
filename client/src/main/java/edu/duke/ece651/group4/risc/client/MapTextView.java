@@ -5,6 +5,7 @@ import java.io.PrintStream;
 import edu.duke.ece651.group4.risc.shared.Map;
 import edu.duke.ece651.group4.risc.shared.Player;
 import edu.duke.ece651.group4.risc.shared.Territory;
+import edu.duke.ece651.group4.risc.shared.TextPlayer;
 
 public class MapTextView implements View{
     private final Map<Character> toDisplay;
@@ -17,13 +18,13 @@ public class MapTextView implements View{
     @Override
     public void displayMyMap() {
         StringBuilder ans = new StringBuilder("Now the map is described as below:/n");
-        for (Player p: toDisplay.getMyPlayers()){
+        for (Player<Character> p: toDisplay.getMyPlayers()){
             ans.append(makePlayerInfo(p));
             ans.append("/n");
         }
         out.print(ans);
     }
-    protected String makePlayerInfo(Player p){
+    protected String makePlayerInfo(Player<Character> p){
         StringBuilder sb = new StringBuilder(p.getName());
         sb.append(" player:/n");
         int splitLen = p.getName().length()+8;

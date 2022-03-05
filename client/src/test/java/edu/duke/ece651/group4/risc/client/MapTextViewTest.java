@@ -6,6 +6,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 
 import edu.duke.ece651.group4.risc.shared.Player;
+import edu.duke.ece651.group4.risc.shared.TextPlayer;
 import org.junit.jupiter.api.Test;
 
 import edu.duke.ece651.group4.risc.shared.Territory;
@@ -24,8 +25,8 @@ public class MapTextViewTest {
         t2.addNeigh(t1);
         t1.addNeigh(t3);
         t3.addNeigh(t1);
-        Player p1 = new Player("A");
-        Player p2 = new Player("B");
+        TextPlayer p1 = new TextPlayer("A");
+        TextPlayer p2 = new TextPlayer("B");
         p1.addToTerritory(t1);
         p1.addToTerritory(t2);
         p2.addToTerritory(t3);
