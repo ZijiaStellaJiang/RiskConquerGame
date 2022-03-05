@@ -16,7 +16,15 @@ public class MapTextView implements View{
         this.out = out;
     }
     @Override
-    public void displayMyMap() {
+    public void displayOriginMap(){
+        StringBuilder ans = new StringBuilder("The map is shown below:/n");
+        for (Territory<Character> t: toDisplay.getMyTerritories()){
+            ans.append(makeTerritoryInfo(t));
+        }
+        out.print(ans);
+    }
+    @Override
+    public void displayCurrentMap() {
         StringBuilder ans = new StringBuilder("Now the map is described as below:/n");
         for (Player<Character> p: toDisplay.getMyPlayers()){
             ans.append(makePlayerInfo(p));
@@ -24,6 +32,7 @@ public class MapTextView implements View{
         }
         out.print(ans);
     }
+
     protected String makePlayerInfo(Player<Character> p){
         StringBuilder sb = new StringBuilder(p.getName());
         sb.append(" player:/n");
@@ -33,13 +42,14 @@ public class MapTextView implements View{
         }
         sb.append("/n");
         for(Territory<Character> myTerri: p.getMyTerritories()){
+            sb.append(" ");
             sb.append(makeTerritoryInfo(myTerri));
         }
         return sb.toString();
     }
+
     protected String makeTerritoryInfo(Territory<Character> t){
-        StringBuilder sb = new StringBuilder(" ");
-        sb.append(t.getName());
+        StringBuilder sb = new StringBuilder(t.getName());
         sb.append(" (next to: ");
         for (Territory<Character> neigh: t.getMyNeigh()){
             sb.append(neigh.getName());

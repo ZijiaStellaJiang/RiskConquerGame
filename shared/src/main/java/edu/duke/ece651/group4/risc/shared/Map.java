@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Map<T> {
   private ArrayList<Player<T>> myPlayers;
-  private ArrayList<Territory<T>> myTerritory;
+  private ArrayList<Territory<T>> myTerritories;
   public Map(){
     myPlayers = new ArrayList<>();
-    myTerritory = new ArrayList<>();
+    myTerritories = new ArrayList<>();
   }
   /**
    * add a player to this map
@@ -22,8 +22,8 @@ public class Map<T> {
    * add a territory to the current map
    */
   public void addTerritory(Territory<T> toAdd){
-    if(!myTerritory.contains(toAdd)){
-      myTerritory.add(toAdd);
+    if(!myTerritories.contains(toAdd)){
+      myTerritories.add(toAdd);
     }
   }
 
@@ -31,7 +31,7 @@ public class Map<T> {
    * check if a territory is in the map
    */
   public Boolean checkTerritoryExists(Territory<T> toCheck){
-    for (Territory<T> t: myTerritory){
+    for (Territory<T> t: myTerritories){
       if(toCheck.equals(t)){
         return true;
       }
@@ -41,5 +41,9 @@ public class Map<T> {
 
   public ArrayList<Player<T>> getMyPlayers(){
     return myPlayers;
+  }
+
+  public ArrayList<Territory<T>> getMyTerritories(){
+    return myTerritories;
   }
 }

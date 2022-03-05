@@ -5,7 +5,12 @@ package edu.duke.ece651.group4.risc.client;
  */
 public interface View {
     /**
-     * display the map for a player
+     * display the initial map with only territories
+     * they have not been assigned to players yet
      */
-    public void displayMyMap();
+    public void displayOriginMap();
+    /**
+     * display the current map
+     */
+    public void displayCurrentMap();
 }

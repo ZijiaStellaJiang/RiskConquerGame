@@ -36,17 +36,17 @@ public class MapTest {
         assertEquals(expected,map.getMyPlayers());
         assertNotEquals(falseAns, map.getMyPlayers());
     }
-//    @Test
-//    public void test_get_my_players(){
-//        Territory<Character> t1 = new Territory<Character>("territory1");
-//        Territory<Character> t2 = new Territory<Character>("territory2");
-//        Map<Character> map = new Map<Character>();
-//        map.addTerritory(t1);
-//        map.addTerritory(t2);
-//        map.addTerritory(t1);
-//        ArrayList<Territory<Character>> myTerri = new ArrayList<>();
-//        myTerri.add(t1);
-//        myTerri.add(t2);
-//        assertEquals(myTerri,map.getMyTerritory());
-//    }
+    @Test
+    public void test_get_my_territories(){
+        Territory<Character> t1 = new Territory<Character>("territory1");
+        Territory<Character> t2 = new Territory<Character>("territory2");
+        Map<Character> map = new Map<Character>();
+        map.addTerritory(t1);
+        map.addTerritory(t2);
+        map.addTerritory(t1);
+        ArrayList<Territory<Character>> myTerri = new ArrayList<>();
+        myTerri.add(t1);
+        myTerri.add(t2);
+        assertEquals(myTerri,map.getMyTerritories());
+    }
 }
