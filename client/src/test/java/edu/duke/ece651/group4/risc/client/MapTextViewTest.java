@@ -31,8 +31,8 @@ public class MapTextViewTest {
         map.addTerritory(t3);
         MapTextView view = new MapTextView(map,ps);
         view.displayOriginMap();
-        String expected = "The map is shown below:/n"+
-                "A1 (next to: A2, B1)/nA2 (next to: A1)/nB1 (next to: A1)/n";
+        String expected = "The map is shown below:\n"+
+                "A1 (next to: A2, B1)\nA2 (next to: A1)\nB1 (next to: A1)\n";
         assertEquals(expected,bytes.toString());
     }
     @Test
@@ -56,9 +56,9 @@ public class MapTextViewTest {
         map.addPlayer(p2);
         MapTextView view = new MapTextView(map,ps);
         view.displayCurrentMap();
-        String expected = "Now the map is described as below:/n"+
-                "A player:/n---------/n A1 (next to: A2, B1)/n A2 (next to: A1)/n/n"+
-                "B player:/n---------/n B1 (next to: A1)/n/n";
+        String expected = "Now the map is described as below:\n"+
+                "A player:\n---------\n A1 (next to: A2, B1)\n A2 (next to: A1)\n\n"+
+                "B player:\n---------\n B1 (next to: A1)\n\n";
         assertEquals(expected, bytes.toString());
     }
 
