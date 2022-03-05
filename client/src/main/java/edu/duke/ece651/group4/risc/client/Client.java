@@ -3,7 +3,10 @@
  */
 package edu.duke.ece651.group4.risc.client;
 
+import edu.duke.ece651.group4.risc.shared.Map;
+import edu.duke.ece651.group4.risc.shared.Player;
 import edu.duke.ece651.group4.risc.shared.Territory;
+import edu.duke.ece651.group4.risc.shared.TextPlayer;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -29,23 +32,26 @@ public class Client {
       Object obj = is.readObject();
 
       if (obj != null) {
-        ArrayList<Integer> arr = (ArrayList<Integer>) obj;
-        for (int i = 0; i < arr.size(); i++) {
-          System.out.print(arr.get(i) + " ");
-        }
-        System.out.print("\n");
+        Map<Character> map = (Map<Character>) obj;
+        MapTextView displayInfo = new MapTextView(map, System.out);
+        displayInfo.displayOriginMap();
       }
 
       os.close();
       is.close();
       client.close();
       /*
-       * out.close(); in.close();
+       * out.close(); 
+       * in.close();
        */
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
+
+    private void MapTextView(Map<Character> map, PrintStream out) {
+        // TODO
+    }
 
   // }
 }

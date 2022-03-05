@@ -2,7 +2,7 @@ package edu.duke.ece651.group4.risc.shared;
 
 import java.util.ArrayList;
 
-public class Territory<T> {
+public class Territory<T> implements java.io.Serializable {
   private String name;
   private ArrayList<Territory<T>> myNeigh;//used to store neighbourhood information
   private Player<T> myPlayer;

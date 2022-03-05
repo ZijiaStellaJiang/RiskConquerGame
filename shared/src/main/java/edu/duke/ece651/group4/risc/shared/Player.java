@@ -2,7 +2,7 @@ package edu.duke.ece651.group4.risc.shared;
 
 import java.util.ArrayList;
 
-public abstract class Player<T> {
+public abstract class Player<T> implements java.io.Serializable{
   private String name;
   private ArrayList<Territory<T>> myTerritories;
 

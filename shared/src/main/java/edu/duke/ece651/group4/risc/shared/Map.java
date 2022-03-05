@@ -2,7 +2,7 @@ package edu.duke.ece651.group4.risc.shared;
 
 import java.util.ArrayList;
 
-public class Map<T> {
+public class Map<T> implements java.io.Serializable {
   private ArrayList<Player<T>> myPlayers;
   private ArrayList<Territory<T>> myTerritories;
   public Map(){
