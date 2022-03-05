@@ -17,6 +17,8 @@ public class MapTest {
         map.addTerritory(t1);
         assertEquals(true, map.checkTerritoryExists(t1));
         assertEquals(false, map.checkTerritoryExists(t2));
+        map.addTerritory(t1);
+        assertEquals(true, map.checkTerritoryExists(t1));
     }
     @Test
     public void test_add_player_and_get(){
@@ -26,6 +28,7 @@ public class MapTest {
         Map<Character> map = new Map<>();
         map.addPlayer(p1);
         map.addPlayer(p2);
+        map.addPlayer(p1);
         ArrayList<Player> expected = new ArrayList<>();
         expected.add(p1);
         expected.add(p2);

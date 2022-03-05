@@ -18,7 +18,7 @@ public class Player {
     myTerritories.add(territory);
   }
 
-  public void removeFromTerriroty(Territory<Character> territory) {
+  public void removeFromTerritory(Territory<Character> territory) {
     for (int i = 0; i < myTerritories.size(); i++) {
       if (territory.equals(myTerritories.get(i))) {
         myTerritories.remove(i);

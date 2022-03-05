@@ -19,11 +19,11 @@ public class PlayerTest {
     assertEquals(false, player.checkMyTerritory(territory));
     assertEquals(false, player.checkMyTerritory(territory1)); 
     player.addToTerritory(territory);
-    player.removeFromTerriroty(territory1); 
+    player.removeFromTerritory(territory1);
     assertEquals(true, player.checkMyTerritory(territory));
     assertEquals(false, player.checkMyTerritory(territory1));   
     //player.addToTerritory(territory1);
-    player.removeFromTerriroty(territory);
+    player.removeFromTerritory(territory);
     assertEquals(false, player.checkMyTerritory(territory));
     assertEquals(false, player.checkMyTerritory(territory1));
   }
