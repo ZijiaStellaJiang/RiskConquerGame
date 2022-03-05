@@ -3,6 +3,7 @@ package edu.duke.ece651.group4.risc.client;
 import java.io.PrintStream;
 
 import edu.duke.ece651.group4.risc.shared.Map;
+import edu.duke.ece651.group4.risc.shared.Player;
 import edu.duke.ece651.group4.risc.shared.Territory;
 
 public class MapTextView implements View{
@@ -16,13 +17,28 @@ public class MapTextView implements View{
     @Override
     public void displayMyMap() {
         StringBuilder ans = new StringBuilder("Now the map is described as below:/n");
-        for (Territory<Character> t: toDisplay.getMyTerritory()){
-            ans.append(territoryInfo(t));
+        for (Player p: toDisplay.getMyPlayers()){
+            ans.append(makePlayerInfo(p));
+            ans.append("/n");
         }
         out.print(ans);
     }
-    protected String territoryInfo(Territory<Character> t){
-        StringBuilder sb = new StringBuilder(t.getName());
+    protected String makePlayerInfo(Player p){
+        StringBuilder sb = new StringBuilder(p.getName());
+        sb.append(" player:/n");
+        int splitLen = p.getName().length()+8;
+        for (int i=0;i<splitLen;i++){
+            sb.append("-");
+        }
+        sb.append("/n");
+        for(Territory<Character> myTerri: p.getMyTerritories()){
+            sb.append(makeTerritoryInfo(myTerri));
+        }
+        return sb.toString();
+    }
+    protected String makeTerritoryInfo(Territory<Character> t){
+        StringBuilder sb = new StringBuilder(" ");
+        sb.append(t.getName());
         sb.append(" (next to: ");
         for (Territory<Character> neigh: t.getMyNeigh()){
             sb.append(neigh.getName());

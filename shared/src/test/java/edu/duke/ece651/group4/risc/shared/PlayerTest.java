@@ -1,8 +1,8 @@
 package edu.duke.ece651.group4.risc.shared;
 
 import static org.junit.jupiter.api.Assertions.*;
-
 import org.junit.jupiter.api.Test;
+import java.util.ArrayList;
 
 public class PlayerTest {
   @Test
@@ -39,6 +39,18 @@ public class PlayerTest {
     assertEquals(true, player1.equals(player1));
     Player player2 = new Player("test_player1");   
     assertEquals(true, player1.equals(player2));
+  }
+  @Test
+  public void test_get_my_territory(){
+    Player p1 = new Player("A");
+    Territory<Character> t1 = new Territory<Character>("A1");
+    Territory<Character> t2 = new Territory<Character>("A2");
+    p1.addToTerritory(t1);
+    p1.addToTerritory(t2);
+    ArrayList<Territory<Character>> myTerri = new ArrayList<>();
+    myTerri.add(t1);
+    myTerri.add(t2);
+    assertEquals(myTerri,p1.getMyTerritories());
   }
 
 }

@@ -5,13 +5,12 @@ import java.util.ArrayList;
 public class Player {
   private String name;
   private ArrayList<Territory<Character>> myTerritories;
-
   public Player(String name) {
     this.name = name;
     myTerritories = new ArrayList<Territory<Character>>();
   }
 
-  String getName() {
+  public String getName() {
     return this.name;
   }
 
@@ -43,5 +42,8 @@ public class Player {
       return name.equals(player.getName());
     }
     return false;
+  }
+  public ArrayList<Territory<Character>> getMyTerritories(){
+    return myTerritories;
   }
 }

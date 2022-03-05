@@ -3,9 +3,19 @@ package edu.duke.ece651.group4.risc.shared;
 import java.util.ArrayList;
 
 public class Map<T> {
+  private ArrayList<Player> myPlayers;
   private ArrayList<Territory<T>> myTerritory;
   public Map(){
+    myPlayers = new ArrayList<>();
     myTerritory = new ArrayList<>();
+  }
+  /**
+   * add a player to this map, then add all his territories in the map
+   */
+  public void addPlayer(Player playerToAdd){
+    if(!myPlayers.contains(playerToAdd)){
+      myPlayers.add(playerToAdd);
+    }
   }
 
   /**
@@ -29,17 +39,7 @@ public class Map<T> {
     return false;
   }
 
-  public ArrayList<Territory<T>> getMyTerritory(){
-    return myTerritory;
+  public ArrayList<Player> getMyPlayers(){
+    return myPlayers;
   }
-
-  /**
-   * get the name of a certain territory in the map
-   */
-//  public String getMyTerritoryName(Territory<T> territory) {
-//    if(!checkTerritoryExists(territory)){
-//      throw new IllegalArgumentException("this territory doesn't exist in this map.");
-//    }
-//    return territory.getName();
-//  }
 }
