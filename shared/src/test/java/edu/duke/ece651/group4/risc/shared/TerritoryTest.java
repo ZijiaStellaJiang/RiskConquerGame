@@ -25,11 +25,14 @@ public class TerritoryTest {
     assertEquals(false, territory1.checkNeigh(territory2));
     assertEquals(false, territory1.checkNeigh(territory1));
     assertEquals(true, territory3.checkNeigh(territory1));
+    territory3.addNeigh(territory1);
+    assertEquals(true, territory3.checkNeigh(territory1));
     territory1.removeNeigh(territory3);
     assertEquals(false, territory1.checkNeigh(territory3));
+    assertEquals(false,territory3.checkNeigh(territory1));
     territory2.removeNeigh(territory3);
-    territory1.addNeigh(territory3);
-    territory1.removeNeigh(territory2);
+    //territory1.addNeigh(territory3);
+    //territory1.removeNeigh(territory2);
   }
 
  

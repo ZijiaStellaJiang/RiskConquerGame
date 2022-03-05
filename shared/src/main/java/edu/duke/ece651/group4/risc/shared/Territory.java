@@ -49,22 +49,33 @@ public class Territory<T> implements java.io.Serializable {
     }
   }
 
+  /**
+   * remove a territory from its neighbour
+   * at the same time, remove this territory from neighToRemove's neighbour
+   */
   public void removeNeigh(Territory<T> neighToRemove){
-    for(int i=0; i<myNeigh.size();i++){
-      if(neighToRemove.equals(myNeigh.get(i))){
-        myNeigh.remove(i);
-        break;
-      }
+    if(myNeigh.remove(neighToRemove)){
+      neighToRemove.removeNeigh(this);
     }
+//    if(checkNeigh(neighToRemove)){
+//      myNeigh.remove(neighToRemove);
+//    }
+//    for(int i=0; i<myNeigh.size();i++){
+//      if(neighToRemove.equals(myNeigh.get(i))){
+//        myNeigh.remove(i);
+//        break;
+//      }
+//    }
   }
 
   public boolean checkNeigh(Territory<T> neighToCheck){
-    for(int i=0; i<myNeigh.size();i++){
-      if(neighToCheck.equals(myNeigh.get(i))){
-        return true;
-      }
-    }
-    return false;
+    return myNeigh.contains(neighToCheck);
+//    for(int i=0; i<myNeigh.size();i++){
+//      if(neighToCheck.equals(myNeigh.get(i))){
+//        return true;
+//      }
+//    }
+//    return false;
   }
 
   public ArrayList<Territory<T>> getMyNeigh(){
