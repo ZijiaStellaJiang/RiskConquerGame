@@ -44,17 +44,27 @@ public class Server extends Thread{
             ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(server.getInputStream()));
             
             // send an object to client
-            Territory<Character> t1 = new Territory<Character>("A1");
-            Territory<Character> t2 = new Territory<Character>("A2");
-            Territory<Character> t3 = new Territory<Character>("B1");
-            t1.addNeigh(t2);
-            t2.addNeigh(t1);
-            t1.addNeigh(t3);
-            t3.addNeigh(t1);
+            Territory<Character> terriN = new Territory<Character>("Narnia");
+            Territory<Character> terriO = new Territory<Character>("Oz");
+            Territory<Character> terriM = new Territory<Character>("Mordor");
+            Territory<Character> terriH = new Territory<Character>("Hogwarts");
+            Territory<Character> terriG = new Territory<Character>("Gondor");
+            Territory<Character> terriE = new Territory<Character>("Elantris");
+            terriN.addNeigh(terriO);
+            terriN.addNeigh(terriM);
+            terriN.addNeigh(terriH);
+            terriO.addNeigh(terriM);
+            terriM.addNeigh(terriH);
+            terriH.addNeigh(terriG);
+            terriH.addNeigh(terriE);
+            terriG.addNeigh(terriE);
             Map<Character> map = new Map<Character>();
-            map.addTerritory(t1);
-            map.addTerritory(t2);
-            map.addTerritory(t3);
+            map.addTerritory(terriN);
+            map.addTerritory(terriO);
+            map.addTerritory(terriM);
+            map.addTerritory(terriH);
+            map.addTerritory(terriG);
+            map.addTerritory(terriE);
 
             os.writeObject(map);
             os.flush();

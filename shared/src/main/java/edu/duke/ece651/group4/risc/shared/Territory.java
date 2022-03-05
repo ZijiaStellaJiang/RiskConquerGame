@@ -57,9 +57,6 @@ public class Territory<T> implements java.io.Serializable {
     if(myNeigh.remove(neighToRemove)){
       neighToRemove.removeNeigh(this);
     }
-//    if(checkNeigh(neighToRemove)){
-//      myNeigh.remove(neighToRemove);
-//    }
 //    for(int i=0; i<myNeigh.size();i++){
 //      if(neighToRemove.equals(myNeigh.get(i))){
 //        myNeigh.remove(i);
