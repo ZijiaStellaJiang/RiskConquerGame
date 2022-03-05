@@ -3,16 +3,16 @@ package edu.duke.ece651.group4.risc.shared;
 import java.util.ArrayList;
 
 public class Map<T> {
-  private ArrayList<Player> myPlayers;
-  private ArrayList<Territory<T>> myTerritory;
+  private ArrayList<Player<T>> myPlayers;
+  private ArrayList<Territory<T>> myTerritories;
   public Map(){
     myPlayers = new ArrayList<>();
-    myTerritory = new ArrayList<>();
+    myTerritories = new ArrayList<>();
   }
   /**
-   * add a player to this map, then add all his territories in the map
+   * add a player to this map
    */
-  public void addPlayer(Player playerToAdd){
+  public void addPlayer(Player<T> playerToAdd){
     if(!myPlayers.contains(playerToAdd)){
       myPlayers.add(playerToAdd);
     }
@@ -22,8 +22,8 @@ public class Map<T> {
    * add a territory to the current map
    */
   public void addTerritory(Territory<T> toAdd){
-    if(!myTerritory.contains(toAdd)){
-      myTerritory.add(toAdd);
+    if(!myTerritories.contains(toAdd)){
+      myTerritories.add(toAdd);
     }
   }
 
@@ -31,7 +31,7 @@ public class Map<T> {
    * check if a territory is in the map
    */
   public Boolean checkTerritoryExists(Territory<T> toCheck){
-    for (Territory<T> t: myTerritory){
+    for (Territory<T> t: myTerritories){
       if(toCheck.equals(t)){
         return true;
       }
@@ -39,7 +39,11 @@ public class Map<T> {
     return false;
   }
 
-  public ArrayList<Player> getMyPlayers(){
+  public ArrayList<Player<T>> getMyPlayers(){
     return myPlayers;
+  }
+
+  public ArrayList<Territory<T>> getMyTerritories(){
+    return myTerritories;
   }
 }

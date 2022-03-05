@@ -57,12 +57,12 @@ public class TerritoryTest {
 
   @Test
   public void test_change_player(){
-    Player player = new Player("test");
-    Territory<Character> territory1 = new Territory<Character>("test1");
+    Player<Character> player = new TextPlayer("p");
+    Territory<Character> territory1 = new Territory<Character>("t1");
     territory1.changePlayer(player);
-    assertEquals("test", territory1.getPlayerName());
+    assertEquals("p", territory1.getPlayerName());
     territory1.changePlayer(player);
-    assertEquals("test", territory1.getPlayerName()); 
+    assertEquals("p", territory1.getPlayerName());
   }
 
 
