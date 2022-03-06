@@ -11,19 +11,20 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Server extends Thread{
-  public ServerSocket getServerSocket() {
-    return serverSocket;
-  }
+  private ServerSocket serverSocket;
+
   public void setServerSocket(ServerSocket serverSocket) {
     this.serverSocket = serverSocket;
   }
+  public ServerSocket getServerSocket() {
+    return serverSocket;
+  }
 
-  private ServerSocket serverSocket;
    
     public Server(int port) throws IOException
     {
        serverSocket = new ServerSocket(port);
-       serverSocket.setSoTimeout(100000);
+       //serverSocket.setSoTimeout(100000);
     }
     public void run()
     {
@@ -34,12 +35,7 @@ public class Server extends Thread{
             System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
             Socket server = serverSocket.accept();
             System.out.println("Just connected to " + server.getRemoteSocketAddress());
-            /*
-            DataInputStream in = new DataInputStream(server.getInputStream());
-            DataOutputStream out = new DataOutputStream(server.getOutputStream());
-            System.out.println(in.readUTF());
-            out.writeUTF("Thank you for connecting to " + server.getLocalSocketAddress());
-            */
+
             ObjectOutputStream os = new ObjectOutputStream(server.getOutputStream());
             ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(server.getInputStream()));
             
@@ -72,10 +68,7 @@ public class Server extends Thread{
             server.close();
             os.close();
             is.close();
-            /*
-            in.close();
-            out.close();
-            */
+
 
           }catch(SocketTimeoutException s)
           {
