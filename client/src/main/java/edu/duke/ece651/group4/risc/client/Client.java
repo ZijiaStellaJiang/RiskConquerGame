@@ -34,7 +34,7 @@ public class Client {
       if (obj != null) {
         Map<Character> map = (Map<Character>) obj;
         MapTextView displayInfo = new MapTextView(map, System.out);
-        displayInfo.displayOriginMap();
+        displayInfo.displayCurrentMap();
       }
 
       os.close();
