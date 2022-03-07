@@ -42,14 +42,16 @@ public class MapTextView implements View{
         }
         sb.append("\n");
         for(Territory<Character> myTerri: p.getMyTerritories()){
-            sb.append(" ");
             sb.append(makeTerritoryInfo(myTerri));
         }
         return sb.toString();
     }
 
     protected String makeTerritoryInfo(Territory<Character> t){
-        StringBuilder sb = new StringBuilder(t.getName());
+        StringBuilder sb = new StringBuilder(" ");
+        sb.append(t.getUnitNumber());
+        sb.append(" units in ");
+        sb.append(t.getName());
         sb.append(" (next to: ");
         for (Territory<Character> neigh: t.getMyNeigh()){
             sb.append(neigh.getName());

@@ -69,11 +69,21 @@ public class TerritoryTest {
   }
 
   @Test
-  public void test_units(){
-    Territory<Character> territory1 = new Territory<Character>("test1");
-    Unit<Integer> units = new Unit<Integer>(1);
-    territory1.setMyUnits(units);
-    assertEquals(1, territory1.getMyUnits());
+  public void test_operate_get_unit_number(){
+    Territory<Character> t1 = new Territory<>("A");
+    assertEquals(0,t1.getUnitNumber());
+    Unit<Character> u1 = new SimpleUnit<>();
+    t1.addUnit(u1);
+    assertEquals(1,t1.getUnitNumber());
+    Unit<Character> u2 = new SimpleUnit<>();
+    Unit<Character> u3 = new SimpleUnit<>();
+    t1.addUnit(u2);
+    t1.addUnit(u3);
+    assertEquals(3,t1.getUnitNumber());
+    t1.removeUnit(u3);
+    assertEquals(2,t1.getUnitNumber());
+    t1.removeUnit(u1);
+    assertEquals(1,t1.getUnitNumber());
   }
 
 }
