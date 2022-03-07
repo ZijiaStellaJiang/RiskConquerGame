@@ -12,86 +12,88 @@ import java.util.ArrayList;
 
 public class Server extends Thread{
   private ServerSocket serverSocket;
+  private AbstractMapFactory<Character> mapFactory;
+  private Map<Character> map;
+  private int player_num;
+  private ArrayList<Socket> player_skd;
+  private ArrayList<ObjectOutputStream> player_out;
+  private ArrayList<ObjectInputStream> player_in;
 
-  public void setServerSocket(ServerSocket serverSocket) {
-    this.serverSocket = serverSocket;
+  public Server(int port) throws IOException {
+      serverSocket = new ServerSocket(port);
+      mapFactory = new V1MapFactory();
+      map = mapFactory.generateMap();
+      player_num = 2;
+      player_skd = new ArrayList<Socket>();
+      player_out = new ArrayList<ObjectOutputStream>();
+      player_in = new ArrayList<ObjectInputStream>();
   }
+  
   public ServerSocket getServerSocket() {
     return serverSocket;
   }
+  public void accept_connection() throws IOException {
+    System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
+    // connect to player
+    Socket server = serverSocket.accept();
+    // get input and output
+    ObjectOutputStream os = new ObjectOutputStream(server.getOutputStream());
+    ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(server.getInputStream()));
+    // add socket, output, input to Arraylist
+    player_skd.add(server);
+    player_out.add(os);
+    player_in.add(is);
+    System.out.println("Just connected to " + server.getRemoteSocketAddress());
+  }
 
-   
-    public Server(int port) throws IOException
-    {
-       serverSocket = new ServerSocket(port);
-       //serverSocket.setSoTimeout(100000);
+  public void send_original_map(int player_id) throws IOException{
+    player_out.get(player_id).writeObject(map);
+    player_out.get(player_id).flush();
+  }
+ 
+  public void close_all_connection() throws IOException{
+    for (int i = 0; i < player_num; i++) {
+      player_skd.get(i).close();
+      player_out.get(i).close();
+      player_in.get(i).close();
     }
-    public void run()
-    {
-       while(true)
-       {
-          try
-          {
-            System.out.println("Waiting for client on port " + serverSocket.getLocalPort() + "...");
-            Socket server = serverSocket.accept();
-            System.out.println("Just connected to " + server.getRemoteSocketAddress());
-
-            ObjectOutputStream os = new ObjectOutputStream(server.getOutputStream());
-            ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(server.getInputStream()));
-            
-            // send an object to client
-            Territory<Character> terriN = new Territory<Character>("Narnia");
-            Territory<Character> terriO = new Territory<Character>("Oz");
-            Territory<Character> terriM = new Territory<Character>("Mordor");
-            Territory<Character> terriH = new Territory<Character>("Hogwarts");
-            Territory<Character> terriG = new Territory<Character>("Gondor");
-            Territory<Character> terriE = new Territory<Character>("Elantris");
-            terriN.addNeigh(terriO);
-            terriN.addNeigh(terriM);
-            terriN.addNeigh(terriH);
-            terriO.addNeigh(terriM);
-            terriM.addNeigh(terriH);
-            terriH.addNeigh(terriG);
-            terriH.addNeigh(terriE);
-            terriG.addNeigh(terriE);
-            Map<Character> map = new Map<Character>();
-            map.addTerritory(terriN);
-            map.addTerritory(terriO);
-            map.addTerritory(terriM);
-            map.addTerritory(terriH);
-            map.addTerritory(terriG);
-            map.addTerritory(terriE);
-
-            os.writeObject(map);
-            os.flush();
-
-            server.close();
-            os.close();
-            is.close();
-
-
-          }catch(SocketTimeoutException s)
-          {
-            System.out.println("Socket timed out!");
-            break;
-          }catch(IOException e)
-          {
-            e.printStackTrace();
-            break;
-          }
-       }
+  }
+  
+  
+  
+  public void run() {
+    for (int i = 0; i < player_num; i++) {
+      try {
+        // accept connection
+        accept_connection();
+        // send an object to client
+        send_original_map(i);
+      } catch(IOException e) {
+        e.printStackTrace();
+        break;
+      }
     }
+
+    // close all connection 
+    try {
+      close_all_connection();
+    } catch(IOException e) {
+      e.printStackTrace();
+    }
+    
+  }
+  
+
 
   public static void main(String [] args)
     {
       //  int port = Integer.parseInt(args[0]);
-        try
-        {
-            Thread t = new Server(6066);
-            t.start();
-        }catch(IOException e)
-        {
-            e.printStackTrace();
+        try {
+          int port_num = 6066;
+          Thread t = new Server(port_num);
+          t.start();
+        } catch(IOException e) {
+          e.printStackTrace();
         }
     }
 }
