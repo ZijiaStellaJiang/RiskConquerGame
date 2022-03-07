@@ -7,15 +7,25 @@ public class ActionParser {
   int numofUnit;
 
   public ActionParser(String type, String source, String dest, int num) {
-    this.type = type;
-    this.source_name = source;
-    this.dest_name = dest;
+    String type_upper = type.toUpperCase();
+    if(!type_upper.equals("MOVE") && !type_upper.equals("ATTACK")){
+      throw new IllegalArgumentException("type needs to be move or attack");
+    }
+    this.type = type_upper;
+    this.source_name = source.toUpperCase();
+    this.dest_name = dest.toUpperCase();
     this.numofUnit = num;
   }
   //TODO: add error check
   public ActionParser(String input) {
     String upperString = input.toUpperCase();
     String[] res = upperString.split("\\s+");// split input according to blank space
+    if(res.length!=4){
+      throw new IllegalArgumentException("incorrect input");
+    }
+    if(!res[0].equals("MOVE") && !res[0].equals("ATTACK")){
+      throw new IllegalArgumentException("type needs to be move or attack");
+    }
     this.type = res[0];
     this.source_name = res[1];
     this.dest_name = res[2];

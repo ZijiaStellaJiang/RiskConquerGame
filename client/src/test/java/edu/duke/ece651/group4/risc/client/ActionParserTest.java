@@ -8,10 +8,13 @@ public class ActionParserTest {
   @Test
   public void test_normal_constructor() {
     ActionParser parser = new ActionParser("move", "a", "test", 3);
-    assertEquals("move", parser.getType());
-    assertEquals("a", parser.getSource());
-    assertEquals("test", parser.getDest());
+    assertEquals("MOVE", parser.getType());
+    assertEquals("A", parser.getSource());
+    assertEquals("TEST", parser.getDest());
     assertEquals(3, parser.getUnit());
+
+    //test with invalid case
+    assertThrows(IllegalArgumentException.class, () -> new ActionParser("invalid", "a", "123", 3));
   }
 
 
@@ -22,6 +25,11 @@ public class ActionParserTest {
     assertEquals("A", parser.getSource());
     assertEquals("TEST", parser.getDest());
     assertEquals(3, parser.getUnit());
+
+    //test with error case
+    assertThrows(IllegalArgumentException.class, () -> new ActionParser("a s v"));
+    assertThrows(IllegalArgumentException.class, () -> new ActionParser("move a b 2 3"));
+    assertThrows(IllegalArgumentException.class, () -> new ActionParser("move1 a test 3"));
   }
 
 }
