@@ -26,7 +26,7 @@ public class MapTextViewTest {
         MapTextView view = new MapTextView(map,ps);
         view.displayOriginMap();
         String expected = "The map is shown below:\n"+
-                "A1 (next to: A2, B1)\nA2 (next to: A1)\nB1 (next to: A1)\n";
+                " 0 units in A1 (next to: A2, B1)\n 0 units in A2 (next to: A1)\n 0 units in B1 (next to: A1)\n";
         assertEquals(expected,bytes.toString());
     }
     @Test
