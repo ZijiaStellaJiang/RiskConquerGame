@@ -3,6 +3,7 @@ package edu.duke.ece651.group4.risc.shared;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -84,6 +85,12 @@ public class TerritoryTest {
     assertEquals(2,t1.getUnitNumber());
     t1.removeUnit(u1);
     assertEquals(1,t1.getUnitNumber());
+    ArrayList<Unit<Character>> units = new ArrayList<>();
+    units.addAll(Collections.nCopies(8,new SimpleUnit<>()));
+    for (Unit<Character> u: units){
+      t1.addUnit(u);
+    }
+    assertEquals(9,t1.getUnitNumber());
   }
 
 }

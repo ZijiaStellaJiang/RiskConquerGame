@@ -1,7 +1,16 @@
 package edu.duke.ece651.group4.risc.server;
 import edu.duke.ece651.group4.risc.shared.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.stream.Collectors;
+
 public class V1MapFactory implements AbstractMapFactory<Character> {
+    protected void addUnitsInTerritory(Territory<Character> target, ArrayList<Unit<Character>> toAdd){
+        for (Unit<Character> u: toAdd){
+            target.addUnit(u);
+        }
+    }
     public Map<Character> generateMap() {
         Territory<Character> terriN = new Territory<Character>("Narnia");
         Territory<Character> terriO = new Territory<Character>("Oz");
@@ -17,6 +26,21 @@ public class V1MapFactory implements AbstractMapFactory<Character> {
         terriH.addNeigh(terriG);
         terriH.addNeigh(terriE);
         terriG.addNeigh(terriE);
+        /**
+         * add units in all the territories
+         */
+        ArrayList<Unit<Character>> nUnits = new ArrayList<>(Collections.nCopies(8, new SimpleUnit<>()));
+        addUnitsInTerritory(terriN,nUnits);
+        ArrayList<Unit<Character>> oUnits = new ArrayList<>(Collections.nCopies(3, new SimpleUnit<>()));
+        addUnitsInTerritory(terriO,oUnits);
+        ArrayList<Unit<Character>> mUnits = new ArrayList<>(Collections.nCopies(4, new SimpleUnit<>()));
+        addUnitsInTerritory(terriM,mUnits);
+        ArrayList<Unit<Character>> hUnits = new ArrayList<>(Collections.nCopies(9, new SimpleUnit<>()));
+        addUnitsInTerritory(terriH,hUnits);
+        ArrayList<Unit<Character>> gUnits = new ArrayList<>(Collections.nCopies(2, new SimpleUnit<>()));
+        addUnitsInTerritory(terriG,gUnits);
+        ArrayList<Unit<Character>> eUnits = new ArrayList<>(Collections.nCopies(4, new SimpleUnit<>()));
+        addUnitsInTerritory(terriE,eUnits);
         Map<Character> map = new Map<Character>();
         map.addTerritory(terriN);
         map.addTerritory(terriO);
