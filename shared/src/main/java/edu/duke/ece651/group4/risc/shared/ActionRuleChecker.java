@@ -11,14 +11,14 @@ public abstract class ActionRuleChecker<T> {
      *return the string that indicate the invalid message otherwise
      */
     protected abstract String checkMyRule(ActionParser parse, Map<T> map);
-    public String checkPlacement(ActionParser parse, Map<T> map) {
+    public String checkActionRule(ActionParser parse, Map<T> map) {
         //if we fail our own rule, stop the placement is not legal,return the description message
         if(checkMyRule(parse, map)!=null) {
             return checkMyRule(parse, map);
         }
         //otherwise, ask the rest of the chain
         if(next != null) {
-            return next.checkPlacement(parse, map);
+            return next.checkActionRule(parse, map);
         }
         //if there are no more rules, then the placement is legal
         return null;

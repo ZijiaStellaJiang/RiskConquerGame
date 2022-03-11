@@ -11,21 +11,25 @@ public class MoveAction<T> extends Action<T>{
     }
 
     @Override
-    public void doAction(){
+    public String doAction(){
+        if(checkRule()!=null){
+            return checkRule();
+        }
         for(Territory<T> source: theMap.getMyTerritories()){
             if(source.getName().toUpperCase().equals(parser.getSource())){
                 int toMove = parser.getUnit();
                 for(Territory<T> dest: theMap.getMyTerritories()){
                     if(dest.getName().toUpperCase().equals(parser.getDest())){
-                        //find the source and destination to move
+                        /* find the source and destination to move */
                         for(int i=0; i<toMove; i++){
                             dest.addUnit(new SimpleUnit<>());
                             source.removeUnit(new SimpleUnit<>());
                         }
-                        return;
+                        break;
                     }
                 }
             }
         }
+        return null;
     }
 }
