@@ -1,4 +1,4 @@
-package edu.duke.ece651.group4.risc.client;
+package edu.duke.ece651.group4.risc.shared;
 
 public class ActionParser {
   String type;// type refers to move or attack
