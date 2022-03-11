@@ -29,12 +29,15 @@ public class Client {
       ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(client.getInputStream()));
 
       // receive an object from server
-      Object obj = is.readObject();
+      Object obj_map = is.readObject();
+      Object obj_id = is.readObject();
 
-      if (obj != null) {
-        Map<Character> map = (Map<Character>) obj;
+      if (obj_map != null && obj_id != null) {
+        Map<Character> map = (Map<Character>) obj_map;
+        Integer player_id = (Integer) obj_id;
         MapTextView displayInfo = new MapTextView(map, System.out);
         displayInfo.displayCurrentMap();
+        displayInfo.displayPlayerMsg(player_id);
       }
 
       os.close();
