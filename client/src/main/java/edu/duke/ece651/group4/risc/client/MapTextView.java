@@ -33,6 +33,15 @@ public class MapTextView implements View{
         out.print(ans);
     }
 
+    @Override
+    public void displayPlayerMsg(int id) {
+        String player_name = toDisplay.getPlayerName(id);
+        if (player_name != null) {
+            out.println("You are the " + player_name + " player, what would you like to do?");
+            out.println("  (M)ove\n  (A)ttack\n  (D)one\n");
+        }
+    }
+
     protected String makePlayerInfo(Player<Character> p){
         StringBuilder sb = new StringBuilder(p.getName());
         sb.append(" player:\n");
@@ -62,4 +71,5 @@ public class MapTextView implements View{
         sb.append(")\n");
         return sb.toString();
     }
+
 }

@@ -13,4 +13,8 @@ public interface View {
      * display the current map
      */
     public void displayCurrentMap();
+    /**
+     * display the player_id's color(name) message
+     */
+    public void displayPlayerMsg(int id);
 }

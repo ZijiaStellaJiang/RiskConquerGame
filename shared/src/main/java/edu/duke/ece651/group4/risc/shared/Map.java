@@ -46,4 +46,9 @@ public class Map<T> implements java.io.Serializable {
   public ArrayList<Territory<T>> getMyTerritories(){
     return myTerritories;
   }
+
+  public String getPlayerName(int id) {
+    if (id >= myPlayers.size()) return null;
+    return myPlayers.get(id).getName();
+  }
 }
