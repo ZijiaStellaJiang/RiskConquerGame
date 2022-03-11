@@ -32,19 +32,19 @@ public class ActionParser {
     this.numofUnit = Integer.valueOf(res[3]).intValue();
   }
 
-  String getType() {
+  public String getType() {
     return this.type;
   }
 
-  String getSource() {
+  public String getSource() {
     return source_name;
   }
 
-  String getDest() {
+  public String getDest() {
     return dest_name;
   }
 
-  int getUnit() {
+  public int getUnit() {
     return numofUnit;
   }
 }
