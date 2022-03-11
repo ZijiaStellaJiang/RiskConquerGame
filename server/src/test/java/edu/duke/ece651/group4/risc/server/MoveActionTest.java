@@ -20,20 +20,29 @@ public class MoveActionTest {
         }
         Unit<Character> u2 = new SimpleUnit<>();
         t2.addUnit(u2);
+        Player<Character> p1 = new TextPlayer("p1");
+        Player<Character> p2 = new TextPlayer("p2");
+        p1.addToTerritory(t);
+        p1.addToTerritory(t1);
+        p2.addToTerritory(t2);
         Map<Character> map = new Map<>();
         map.addTerritory(t);
         map.addTerritory(t1);
         map.addTerritory(t2);
-        ActionParser parser1 = new ActionParser("move", "t1", "t2", 3);
-        Action<Character> action = new MoveAction<>(parser1,map);
-        action.doAction();
+        map.addPlayer(p1);
+        map.addPlayer(p2);
+        ActionParser parser1 = new ActionParser("move", "t1", "t", 3);
+        Action<Character> move1 = new MoveAction<>(parser1,map,p1);
+        assertEquals(null,move1.doAction());
         assertEquals(5,t1.getUnitNumber());
-        assertEquals(4,t2.getUnitNumber());
-        ActionParser parse2_invalid = new ActionParser("move t2 t1 7");
-        Action<Character> action2 = new MoveAction<>(parse2_invalid,map);
+        assertEquals(3,t.getUnitNumber());
+        ActionParser parse2_invalid = new ActionParser("move t2 t1 1");
+        Action<Character> move2 = new MoveAction<>(parse2_invalid,map,p2);
+        assertEquals("That action is invalid: do action on other's territories.",
+                move2.doAction());
+        ActionParser parse3_invalid = new ActionParser("move t1 t2 8");
+        Action<Character> move3 = new MoveAction<>(parse3_invalid,map,p1);
         assertEquals("That action is invalid: action number is larger than unit number in the territory.",
-                action2.doAction());
-        assertEquals(5,t1.getUnitNumber());
-        assertEquals(4,t2.getUnitNumber());
+                move3.doAction());
     }
 }

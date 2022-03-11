@@ -1,6 +1,9 @@
-package edu.duke.ece651.group4.risc.shared;
+package edu.duke.ece651.group4.risc.server;
 
-import java.util.Locale;
+import edu.duke.ece651.group4.risc.shared.ActionParser;
+import edu.duke.ece651.group4.risc.shared.Map;
+import edu.duke.ece651.group4.risc.shared.Player;
+import edu.duke.ece651.group4.risc.shared.Territory;
 
 public class UnitNumberRuleChecker<T> extends ActionRuleChecker<T>{
     public UnitNumberRuleChecker(ActionRuleChecker<T> next){
@@ -12,7 +15,7 @@ public class UnitNumberRuleChecker<T> extends ActionRuleChecker<T>{
      * action number should less than the unit number in a territory
      */
     @Override
-    protected String checkMyRule(ActionParser parse, Map<T> map){
+    protected String checkMyRule(ActionParser parse, Map<T> map, Player<T> p){
         for(Territory<T> t: map.getMyTerritories()){
             if(t.getName().toUpperCase().equals(parse.getSource())){
                 if(t.getUnitNumber()<parse.getUnit()){

@@ -1,13 +1,11 @@
 package edu.duke.ece651.group4.risc.server;
 
-import edu.duke.ece651.group4.risc.shared.ActionParser;
-import edu.duke.ece651.group4.risc.shared.Map;
-import edu.duke.ece651.group4.risc.shared.SimpleUnit;
-import edu.duke.ece651.group4.risc.shared.Territory;
+import edu.duke.ece651.group4.risc.shared.*;
 
 public class MoveAction<T> extends Action<T>{
-    public MoveAction(ActionParser parser, Map<T> map){
-        super(parser,map);
+    public MoveAction(ActionParser parser, Map<T> map, Player<T> player){
+        //TODO: change to required checker
+        super(parser,map,player,new UnitNumberRuleChecker<>(new OwnershipRuleChecker<>(null)));
     }
 
     @Override

@@ -1,8 +1,8 @@
-package edu.duke.ece651.group4.risc.shared;
+package edu.duke.ece651.group4.risc.server;
 
+import edu.duke.ece651.group4.risc.shared.*;
 import org.junit.jupiter.api.Test;
 
-import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -20,13 +20,14 @@ public class UnitNumberRuleCheckerTest {
         }
         Unit<Character> u2 = new SimpleUnit<>();
         t2.addUnit(u2);
+        Player<Character> p = new TextPlayer("p1");
         Map<Character> map = new Map<>();
         map.addTerritory(t1);
         map.addTerritory(t2);
         ActionParser parser1 = new ActionParser("move", "t1", "t2", 3);
-        assertEquals(null,numberChecker1.checkActionRule(parser1,map));
+        assertEquals(null,numberChecker1.checkActionRule(parser1,map,p));
         ActionParser parser2 = new ActionParser("move","t2","t1",4);
         assertEquals("That action is invalid: action number is larger than unit number in the territory."
-        ,numberChecker1.checkActionRule(parser2,map));
+        ,numberChecker1.checkActionRule(parser2,map,p));
     }
 }
