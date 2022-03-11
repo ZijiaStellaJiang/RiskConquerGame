@@ -1,13 +1,12 @@
 package edu.duke.ece651.group4.risc.shared;
 
 import org.junit.jupiter.api.Test;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class TextPlayerText {
+public class TextPlayerTest {
     @Test
     public void test_player_constructor() {
         TextPlayer player = new TextPlayer("test_player");

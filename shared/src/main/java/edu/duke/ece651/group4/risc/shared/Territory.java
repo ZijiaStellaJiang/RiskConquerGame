@@ -2,6 +2,7 @@ package edu.duke.ece651.group4.risc.shared;
 
 import org.checkerframework.checker.units.qual.A;
 
+import javax.swing.*;
 import java.util.ArrayList;
 
 public class Territory<T> implements java.io.Serializable {
@@ -9,11 +10,17 @@ public class Territory<T> implements java.io.Serializable {
   private ArrayList<Territory<T>> myNeigh;//used to store neighbourhood information
   private Player<T> myPlayer;
   private ArrayList<Unit<T>> myUnits;
-  public Territory(String name){
+  //private final ActionRuleChecker<T> actionChecker;
+
+  public Territory(String name/*,ActionRuleChecker<T> actionChecker*/){
     this.name = name;
     myNeigh = new ArrayList<Territory<T>>();
     myUnits = new ArrayList<>();
+    //this.actionChecker = actionChecker;
   }
+//  public Territory(String name){
+//    this(name,new UnitNumberRuleChecker<T>(null));
+//  }
 
   public String getName(){
     return this.name;

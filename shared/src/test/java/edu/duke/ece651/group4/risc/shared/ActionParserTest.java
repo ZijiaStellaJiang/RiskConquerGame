@@ -1,4 +1,4 @@
-package edu.duke.ece651.group4.risc.client;
+package edu.duke.ece651.group4.risc.shared;
 
 import static org.junit.jupiter.api.Assertions.*;
 
