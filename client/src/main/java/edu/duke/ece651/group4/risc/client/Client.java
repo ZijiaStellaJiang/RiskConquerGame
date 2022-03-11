@@ -12,49 +12,68 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Client {
-  public static void main(String[] args) throws ClassNotFoundException {
-    String serverName = "localhost";
-    int port = 6066;
+  private Map<Character> map;
+  private Socket player_skd;
+  private ObjectOutputStream player_out;
+  private ObjectInputStream player_in;
+  private int player_id;
+
+  public Client(String serverName, int port) {
+    // connection to Server
+    player_skd = connectServer(serverName, port);
     try {
-      System.out.println("Connecting to " + serverName + " on port " + port);
-      Socket client = new Socket(serverName, port);
-      System.out.println("Just connected to " + client.getRemoteSocketAddress());
-      /*
-       * DataOutputStream out = new DataOutputStream(client.getOutputStream());
-       * DataInputStream in = new DataInputStream(client.getInputStream());
-       * out.writeUTF("Hello from " + client.getLocalSocketAddress());
-       * System.out.println("Server says " + in.readUTF());
-       */
-      ObjectOutputStream os = new ObjectOutputStream(client.getOutputStream());
-      ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(client.getInputStream()));
-
-      // receive an object from server
-      Object obj_map = is.readObject();
-      Object obj_id = is.readObject();
-
-      if (obj_map != null && obj_id != null) {
-        Map<Character> map = (Map<Character>) obj_map;
-        Integer player_id = (Integer) obj_id;
-        MapTextView displayInfo = new MapTextView(map, System.out);
-        displayInfo.displayCurrentMap();
-        displayInfo.displayPlayerMsg(player_id);
-      }
-
-      os.close();
-      is.close();
-      client.close();
-      /*
-       * out.close(); 
-       * in.close();
-       */
+      player_out = new ObjectOutputStream(player_skd.getOutputStream());
+      player_in = new ObjectInputStream(new BufferedInputStream(player_skd.getInputStream()));
     } catch (IOException e) {
       e.printStackTrace();
     }
   }
-
-    private void MapTextView(Map<Character> map, PrintStream out) {
-        // TODO
+  public static Socket connectServer(String serverName, int port) {
+    try {
+      System.out.println("Connecting to " + serverName + " on port " + port);
+      Socket client_skd = new Socket(serverName, port);
+      System.out.println("Just connected to " + client_skd.getRemoteSocketAddress());
+      return client_skd;
+    } catch (IOException e) {
+      e.printStackTrace();
     }
+    return null;
+  }
+  public void initializeGame() {
+    try {
+      // receive an object from server
+      Object obj_map = player_in.readObject();
+      Object obj_id = player_in.readObject();
+      // display the initial map and player_id
+      if (obj_map != null && obj_id != null) {
+        // update the map and player_id
+        map = (Map<Character>) obj_map;
+        player_id = (Integer) obj_id;
+        MapTextView displayInfo = new MapTextView(map, System.out);
+        // display the map
+        displayInfo.displayCurrentMap();
+        // display player id
+        displayInfo.displayPlayerMsg(player_id);
+      }
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+  }
+  public void close_connection() {
+    try {
+      player_out.close();
+      player_in.close();
+      player_skd.close();
+    } catch(IOException e) {
+      e.printStackTrace();
+    }
+  }
+  public static void main(String[] args) throws ClassNotFoundException {
+    Client client = new Client("localhost", 6066);
+    // receive initial map and id
+    client.initializeGame();
+  }
 
-  // }
 }

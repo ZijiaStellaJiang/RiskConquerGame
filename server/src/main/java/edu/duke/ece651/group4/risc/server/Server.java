@@ -53,36 +53,43 @@ public class Server extends Thread{
     player_out.get(player_id).flush();
   }
  
-  public void close_all_connection() throws IOException{
-    for (int i = 0; i < player_num; i++) {
-      player_skd.get(i).close();
-      player_out.get(i).close();
-      player_in.get(i).close();
+  public void close_all_connection(){
+    try {
+      for (int i = 0; i < player_num; i++) {
+        player_skd.get(i).close();
+        player_out.get(i).close();
+        player_in.get(i).close();
+      }
+    } catch(IOException e) {
+        e.printStackTrace();
     }
   }
-  
-  
-  
-  public void run() {
+
+  public void initializeGame() {
     for (int i = 0; i < player_num; i++) {
       try {
         // accept connection
         accept_connection();
-        // send an object to client
+        // send the map and player_id to client
         send_original_map(i);
       } catch(IOException e) {
         e.printStackTrace();
         break;
       }
     }
+  }
+  
+  
+  
+  public void run() {
+    // initialize game: receive connection and send the map
+    initializeGame();
+
+    // play one round
+
 
     // close all connection 
-    try {
-      close_all_connection();
-    } catch(IOException e) {
-      e.printStackTrace();
-    }
-    
+    close_all_connection();
   }
   
 
