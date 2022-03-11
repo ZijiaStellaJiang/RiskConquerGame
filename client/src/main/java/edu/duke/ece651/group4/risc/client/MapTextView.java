@@ -38,7 +38,7 @@ public class MapTextView implements View{
         String player_name = toDisplay.getPlayerName(id);
         if (player_name != null) {
             out.println("You are the " + player_name + " player, what would you like to do?");
-            out.println("  (M)ove\n  (A)ttack\n  (D)one\n");
+            out.println("  Move <Source> <Destination> <number>\n  Attack <Source> <Destination> <number>\n  Done\n");
         }
     }
 
