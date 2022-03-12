@@ -4,8 +4,15 @@ import edu.duke.ece651.group4.risc.shared.*;
 
 public class MoveAction<T> extends Action<T>{
     public MoveAction(ActionParser parser, Map<T> map, Player<T> player){
-        //TODO: change to required checker
-        super(parser,map,player,new UnitNumberRuleChecker<>(new OwnershipRuleChecker<>(null)));
+        super(parser,map,player,new UnitNumberRuleChecker<>(new OwnershipRuleChecker<>(
+                new PathRuleChecker<>(null))));
+    }
+
+    /**
+     * for test constructor only
+     */
+    public MoveAction(ActionParser parser, Map<T> map, Player<T> player, ActionRuleChecker<T> ruleChecker){
+        super(parser, map, player, ruleChecker);
     }
 
     @Override

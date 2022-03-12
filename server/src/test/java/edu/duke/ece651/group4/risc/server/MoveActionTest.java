@@ -11,6 +11,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class MoveActionTest {
     @Test
     public void test_do_move(){
+        ActionRuleChecker<Character> ruleChecker = new UnitNumberRuleChecker<>(
+                new OwnershipRuleChecker<>(null));
         Territory<Character> t = new Territory<>("t");
         Territory<Character> t1 = new Territory<>("t1");
         Territory<Character> t2 = new Territory<>("t2");
@@ -32,16 +34,16 @@ public class MoveActionTest {
         map.addPlayer(p1);
         map.addPlayer(p2);
         ActionParser parser1 = new ActionParser("move", "t1", "t", 3);
-        Action<Character> move1 = new MoveAction<>(parser1,map,p1);
+        Action<Character> move1 = new MoveAction<>(parser1,map,p1,ruleChecker);
         assertEquals(null,move1.doAction());
         assertEquals(5,t1.getUnitNumber());
         assertEquals(3,t.getUnitNumber());
         ActionParser parse2_invalid = new ActionParser("move t2 t1 1");
-        Action<Character> move2 = new MoveAction<>(parse2_invalid,map,p2);
+        Action<Character> move2 = new MoveAction<>(parse2_invalid,map,p2,ruleChecker);
         assertEquals("That action is invalid: do action on other's territories.",
                 move2.doAction());
         ActionParser parse3_invalid = new ActionParser("move t1 t2 8");
-        Action<Character> move3 = new MoveAction<>(parse3_invalid,map,p1);
+        Action<Character> move3 = new MoveAction<>(parse3_invalid,map,p1,ruleChecker);
         assertEquals("That action is invalid: action number is larger than unit number in the territory.",
                 move3.doAction());
     }
