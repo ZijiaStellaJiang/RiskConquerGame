@@ -17,8 +17,10 @@ public class Client {
   private ObjectOutputStream player_out;
   private ObjectInputStream player_in;
   private int player_id;
+  private BufferedReader inputReader;
 
-  public Client(String serverName, int port) {
+  public Client(String serverName, int port, BufferedReader input) {
+    inputReader = input;
     // connection to Server
     player_skd = connectServer(serverName, port);
     try {
@@ -61,6 +63,15 @@ public class Client {
       e.printStackTrace();
     }
   }
+  public String playOneRound() {
+    // read multiple inputs from client
+    // parse the input to order
+    // send the input to server
+    // receive Invalid information
+    // receive new update map
+    // display new update map
+    return null;
+  }
   public void close_connection() {
     try {
       player_out.close();
@@ -70,10 +81,12 @@ public class Client {
       e.printStackTrace();
     }
   }
-  public static void main(String[] args) throws ClassNotFoundException {
-    Client client = new Client("localhost", 6066);
+  public static void main(String[] args) {
+    Client client = new Client("localhost", 6066, new BufferedReader(new InputStreamReader(System.in)));
     // receive initial map and id
     client.initializeGame();
+    // play one round
+    client.playOneRound();
   }
 
 }
