@@ -62,6 +62,16 @@ public class MapTextViewTest {
                 "A player:\n---------\n 3 units in A1 (next to: A2, B1)\n 2 units in A2 (next to: A1)\n\n"+
                 "B player:\n---------\n 0 units in B1 (next to: A1)\n\n";
         assertEquals(expected, bytes.toString());
+
+
+        //test player prompt function
+        bytes.reset();
+        view.displayPlayerMsg(0);
+        String expected_1 = "You are the A player, what would you like to do?\n  Move <Source> <Destination> <number>\n  Attack <Source> <Destination> <number>\n  Done\n\n";
+        assertEquals(expected_1, bytes.toString());
+        //invalid player
+        view.displayPlayerMsg(100);
+        
     }
 
 }
