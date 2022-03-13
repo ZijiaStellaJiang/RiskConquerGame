@@ -1,8 +1,4 @@
-package edu.duke.ece651.group4.risc.server;
-
-import edu.duke.ece651.group4.risc.shared.ActionParser;
-import edu.duke.ece651.group4.risc.shared.Map;
-import edu.duke.ece651.group4.risc.shared.Player;
+package edu.duke.ece651.group4.risc.shared;
 
 public abstract class ActionRuleChecker<T> {
     private final ActionRuleChecker<T> next;

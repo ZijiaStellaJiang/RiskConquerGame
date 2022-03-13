@@ -1,6 +1,4 @@
-package edu.duke.ece651.group4.risc.server;
-
-import edu.duke.ece651.group4.risc.shared.*;
+package edu.duke.ece651.group4.risc.shared;
 
 public class MoveAction<T> extends Action<T>{
     public MoveAction(ActionParser parser, Map<T> map, Player<T> player){
