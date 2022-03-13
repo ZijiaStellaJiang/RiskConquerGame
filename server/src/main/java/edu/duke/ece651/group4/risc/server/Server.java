@@ -79,6 +79,39 @@ public class Server extends Thread{
     }
   }
   
+  public void send_to_client(Object obj, int id) {
+    try {
+      player_out.get(id).writeObject(obj);
+      player_out.get(id).flush();
+    } catch(IOException e) {
+      e.printStackTrace();
+    }
+  }
+  public Object recv_from_client(int id) {
+    Object obj = null;
+    try{
+      obj = player_in.get(id).readObject();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+    return obj;
+  }
+  public void playOneRound() {
+    for (int i = 0; i < player_num; i++) {
+      // accept the order and execute
+      ArrayList<ActionParser> order_list = (ArrayList<ActionParser>) recv_from_client(i);
+      for (int j = 0; j < order_list.size(); j++) {
+        Action<Character> move = new MoveAction<>(order_list.get(j), map, map.getPlayer(j));
+        move.doAction();
+      }
+    }
+
+    for (int i = 0; i < player_num; i++) {
+      send_to_client(map, i);
+    }
+  }
   
   
   public void run() {
@@ -86,7 +119,7 @@ public class Server extends Thread{
     initializeGame();
 
     // play one round
-
+    playOneRound();
 
     // close all connection 
     close_all_connection();

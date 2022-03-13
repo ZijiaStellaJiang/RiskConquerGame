@@ -51,4 +51,8 @@ public class Map<T> implements java.io.Serializable {
     if (id >= myPlayers.size()) return null;
     return myPlayers.get(id).getName();
   }
+  public Player<T> getPlayer(int id) {
+    if (id >= myPlayers.size()) return null;
+    return myPlayers.get(id);
+  }
 }
