@@ -104,18 +104,29 @@ public class Client {
       ActionRuleChecker<Character> ruleChecker = new UnitNumberRuleChecker<>(new OwnershipRuleChecker<>(null));
       //Action<Character> move = new MoveAction<>(order, map, map.getPlayer(player_id), ruleChecker);
       Player<Character> player = map.getPlayer(player_id);
-      //Action<Character> move1 = new MoveAction<>(order, map, player);
+      Action<Character> move = new MoveAction<>(order, map, player);
+      String result = move.doAction();
+      if (result != null) {
+        output.println(result);
+        continue;
+      } else {
+        output.println("Valid Action!\n");
+      }
       // TODO assume valid order first
       // add to order list
       order_list.add(order);
     }
+    output.println("-----------Sending message to server--------");
     // send order list to server
     send_to_server(order_list);
     // receive new update map
+    output.println("-----------Receving message from server--------");
     map = (Map<Character>)recv_from_server();
     // display new update map
+    output.println("-----------showing the map--------");
     MapTextView displayInfo = new MapTextView(map, output);
     displayInfo.displayCurrentMap();
+    displayInfo.displayPlayerMsg(player_id);
     return null;
   }
   public void close_connection() {

@@ -102,8 +102,8 @@ public class Server extends Thread{
     for (int i = 0; i < player_num; i++) {
       // accept the order and execute
       ArrayList<ActionParser> order_list = (ArrayList<ActionParser>) recv_from_client(i);
-      for (int j = 0; j < order_list.size(); i++) {
-        Action<Character> move = new MoveAction<>(order_list.get(i), map, map.getPlayer(i));
+      for (int j = 0; j < order_list.size(); j++) {
+        Action<Character> move = new MoveAction<>(order_list.get(j), map, map.getPlayer(j));
         move.doAction();
       }
     }
