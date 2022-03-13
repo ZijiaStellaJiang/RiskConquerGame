@@ -3,10 +3,7 @@
  */
 package edu.duke.ece651.group4.risc.client;
 
-import edu.duke.ece651.group4.risc.shared.Map;
-import edu.duke.ece651.group4.risc.shared.Player;
-import edu.duke.ece651.group4.risc.shared.Territory;
-import edu.duke.ece651.group4.risc.shared.TextPlayer;
+import edu.duke.ece651.group4.risc.shared.*;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -18,11 +15,14 @@ public class Client {
   private ObjectInputStream player_in;
   private int player_id;
   private BufferedReader inputReader;
+  private PrintStream output;
 
-  public Client(String serverName, int port, BufferedReader input) {
+  public Client(String serverName, int port, BufferedReader input, PrintStream outputStream) {
     inputReader = input;
+    output = outputStream;
     // connection to Server
     player_skd = connectServer(serverName, port);
+    player_id = -1;
     try {
       player_out = new ObjectOutputStream(player_skd.getOutputStream());
       player_in = new ObjectInputStream(new BufferedInputStream(player_skd.getInputStream()));
@@ -63,13 +63,59 @@ public class Client {
       e.printStackTrace();
     }
   }
-  public String playOneRound() {
-    // read multiple inputs from client
-    // parse the input to order
-    // send the input to server
-    // receive Invalid information
+  public void send_to_server(Object obj) {
+    try {
+      player_out.writeObject(obj);
+      player_out.flush();
+    } catch(IOException e) {
+      e.printStackTrace();
+    }
+  }
+  public Object recv_from_server() {
+    Object obj = null;
+    try{
+      obj = player_in.readObject();
+    } catch (IOException e) {
+      e.printStackTrace();
+    } catch (ClassNotFoundException e) {
+      e.printStackTrace();
+    }
+    return obj;
+  }
+  public String playOneRound() throws IOException {
+    ArrayList<ActionParser> order_list = new ArrayList<ActionParser>();
+    while (true) {
+      // read an input from client
+      String str = inputReader.readLine();
+      if (str == null) throw new EOFException("END");
+      // check done
+      str = str.toUpperCase();
+      if (str.equals("DONE")) break;
+      // parse the input to order
+      ActionParser order = null;
+      try {
+        order = new ActionParser(str);
+      } catch (IllegalArgumentException e) {
+        output.println(e.getMessage());
+        continue;
+      }
+      // validate the order (fake action) -> invalid printout msg
+      //if (order.getType() == "MOVE") 
+      ActionRuleChecker<Character> ruleChecker = new UnitNumberRuleChecker<>(new OwnershipRuleChecker<>(null));
+      //Action<Character> move = new MoveAction<>(order, map, map.getPlayer(player_id), ruleChecker);
+      Player<Character> player = map.getPlayer(player_id);
+      //Action<Character> move1 = new MoveAction<>(order, map, player);
+      // TODO assume valid order first
+      // add to order list
+      order_list.add(order);
+    }
+    // send order list to server
+    send_to_server(order_list);
     // receive new update map
+    map = (Map<Character>)recv_from_server();
     // display new update map
+    MapTextView displayInfo = new MapTextView(map, output);
+    displayInfo.displayCurrentMap();
     return null;
   }
   public void close_connection() {
@@ -81,8 +127,8 @@ public class Client {
       e.printStackTrace();
     }
   }
-  public static void main(String[] args) {
-    Client client = new Client("localhost", 6066, new BufferedReader(new InputStreamReader(System.in)));
+  public static void main(String[] args) throws IOException {
+    Client client = new Client("localhost", 6066, new BufferedReader(new InputStreamReader(System.in)), System.out);
     // receive initial map and id
     client.initializeGame();
     // play one round

@@ -1,6 +1,6 @@
 package edu.duke.ece651.group4.risc.shared;
 
-public class ActionParser {
+public class ActionParser implements java.io.Serializable{
   String type;// type refers to move or attack
   String source_name;
   String dest_name;
