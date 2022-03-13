@@ -1,9 +1,4 @@
-package edu.duke.ece651.group4.risc.client;
-
-import edu.duke.ece651.group4.risc.shared.ActionParser;
-import edu.duke.ece651.group4.risc.shared.Map;
-import edu.duke.ece651.group4.risc.shared.Player;
-import edu.duke.ece651.group4.risc.shared.Territory;
+package edu.duke.ece651.group4.risc.shared;
 
 public class UnitNumberRuleChecker<T> extends ActionRuleChecker<T>{
     public UnitNumberRuleChecker(ActionRuleChecker<T> next){
