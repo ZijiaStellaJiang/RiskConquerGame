@@ -1,7 +1,7 @@
 package edu.duke.ece651.group4.risc.shared;
 
-public class OwnershipRuleChecker<T> extends ActionRuleChecker<T>{
-    public OwnershipRuleChecker(ActionRuleChecker<T> next){ super(next);}
+public class MoveOwnershipChecker<T> extends ActionRuleChecker<T>{
+    public MoveOwnershipChecker(ActionRuleChecker<T> next){ super(next);}
 
     @Override
     protected String checkMyRule(ActionParser parse, Map<T> map, Player<T> p){
@@ -14,6 +14,6 @@ public class OwnershipRuleChecker<T> extends ActionRuleChecker<T>{
                 }
             }
         }
-        return "That action is invalid: do action on other's territories.";
+        return "That action is invalid: enter a wrong name or do move on other's territories.";
     }
 }

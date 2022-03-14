@@ -2,13 +2,11 @@ package edu.duke.ece651.group4.risc.shared;
 
 public class MoveAction<T> extends Action<T>{
     public MoveAction(ActionParser parser, Map<T> map, Player<T> player){
-        super(parser,map,player,new UnitNumberRuleChecker<>(new OwnershipRuleChecker<>(
+        super(parser,map,player,new UnitNumberRuleChecker<>(new MoveOwnershipChecker<>(
                 new PathRuleChecker<>(null))));
     }
 
-    /**
-     * for test constructor only
-     */
+    /** for test constructor only */
     public MoveAction(ActionParser parser, Map<T> map, Player<T> player, ActionRuleChecker<T> ruleChecker){
         super(parser, map, player, ruleChecker);
     }

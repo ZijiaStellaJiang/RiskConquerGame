@@ -1,6 +1,5 @@
 package edu.duke.ece651.group4.risc.shared;
 
-import edu.duke.ece651.group4.risc.shared.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -12,7 +11,7 @@ public class MoveActionTest {
     @Test
     public void test_do_move(){
         ActionRuleChecker<Character> ruleChecker = new UnitNumberRuleChecker<>(
-                new OwnershipRuleChecker<>(null));
+                new MoveOwnershipChecker<>(null));
         Territory<Character> t = new Territory<>("t");
         Territory<Character> t1 = new Territory<>("t1");
         Territory<Character> t2 = new Territory<>("t2");
@@ -35,6 +34,7 @@ public class MoveActionTest {
         map.addPlayer(p2);
         ActionParser parser1 = new ActionParser("move", "t1", "t", 3);
         Action<Character> move1 = new MoveAction<>(parser1,map,p1,ruleChecker);
+        //Action<Character> move = new MoveAction<>(parser1,map,p1);
         assertEquals(null,move1.doAction());
         assertEquals(5,t1.getUnitNumber());
         assertEquals(3,t.getUnitNumber());
