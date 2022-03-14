@@ -21,22 +21,10 @@ public abstract class Player<T> implements java.io.Serializable{
 
   public void removeFromTerritory(Territory<T> territory) {
     myTerritories.remove(territory);
-//    for (int i = 0; i < myTerritories.size(); i++) {
-//      if (territory.equals(myTerritories.get(i))) {
-//        myTerritories.remove(i);
-//        break;
-//      }
-//    }
   }
 
   public boolean checkMyTerritory(Territory<T> territory) {
     return myTerritories.contains(territory);
-//    for (int i = 0; i < myTerritories.size(); i++) {
-//      if (territory.equals(myTerritories.get(i))) {
-//        return true;
-//      }
-//    }
-//    return false;
   }
 
   public boolean equals(Object o) {

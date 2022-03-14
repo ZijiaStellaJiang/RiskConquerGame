@@ -35,7 +35,6 @@ public class TerritoryTest {
     //territory1.addNeigh(territory3);
     //territory1.removeNeigh(territory2);
   }
-
  
   @Test
   public void test_equals(){

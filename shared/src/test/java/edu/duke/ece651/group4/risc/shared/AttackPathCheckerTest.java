@@ -1,6 +1,5 @@
 package edu.duke.ece651.group4.risc.shared;
 
-import edu.duke.ece651.group4.risc.shared.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -8,14 +7,14 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class PathRuleCheckerTest {
+public class AttackPathCheckerTest {
     protected void addUnitsInTerritory(Territory<Character> target, ArrayList<Unit<Character>> toAdd){
         for (Unit<Character> u: toAdd){
             target.addUnit(u);
         }
     }
     @Test
-    public void test_path_checker(){
+    public void test_attack_path_checker(){
         Territory<Character> terriN = new Territory<Character>("Narnia");
         Territory<Character> terriO = new Territory<Character>("Oz");
         Territory<Character> terriM = new Territory<Character>("Mordor");
@@ -45,14 +44,14 @@ public class PathRuleCheckerTest {
         p1.addToTerritory(terriO);
         p1.addToTerritory(terriM);
         p2.addToTerritory(terriH);
-        p1.addToTerritory(check);
+        p2.addToTerritory(check);
         map.addPlayer(p1);
         map.addPlayer(p2);
-        ActionRuleChecker<Character> pathChecker = new PathRuleChecker<>(null);
-        ActionParser parse1 = new ActionParser("move narnia mordor 3");
-        assertEquals(null,pathChecker.checkActionRule(parse1,map,p1));
-        ActionParser parse2_invalid = new ActionParser("move mordor check 2");
-        assertEquals("That action is invalid: can not form a path from source to destination",
-                pathChecker.checkActionRule(parse2_invalid,map,p1));
+        ActionRuleChecker<Character> checker = new AttackPathChecker<>(null);
+        ActionParser parse1 = new ActionParser("attack Mordor Hogwarts 2");
+        assertEquals(null,checker.checkActionRule(parse1,map,p1));
+        ActionParser parse_invalid = new ActionParser("attack hogwarts oz 8");
+        assertEquals("That action is invalid: you can only attack directly adjacent territories.",
+                checker.checkActionRule(parse_invalid,map,p2));
     }
 }
