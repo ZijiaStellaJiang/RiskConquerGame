@@ -36,7 +36,7 @@ public class Server extends Thread{
     // connect to player
     Socket server = serverSocket.accept();
     // get input and output
-    ObjectOutputStream os = new ObjectOutputStream(server.getOutputStream());
+       ObjectOutputStream os = new ObjectOutputStream(server.getOutputStream());
     ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(server.getInputStream()));
     // add socket, output, input to Arraylist
     player_skd.add(server);
