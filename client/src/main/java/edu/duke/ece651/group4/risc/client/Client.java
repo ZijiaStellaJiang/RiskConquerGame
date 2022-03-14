@@ -30,6 +30,10 @@ public class Client {
       e.printStackTrace();
     }
   }
+
+  public Socket getSocket(){
+    return player_skd;
+  }
   public static Socket connectServer(String serverName, int port) {
     try {
       System.out.println("Connecting to " + serverName + " on port " + port);
