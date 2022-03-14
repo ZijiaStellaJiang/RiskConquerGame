@@ -40,7 +40,7 @@ public class MoveActionTest {
         assertEquals(3,t.getUnitNumber());
         ActionParser parse2_invalid = new ActionParser("move t2 t1 1");
         Action<Character> move2 = new MoveAction<>(parse2_invalid,map,p2,ruleChecker);
-        assertEquals("That action is invalid: do action on other's territories.",
+        assertEquals("That action is invalid: enter a wrong name or do move on other's territories.",
                 move2.doAction());
         ActionParser parse3_invalid = new ActionParser("move t1 t2 8");
         Action<Character> move3 = new MoveAction<>(parse3_invalid,map,p1,ruleChecker);
