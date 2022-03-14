@@ -14,7 +14,7 @@ public class ServerTest {
   // TODO: test connection
   @Test
   //@Timeout(2500)
-  public void test_server() throws IOException,InterruptedException {
+  public void test_server() throws IOException,InterruptedException,ClassNotFoundException {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
     int port_num = 6066;
     Server s = new Server(port_num);
@@ -29,6 +29,9 @@ public class ServerTest {
           // FactorServer.main(new String[0]);
           //          assertEquals("Waiting for client on port 6066.
           //..\n", bytes.toString());
+          s.send_to_client("test", 0);
+          String received = (String) s.recv_from_client(0);
+          assertEquals("hello from client", received);
           s.close_all_connection();
         } catch (Exception e) {
         }
@@ -47,6 +50,13 @@ public class ServerTest {
 
     ObjectOutputStream player_out = new ObjectOutputStream(client_skd.getOutputStream());
     ObjectInputStream player_in = new ObjectInputStream(new BufferedInputStream(client_skd.getInputStream()));
+
+
+    //receive test string from server
+    Object obj = player_in.readObject();
+    assertEquals("test", (String) obj);
+    player_out.writeObject("hello from client");
+     player_out.flush();
     //th.interrupt();
     //th.join();
   }
