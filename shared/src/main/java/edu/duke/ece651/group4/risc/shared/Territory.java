@@ -10,17 +10,14 @@ public class Territory<T> implements java.io.Serializable {
   private ArrayList<Territory<T>> myNeigh;//used to store neighbourhood information
   private Player<T> myPlayer;
   private ArrayList<Unit<T>> myUnits;
-  //private final ActionRuleChecker<T> actionChecker;
+  private ArrayList<Unit<T>> enemyUnits;
 
-  public Territory(String name/*,ActionRuleChecker<T> actionChecker*/){
+  public Territory(String name){
     this.name = name;
     myNeigh = new ArrayList<Territory<T>>();
     myUnits = new ArrayList<>();
-    //this.actionChecker = actionChecker;
+    enemyUnits = new ArrayList<>();
   }
-//  public Territory(String name){
-//    this(name,new UnitNumberRuleChecker<T>(null));
-//  }
 
   public String getName(){
     return this.name;
@@ -87,6 +84,11 @@ public class Territory<T> implements java.io.Serializable {
         break;
       }
     }
+  }
+
+  /** store attacker's unit */
+  public void addEnemyUnit(Unit<T> enemyUnitToAdd){
+    enemyUnits.add(enemyUnitToAdd);
   }
 
   @Override

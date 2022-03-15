@@ -33,17 +33,17 @@ public class MoveActionTest {
         map.addPlayer(p1);
         map.addPlayer(p2);
         ActionParser parser1 = new ActionParser("move", "t1", "t", 3);
-        Action<Character> move1 = new MoveAction<>(parser1,map,p1,ruleChecker);
+        Action<Character> move1 = new MoveAction<>(parser1,map,p1,ruleChecker,true);
         //Action<Character> move = new MoveAction<>(parser1,map,p1);
         assertEquals(null,move1.doAction());
         assertEquals(5,t1.getUnitNumber());
         assertEquals(3,t.getUnitNumber());
         ActionParser parse2_invalid = new ActionParser("move t2 t1 1");
-        Action<Character> move2 = new MoveAction<>(parse2_invalid,map,p2,ruleChecker);
+        Action<Character> move2 = new MoveAction<>(parse2_invalid,map,p2,ruleChecker,true);
         assertEquals("That action is invalid: enter a wrong name or do move on other's territories.",
                 move2.doAction());
         ActionParser parse3_invalid = new ActionParser("move t1 t2 8");
-        Action<Character> move3 = new MoveAction<>(parse3_invalid,map,p1,ruleChecker);
+        Action<Character> move3 = new MoveAction<>(parse3_invalid,map,p1,ruleChecker,true);
         assertEquals("That action is invalid: action number is larger than unit number in the territory.",
                 move3.doAction());
     }

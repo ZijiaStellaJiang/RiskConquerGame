@@ -108,7 +108,7 @@ public class Client {
       //ActionRuleChecker<Character> ruleChecker = new UnitNumberRuleChecker<>(new MoveOwnershipChecker<>(null));
       //Action<Character> move = new MoveAction<>(order, map, map.getPlayer(player_id), ruleChecker);
       Player<Character> player = map.getPlayer(player_id);
-      Action<Character> move = new MoveAction<>(order, map, player);
+      Action<Character> move = new MoveAction<>(order, map, player,true);
       String result = move.doAction();
       if (result != null) {
         output.println(result);
