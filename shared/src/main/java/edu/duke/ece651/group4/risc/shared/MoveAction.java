@@ -5,16 +5,16 @@ import java.util.Collection;
 public class MoveAction<T> extends Action<T>{
     boolean moveToSamePlayer;
 
-    public MoveAction(ActionParser parser, Map<T> map, Player<T> player, boolean samePlayer){
-        super(parser,map,player,new UnitNumberRuleChecker<>(new MoveOwnershipChecker<>(
+    public MoveAction(ActionParser parser, /*Map<T> map, Player<T> player, */boolean samePlayer){
+        super(parser,/*map,player,*/new UnitNumberRuleChecker<>(new MoveOwnershipChecker<>(
                 new MovePathChecker<>(null))));
         this.moveToSamePlayer = samePlayer;
     }
 
     /** for test constructor */
-    public MoveAction(ActionParser parser, Map<T> map, Player<T> player, ActionRuleChecker<T> ruleChecker,
+    public MoveAction(ActionParser parser/*, Map<T> map, Player<T> player*/, ActionRuleChecker<T> ruleChecker,
                       boolean samePlayer){
-        super(parser, map, player, ruleChecker);
+        super(parser, /*map, player, */ruleChecker);
         this.moveToSamePlayer = samePlayer;
     }
 
@@ -39,14 +39,15 @@ public class MoveAction<T> extends Action<T>{
     }
 
     @Override
-    public String doAction(){
+    public String doAction(Map<T> theMap, Player<T> thePlayer){
         //if this move is used for attack, the rule checker should change
         if(!moveToSamePlayer){
             ruleChecker = new UnitNumberRuleChecker<>(new AttackOwnershipChecker<>(
                     new AttackPathChecker<>(null)));
         }
-        if(checkRule()!=null){
-            return checkRule();
+        String checkRule = ruleChecker.checkActionRule(parser,theMap,thePlayer);
+        if(checkRule!=null){
+            return checkRule;
         }
         for(Territory<T> source: thePlayer.getMyTerritories()){
             if(source.getName().toUpperCase().equals(parser.getSource())){

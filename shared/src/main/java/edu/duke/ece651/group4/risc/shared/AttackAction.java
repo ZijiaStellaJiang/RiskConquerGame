@@ -2,19 +2,19 @@ package edu.duke.ece651.group4.risc.shared;
 
 public class AttackAction<T> extends Action<T> {
     String seed;
-    public AttackAction(ActionParser parser, Map<T> map, Player<T> player){
-        super(parser,map,player,new UnitNumberRuleChecker<>(
+    public AttackAction(ActionParser parser /*,Map<T> map, Player<T> player*/){
+        super(parser,/*map,player,*/new UnitNumberRuleChecker<>(
                 new AttackOwnershipChecker<>(new AttackPathChecker<>(null))));
         this.seed=null;
     }
 
     /** test constructor */
-    public AttackAction(ActionParser parser, Map<T> map, Player<T> player, String seed){
-        this(parser, map, player);
+    public AttackAction(ActionParser parser/*, Map<T> map, Player<T> player*/, String seed){
+        this(parser/*, map, player*/);
         this.seed=seed;
     }
 
-    private void resolveHelper(Territory<T> source, Territory<T> dest){
+    private void resolveHelper(Territory<T> source, Territory<T> dest,Map<T> theMap, Player<T> thePlayer){
         CombatResolution<T> resolve = new V1SimpleResolution<>(source,dest,seed);
         //if attacker wins, change both player's own territory
         if(resolve.resolveCombat()){
@@ -30,7 +30,7 @@ public class AttackAction<T> extends Action<T> {
     }
 
     @Override
-    public String doAction(){
+    public String doAction(Map<T> theMap, Player<T> thePlayer){
 //        if(checkRule()!=null){
 //            return checkRule();
 //        }
@@ -39,7 +39,7 @@ public class AttackAction<T> extends Action<T> {
                 for (Territory<T> dest: theMap.getMyTerritories()){
                     if(dest.getName().toUpperCase().equals(parser.getDest())){
                         //find the source and dest territories
-                        resolveHelper(source,dest);
+                        resolveHelper(source,dest,theMap,thePlayer);
                         break;
                     }
                 }
