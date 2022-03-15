@@ -15,8 +15,8 @@ public class AttackAction<T> extends Action<T> {
         CombatResolution<T> resolve = new V1SimpleResolution<>(source,dest);
         //if attacker wins, change both player's own territory
         if(resolve.resolveCombat()){
-            thePlayer.addToTerritory(dest);
             theMap.findPlayer(dest).removeFromTerritory(dest);
+            thePlayer.addToTerritory(dest);
             for(int i=0; i<dest.getEnemyUnitNum(); i++){
                 dest.addUnit(new SimpleUnit<>());
                 dest.removeEnemyUnit(new SimpleUnit<>());
@@ -27,9 +27,9 @@ public class AttackAction<T> extends Action<T> {
 
     @Override
     public String doAction(){
-        if(checkRule()!=null){
-            return checkRule();
-        }
+//        if(checkRule()!=null){
+//            return checkRule();
+//        }
         for (Territory<T> source: thePlayer.getMyTerritories()){
             if(source.getName().toUpperCase().equals(parser.getSource())){
                 for (Territory<T> dest: theMap.getMyTerritories()){
