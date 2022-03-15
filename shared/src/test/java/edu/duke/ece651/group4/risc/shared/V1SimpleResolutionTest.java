@@ -12,9 +12,9 @@ public class V1SimpleResolutionTest {
     public void test_V1_resolution(){
         Territory<Character> attack = new Territory<>("a");
         Territory<Character> defend = new Territory<>("b");
-        ArrayList<Unit<Character>> toAdd = new ArrayList<>(Collections.nCopies(15,new SimpleUnit<>()));
+        ArrayList<Unit<Character>> toAdd = new ArrayList<>(Collections.nCopies(55,new SimpleUnit<>()));
         defend.addGroupUnit(toAdd);
-        for(int i=0; i<5; i++){
+        for(int i=0; i<2; i++){
             defend.addEnemyUnit(new SimpleUnit<>());
         }
         CombatResolution<Character> resolution = new V1SimpleResolution<>(attack,defend);

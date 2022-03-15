@@ -16,9 +16,9 @@ public class AttackActionTest {
         Territory<Character> terriM = new Territory<Character>("Mordor");
         terriN.addNeigh(terriO);
         terriO.addNeigh(terriM);
-        ArrayList<Unit<Character>> nUnits = new ArrayList<>(Collections.nCopies(20, new SimpleUnit<>()));
+        ArrayList<Unit<Character>> nUnits = new ArrayList<>(Collections.nCopies(100, new SimpleUnit<>()));
         terriN.addGroupUnit(nUnits);
-        ArrayList<Unit<Character>> oUnits = new ArrayList<>(Collections.nCopies(3, new SimpleUnit<>()));
+        ArrayList<Unit<Character>> oUnits = new ArrayList<>(Collections.nCopies(2, new SimpleUnit<>()));
         terriO.addGroupUnit(oUnits);
         ArrayList<Unit<Character>> mUnits = new ArrayList<>(Collections.nCopies(1, new SimpleUnit<>()));
         terriM.addGroupUnit(mUnits);
@@ -33,10 +33,10 @@ public class AttackActionTest {
         p2.addToTerritory(terriM);
         map.addPlayer(p1);
         map.addPlayer(p2);
-        ActionParser parse = new ActionParser("attack narnia oz 15");
+        ActionParser parse = new ActionParser("attack narnia oz 100");
         Action<Character> attack_move = new MoveAction<>(parse,map,p1,false);
         attack_move.doAction();
-        assertEquals(15,terriO.getEnemyUnitNum());
+        assertEquals(100,terriO.getEnemyUnitNum());
         Action<Character> attack = new AttackAction<>(parse,map,p1);
         attack.doAction();
         assertEquals(true,p1.checkMyTerritory(terriO));
