@@ -12,9 +12,10 @@ import java.net.Socket;
 
 import org.junit.jupiter.api.Test;
 
+import edu.duke.ece651.group4.risc.shared.*;
 public class ClientTest {
   @Test
-  public void test_() {
+  public void test_socket_connection() {
     int port = 6066;
     // Server t = new Server(port);
     Thread th = new Thread() {
@@ -30,6 +31,12 @@ public class ClientTest {
           assertEquals("hello from client\n", received);
           os.writeObject("hello from server\n");
           os.flush();
+          //generate a map
+          Map<Character> mymap = new Map<Character>();
+          os.writeObject(mymap);
+          os.flush();
+          os.writeObject(1);
+          os.flush();
         } catch (Exception e) {
         }
       }
@@ -42,6 +49,7 @@ public class ClientTest {
     client.send_to_server("hello from client\n");
     String received  = (String) client.recv_from_server();
     assertEquals("hello from server\n", received);
+    client.initializeGame();
     //close connection
     client.close_connection();
   }
