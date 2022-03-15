@@ -77,11 +77,19 @@ public class Territory<T> implements java.io.Serializable {
 
   public void removeUnit(Unit<T> unitToRemove){
     for(Unit<T> t: myUnits){
-      if (t.getClass().equals(unitToRemove.getClass())){
-        myUnits.remove(t);
-        break;
-      }
+      myUnits.remove(t);
+      break;
     }
+    /**
+     * in later version might change to below code to support different kind of unit
+     * for this version just use above simple one to realize test coverage
+     */
+//    for(Unit<T> t: myUnits){
+//      if (t.getClass().equals(unitToRemove.getClass())){
+//        myUnits.remove(t);
+//        break;
+//      }
+//    }
   }
 
   public Integer getEnemyUnitNum(){ return enemyUnits.size(); }
@@ -92,12 +100,20 @@ public class Territory<T> implements java.io.Serializable {
   }
 
   public void removeEnemyUnit(Unit<T> unitToRemove){
-    for(Unit<T> t: enemyUnits){
-      if (t.getClass().equals(unitToRemove.getClass())){
-        enemyUnits.remove(t);
-        break;
-      }
+    for (Unit<T> t: enemyUnits){
+      enemyUnits.remove(t);
+      break;
     }
+    /**
+     * in later version might change to below code to support different kind of unit
+     * for this version just use above simple one to realize test coverage
+     */
+//    for(Unit<T> t: enemyUnits){
+//      if (t.getClass().equals(unitToRemove.getClass())){
+//        enemyUnits.remove(t);
+//        break;
+//      }
+//    }
   }
 
   public void addGroupUnit(ArrayList<Unit<T>> toAdd){

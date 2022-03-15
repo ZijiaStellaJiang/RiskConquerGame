@@ -1,5 +1,6 @@
 package edu.duke.ece651.group4.risc.shared;
 
+import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 public class AttackActionTest {
     @Test
     public void test_attack(){
+        Territory<Character> t1 = new Territory<>("t1");
         Territory<Character> terriN = new Territory<Character>("Narnia");
         Territory<Character> terriO = new Territory<Character>("Oz");
         Territory<Character> terriM = new Territory<Character>("Mordor");
@@ -23,11 +25,13 @@ public class AttackActionTest {
         ArrayList<Unit<Character>> mUnits = new ArrayList<>(Collections.nCopies(3, new SimpleUnit<>()));
         terriM.addGroupUnit(mUnits);
         Map<Character> map = new Map<Character>();
+        map.addTerritory(t1);
         map.addTerritory(terriN);
         map.addTerritory(terriO);
         map.addTerritory(terriM);
         TextPlayer p1 = new TextPlayer("Green");
         TextPlayer p2 = new TextPlayer("Blue");
+        p1.addToTerritory(t1);
         p1.addToTerritory(terriN);
         p2.addToTerritory(terriO);
         p2.addToTerritory(terriM);
