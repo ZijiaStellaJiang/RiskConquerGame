@@ -1,5 +1,6 @@
 package edu.duke.ece651.group4.risc.shared;
 
+import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -35,7 +36,6 @@ public class TerritoryTest {
     //territory1.addNeigh(territory3);
     //territory1.removeNeigh(territory2);
   }
-
  
   @Test
   public void test_equals(){
@@ -59,15 +59,15 @@ public class TerritoryTest {
     assertEquals(neigh,territory1.getMyNeigh());
   }
 
-  @Test
-  public void test_change_player(){
-    Player<Character> player = new TextPlayer("p");
-    Territory<Character> territory1 = new Territory<Character>("t1");
-    territory1.changePlayer(player);
-    assertEquals("p", territory1.getPlayerName());
-    territory1.changePlayer(player);
-    assertEquals("p", territory1.getPlayerName());
-  }
+//  @Test
+//  public void test_change_player(){
+//    Player<Character> player = new TextPlayer("p");
+//    Territory<Character> territory1 = new Territory<Character>("t1");
+//    territory1.changePlayer(player);
+//    assertEquals("p", territory1.getPlayerName());
+//    territory1.changePlayer(player);
+//    assertEquals("p", territory1.getPlayerName());
+//  }
 
   @Test
   public void test_operate_get_unit_number(){
@@ -93,4 +93,16 @@ public class TerritoryTest {
     assertEquals(9,t1.getUnitNumber());
   }
 
+  @Test
+  public void test_enemy_unit(){
+    Territory<Character> t1 = new Territory<>("t1");
+    assertEquals(0,t1.getEnemyUnitNum());
+    Unit<Character> e1 = new SimpleUnit<>();
+    Unit<Character> e2 = new SimpleUnit<>();
+    t1.addEnemyUnit(e1);
+    t1.addEnemyUnit(e2);
+    assertEquals(2,t1.getEnemyUnitNum());
+    t1.removeEnemyUnit(new SimpleUnit<>());
+    assertEquals(1,t1.getEnemyUnitNum());
+  }
 }

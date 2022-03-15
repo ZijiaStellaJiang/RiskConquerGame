@@ -1,6 +1,5 @@
 package edu.duke.ece651.group4.risc.shared;
 
-import edu.duke.ece651.group4.risc.shared.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -8,9 +7,9 @@ import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class OwnershipRuleCheckerTest {
+public class AttackOwnershipCheckerTest {
     @Test
-    public void test_owner_checker(){
+    public void test_attack_own_check(){
         Territory<Character> t1 = new Territory<>("t1");
         Territory<Character> t2 = new Territory<>("t2");
         Territory<Character> t3 = new Territory<>("t3");
@@ -34,13 +33,17 @@ public class OwnershipRuleCheckerTest {
         Map<Character> map = new Map<>();
         map.addPlayer(p1);
         map.addPlayer(p2);
-        ActionRuleChecker<Character> ownChecker = new OwnershipRuleChecker<>(null);
-        ActionParser parser1 = new ActionParser("move t1 t2 3");
-        assertEquals(null,ownChecker.checkActionRule(parser1,map,p1));
-        ActionParser parser2 = new ActionParser("move t3 t1 1");
-        assertEquals("That action is invalid: do action on other's territories.",
-                ownChecker.checkActionRule(parser2,map,p2));
-        assertEquals("That action is invalid: do action on other's territories.",
-                ownChecker.checkActionRule(parser2,map,p1));
+        map.addTerritory(t1);
+        map.addTerritory(t2);
+        map.addTerritory(t3);
+        ActionRuleChecker<Character> checker = new AttackOwnershipChecker<>(null);
+        ActionParser parse1 = new ActionParser("attack t1 t3 3");
+        assertEquals(null,checker.checkActionRule(parse1,map,p1));
+        ActionParser parse_invalid_1 = new ActionParser("attack t2 t1 3");
+        assertEquals("That action is invalid: do attack to your own territory",
+                checker.checkActionRule(parse_invalid_1,map,p1));
+        ActionParser parse_invalid_2 = new ActionParser("attack t1 t2 2");
+        assertEquals("That action is invalid: enter a wrong name or do attack from other's territory",
+                checker.checkActionRule(parse_invalid_2,map,p2));
     }
 }

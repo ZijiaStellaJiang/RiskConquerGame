@@ -8,19 +8,16 @@ import java.util.ArrayList;
 public class Territory<T> implements java.io.Serializable {
   private String name;
   private ArrayList<Territory<T>> myNeigh;//used to store neighbourhood information
-  private Player<T> myPlayer;
+  //private Player<T> myPlayer;
   private ArrayList<Unit<T>> myUnits;
-  //private final ActionRuleChecker<T> actionChecker;
+  private ArrayList<Unit<T>> enemyUnits;
 
-  public Territory(String name/*,ActionRuleChecker<T> actionChecker*/){
+  public Territory(String name){
     this.name = name;
     myNeigh = new ArrayList<Territory<T>>();
     myUnits = new ArrayList<>();
-    //this.actionChecker = actionChecker;
+    enemyUnits = new ArrayList<>();
   }
-//  public Territory(String name){
-//    this(name,new UnitNumberRuleChecker<T>(null));
-//  }
 
   public String getName(){
     return this.name;
@@ -59,15 +56,13 @@ public class Territory<T> implements java.io.Serializable {
     return myNeigh;
   }
 
-  public void changePlayer(Player<T> playerToChange){
-    if(myPlayer==null || !playerToChange.equals(myPlayer)){
-      myPlayer = playerToChange;
-    }
-  }
-
-  public String getPlayerName(){
-    return myPlayer.getName();
-  }
+//  public void changePlayer(Player<T> playerToChange){
+//    myPlayer = playerToChange;
+//  }
+//
+//  public String getPlayerName(){
+//    return myPlayer.getName();
+//  }
 
   /**
    * return the number of units exist in this territory
@@ -86,6 +81,28 @@ public class Territory<T> implements java.io.Serializable {
         myUnits.remove(t);
         break;
       }
+    }
+  }
+
+  public Integer getEnemyUnitNum(){ return enemyUnits.size(); }
+
+  /** store attacker's unit */
+  public void addEnemyUnit(Unit<T> enemyUnitToAdd){
+    enemyUnits.add(enemyUnitToAdd);
+  }
+
+  public void removeEnemyUnit(Unit<T> unitToRemove){
+    for(Unit<T> t: enemyUnits){
+      if (t.getClass().equals(unitToRemove.getClass())){
+        enemyUnits.remove(t);
+        break;
+      }
+    }
+  }
+
+  public void addGroupUnit(ArrayList<Unit<T>> toAdd){
+    for (Unit<T> u: toAdd){
+      this.addUnit(u);
     }
   }
 

@@ -3,8 +3,8 @@ package edu.duke.ece651.group4.risc.shared;
 import java.util.HashSet;
 import java.util.Stack;
 
-public class PathRuleChecker<T> extends ActionRuleChecker<T> {
-    public PathRuleChecker(ActionRuleChecker<T> next){
+public class MovePathChecker<T> extends ActionRuleChecker<T> {
+    public MovePathChecker(ActionRuleChecker<T> next){
         super(next);
     }
 
@@ -34,6 +34,6 @@ public class PathRuleChecker<T> extends ActionRuleChecker<T> {
                 }
             }
         }
-        return "That action is invalid: can not form a path from source to destination";
+        return "That action is invalid: can not form a path from source to destination.";
     }
 }

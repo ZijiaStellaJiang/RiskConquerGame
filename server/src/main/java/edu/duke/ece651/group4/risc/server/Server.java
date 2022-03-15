@@ -36,7 +36,7 @@ public class Server extends Thread{
     // connect to player
     Socket server = serverSocket.accept();
     // get input and output
-       ObjectOutputStream os = new ObjectOutputStream(server.getOutputStream());
+    ObjectOutputStream os = new ObjectOutputStream(server.getOutputStream());
     ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(server.getInputStream()));
     // add socket, output, input to Arraylist
     player_skd.add(server);
@@ -103,7 +103,8 @@ public class Server extends Thread{
       // accept the order and execute
       ArrayList<ActionParser> order_list = (ArrayList<ActionParser>) recv_from_client(i);
       for (int j = 0; j < order_list.size(); j++) {
-        Action<Character> move = new MoveAction<>(order_list.get(j), map, map.getPlayer(j));
+        //TODO: check map.getPlayer(j)?
+        Action<Character> move = new MoveAction<>(order_list.get(j), map, map.getPlayer(j),true);
         move.doAction();
       }
     }
