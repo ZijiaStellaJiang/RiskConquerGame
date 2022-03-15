@@ -62,6 +62,7 @@ public class MapTest {
         map.addPlayer(p1);
         map.addPlayer(p2);
         map.addPlayer(p3);
+        map.addPlayer(p1);
         assertEquals(null,map.getPlayer(3));
         assertEquals(null,map.getPlayerName(4));
         assertEquals(p2,map.getPlayer(1));
