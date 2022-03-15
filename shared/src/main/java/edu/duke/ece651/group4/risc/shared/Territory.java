@@ -8,7 +8,7 @@ import java.util.ArrayList;
 public class Territory<T> implements java.io.Serializable {
   private String name;
   private ArrayList<Territory<T>> myNeigh;//used to store neighbourhood information
-  private Player<T> myPlayer;
+  //private Player<T> myPlayer;
   private ArrayList<Unit<T>> myUnits;
   private ArrayList<Unit<T>> enemyUnits;
 
@@ -56,15 +56,13 @@ public class Territory<T> implements java.io.Serializable {
     return myNeigh;
   }
 
-  public void changePlayer(Player<T> playerToChange){
-    if(myPlayer==null || !playerToChange.equals(myPlayer)){
-      myPlayer = playerToChange;
-    }
-  }
-
-  public String getPlayerName(){
-    return myPlayer.getName();
-  }
+//  public void changePlayer(Player<T> playerToChange){
+//    myPlayer = playerToChange;
+//  }
+//
+//  public String getPlayerName(){
+//    return myPlayer.getName();
+//  }
 
   /**
    * return the number of units exist in this territory
@@ -86,9 +84,26 @@ public class Territory<T> implements java.io.Serializable {
     }
   }
 
+  public Integer getEnemyUnitNum(){ return enemyUnits.size(); }
+
   /** store attacker's unit */
   public void addEnemyUnit(Unit<T> enemyUnitToAdd){
     enemyUnits.add(enemyUnitToAdd);
+  }
+
+  public void removeEnemyUnit(Unit<T> unitToRemove){
+    for(Unit<T> t: enemyUnits){
+      if (t.getClass().equals(unitToRemove.getClass())){
+        enemyUnits.remove(t);
+        break;
+      }
+    }
+  }
+
+  public void addGroupUnit(ArrayList<Unit<T>> toAdd){
+    for (Unit<T> u: toAdd){
+      this.addUnit(u);
+    }
   }
 
   @Override

@@ -5,13 +5,18 @@ import java.util.ArrayList;
 public abstract class CombatResolution<T> {
     protected Territory<T> attack;
     protected Territory<T> defend;
-    protected ArrayList<Unit<T>> attackUnits;
+    //protected ArrayList<Unit<T>> attackUnits;
 
-    public CombatResolution(Territory<T> attack, Territory<T> defend, ArrayList<Unit<T>> attackUnits){
+    public CombatResolution(Territory<T> attack, Territory<T> defend){
         this.attack = attack;
         this.defend = defend;
-        this.attackUnits = attackUnits;
+        //this.attackUnits = attackUnits;
     }
 
-    //public abstract void resolveCombat();
+    /**
+     * resolve the combat between attack side and defend side
+     * return true if attacker successes
+     * return false if attacker failed to take ownership of the defender's territory
+     */
+    public abstract boolean resolveCombat();
 }

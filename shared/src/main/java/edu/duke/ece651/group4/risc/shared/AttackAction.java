@@ -11,6 +11,20 @@ public class AttackAction<T> extends Action<T> {
 //        super(parser, map, player, ruleChecker);
 //    }
 
+    private void resolveHelper(Territory<T> source, Territory<T> dest){
+        CombatResolution<T> resolve = new V1SimpleResolution<>(source,dest);
+        //if attacker wins, change both player's own territory
+        if(resolve.resolveCombat()){
+            thePlayer.addToTerritory(dest);
+            theMap.findPlayer(dest).removeFromTerritory(dest);
+            for(int i=0; i<dest.getEnemyUnitNum(); i++){
+                dest.addUnit(new SimpleUnit<>());
+                dest.removeEnemyUnit(new SimpleUnit<>());
+            }
+        }
+        //attacker loses, ownership doesn't change, nothing changed
+    }
+
     @Override
     public String doAction(){
         if(checkRule()!=null){
@@ -18,12 +32,14 @@ public class AttackAction<T> extends Action<T> {
         }
         for (Territory<T> source: thePlayer.getMyTerritories()){
             if(source.getName().toUpperCase().equals(parser.getSource())){
-                int attack_num = parser.getUnit();
                 for (Territory<T> dest: theMap.getMyTerritories()){
                     if(dest.getName().toUpperCase().equals(parser.getDest())){
-                        /** find the source and dest territories and the attack number */
+                        //find the source and dest territories
+                        resolveHelper(source,dest);
+                        break;
                     }
                 }
+                break;
             }
         }
         return null;

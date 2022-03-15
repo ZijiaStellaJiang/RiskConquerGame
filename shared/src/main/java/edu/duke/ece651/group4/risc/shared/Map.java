@@ -55,4 +55,13 @@ public class Map<T> implements java.io.Serializable {
     if (id >= myPlayers.size()) return null;
     return myPlayers.get(id);
   }
+
+  public Player<T> findPlayer(Territory<T> toFind) {
+    for (Player<T> p: myPlayers){
+      if(p.checkMyTerritory(toFind)){
+        return p;
+      }
+    }
+    return null;
+  }
 }

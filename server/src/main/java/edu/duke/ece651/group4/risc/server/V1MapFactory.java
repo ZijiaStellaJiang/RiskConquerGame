@@ -6,11 +6,6 @@ import java.util.Collections;
 import java.util.stream.Collectors;
 
 public class V1MapFactory implements AbstractMapFactory<Character> {
-    protected void addUnitsInTerritory(Territory<Character> target, ArrayList<Unit<Character>> toAdd){
-        for (Unit<Character> u: toAdd){
-            target.addUnit(u);
-        }
-    }
     public Map<Character> generateMap() {
         Territory<Character> terriN = new Territory<Character>("Narnia");
         Territory<Character> terriO = new Territory<Character>("Oz");
@@ -30,17 +25,17 @@ public class V1MapFactory implements AbstractMapFactory<Character> {
          * add units in all the territories
          */
         ArrayList<Unit<Character>> nUnits = new ArrayList<>(Collections.nCopies(8, new SimpleUnit<>()));
-        addUnitsInTerritory(terriN,nUnits);
+        terriN.addGroupUnit(nUnits);
         ArrayList<Unit<Character>> oUnits = new ArrayList<>(Collections.nCopies(3, new SimpleUnit<>()));
-        addUnitsInTerritory(terriO,oUnits);
+        terriO.addGroupUnit(oUnits);
         ArrayList<Unit<Character>> mUnits = new ArrayList<>(Collections.nCopies(4, new SimpleUnit<>()));
-        addUnitsInTerritory(terriM,mUnits);
+        terriM.addGroupUnit(mUnits);
         ArrayList<Unit<Character>> hUnits = new ArrayList<>(Collections.nCopies(9, new SimpleUnit<>()));
-        addUnitsInTerritory(terriH,hUnits);
+        terriH.addGroupUnit(hUnits);
         ArrayList<Unit<Character>> gUnits = new ArrayList<>(Collections.nCopies(2, new SimpleUnit<>()));
-        addUnitsInTerritory(terriG,gUnits);
+        terriG.addGroupUnit(gUnits);
         ArrayList<Unit<Character>> eUnits = new ArrayList<>(Collections.nCopies(4, new SimpleUnit<>()));
-        addUnitsInTerritory(terriE,eUnits);
+        terriE.addGroupUnit(eUnits);
         Map<Character> map = new Map<Character>();
         map.addTerritory(terriN);
         map.addTerritory(terriO);

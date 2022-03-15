@@ -4,32 +4,30 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class V1SimpleResolution<T> extends CombatResolution<T> {
-    public V1SimpleResolution(Territory<T> attack, Territory<T> defend, ArrayList<Unit<T>> attackUnits){
-        super(attack, defend, attackUnits);
+    public V1SimpleResolution(Territory<T> attack, Territory<T> defend){
+        super(attack, defend);
     }
 
-    public void resolveCombat(){
-        int attackNum = attackUnits.size();
+    public boolean resolveCombat(){
+        int attackNum = defend.getEnemyUnitNum();
         int defendNum = defend.getUnitNumber();
         while(true){
             if(attackNum==0){
-                //TODO: mark defender wins
-                break;
+                return false;
             }
             if(defendNum==0){
-                //TODO: mark attacker wins
-                break;
+                return true;
             }
             int attackRoll = new Random().nextInt(20);
             int defendRoll = new Random().nextInt(20);
             if(attackRoll>defendRoll){
                 defendNum--;
+                defend.removeUnit(new SimpleUnit<>());
             }
             else {
                 attackNum--;
+                defend.removeEnemyUnit(new SimpleUnit<>());
             }
         }
-        //TODO: return winner information;
-        return;
     }
 }
