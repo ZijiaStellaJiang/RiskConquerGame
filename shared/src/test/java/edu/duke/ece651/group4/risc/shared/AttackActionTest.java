@@ -38,22 +38,22 @@ public class AttackActionTest {
         map.addPlayer(p1);
         map.addPlayer(p2);
         ActionParser parse = new ActionParser("attack narnia oz 4");
-        Action<Character> attack_move = new MoveAction<>(parse,map,p1,false);
-        attack_move.doAction();
+        Action<Character> attack_move = new MoveAction<>(parse,false);
+        attack_move.doAction(map,p1);
         assertEquals(4,terriO.getEnemyUnitNum());
-        Action<Character> attack = new AttackAction<>(parse,map,p1,"10");
+        Action<Character> attack = new AttackAction<>(parse,"10");
         //this seed generate attackRoll=13, defendRoll always 5 (attacker wins)
-        attack.doAction();
+        attack.doAction(map,p1);
         assertEquals(true,p1.checkMyTerritory(terriO));
         assertEquals(false,p2.checkMyTerritory(terriO));
         assertEquals(4,terriO.getUnitNumber());
         assertEquals(0,terriO.getEnemyUnitNum());
         ActionParser parse2 = new ActionParser("attack mordor oz 1");
-        Action<Character> attack_move2 = new MoveAction<>(parse2,map,p2,false);
-        attack_move2.doAction();
-        Action<Character> attack2 = new AttackAction<>(parse2,map,p2,"1");
+        Action<Character> attack_move2 = new MoveAction<>(parse2,false);
+        attack_move2.doAction(map,p2);
+        Action<Character> attack2 = new AttackAction<>(parse2,"1");
         //this seed generate attackRoll=5, defendRoll always 5 (defender wins)
-        attack2.doAction();
+        attack2.doAction(map,p2);
         assertEquals(true,p1.checkMyTerritory(terriO));
         assertEquals(false,p2.checkMyTerritory(terriO));
         assertEquals(4,terriO.getUnitNumber());
