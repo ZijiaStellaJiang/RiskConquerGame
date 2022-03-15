@@ -27,9 +27,9 @@ public class MapTest {
         Map<Character> map = new Map<>();
         map.addPlayer(p1);
         map.addPlayer(p2);
-        map.addPlayer(p1);
         Territory<Character> t = new Territory<>("t");
-        p1.addToTerritory(t);
+        Territory<Character> none = new Territory<>("noOwner");
+        p2.addToTerritory(t);
         ArrayList<TextPlayer> expected = new ArrayList<>();
         expected.add(p1);
         expected.add(p2);
@@ -37,7 +37,8 @@ public class MapTest {
         falseAns.add(p3);
         assertEquals(expected,map.getMyPlayers());
         assertNotEquals(falseAns, map.getMyPlayers());
-        assertEquals(p1,map.findPlayer(t));
+        assertEquals(p2,map.findPlayer(t));
+        assertEquals(null,map.findPlayer(none));
     }
     @Test
     public void test_get_my_territories(){
@@ -51,5 +52,20 @@ public class MapTest {
         myTerri.add(t1);
         myTerri.add(t2);
         assertEquals(myTerri,map.getMyTerritories());
+    }
+    @Test
+    public void test_player_id(){
+        Player<Character> p1 = new TextPlayer("A");
+        Player<Character> p2 = new TextPlayer("B");
+        Player<Character> p3 = new TextPlayer("C");
+        Map<Character> map = new Map<>();
+        map.addPlayer(p1);
+        map.addPlayer(p2);
+        map.addPlayer(p3);
+        map.addPlayer(p1);
+        assertEquals(null,map.getPlayer(3));
+        assertEquals(null,map.getPlayerName(4));
+        assertEquals(p2,map.getPlayer(1));
+        assertEquals("A",map.getPlayerName(0));
     }
 }

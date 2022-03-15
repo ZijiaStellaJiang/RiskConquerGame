@@ -1,23 +1,27 @@
 package edu.duke.ece651.group4.risc.shared;
 
 public class AttackAction<T> extends Action<T> {
+    String seed;
     public AttackAction(ActionParser parser, Map<T> map, Player<T> player){
         super(parser,map,player,new UnitNumberRuleChecker<>(
                 new AttackOwnershipChecker<>(new AttackPathChecker<>(null))));
+        this.seed=null;
     }
 
     /** test constructor */
-//    public AttackAction(ActionParser parser, Map<T> map, Player<T> player, ActionRuleChecker<T> ruleChecker){
-//        super(parser, map, player, ruleChecker);
-//    }
+    public AttackAction(ActionParser parser, Map<T> map, Player<T> player, String seed){
+        this(parser, map, player);
+        this.seed=seed;
+    }
 
     private void resolveHelper(Territory<T> source, Territory<T> dest){
-        CombatResolution<T> resolve = new V1SimpleResolution<>(source,dest);
+        CombatResolution<T> resolve = new V1SimpleResolution<>(source,dest,seed);
         //if attacker wins, change both player's own territory
         if(resolve.resolveCombat()){
             theMap.findPlayer(dest).removeFromTerritory(dest);
             thePlayer.addToTerritory(dest);
-            for(int i=0; i<dest.getEnemyUnitNum(); i++){
+            int remain = dest.getEnemyUnitNum();
+            for(int i=0; i<remain; i++){
                 dest.addUnit(new SimpleUnit<>());
                 dest.removeEnemyUnit(new SimpleUnit<>());
             }

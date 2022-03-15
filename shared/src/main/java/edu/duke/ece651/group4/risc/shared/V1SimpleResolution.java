@@ -1,11 +1,13 @@
 package edu.duke.ece651.group4.risc.shared;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class V1SimpleResolution<T> extends CombatResolution<T> {
-    public V1SimpleResolution(Territory<T> attack, Territory<T> defend){
+    String seed;
+
+    public V1SimpleResolution(Territory<T> attack, Territory<T> defend,String seed){
         super(attack, defend);
+        this.seed = seed;
     }
 
     public boolean resolveCombat(){
@@ -20,6 +22,11 @@ public class V1SimpleResolution<T> extends CombatResolution<T> {
             }
             int attackRoll = new Random().nextInt(20);
             int defendRoll = new Random().nextInt(20);
+            if(seed!=null){
+                long seed_num = Integer.parseInt(seed);
+                attackRoll = new Random(seed_num).nextInt(20);
+                defendRoll = new Random(1).nextInt(20); //this seed generate 5
+            }
             if(attackRoll>defendRoll){
                 defendNum--;
                 defend.removeUnit(new SimpleUnit<>());

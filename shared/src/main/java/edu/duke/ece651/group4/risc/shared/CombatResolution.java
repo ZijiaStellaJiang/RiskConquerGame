@@ -5,12 +5,10 @@ import java.util.ArrayList;
 public abstract class CombatResolution<T> {
     protected Territory<T> attack;
     protected Territory<T> defend;
-    //protected ArrayList<Unit<T>> attackUnits;
 
     public CombatResolution(Territory<T> attack, Territory<T> defend){
         this.attack = attack;
         this.defend = defend;
-        //this.attackUnits = attackUnits;
     }
 
     /**
