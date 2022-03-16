@@ -69,6 +69,7 @@ public class Client {
   }
   public void send_to_server(Object obj) {
     try {
+      player_out.reset();
       player_out.writeObject(obj);
       player_out.flush();
     } catch(IOException e) {
