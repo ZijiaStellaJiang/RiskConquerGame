@@ -107,7 +107,7 @@ public class Server{
     }
     return obj;
   }
-  public void playOneRound() {
+  public String playOneRound() {
     for (int i = 0; i < player_num; i++) {
       // accept the order and execute MOVING
       ArrayList<ActionParser> order_list = (ArrayList<ActionParser>) recv_from_client(i);
@@ -130,10 +130,15 @@ public class Server{
       attack.doAction(null, map, cur_player);
     }
 
+    // add unit to each territory
+    map.receive_new_units();
+
     // sending updating map
     for (int i = 0; i < player_num; i++) {
       send_to_client(map, i);
     }
+    if (map.getLoserId() != null) return "over";
+    return null;
   }
 
   /*
@@ -165,7 +170,9 @@ public class Server{
     server.initializeGame();
 
     // play one round
-    server.playOneRound();
+    while (true) {
+      if (server.playOneRound() != null) break;
+    }
 
     // close all connection
     server.close_all_connection();

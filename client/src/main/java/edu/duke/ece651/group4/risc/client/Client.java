@@ -149,6 +149,13 @@ public class Client {
     MapTextView displayInfo = new MapTextView(map, output);
     displayInfo.displayCurrentMap();
     displayInfo.displayPlayerMsg(player_id);
+    // make sure if the game is over
+    Integer lose_id = map.getLoserId();
+    if (lose_id != null) {
+      String name = map.getPlayerName(lose_id);
+      output.println("Game Over! " + name + " Player win!");
+      return name;
+    }
     return null;
   }
   public void close_connection() {
@@ -164,8 +171,10 @@ public class Client {
     Client client = new Client("localhost", 6066, new BufferedReader(new InputStreamReader(System.in)), System.out);
     // receive initial map and id
     client.initializeGame();
-    // play one round
-    client.playOneRound();
+    // play game
+    while (true) {
+      if (client.playOneRound() != null) break;
+    }    
     // close coneection
     client.close_connection();
   }
