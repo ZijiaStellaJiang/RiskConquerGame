@@ -9,7 +9,7 @@ import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
 
-public class Server extends Thread{
+public class Server{
   private ServerSocket serverSocket;
   private AbstractMapFactory<Character> mapFactory;
   private Map<Character> map;
@@ -19,15 +19,15 @@ public class Server extends Thread{
   private ArrayList<ObjectInputStream> player_in;
 
   public Server(int port) throws IOException {
-      serverSocket = new ServerSocket(port);
-      mapFactory = new V1MapFactory();
-      map = mapFactory.generateMap();
-      player_num = 2;
-      player_skd = new ArrayList<Socket>();
-      player_out = new ArrayList<ObjectOutputStream>();
-      player_in = new ArrayList<ObjectInputStream>();
+    serverSocket = new ServerSocket(port);
+    mapFactory = new V1MapFactory();
+    map = mapFactory.generateMap();
+    player_num = 2;
+    player_skd = new ArrayList<Socket>();
+    player_out = new ArrayList<ObjectOutputStream>();
+    player_in = new ArrayList<ObjectInputStream>();
   }
-  
+
   public ServerSocket getServerSocket() {
     return serverSocket;
   }
@@ -52,7 +52,7 @@ public class Server extends Thread{
     player_out.get(player_id).writeObject(id);
     player_out.get(player_id).flush();
   }
- 
+
   public void close_all_connection(){
     try {
       for (int i = 0; i < player_num; i++) {
@@ -61,7 +61,7 @@ public class Server extends Thread{
         player_in.get(i).close();
       }
     } catch(IOException e) {
-        e.printStackTrace();
+      e.printStackTrace();
     }
   }
 
@@ -78,7 +78,7 @@ public class Server extends Thread{
       }
     }
   }
-  
+
   public void send_to_client(Object obj, int id) {
     try {
       player_out.get(id).writeObject(obj);
@@ -104,7 +104,7 @@ public class Server extends Thread{
       ArrayList<ActionParser> order_list = (ArrayList<ActionParser>) recv_from_client(i);
       for (int j = 0; j < order_list.size(); j++) {
         Action<Character> move = new MoveAction<>(true);
-        move.doAction(order_list.get(j),map, map.getPlayer(i));
+        move.doAction(order_list.get(j), map, map.getPlayer(i));
       }
     }
 
@@ -112,8 +112,8 @@ public class Server extends Thread{
       send_to_client(map, i);
     }
   }
-  
-  
+
+  /*
   public void run() {
     // initialize game: receive connection and send the map
     initializeGame();
@@ -121,21 +121,30 @@ public class Server extends Thread{
     // play one round
     playOneRound();
 
-    // close all connection 
+    // close all connection
     close_all_connection();
   }
-  
+  */
 
 
-  public static void main(String [] args)
-    {
-      //  int port = Integer.parseInt(args[0]);
-        try {
-          int port_num = 6066;
-          Thread t = new Server(port_num);
-          t.start();
-        } catch(IOException e) {
-          e.printStackTrace();
-        }
+
+  public static void main(String [] args) {
+    //  int port = Integer.parseInt(args[0]);
+    Server server = null;
+    try {
+      int port_num = 6066;
+      server = new Server(port_num);
+      //t.start();
+    } catch(IOException e) {
+      e.printStackTrace();
     }
+    // initialize game: receive connection and send the map
+    server.initializeGame();
+
+    // play one round
+    server.playOneRound();
+
+    // close all connection
+    server.close_all_connection();
+  }
 }
