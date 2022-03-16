@@ -16,6 +16,10 @@ public class Client {
   private int player_id;
   private BufferedReader inputReader;
   private PrintStream output;
+  private Action<Character> move_myself;
+  private Action<Character> move_enemy;
+  private Action<Character> attack;
+
 
   public Client(String serverName, int port, BufferedReader input, PrintStream outputStream) {
     inputReader = input;
@@ -23,6 +27,9 @@ public class Client {
     // connection to Server
     player_skd = connectServer(serverName, port);
     player_id = -1;
+    move_myself = new MoveAction<>(true);
+    move_enemy = new MoveAction<>(false);
+    attack = new AttackAction<>();
     try {
       player_out = new ObjectOutputStream(player_skd.getOutputStream());
       player_in = new ObjectInputStream(new BufferedInputStream(player_skd.getInputStream()));
@@ -110,8 +117,15 @@ public class Client {
       //Action<Character> move = new MoveAction<>(order, map, map.getPlayer(player_id), ruleChecker);
 
       Player<Character> player = map.getPlayer(player_id);
-      Action<Character> move = new MoveAction<>(true);
-      String result = move.doAction(order, map, player);
+      String result = null;
+      if (order.getType().equals("MOVE")) {
+        result = move_myself.doAction(order, map, player);
+      } else if (order.getType().equals("ATTACK")) {
+        result = move_enemy.doAction(order, map, player);
+      } else {
+        System.out.println("WRONG TYPE ERROR!");
+        continue;
+      }
       if (result != null) {
         output.println(result);
         continue;
