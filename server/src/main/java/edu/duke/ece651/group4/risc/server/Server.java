@@ -103,9 +103,8 @@ public class Server extends Thread{
       // accept the order and execute
       ArrayList<ActionParser> order_list = (ArrayList<ActionParser>) recv_from_client(i);
       for (int j = 0; j < order_list.size(); j++) {
-        //TODO: check map.getPlayer(j)?
-        Action<Character> move = new MoveAction<>(order_list.get(j), true);
-        move.doAction(map, map.getPlayer(j));
+        Action<Character> move = new MoveAction<>(true);
+        move.doAction(order_list.get(j),map, map.getPlayer(i));
       }
     }
 

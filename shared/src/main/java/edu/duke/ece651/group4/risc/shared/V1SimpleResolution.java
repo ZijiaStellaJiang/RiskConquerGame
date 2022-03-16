@@ -5,8 +5,8 @@ import java.util.Random;
 public class V1SimpleResolution<T> extends CombatResolution<T> {
     String seed;
 
-    public V1SimpleResolution(Territory<T> attack, Territory<T> defend,String seed){
-        super(attack, defend);
+    public V1SimpleResolution(Territory<T> defend,String seed){
+        super(defend);
         this.seed = seed;
     }
 

@@ -1,5 +1,6 @@
 package edu.duke.ece651.group4.risc.shared;
 
+import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -31,19 +32,22 @@ public class MoveActionTest {
         map.addPlayer(p1);
         map.addPlayer(p2);
         ActionParser parser1 = new ActionParser("move", "t1", "t", 3);
-        Action<Character> move1 = new MoveAction<>(parser1,ruleChecker,true);
+        Action<Character> move1 = new MoveAction<>(ruleChecker,true);
         //Action<Character> move = new MoveAction<>(parser1,map,p1);
-        assertEquals(null,move1.doAction(map,p1));
+        assertEquals(null,move1.doAction(parser1,map,p1));
         assertEquals(5,t1.getUnitNumber());
         assertEquals(3,t.getUnitNumber());
+        ActionParser parser2 = new ActionParser("move t1 t 3");
+        move1.doAction(parser2,map,p1);
+        assertEquals(2,t1.getUnitNumber());
         ActionParser parse2_invalid = new ActionParser("move t2 t1 1");
-        Action<Character> move2 = new MoveAction<>(parse2_invalid,ruleChecker,true);
+        Action<Character> move2 = new MoveAction<>(ruleChecker,true);
         assertEquals("That action is invalid: enter a wrong name or do move on other's territories.",
-                move2.doAction(map,p2));
+                move2.doAction(parse2_invalid,map,p2));
         ActionParser parse3_invalid = new ActionParser("move t1 t2 8");
-        Action<Character> move3 = new MoveAction<>(parse3_invalid,ruleChecker,true);
+        Action<Character> move3 = new MoveAction<>(ruleChecker,true);
         assertEquals("That action is invalid: action number is larger than unit number in the territory.",
-                move3.doAction(map,p1));
+                move3.doAction(parse3_invalid,map,p1));
     }
 
     @Test
@@ -81,14 +85,14 @@ public class MoveActionTest {
         map.addPlayer(p1);
         map.addPlayer(p2);
         ActionParser parse1 = new ActionParser("attack mordor hogwarts 3");
-        Action<Character> attack_m1 = new MoveAction<>(parse1,false);
-        assertEquals(null,attack_m1.doAction(map,p1));
+        Action<Character> attack_m1 = new MoveAction<>(false);
+        assertEquals(null,attack_m1.doAction(parse1,map,p1));
         assertEquals(1,terriM.getUnitNumber());
         assertEquals(9,terriH.getUnitNumber());
         assertEquals(3,terriH.getEnemyUnitNum());
         ActionParser parse_invalid = new ActionParser("attack hogwarts oz 5");
-        Action<Character> attack_m2 = new MoveAction<>(parse_invalid,false);
+        Action<Character> attack_m2 = new MoveAction<>(false);
         assertEquals("That action is invalid: you can only attack directly adjacent territories.",
-                attack_m2.doAction(map,p2));
+                attack_m2.doAction(parse_invalid,map,p2));
     }
 }
