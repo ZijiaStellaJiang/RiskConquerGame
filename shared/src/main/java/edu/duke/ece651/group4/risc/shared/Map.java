@@ -64,4 +64,13 @@ public class Map<T> implements java.io.Serializable {
     }
     return null;
   }
+
+  /**
+   * at the end of each round, call this function to add a new unit for each territory
+   */
+  public void receive_new_units(){
+    for (Territory<T> t: myTerritories){
+      t.addUnit(new SimpleUnit<>());
+    }
+  }
 }
