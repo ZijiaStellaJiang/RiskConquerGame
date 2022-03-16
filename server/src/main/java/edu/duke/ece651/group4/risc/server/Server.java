@@ -46,9 +46,11 @@ public class Server{
   }
 
   public void send_original_map(int player_id) throws IOException{
+    player_out.get(player_id).reset();
     player_out.get(player_id).writeObject(map);
     player_out.get(player_id).flush();
     Integer id = player_id;
+    player_out.get(player_id).reset();
     player_out.get(player_id).writeObject(id);
     player_out.get(player_id).flush();
   }
@@ -81,6 +83,7 @@ public class Server{
 
   public void send_to_client(Object obj, int id) {
     try {
+      player_out.get(id).reset();
       player_out.get(id).writeObject(obj);
       player_out.get(id).flush();
     } catch(IOException e) {
