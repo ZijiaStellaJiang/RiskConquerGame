@@ -1,6 +1,6 @@
 package edu.duke.ece651.group4.risc.shared;
 
-public abstract class ActionRuleChecker<T> {
+public abstract class ActionRuleChecker<T> implements java.io.Serializable {
     private final ActionRuleChecker<T> next;
 
     public ActionRuleChecker(ActionRuleChecker<T> next){

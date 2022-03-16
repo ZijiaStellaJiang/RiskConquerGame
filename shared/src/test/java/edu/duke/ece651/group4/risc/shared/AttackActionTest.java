@@ -34,30 +34,42 @@ public class AttackActionTest {
         p1.addToTerritory(t1);
         p1.addToTerritory(terriN);
         p2.addToTerritory(terriO);
-        p2.addToTerritory(terriM);
+        p1.addToTerritory(terriM);
         map.addPlayer(p1);
         map.addPlayer(p2);
-        ActionParser parse = new ActionParser("attack narnia oz 4");
-        Action<Character> attack_move = new MoveAction<>(parse,false);
-        attack_move.doAction(map,p1);
-        assertEquals(4,terriO.getEnemyUnitNum());
-        Action<Character> attack = new AttackAction<>(parse,"10");
-        //this seed generate attackRoll=13, defendRoll always 5 (attacker wins)
-        attack.doAction(map,p1);
-        assertEquals(true,p1.checkMyTerritory(terriO));
-        assertEquals(false,p2.checkMyTerritory(terriO));
-        assertEquals(4,terriO.getUnitNumber());
-        assertEquals(0,terriO.getEnemyUnitNum());
+        ActionParser parse1 = new ActionParser("attack narnia oz 4");
         ActionParser parse2 = new ActionParser("attack mordor oz 1");
-        Action<Character> attack_move2 = new MoveAction<>(parse2,false);
-        attack_move2.doAction(map,p2);
-        Action<Character> attack2 = new AttackAction<>(parse2,"1");
-        //this seed generate attackRoll=5, defendRoll always 5 (defender wins)
-        attack2.doAction(map,p2);
+        Action<Character> attack_move = new MoveAction<>(false);
+        attack_move.doAction(parse1,map,p1);
+        attack_move.doAction(parse2,map,p1);
+        assertEquals(1,terriN.getUnitNumber());
+        assertEquals(2,terriM.getUnitNumber());
+        assertEquals(5,terriO.getEnemyUnitNum());
+        Action<Character> attack = new AttackAction<>("10");
+        attack.doAction(null,map,p2);
+        assertEquals(false,p1.checkMyTerritory(terriO));
+        assertEquals(true,p2.checkMyTerritory(terriO));
+        attack.doAction(null,map,p1);
         assertEquals(true,p1.checkMyTerritory(terriO));
         assertEquals(false,p2.checkMyTerritory(terriO));
-        assertEquals(4,terriO.getUnitNumber());
-        assertEquals(0,terriO.getEnemyUnitNum());
-        assertEquals(2,terriM.getUnitNumber());
+//        assertEquals(4,terriO.getEnemyUnitNum());
+//        Action<Character> attack = new AttackAction<>("10");
+//        //this seed generate attackRoll=13, defendRoll always 5 (attacker wins)
+//        attack.doAction(parse,map,p1);
+//        assertEquals(true,p1.checkMyTerritory(terriO));
+//        assertEquals(false,p2.checkMyTerritory(terriO));
+//        assertEquals(4,terriO.getUnitNumber());
+//        assertEquals(0,terriO.getEnemyUnitNum());
+//        ActionParser parse2 = new ActionParser("attack mordor oz 1");
+//        Action<Character> attack_move2 = new MoveAction<>(false);
+//        attack_move2.doAction(parse2,map,p2);
+//        Action<Character> attack2 = new AttackAction<>("1");
+//        //this seed generate attackRoll=5, defendRoll always 5 (defender wins)
+//        attack2.doAction(parse2,map,p2);
+//        assertEquals(true,p1.checkMyTerritory(terriO));
+//        assertEquals(false,p2.checkMyTerritory(terriO));
+//        assertEquals(4,terriO.getUnitNumber());
+//        assertEquals(0,terriO.getEnemyUnitNum());
+//        assertEquals(2,terriM.getUnitNumber());
     }
 }

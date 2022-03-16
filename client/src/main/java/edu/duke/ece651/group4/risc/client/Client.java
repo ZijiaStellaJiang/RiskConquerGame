@@ -107,15 +107,17 @@ public class Client {
       //if (order.getType() == "MOVE") 
       //ActionRuleChecker<Character> ruleChecker = new UnitNumberRuleChecker<>(new MoveOwnershipChecker<>(null));
       //Action<Character> move = new MoveAction<>(order, map, map.getPlayer(player_id), ruleChecker);
+
       Player<Character> player = map.getPlayer(player_id);
-      Action<Character> move = new MoveAction<>(order, true);
-      String result = move.doAction(map, player);
+      Action<Character> move = new MoveAction<>(true);
+      String result = move.doAction(order, map, player);
       if (result != null) {
         output.println(result);
         continue;
       } else {
         output.println("Valid Action!\n");
       }
+
       // TODO assume valid order first
       // add to order list
       order_list.add(order);
@@ -125,6 +127,7 @@ public class Client {
     send_to_server(order_list);
     // receive new update map
     output.println("-----------Receving message from server--------");
+    map = null;
     map = (Map<Character>)recv_from_server();
     // display new update map
     output.println("-----------showing the map--------");
@@ -148,6 +151,9 @@ public class Client {
     client.initializeGame();
     // play one round
     client.playOneRound();
+    // close coneection
+    client.close_connection();
   }
 
 }
+
