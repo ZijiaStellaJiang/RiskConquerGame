@@ -1,6 +1,5 @@
 package edu.duke.ece651.group4.risc.shared;
 
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -46,30 +45,13 @@ public class AttackActionTest {
         assertEquals(2,terriM.getUnitNumber());
         assertEquals(5,terriO.getEnemyUnitNum());
         Action<Character> attack = new AttackAction<>("10");
+        //this seed generate attackRoll=13, defendRoll always 5 (attacker wins)
         attack.doAction(null,map,p2);
         assertEquals(false,p1.checkMyTerritory(terriO));
         assertEquals(true,p2.checkMyTerritory(terriO));
         attack.doAction(null,map,p1);
         assertEquals(true,p1.checkMyTerritory(terriO));
         assertEquals(false,p2.checkMyTerritory(terriO));
-//        assertEquals(4,terriO.getEnemyUnitNum());
-//        Action<Character> attack = new AttackAction<>("10");
-//        //this seed generate attackRoll=13, defendRoll always 5 (attacker wins)
-//        attack.doAction(parse,map,p1);
-//        assertEquals(true,p1.checkMyTerritory(terriO));
-//        assertEquals(false,p2.checkMyTerritory(terriO));
-//        assertEquals(4,terriO.getUnitNumber());
-//        assertEquals(0,terriO.getEnemyUnitNum());
-//        ActionParser parse2 = new ActionParser("attack mordor oz 1");
-//        Action<Character> attack_move2 = new MoveAction<>(false);
-//        attack_move2.doAction(parse2,map,p2);
-//        Action<Character> attack2 = new AttackAction<>("1");
-//        //this seed generate attackRoll=5, defendRoll always 5 (defender wins)
-//        attack2.doAction(parse2,map,p2);
-//        assertEquals(true,p1.checkMyTerritory(terriO));
-//        assertEquals(false,p2.checkMyTerritory(terriO));
-//        assertEquals(4,terriO.getUnitNumber());
-//        assertEquals(0,terriO.getEnemyUnitNum());
-//        assertEquals(2,terriM.getUnitNumber());
+        assertEquals(5,terriO.getUnitNumber());
     }
 }

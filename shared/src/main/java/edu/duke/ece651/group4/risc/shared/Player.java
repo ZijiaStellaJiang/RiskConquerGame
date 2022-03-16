@@ -38,4 +38,11 @@ public abstract class Player<T> implements java.io.Serializable{
   public ArrayList<Territory<T>> getMyTerritories(){
     return myTerritories;
   }
+
+  public boolean checkLose(){
+    if(myTerritories.size()==0){
+      return true;
+    }
+    return false;
+  }
 }

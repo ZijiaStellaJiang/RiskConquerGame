@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TextPlayerTest {
     @Test
@@ -53,5 +53,25 @@ public class TextPlayerTest {
         myTerri.add(t1);
         myTerri.add(t2);
         assertEquals(myTerri,p1.getMyTerritories());
+    }
+
+    @Test
+    public void test_check_lose(){
+        TextPlayer p1 = new TextPlayer("A");
+        Territory<Character> t1 = new Territory<Character>("A1");
+        Territory<Character> t2 = new Territory<Character>("A2");
+        p1.addToTerritory(t1);
+        p1.addToTerritory(t2);
+        TextPlayer p2 = new TextPlayer("B");
+        Territory<Character> t3 = new Territory<Character>("B1");
+        Territory<Character> t4 = new Territory<Character>("B2");
+        p2.addToTerritory(t3);
+        p2.addToTerritory(t4);
+        assertFalse(p1.checkLose());
+        assertFalse(p2.checkLose());
+        p1.removeFromTerritory(t1);
+        assertFalse(p1.checkLose());
+        p1.removeFromTerritory(t2);
+        assertTrue(p1.checkLose());
     }
 }
