@@ -1,6 +1,6 @@
 package edu.duke.ece651.group4.risc.client;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -71,7 +71,33 @@ public class MapTextViewTest {
         assertEquals(expected_1, bytes.toString());
         //invalid player
         view.displayPlayerMsg(100);
-        
+    }
+    @Test
+    public void test_display_victory(){
+        ByteArrayOutputStream bytes0 = new ByteArrayOutputStream();
+        ByteArrayOutputStream bytes1 = new ByteArrayOutputStream();
+        PrintStream ps0 = new PrintStream(bytes0,true);
+        PrintStream ps1 = new PrintStream(bytes1,true);
+        Territory<Character> t1 = new Territory<Character>("A1");
+        Territory<Character> t2 = new Territory<Character>("A2");
+        Territory<Character> t3 = new Territory<Character>("B1");
+        TextPlayer p1 = new TextPlayer("A");
+        TextPlayer p2 = new TextPlayer("B");
+        p1.addToTerritory(t1);
+        p1.addToTerritory(t2);
+        p2.addToTerritory(t3);
+        Map<Character> map = new Map<>();
+        map.addPlayer(p1);
+        map.addPlayer(p2);
+        MapTextView view0 = new MapTextView(map,ps0);
+        MapTextView view1 = new MapTextView(map,ps1);
+        //view.displayVictoryMsg(0);
+        assertThrows(IllegalArgumentException.class, ()-> view0.displayVictoryMsg(0));
+        p2.removeFromTerritory(t3);
+        view0.displayVictoryMsg(0);
+        assertEquals("You win!\nCongratulations!\n",bytes0.toString());
+        view1.displayVictoryMsg(1);
+        assertEquals("You lose!\nA is the winner.\nGood luck next time!\n",bytes1.toString());
     }
 
 }

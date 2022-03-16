@@ -42,6 +42,31 @@ public class MapTextView implements View{
         }
     }
 
+    @Override
+    public void displayVictoryMsg(int id){
+        if(toDisplay.getLoserId()==null){
+            throw new IllegalArgumentException("No one wins yet! Can not access this function now!");
+        }
+        // if this is the loser id
+        if(toDisplay.getLoserId().equals(id)){
+            String winnerName = "";
+            for (int i=0; i<toDisplay.getMyPlayers().size(); i++){
+                if(id!=i){
+                    //find the winner's id
+                    winnerName = toDisplay.getPlayer(i).getName();
+                    break;
+                }
+            }
+            if(!winnerName.equals("")){
+                out.print("You lose!\n"+winnerName+" is the winner.\nGood luck next time!\n");
+            }
+        }
+        //else this is the winner id
+        else {
+            out.print("You win!\nCongratulations!\n");
+        }
+    }
+
     protected String makePlayerInfo(Player<Character> p){
         StringBuilder sb = new StringBuilder(p.getName());
         sb.append(" player:\n");

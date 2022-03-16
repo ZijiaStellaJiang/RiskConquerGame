@@ -17,4 +17,9 @@ public interface View {
      * display the player_id's color(name) message
      */
     public void displayPlayerMsg(int id);
+
+    /**
+     * if there is a player wins the game, display the winner message to the clients.
+     */
+    public void displayVictoryMsg(int id);
 }
