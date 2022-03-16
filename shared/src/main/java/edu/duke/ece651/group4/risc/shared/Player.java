@@ -40,9 +40,6 @@ public abstract class Player<T> implements java.io.Serializable{
   }
 
   public boolean checkLose(){
-    if(myTerritories.size()==0){
-      return true;
-    }
-    return false;
+    return myTerritories.size() == 0;
   }
 }

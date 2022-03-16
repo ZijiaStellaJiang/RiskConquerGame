@@ -80,4 +80,29 @@ public class MapTest {
         assertEquals(1,t1.getUnitNumber());
         assertEquals(1,t2.getUnitNumber());
     }
+
+    @Test
+    public void test_get_loser(){
+        TextPlayer p1 = new TextPlayer("A");
+        Territory<Character> t1 = new Territory<Character>("A1");
+        Territory<Character> t2 = new Territory<Character>("A2");
+        p1.addToTerritory(t1);
+        p1.addToTerritory(t2);
+        TextPlayer p2 = new TextPlayer("B");
+        Territory<Character> t3 = new Territory<Character>("B1");
+        Territory<Character> t4 = new Territory<Character>("B2");
+        p2.addToTerritory(t3);
+        p2.addToTerritory(t4);
+        Map<Character> map = new Map<>();
+        map.addTerritory(t1);
+        map.addTerritory(t2);
+        map.addTerritory(t3);
+        map.addTerritory(t4);
+        map.addPlayer(p1);
+        map.addPlayer(p2);
+        assertNull(map.getLoserId());
+        p2.removeFromTerritory(t4);
+        p2.removeFromTerritory(t3);
+        assertEquals(1,map.getLoserId());
+    }
 }

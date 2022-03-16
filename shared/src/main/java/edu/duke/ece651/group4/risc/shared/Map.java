@@ -73,4 +73,13 @@ public class Map<T> implements java.io.Serializable {
       t.addUnit(new SimpleUnit<>());
     }
   }
+
+  public Integer getLoserId(){
+    for (int i = 0; i<myPlayers.size(); i++){
+      if(myPlayers.get(i).checkLose()){
+        return i;
+      }
+    }
+    return null;
+  }
 }
