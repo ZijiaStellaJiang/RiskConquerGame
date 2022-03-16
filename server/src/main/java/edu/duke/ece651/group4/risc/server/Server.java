@@ -17,6 +17,9 @@ public class Server{
   private ArrayList<Socket> player_skd;
   private ArrayList<ObjectOutputStream> player_out;
   private ArrayList<ObjectInputStream> player_in;
+  private Action<Character> move_myself;
+  private Action<Character> move_enemy;
+  private Action<Character> attack;
 
   public Server(int port) throws IOException {
     serverSocket = new ServerSocket(port);
@@ -26,6 +29,9 @@ public class Server{
     player_skd = new ArrayList<Socket>();
     player_out = new ArrayList<ObjectOutputStream>();
     player_in = new ArrayList<ObjectInputStream>();
+    move_myself = new MoveAction<>(true);
+    move_enemy = new MoveAction<>(false);
+    attack = new AttackAction<>();
   }
 
   public ServerSocket getServerSocket() {
@@ -103,14 +109,28 @@ public class Server{
   }
   public void playOneRound() {
     for (int i = 0; i < player_num; i++) {
-      // accept the order and execute
+      // accept the order and execute MOVING
       ArrayList<ActionParser> order_list = (ArrayList<ActionParser>) recv_from_client(i);
+      Player<Character> cur_player = map.getPlayer(i);
       for (int j = 0; j < order_list.size(); j++) {
-        Action<Character> move = new MoveAction<>(true);
-        move.doAction(order_list.get(j), map, map.getPlayer(i));
+        ActionParser order = order_list.get(j);
+        if (order.getType().equals("MOVE")) {
+          move_myself.doAction(order, map, cur_player);
+        } else if (order.getType().equals("ATTACK")) {
+          move_enemy.doAction(order, map, cur_player);
+        } else {
+          System.out.println("WRONG TYPE ERROR!");
+        }
       }
     }
 
+    // execute attacking
+    for (int i = 0; i < player_num; i++) {
+      Player<Character> cur_player = map.getPlayer(i);
+      attack.doAction(null, map, cur_player);
+    }
+
+    // sending updating map
     for (int i = 0; i < player_num; i++) {
       send_to_client(map, i);
     }
