@@ -1,6 +1,6 @@
 package edu.duke.ece651.group4.risc.shared;
 
-public abstract class Action<T> {
+public abstract class Action<T> implements java.io.Serializable {
 //    protected final ActionParser parser;
 //    protected final Map<T> theMap;
 //    protected final Player<T> thePlayer;
