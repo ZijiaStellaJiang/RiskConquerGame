@@ -68,4 +68,16 @@ public class MapTest {
         assertEquals(p2,map.getPlayer(1));
         assertEquals("A",map.getPlayerName(0));
     }
+
+    @Test
+    public void test_receive_new_units(){
+        Territory<Character> t1 = new Territory<Character>("territory1");
+        Territory<Character> t2 = new Territory<Character>("territory2");
+        Map<Character> map = new Map<>();
+        map.addTerritory(t1);
+        map.addTerritory(t2);
+        map.receive_new_units();
+        assertEquals(1,t1.getUnitNumber());
+        assertEquals(1,t2.getUnitNumber());
+    }
 }
