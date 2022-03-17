@@ -17,7 +17,7 @@ import jdk.jfr.Timestamp;
 
 public class ClientTest {
   @Test
-  public void test_socket_connection() {
+  public void test_socket_connection() throws InterruptedException{
     int port = 6066;
     // Server t = new Server(port);
     Thread th = new Thread() {
@@ -44,6 +44,7 @@ public class ClientTest {
       }
     };
     th.start();
+    th.sleep(200);
     // client part
     Client client = new Client("localhost", 6066, new BufferedReader(new InputStreamReader(System.in)), System.out);
     assertEquals("localhost/127.0.0.1:6066", client.getSocket().getRemoteSocketAddress().toString());
