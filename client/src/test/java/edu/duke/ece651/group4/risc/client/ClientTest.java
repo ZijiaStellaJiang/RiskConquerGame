@@ -11,8 +11,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 import org.junit.jupiter.api.Test;
-
+import static org.mockito.Mockito.*;
 import edu.duke.ece651.group4.risc.shared.*;
+import jdk.jfr.Timestamp;
+
 public class ClientTest {
   @Test
   public void test_socket_connection() {
@@ -31,7 +33,7 @@ public class ClientTest {
           assertEquals("hello from client\n", received);
           os.writeObject("hello from server\n");
           os.flush();
-          //generate a map
+          // generate a map
           Map<Character> mymap = new Map<Character>();
           os.writeObject(mymap);
           os.flush();
@@ -45,13 +47,19 @@ public class ClientTest {
     // client part
     Client client = new Client("localhost", 6066, new BufferedReader(new InputStreamReader(System.in)), System.out);
     assertEquals("localhost/127.0.0.1:6066", client.getSocket().getRemoteSocketAddress().toString());
-    //finish test successfully and start test transimitting data
+    // finish test successfully and start test transimitting data
     client.send_to_server("hello from client\n");
-    String received  = (String) client.recv_from_server();
+    String received = (String) client.recv_from_server();
     assertEquals("hello from server\n", received);
     client.initializeGame();
-    //close connection
+    // close connection
     client.close_connection();
   }
 
+  @Test
+  public void test_connect_server_failure() {
+    BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+    assertThrows(RuntimeException.class, () -> Client.connectServer("noExistServer", 1234));
+    assertThrows(RuntimeException.class, () -> new Client("noExistServer", 1234, in, System.out));
+  }
 }

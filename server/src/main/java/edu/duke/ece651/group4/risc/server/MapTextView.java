@@ -1,4 +1,4 @@
-package edu.duke.ece651.group4.risc.client;
+package edu.duke.ece651.group4.risc.server;
 
 import java.io.PrintStream;
 
@@ -7,7 +7,7 @@ import edu.duke.ece651.group4.risc.shared.Player;
 import edu.duke.ece651.group4.risc.shared.Territory;
 import edu.duke.ece651.group4.risc.shared.TextPlayer;
 
-public class MapTextView implements View{
+public class MapTextView implements View, java.io.Serializable{
     private final Map<Character> toDisplay;
     private PrintStream out;
 
@@ -39,31 +39,6 @@ public class MapTextView implements View{
         if (player_name != null) {
             out.print("You are the " + player_name + " player, what would you like to do?\n");
             out.print("  Move <Source> <Destination> <number>\n  Attack <Source> <Destination> <number>\n  Done\n\n");
-        }
-    }
-
-    @Override
-    public void displayVictoryMsg(int id){
-        if(toDisplay.getLoserId()==null){
-            throw new IllegalArgumentException("No one wins yet! Can not access this function now!");
-        }
-        // if this is the loser id
-        if(toDisplay.getLoserId().equals(id)){
-            String winnerName = "";
-            for (int i=0; i<toDisplay.getMyPlayers().size(); i++){
-                if(id!=i){
-                    //find the winner's id
-                    winnerName = toDisplay.getPlayer(i).getName();
-                    break;
-                }
-            }
-            if(!winnerName.equals("")){
-                out.print("You lose!\n"+winnerName+" is the winner.\nGood luck next time!\n");
-            }
-        }
-        //else this is the winner id
-        else {
-            out.print("You win!\nCongratulations!\n");
         }
     }
 
