@@ -1,6 +1,8 @@
 package edu.duke.ece651.group4.risc.server;
 
+import org.mockito.Spy;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import java.io.BufferedInputStream;
 import java.io.ByteArrayOutputStream;
@@ -8,11 +10,16 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+
+import javax.annotation.processing.SupportedAnnotationTypes;
+
 import edu.duke.ece651.group4.risc.shared.*;
 
 import org.junit.jupiter.api.Test;
-
+import org.junit.jupiter.api.Disabled;
 public class ServerTest {
+
+  // @Disabled
   @Test
   public void test_send_map() throws IOException, InterruptedException, ClassNotFoundException {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -90,4 +97,22 @@ public class ServerTest {
     // th.join();
   }
 
+  @Spy
+  private Server serverSpy;
+  @Disabled
+  @Test
+  public void test_close_connection() throws IOException {
+    // @Spy
+    Socket skd = mock(Socket.class);
+    Server serverMock = mock(Server.class);
+    // doNothing().when(serverSpy).close_all_connection();
+    // when(serverMock.send_to_client(any(), anyInt())).thenThrow(new
+    // IOException());
+    try {
+      doThrow(new IOException()).when(skd).close();
+    } catch (Exception e) {
+    }
+    serverSpy.close_all_connection();
+    //yassertThrows(RuntimeException.class, () -> serverMock.close_all_connection());
+  }
 }

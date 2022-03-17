@@ -8,6 +8,8 @@ import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
 
+import javax.management.RuntimeErrorException;
+
 public class Client {
   private Map<Character> map;
   private Socket player_skd;
@@ -20,7 +22,14 @@ public class Client {
   private Action<Character> move_enemy;
   private Action<Character> attack;
 
-
+  /**
+   * Client constructor
+   * 
+   * @param serverName   name of the server, eg localhost
+   * @param port         port number of server
+   * @param input        where to read input
+   * @param outputStream where to output, eg System.out
+   **/
   public Client(String serverName, int port, BufferedReader input, PrintStream outputStream) {
     inputReader = input;
     output = outputStream;
@@ -34,13 +43,26 @@ public class Client {
       player_out = new ObjectOutputStream(player_skd.getOutputStream());
       player_in = new ObjectInputStream(new BufferedInputStream(player_skd.getInputStream()));
     } catch (IOException e) {
-      e.printStackTrace();
+      //e.printStackTrace();
+      throw new RuntimeException("socket input or output creation failure");
     }
   }
 
-  public Socket getSocket(){
+  /**
+   * Return socket of the current object
+   * 
+   * @return client socket
+   */
+  public Socket getSocket() {
     return player_skd;
   }
+
+  /**
+   * Connects to the server
+   * @param serverName name of the server, eg localhost  
+   * @param port port number of server    
+   * @return the socket to connect to the server
+   */
   public static Socket connectServer(String serverName, int port) {
     try {
       System.out.println("Connecting to " + serverName + " on port " + port);
@@ -48,10 +70,15 @@ public class Client {
       System.out.println("Just connected to " + client_skd.getRemoteSocketAddress());
       return client_skd;
     } catch (IOException e) {
-      e.printStackTrace();
+      //      e.printStackTrace();
+      throw new RuntimeException("fail to connect to server");
     }
-    return null;
+    //return null;
   }
+
+  /**
+   * Initializa the game-receive the map from server and display it along with the player information to the player
+   */
   public void initializeGame() {
     try {
       // receive an object from server
@@ -74,18 +101,29 @@ public class Client {
       e.printStackTrace();
     }
   }
+
+  /**
+   * Sends the object to the server
+   * @param obj object to send
+   */
   public void send_to_server(Object obj) {
     try {
       player_out.reset();
       player_out.writeObject(obj);
       player_out.flush();
-    } catch(IOException e) {
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }
+
+  /**
+   *
+   * Receive the object from server
+   * @return received object
+   */
   public Object recv_from_server() {
     Object obj = null;
-    try{
+    try {
       obj = player_in.readObject();
     } catch (IOException e) {
       e.printStackTrace();
@@ -94,15 +132,21 @@ public class Client {
     }
     return obj;
   }
+
+  /**
+   * 
+   */
   public String playOneRound() throws IOException {
     ArrayList<ActionParser> order_list = new ArrayList<ActionParser>();
     while (true) {
       // read an input from client
       String str = inputReader.readLine();
-      if (str == null) throw new EOFException("END");
+      if (str == null)
+        throw new EOFException("END");
       // check done
       str = str.toUpperCase();
-      if (str.equals("DONE")) break;
+      if (str.equals("DONE"))
+        break;
       // parse the input to order
       ActionParser order = null;
       try {
@@ -112,9 +156,11 @@ public class Client {
         continue;
       }
       // validate the order (fake action) -> invalid printout msg
-      //if (order.getType() == "MOVE") 
-      //ActionRuleChecker<Character> ruleChecker = new UnitNumberRuleChecker<>(new MoveOwnershipChecker<>(null));
-      //Action<Character> move = new MoveAction<>(order, map, map.getPlayer(player_id), ruleChecker);
+      // if (order.getType() == "MOVE")
+      // ActionRuleChecker<Character> ruleChecker = new UnitNumberRuleChecker<>(new
+      // MoveOwnershipChecker<>(null));
+      // Action<Character> move = new MoveAction<>(order, map,
+      // map.getPlayer(player_id), ruleChecker);
 
       Player<Character> player = map.getPlayer(player_id);
       String result = null;
@@ -143,7 +189,7 @@ public class Client {
     // receive new update map
     output.println("-----------Receving message from server--------");
     map = null;
-    map = (Map<Character>)recv_from_server();
+    map = (Map<Character>) recv_from_server();
     // display new update map
     output.println("-----------showing the map--------");
     MapTextView displayInfo = new MapTextView(map, output);
@@ -158,26 +204,31 @@ public class Client {
     }
     return null;
   }
+
+  /**
+   * Closes the connection to the server and closes its input and output stream
+   */
   public void close_connection() {
     try {
       player_out.close();
       player_in.close();
       player_skd.close();
-    } catch(IOException e) {
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }
+
   public static void main(String[] args) throws IOException {
     Client client = new Client("localhost", 6066, new BufferedReader(new InputStreamReader(System.in)), System.out);
     // receive initial map and id
     client.initializeGame();
     // play game
     while (true) {
-      if (client.playOneRound() != null) break;
-    }    
+      if (client.playOneRound() != null)
+        break;
+    }
     // close coneection
     client.close_connection();
   }
 
 }
-
