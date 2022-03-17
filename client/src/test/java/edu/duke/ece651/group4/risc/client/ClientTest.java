@@ -52,7 +52,7 @@ public class ClientTest {
     client.send_to_server("hello from client\n");
     String received = (String) client.recv_from_server();
     assertEquals("hello from server\n", received);
-    client.initializeGame();
+    assertThrows(IllegalArgumentException.class,()->client.initializeGame());
     // close connection
     client.close_connection();
   }

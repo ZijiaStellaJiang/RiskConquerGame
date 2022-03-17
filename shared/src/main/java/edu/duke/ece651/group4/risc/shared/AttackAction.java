@@ -18,8 +18,11 @@ public class AttackAction<T> extends Action<T> {
         CombatResolution<T> resolve = new V1SimpleResolution<>(dest,seed);
         //if attacker wins, change both player's own territory
         if(resolve.resolveCombat()){
-            theMap.findPlayer(dest).removeFromTerritory(dest);
+            Player<T> preOwner = theMap.findPlayer(dest);
+            preOwner.removeFromTerritory(dest);
+            preOwner.addLoseTerritory(dest.getName());
             thePlayer.addToTerritory(dest);
+            thePlayer.addWinTerritory(dest.getName());
             int remain = dest.getEnemyUnitNum();
             for(int i=0; i<remain; i++){
                 dest.addUnit(new SimpleUnit<>());

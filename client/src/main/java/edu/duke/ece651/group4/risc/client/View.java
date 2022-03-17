@@ -17,7 +17,8 @@ public interface View {
     public void displayCurrentMap();
 
     /**
-     * display the player_id's color(name) message and action instruction
+     * display the combat result of last round to the player
+     * then display the player_id's color(name) message and action instruction
      */
     public void displayPlayerMsg(int id);
 

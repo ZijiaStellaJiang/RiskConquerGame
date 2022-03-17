@@ -70,7 +70,7 @@ public class MapTextViewTest {
         String expected_1 = "You are the A player, what would you like to do?\n  Move <Source> <Destination> <number>\n  Attack <Source> <Destination> <number>\n  Done\n\n";
         assertEquals(expected_1, bytes.toString());
         //invalid player
-        view.displayPlayerMsg(100);
+        assertThrows(IllegalArgumentException.class, ()->view.displayPlayerMsg(100));
     }
     @Test
     public void test_display_victory(){
