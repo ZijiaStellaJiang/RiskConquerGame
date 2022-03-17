@@ -45,7 +45,7 @@ public class MapTextView implements View{
     @Override
     public void displayVictoryMsg(int id){
         if(toDisplay.getLoserId()==null){
-            throw new IllegalArgumentException("No one wins yet! Can not access this function now!");
+            throw new IllegalArgumentException("No one wins yet! Can not use this function here!");
         }
         // if this is the loser id
         if(toDisplay.getLoserId().equals(id)){

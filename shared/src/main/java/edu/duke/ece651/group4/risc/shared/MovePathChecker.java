@@ -8,6 +8,10 @@ public class MovePathChecker<T> extends ActionRuleChecker<T> {
         super(next);
     }
 
+    /**
+     * This rule ensures move one's territory to a reachable territory
+     * and the path is all on his own territories
+     */
     @Override
     protected String checkMyRule(ActionParser parse, Map<T> map, Player<T> p){
         Stack<String> stack = new Stack<>();

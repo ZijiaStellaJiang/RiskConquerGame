@@ -10,6 +10,10 @@ public class V1SimpleResolution<T> extends CombatResolution<T> {
         this.seed = seed;
     }
 
+    /**
+     * This resolution decides combat results using two 20-sided dices for both sides
+     * return true is attack wins, false otherwise
+     */
     public boolean resolveCombat(){
         int attackNum = defend.getEnemyUnitNum();
         int defendNum = defend.getUnitNumber();

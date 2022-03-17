@@ -2,12 +2,13 @@ package edu.duke.ece651.group4.risc.shared;
 
 import java.util.ArrayList;
 
+/**
+ * This abstract class decides rule to resolve combat between territories
+ */
 public abstract class CombatResolution<T> implements java.io.Serializable {
-    //protected Territory<T> attack;
     protected Territory<T> defend;
 
     public CombatResolution(Territory<T> defend){
-        //this.attack = attack;
         this.defend = defend;
     }
 

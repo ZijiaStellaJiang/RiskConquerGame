@@ -3,15 +3,14 @@ package edu.duke.ece651.group4.risc.shared;
 public class AttackAction<T> extends Action<T> {
     String seed;
 
-    public AttackAction(/*ActionParser parser ,Map<T> map, Player<T> player*/){
-        super(/*parser,map,player,*/new UnitNumberRuleChecker<>(
-                new AttackOwnershipChecker<>(new AttackPathChecker<>(null))));
+    public AttackAction(){
+        super(new UnitNumberRuleChecker<>(new AttackOwnershipChecker<>(new AttackPathChecker<>(null))));
         this.seed=null;
     }
 
     /** test constructor only, DO NOT use in server and client */
-    public AttackAction(/*ActionParser parser, Map<T> map, Player<T> player,*/ String seed){
-        this(/*parser, map, player*/);
+    public AttackAction(String seed){
+        this();
         this.seed=seed;
     }
 
@@ -36,7 +35,7 @@ public class AttackAction<T> extends Action<T> {
      * @param parser: just pass null, useless in this function
      * @param theMap: the whole map
      * @param thePlayer: the player who stands the side of attacker
-     * @return
+     * @return null
      */
     @Override
     public String doAction(ActionParser parser,Map<T> theMap, Player<T> thePlayer){
@@ -45,18 +44,6 @@ public class AttackAction<T> extends Action<T> {
                 resolveHelper(toResolve,theMap,thePlayer);
             }
         }
-//        for (Territory<T> source: thePlayer.getMyTerritories()){
-//            if(source.getName().toUpperCase().equals(parser.getSource())){
-//                for (Territory<T> dest: theMap.getMyTerritories()){
-//                    if(dest.getName().toUpperCase().equals(parser.getDest())){
-//                        //find the source and dest territories
-//                        resolveHelper(source,dest,theMap,thePlayer);
-//                        break;
-//                    }
-//                }
-//                break;
-//            }
-//        }
         return null;
     }
 }

@@ -3,6 +3,9 @@ package edu.duke.ece651.group4.risc.shared;
 public class AttackPathChecker<T> extends ActionRuleChecker<T> {
     public AttackPathChecker(ActionRuleChecker<T> next) {super(next);}
 
+    /**
+     * This rule ensures attack a directly neighbor
+     */
     @Override
     protected String checkMyRule(ActionParser parse, Map<T> map, Player<T> p){
         for( Territory<T> source : p.getMyTerritories()){

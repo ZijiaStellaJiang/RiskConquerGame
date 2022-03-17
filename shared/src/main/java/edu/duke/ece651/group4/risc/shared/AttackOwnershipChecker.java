@@ -3,6 +3,9 @@ package edu.duke.ece651.group4.risc.shared;
 public class AttackOwnershipChecker<T> extends ActionRuleChecker<T> {
     public AttackOwnershipChecker(ActionRuleChecker<T> next){super(next);}
 
+    /**
+     * This rule ensures attack from one's own territory to another player's territory.
+     */
     @Override
     protected String checkMyRule(ActionParser parse, Map<T> map, Player<T> p) {
         for (Territory<T> t: p.getMyTerritories()){
