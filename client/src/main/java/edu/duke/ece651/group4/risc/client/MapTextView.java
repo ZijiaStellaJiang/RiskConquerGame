@@ -40,24 +40,25 @@ public class MapTextView implements View{
         if(player_name==null){
             throw new IllegalArgumentException("This is an invalid player id!");
         }
-        StringBuilder sb = new StringBuilder("You are the " + player_name + " player.\nIn the last round,\n");
+        StringBuilder sb = new StringBuilder("You are the " + player_name + " player.\n");
         Player<Character> thisPlayer = toDisplay.getPlayer(id);
         ArrayList<String> lose = thisPlayer.getLoseTerritories();
         ArrayList<String> win = thisPlayer.getWinTerritories();
-        if(lose!=null || win!=null){
-            if(lose!=null){
+        if(lose.size()!=0 || win.size()!=0){
+            sb.append("In the last round,\n");
+            if(lose.size()!=0){
                 sb.append("You lose ");
                 sb.append(makeResultInfo(lose));
             }
-            if(win!=null){
+            if(win.size()!=0){
                 sb.append("You win ");
                 sb.append(makeResultInfo(win));
             }
         }
-        else {
-            sb.append("You didn't win or lose any territories.\n");
-        }
-        sb.append("What do you want to do?\n");
+//        else {
+//            sb.append("You didn't win or lose any territories.\n");
+//        }
+        sb.append("What would you like to do?\n");
         sb.append("  Move <Source> <Destination> <number>\n  Attack <Source> <Destination> <number>\n  Done\n\n");
         out.print(sb);
     }
@@ -116,7 +117,8 @@ public class MapTextView implements View{
     }
 
     protected String makeResultInfo(ArrayList<String> toPrint){
-        StringBuilder sb = new StringBuilder(toPrint.size());
+        int num = toPrint.size();
+        StringBuilder sb = new StringBuilder(String.valueOf(num));
         sb.append(" territories: ");
         for (int i=0; i<toPrint.size(); i++){
             sb.append(toPrint.get(i));

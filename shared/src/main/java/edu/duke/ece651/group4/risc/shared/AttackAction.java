@@ -42,6 +42,8 @@ public class AttackAction<T> extends Action<T> {
      */
     @Override
     public String doAction(ActionParser parser,Map<T> theMap, Player<T> thePlayer){
+        //TODO can not reset here
+        //thePlayer.resetLastRoundChange();
         for (Territory<T> toResolve: theMap.getMyTerritories()){
             if(!thePlayer.checkMyTerritory(toResolve)){
                 resolveHelper(toResolve,theMap,thePlayer);

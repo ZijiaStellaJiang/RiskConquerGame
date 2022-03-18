@@ -86,4 +86,10 @@ public class Map<T> implements java.io.Serializable {
     }
     return null;
   }
+
+  public void reset(){
+    for (Player<T> p: myPlayers){
+      p.resetLastRoundChange();
+    }
+  }
 }
