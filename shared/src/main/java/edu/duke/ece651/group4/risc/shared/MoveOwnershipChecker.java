@@ -3,6 +3,9 @@ package edu.duke.ece651.group4.risc.shared;
 public class MoveOwnershipChecker<T> extends ActionRuleChecker<T>{
     public MoveOwnershipChecker(ActionRuleChecker<T> next){ super(next);}
 
+    /**
+     * This rule ensures move action applied on the player's own territories
+     */
     @Override
     protected String checkMyRule(ActionParser parse, Map<T> map, Player<T> p){
         for(Territory<T> t: p.getMyTerritories()){

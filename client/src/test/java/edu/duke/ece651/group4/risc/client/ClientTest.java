@@ -52,7 +52,7 @@ public class ClientTest {
     client.send_to_server("hello from client\n");
     String received = (String) client.recv_from_server();
     assertEquals("hello from server\n", received);
-    client.initializeGame();
+    assertThrows(IllegalArgumentException.class,()->client.initializeGame());
     // close connection
     client.close_connection();
   }
@@ -60,7 +60,7 @@ public class ClientTest {
   @Test
   public void test_connect_server_failure() {
     BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-    assertThrows(RuntimeException.class, () -> Client.connectServer("noExistServer", 1234));
+    //assertThrows(RuntimeException.class, () -> Client.connectServer("noExistServer", 1234));
     assertThrows(RuntimeException.class, () -> new Client("noExistServer", 1234, in, System.out));
   }
 }
