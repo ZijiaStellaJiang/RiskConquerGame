@@ -55,6 +55,10 @@ public class ClientTest {
     assertThrows(IllegalArgumentException.class,()->client.initializeGame());
     // close connection
     client.close_connection();
+
+    //test recv and send failure
+    client.send_to_server("fail");
+    client.recv_from_server();
   }
 
   @Test

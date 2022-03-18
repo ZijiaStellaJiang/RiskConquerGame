@@ -8,6 +8,9 @@ import java.io.*;
 import java.net.Socket;
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.parallel.ResourceAccessMode;
+import org.junit.jupiter.api.parallel.ResourceLock;
+import org.junit.jupiter.api.parallel.Resources;
 import org.mockito.InjectMocks;
 import org.mockito.junit.MockitoJUnitRunner;
 import org.junit.jupiter.api.BeforeEach;
@@ -105,7 +108,7 @@ public class ServerTest {
 
   @Mock
   private ArrayList<ObjectOutputStream> out;
-
+  //  @Disabled
   @Test
   public void test_exception_init() throws IOException, InterruptedException, ClassNotFoundException {
     Socket socketMock = mock(Socket.class);
@@ -129,7 +132,12 @@ public class ServerTest {
           // s.close_all_connection();
         } catch (Exception e) {
         }
-        assertThrows(IOException.class, () -> s.recv_from_client(1));
+        try {
+          s.recv_from_client(1);
+        } catch (ClassNotFoundException e) {
+          e.printStackTrace();
+        }
+        //assertThrows(IOException.class, () -> s.recv_from_client(1));
       }
     };
     th.start();
@@ -145,5 +153,24 @@ public class ServerTest {
     player_out1.writeObject("hello from client");
     player_out1.flush();
     // -----finish client socket connection
+  }
+
+  @Test
+  public void test_close_connection() throws IOException, InterruptedException {
+    //Socket socket = mock(Socket.class);
+    //doThrow(new IOException()).when(socket).close();
+    int port_num = 7001;
+    Server s = new Server(port_num);
+    Thread th = new Thread() {
+      @Override()
+      public void run() {
+        assertThrows(IOException.class, ()->s.close_all_connection());
+      }
+    };
+    th.start();
+    Thread.sleep(100);
+    //Socket client_skd = new Socket("localhost", 7001);
+    //ObjectOutputStream player_out = new ObjectOutputStream(client_skd.getOutputStream());
+    //ObjectInputStream player_in = new ObjectInputStream(new BufferedInputStream(client_skd.getInputStream()));
   }
 }

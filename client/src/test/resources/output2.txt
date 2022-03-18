@@ -13,12 +13,14 @@ Blue player:
  2 units in Gondor (next to: Hogwarts, Elantris)
  4 units in Elantris (next to: Hogwarts, Gondor)
 
-You are the Blue player, what would you like to do?
+You are the Blue player.
+What would you like to do?
   Move <Source> <Destination> <number>
   Attack <Source> <Destination> <number>
   Done
 
-That action is invalid: do attack to your own territory
+Valid Action!
+
 Valid Action!
 
 -----------Sending message to server--------
@@ -27,42 +29,18 @@ Valid Action!
 Now the map is described as below:
 Green player:
 -------------
- 12 units in Oz (next to: Narnia, Mordor)
- 2 units in Mordor (next to: Narnia, Oz, Hogwarts)
-
-Blue player:
-------------
- 1 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
- 3 units in Gondor (next to: Hogwarts, Elantris)
- 5 units in Elantris (next to: Hogwarts, Gondor)
  4 units in Narnia (next to: Oz, Mordor, Hogwarts)
-
-You are the Blue player, what would you like to do?
-  Move <Source> <Destination> <number>
-  Attack <Source> <Destination> <number>
-  Done
-
-That action is invalid: enter a wrong name or do move on other's territories.
-That action is invalid: enter a wrong name or do move on other's territories.
-Valid Action!
-
------------Sending message to server--------
------------Receving message from server--------
------------showing the map--------
-Now the map is described as below:
-Green player:
--------------
- 8 units in Oz (next to: Narnia, Mordor)
- 4 units in Mordor (next to: Narnia, Oz, Hogwarts)
+ 4 units in Oz (next to: Narnia, Mordor)
+ 6 units in Mordor (next to: Narnia, Oz, Hogwarts)
 
 Blue player:
 ------------
  4 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
- 4 units in Gondor (next to: Hogwarts, Elantris)
+ 3 units in Gondor (next to: Hogwarts, Elantris)
  2 units in Elantris (next to: Hogwarts, Gondor)
- 5 units in Narnia (next to: Oz, Mordor, Hogwarts)
 
-You are the Blue player, what would you like to do?
+You are the Blue player.
+What would you like to do?
   Move <Source> <Destination> <number>
   Attack <Source> <Destination> <number>
   Done
@@ -75,88 +53,18 @@ Valid Action!
 Now the map is described as below:
 Green player:
 -------------
- 5 units in Mordor (next to: Narnia, Oz, Hogwarts)
  9 units in Narnia (next to: Oz, Mordor, Hogwarts)
+ 1 units in Oz (next to: Narnia, Mordor)
+ 7 units in Mordor (next to: Narnia, Oz, Hogwarts)
 
 Blue player:
 ------------
  5 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
- 5 units in Gondor (next to: Hogwarts, Elantris)
- 3 units in Elantris (next to: Hogwarts, Gondor)
- 6 units in Oz (next to: Narnia, Mordor)
-
-You are the Blue player, what would you like to do?
-  Move <Source> <Destination> <number>
-  Attack <Source> <Destination> <number>
-  Done
-
-That action is invalid: can not form a path from source to destination.
-That action is invalid: can not form a path from source to destination.
-Valid Action!
-
------------Sending message to server--------
------------Receving message from server--------
------------showing the map--------
-Now the map is described as below:
-Green player:
--------------
- 14 units in Mordor (next to: Narnia, Oz, Hogwarts)
- 2 units in Narnia (next to: Oz, Mordor, Hogwarts)
-
-Blue player:
-------------
- 2 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
- 10 units in Gondor (next to: Hogwarts, Elantris)
- 4 units in Elantris (next to: Hogwarts, Gondor)
- 7 units in Oz (next to: Narnia, Mordor)
-
-You are the Blue player, what would you like to do?
-  Move <Source> <Destination> <number>
-  Attack <Source> <Destination> <number>
-  Done
-
-That action is invalid: can not form a path from source to destination.
-That action is invalid: can not form a path from source to destination.
------------Sending message to server--------
------------Receving message from server--------
------------showing the map--------
-Now the map is described as below:
-Green player:
--------------
- 5 units in Mordor (next to: Narnia, Oz, Hogwarts)
- 3 units in Narnia (next to: Oz, Mordor, Hogwarts)
- 10 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
-
-Blue player:
-------------
- 11 units in Gondor (next to: Hogwarts, Elantris)
- 5 units in Elantris (next to: Hogwarts, Gondor)
- 8 units in Oz (next to: Narnia, Mordor)
-
-You are the Blue player, what would you like to do?
-  Move <Source> <Destination> <number>
-  Attack <Source> <Destination> <number>
-  Done
-
-Valid Action!
-
------------Sending message to server--------
------------Receving message from server--------
------------showing the map--------
-Now the map is described as below:
-Green player:
--------------
- 1 units in Mordor (next to: Narnia, Oz, Hogwarts)
- 4 units in Narnia (next to: Oz, Mordor, Hogwarts)
-
-Blue player:
-------------
- 12 units in Gondor (next to: Hogwarts, Elantris)
+ 6 units in Gondor (next to: Hogwarts, Elantris)
  1 units in Elantris (next to: Hogwarts, Gondor)
- 8 units in Oz (next to: Narnia, Mordor)
- 6 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
 
-You are the Blue player, what would you like to do?
+You are the Blue player.
+What would you like to do?
   Move <Source> <Destination> <number>
   Attack <Source> <Destination> <number>
   Done
@@ -169,86 +77,18 @@ Valid Action!
 Now the map is described as below:
 Green player:
 -------------
- 6 units in Narnia (next to: Oz, Mordor, Hogwarts)
-
-Blue player:
-------------
- 13 units in Gondor (next to: Hogwarts, Elantris)
- 2 units in Elantris (next to: Hogwarts, Gondor)
- 4 units in Oz (next to: Narnia, Mordor)
- 7 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
- 6 units in Mordor (next to: Narnia, Oz, Hogwarts)
-
-You are the Blue player, what would you like to do?
-  Move <Source> <Destination> <number>
-  Attack <Source> <Destination> <number>
-  Done
-
-Valid Action!
-
------------Sending message to server--------
------------Receving message from server--------
------------showing the map--------
-Now the map is described as below:
-Green player:
--------------
- 1 units in Narnia (next to: Oz, Mordor, Hogwarts)
-
-Blue player:
-------------
- 13 units in Gondor (next to: Hogwarts, Elantris)
- 4 units in Elantris (next to: Hogwarts, Gondor)
- 5 units in Oz (next to: Narnia, Mordor)
- 8 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
- 5 units in Mordor (next to: Narnia, Oz, Hogwarts)
-
-You are the Blue player, what would you like to do?
-  Move <Source> <Destination> <number>
-  Attack <Source> <Destination> <number>
-  Done
-
-Valid Action!
-
------------Sending message to server--------
------------Receving message from server--------
------------showing the map--------
-Now the map is described as below:
-Green player:
--------------
- 1 units in Narnia (next to: Oz, Mordor, Hogwarts)
-
-Blue player:
-------------
- 14 units in Gondor (next to: Hogwarts, Elantris)
- 5 units in Elantris (next to: Hogwarts, Gondor)
- 4 units in Oz (next to: Narnia, Mordor)
- 9 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
- 7 units in Mordor (next to: Narnia, Oz, Hogwarts)
-
-You are the Blue player, what would you like to do?
-  Move <Source> <Destination> <number>
-  Attack <Source> <Destination> <number>
-  Done
-
-Valid Action!
-
------------Sending message to server--------
------------Receving message from server--------
------------showing the map--------
-Now the map is described as below:
-Green player:
--------------
+ 10 units in Narnia (next to: Oz, Mordor, Hogwarts)
  2 units in Oz (next to: Narnia, Mordor)
+ 1 units in Mordor (next to: Narnia, Oz, Hogwarts)
 
 Blue player:
 ------------
- 15 units in Gondor (next to: Hogwarts, Elantris)
- 6 units in Elantris (next to: Hogwarts, Gondor)
- 10 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
- 8 units in Mordor (next to: Narnia, Oz, Hogwarts)
- 5 units in Narnia (next to: Oz, Mordor, Hogwarts)
+ 4 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
+ 8 units in Gondor (next to: Hogwarts, Elantris)
+ 1 units in Elantris (next to: Hogwarts, Gondor)
 
-You are the Blue player, what would you like to do?
+You are the Blue player.
+What would you like to do?
   Move <Source> <Destination> <number>
   Attack <Source> <Destination> <number>
   Done
@@ -261,19 +101,103 @@ Valid Action!
 Now the map is described as below:
 Green player:
 -------------
+ 1 units in Narnia (next to: Oz, Mordor, Hogwarts)
+ 3 units in Oz (next to: Narnia, Mordor)
+ 2 units in Mordor (next to: Narnia, Oz, Hogwarts)
+ 8 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
 
 Blue player:
 ------------
- 16 units in Gondor (next to: Hogwarts, Elantris)
- 7 units in Elantris (next to: Hogwarts, Gondor)
- 11 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
- 1 units in Mordor (next to: Narnia, Oz, Hogwarts)
- 6 units in Narnia (next to: Oz, Mordor, Hogwarts)
- 9 units in Oz (next to: Narnia, Mordor)
+ 9 units in Gondor (next to: Hogwarts, Elantris)
+ 4 units in Elantris (next to: Hogwarts, Gondor)
 
-You are the Blue player, what would you like to do?
+You are the Blue player.
+In the last round,
+You lose 1 territories: Hogwarts
+What would you like to do?
   Move <Source> <Destination> <number>
   Attack <Source> <Destination> <number>
   Done
 
-Game Over! Green Player win!
+Valid Action!
+
+-----------Sending message to server--------
+-----------Receving message from server--------
+-----------showing the map--------
+Now the map is described as below:
+Green player:
+-------------
+ 1 units in Narnia (next to: Oz, Mordor, Hogwarts)
+ 4 units in Oz (next to: Narnia, Mordor)
+ 1 units in Mordor (next to: Narnia, Oz, Hogwarts)
+ 4 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
+ 2 units in Gondor (next to: Hogwarts, Elantris)
+
+Blue player:
+------------
+ 5 units in Elantris (next to: Hogwarts, Gondor)
+
+You are the Blue player.
+In the last round,
+You lose 1 territories: Gondor
+What would you like to do?
+  Move <Source> <Destination> <number>
+  Attack <Source> <Destination> <number>
+  Done
+
+Valid Action!
+
+-----------Sending message to server--------
+-----------Receving message from server--------
+-----------showing the map--------
+Now the map is described as below:
+Green player:
+-------------
+ 2 units in Narnia (next to: Oz, Mordor, Hogwarts)
+ 1 units in Oz (next to: Narnia, Mordor)
+ 2 units in Mordor (next to: Narnia, Oz, Hogwarts)
+ 1 units in Gondor (next to: Hogwarts, Elantris)
+ 6 units in Elantris (next to: Hogwarts, Gondor)
+
+Blue player:
+------------
+ 3 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
+
+You are the Blue player.
+In the last round,
+You lose 1 territories: Elantris
+You win 1 territories: Hogwarts
+What would you like to do?
+  Move <Source> <Destination> <number>
+  Attack <Source> <Destination> <number>
+  Done
+
+Valid Action!
+
+-----------Sending message to server--------
+-----------Receving message from server--------
+-----------showing the map--------
+Now the map is described as below:
+Green player:
+-------------
+ 1 units in Narnia (next to: Oz, Mordor, Hogwarts)
+ 2 units in Oz (next to: Narnia, Mordor)
+ 1 units in Mordor (next to: Narnia, Oz, Hogwarts)
+ 2 units in Gondor (next to: Hogwarts, Elantris)
+ 4 units in Elantris (next to: Hogwarts, Gondor)
+ 5 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
+
+Blue player:
+------------
+
+You are the Blue player.
+In the last round,
+You lose 1 territories: Hogwarts
+What would you like to do?
+  Move <Source> <Destination> <number>
+  Attack <Source> <Destination> <number>
+  Done
+
+You lose!
+Green is the winner.
+Good luck next time!
