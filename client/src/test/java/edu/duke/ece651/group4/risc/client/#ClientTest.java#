@@ -14,7 +14,6 @@ import edu.duke.ece651.group4.risc.shared.*;
 import jdk.jfr.Timestamp;
 
 public class ClientTest {
-  
   @Test
   public void test_socket_connection() throws InterruptedException, IOException {
     int port = 7010;
@@ -67,68 +66,55 @@ public class ClientTest {
     //assertThrows(RuntimeException.class, () -> new Client("noExistServer", 1234, in, System.out));
   }
 
-//  @Test
-//  public void test_play_one_round() throws InterruptedException, IOException, ClassNotFoundException {
-//    int port = 7003;
-//    // Server t = new Server(port);
-//    Thread th = new Thread() {
-//      @Override()
-//      public void run() {
-//        try {
-//          Map<Character> map = generateMap();
-//
-//
-//          ServerSocket server = new ServerSocket(port);
-//          Socket server_socket = server.accept();
-//          // FactorServer.main(new String[0]);
-//          ObjectOutputStream os = new ObjectOutputStream(server_socket.getOutputStream());
-//          ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(server_socket.getInputStream()));
-//          os.writeObject(map);
-//          os.flush();
-//          os.writeObject(0);
-//          os.flush();
-//
-//          Socket server1 = server.accept();
-//          // get input and output
-//          ObjectOutputStream os1 = new ObjectOutputStream(server1.getOutputStream());
-//          ObjectInputStream is1 = new ObjectInputStream(new BufferedInputStream(server1.getInputStream()));
-//
-//          os1.writeObject(map);
-//          os1.flush();
-//          os1.writeObject(0);
-//          os1.flush();
-//          System.out.println("finish write");
-//          ArrayList<ActionParser> order_list = (ArrayList<ActionParser>) is.readObject();
-//          ArrayList<ActionParser> order_list1 = (ArrayList<ActionParser>) is1.readObject();
-//
-//          //resend map
-//          os.writeObject(map);
-//          os.flush();
-//          os1.writeObject(map);
-//          os1.flush();
-//        } catch (Exception e) {
-//        }
-//      }
-//    };
-//    th.start();
-//    Thread.sleep(200);
-//    Thread client_th = run() -> {
-//
-//    };
-//    BufferedReader input = new BufferedReader(new StringReader("move hogwarts oz 1\ndone\n"));
-//    BufferedReader input1 = new BufferedReader(new StringReader("move hogwarts oz 1\ndone\n"));
-//
-//    // client part
-//    Client client = new Client("localhost", 7003, input, System.out);
-//    client.initializeGame();
-//    Client client2 = new Client("localhost", 7003, input1, System.out);
-//    client2.initializeGame();
-//    System.out.println("finish init");
-//    client.playOneRound();
-//    client2.playOneRound();
-//    // close connection
-//    client.close_connection();
-//
-//
-//  }
+  @Test
+  public void test_play_one_round() throws InterruptedException, IOException, ClassNotFoundException {
+    int port = 7003;
+    // Server t = new Server(port);
+    Thread th = new Thread() {
+      @Override()
+      public void run() {
+        try {
+          Territory<Character> terriN = new Territory<Character>("Narnia");
+          Territory<Character> terriO = new Territory<Character>("Oz");
+          ArrayList<Unit<Character>> nUnits = new ArrayList<>(Collections.nCopies(8, new SimpleUnit<>()));
+          terriN.addGroupUnit(nUnits);
+          ArrayList<Unit<Character>> oUnits = new ArrayList<>(Collections.nCopies(3, new SimpleUnit<>()));
+          terriO.addGroupUnit(oUnits);
+          Map<Character> map = new Map<Character>();
+          map.addTerritory(terriN);
+          map.addTerritory(terriO);
+
+
+          TextPlayer p1 = new TextPlayer("Green");
+          TextPlayer p2 = new TextPlayer("Blue");
+          p1.addToTerritory(terriN);
+          p1.addToTerritory(terriO);
+          map.addPlayer(p1);
+          map.addPlayer(p2);
+
+
+          ServerSocket server = new ServerSocket(port);
+          Socket server_socket = server.accept();
+          // FactorServer.main(new String[0]);
+          ObjectOutputStream os = new ObjectOutputStream(server_socket.getOutputStream());
+          ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(server_socket.getInputStream()));
+          os.writeObject(map);
+          os.flush();
+          ArrayList<ActionParser> order_list = (ArrayList<ActionParser>) is.readObject();
+
+        } catch (Exception e) {
+        }
+      }
+    };
+    th.start();
+    th.sleep(200);
+    BufferedReader input = new BufferedReader(new StringReader("move a b 1\n"));
+    // client part
+    Client client = new Client("localhost", 7003, input, System.out);
+    client.playOneRound();
+    // close connection
+    client.close_connection();
+
+
+  }
 }

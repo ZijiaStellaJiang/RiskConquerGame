@@ -173,4 +173,50 @@ public class ServerTest {
     //ObjectOutputStream player_out = new ObjectOutputStream(client_skd.getOutputStream());
     //ObjectInputStream player_in = new ObjectInputStream(new BufferedInputStream(client_skd.getInputStream()));
   }
+
+
+  @Test
+  public void test_play_one_round() throws InterruptedException, IOException, ClassNotFoundException {
+    int port_num = 7002;
+    Server s = new Server(port_num);
+    Thread th = new Thread() {
+      @Override()
+      public void run() {
+        s.initializeGame();
+        try {
+          String s1 = s.playOneRound();
+        } catch (IOException e) {
+          e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+          e.printStackTrace();
+        }
+      }
+    };
+    th.start();
+    Thread.sleep(100);
+    Socket client_skd = new Socket("localhost", 7002);
+    ObjectOutputStream player_out = new ObjectOutputStream(client_skd.getOutputStream());
+    ObjectInputStream player_in = new ObjectInputStream(new BufferedInputStream(client_skd.getInputStream()));
+    Socket client_skd1 = new Socket("localhost", 7002);
+    ObjectOutputStream player_out1 = new ObjectOutputStream(client_skd1.getOutputStream());
+    ObjectInputStream player_in1 = new ObjectInputStream(new BufferedInputStream(client_skd1.getInputStream()));
+
+    //receive map
+    Map<Character> recv1 = (Map<Character>) player_in.readObject();
+    Map<Character> recv2 = (Map<Character>) player_in1.readObject();
+
+    //construct action parser
+    ArrayList<ActionParser> order_list = new ArrayList<ActionParser>();
+    order_list.add(new ActionParser("move", "horgwarts", "oz", 1));
+    order_list.add(new ActionParser("attack", "horwarts", "oz", 1));
+    ArrayList<ActionParser> order_list1 = new ArrayList<ActionParser>();
+    order_list1.add(new ActionParser("move", "elantrix", "gondor", 1));
+    order_list1.add(new ActionParser("attack", "elantrix", "gondor", 1));
+    player_out1.writeObject(order_list1);
+    player_out1.flush();
+
+    player_out.writeObject(order_list);
+    player_out.flush();
+
+  }
 }
