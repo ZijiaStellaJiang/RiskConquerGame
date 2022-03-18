@@ -55,11 +55,10 @@ public class MapTextView implements View{
                 sb.append(makeResultInfo(win));
             }
         }
-//        else {
-//            sb.append("You didn't win or lose any territories.\n");
-//        }
-        sb.append("What would you like to do?\n");
-        sb.append("  Move <Source> <Destination> <number>\n  Attack <Source> <Destination> <number>\n  Done\n\n");
+        if(toDisplay.getLoserId()==null){
+            sb.append("What would you like to do?\n");
+            sb.append("  Move <Source> <Destination> <number>\n  Attack <Source> <Destination> <number>\n  Done\n\n");
+        }
         out.print(sb);
     }
 
