@@ -113,13 +113,16 @@ public class Server {
   /**
    * Sends message to client
    */
-  public void send_to_client(Object obj, int id) {
+  public void send_to_client(Object obj, int id) throws IOException {
+    if (id >= player_num) {
+      throw new RuntimeException("cannot find player to send message");
+    }
     try {
       player_out.get(id).reset();
       player_out.get(id).writeObject(obj);
       player_out.get(id).flush();
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new RuntimeException("cannot send to client-player id:" + id);
     }
   }
 
@@ -138,7 +141,7 @@ public class Server {
     return obj;
   }
 
-  public String playOneRound() {
+  public String playOneRound() throws IOException, ClassNotFoundException {
     for (int i = 0; i < player_num; i++) {
       // accept the order and execute MOVING
       ArrayList<ActionParser> order_list = (ArrayList<ActionParser>) recv_from_client(i);
@@ -166,7 +169,11 @@ public class Server {
 
     // sending updating map
     for (int i = 0; i < player_num; i++) {
-      send_to_client(map, i);
+      try {
+        send_to_client(map, i);
+      } catch (IOException e) {
+        // deal with error
+      }
     }
     if (map.getLoserId() != null)
       return "over";
@@ -182,7 +189,7 @@ public class Server {
    * // close all connection close_all_connection(); }
    */
 
-  public static void main(String[] args) throws IOException {
+  public static void main(String[] args) throws IOException, ClassNotFoundException {
     // int port = Integer.parseInt(args[0]);
     Server server = null;
     try {
