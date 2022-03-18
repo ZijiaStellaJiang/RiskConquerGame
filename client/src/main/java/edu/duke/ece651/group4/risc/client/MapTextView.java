@@ -55,11 +55,10 @@ public class MapTextView implements View{
                 sb.append(makeResultInfo(win));
             }
         }
-//        else {
-//            sb.append("You didn't win or lose any territories.\n");
-//        }
-        sb.append("What would you like to do?\n");
-        sb.append("  Move <Source> <Destination> <number>\n  Attack <Source> <Destination> <number>\n  Done\n\n");
+        if(toDisplay.getLoserId()==null){
+            sb.append("What would you like to do?\n");
+            sb.append("  Move <Source> <Destination> <number>\n  Attack <Source> <Destination> <number>\n  Done\n\n");
+        }
         out.print(sb);
     }
 
@@ -78,9 +77,9 @@ public class MapTextView implements View{
                     break;
                 }
             }
-            if(!winnerName.equals("")){
-                out.print("You lose!\n"+winnerName+" is the winner.\nGood luck next time!\n");
-            }
+            //if(!winnerName.equals("")){
+            out.print("You lose!\n"+winnerName+" is the winner.\nGood luck next time!\n");
+            //}
         }
         //else this is the winner id
         else {

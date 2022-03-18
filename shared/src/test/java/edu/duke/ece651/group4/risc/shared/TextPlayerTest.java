@@ -3,6 +3,7 @@ package edu.duke.ece651.group4.risc.shared;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.IdentityHashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -76,6 +77,21 @@ public class TextPlayerTest {
     }
     @Test
     public void test_last_round_change(){
-        //TODO: add test cases
+        Player<Character> p1 = new TextPlayer("A");
+        ArrayList<String> lose = new ArrayList<>();
+        ArrayList<String> win = new ArrayList<>();
+        assertEquals(lose,p1.getLoseTerritories());
+        assertEquals(win,p1.getWinTerritories());
+        Territory<Character> t1 = new Territory<>("t1");
+        Territory<Character> t2 = new Territory<>("t2");
+        p1.addWinTerritory(t1.getName());
+        p1.addLoseTerritory(t2.getName());
+        win.add("t1");
+        lose.add("t2");
+        assertEquals(lose,p1.getLoseTerritories());
+        assertEquals(win,p1.getWinTerritories());
+        p1.resetLastRoundChange();
+        assertEquals(new ArrayList<String>(),p1.getWinTerritories());
+        assertEquals(new ArrayList<String>(),p1.getLoseTerritories());
     }
 }
