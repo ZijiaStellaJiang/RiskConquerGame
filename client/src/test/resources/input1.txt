@@ -1,0 +1,26 @@
+move narnia oz 5
+move mordor oz 3
+done
+move oz mordor 5
+attack nordor hogwarts 4
+attack mordor hogwarts 4
+done
+attack oz narnia 8
+done
+move narnia mordor 8
+done
+attack mordor hogwarts 10
+done
+move hogwarts mordor 9
+attack mordor oz 14
+done
+move mordor narnia 1
+done
+attack narnia mordor 6
+done
+attack narnia oz 1
+done
+attack narnia oz 1
+done
+attack oz narnia 2
+done

@@ -1,0 +1,28 @@
+attack elantris hogwarts 4
+attack hogwarts narnia 9
+done
+move elantri hogwarts 4
+move eleantris hogwarts 4
+move elantris hogwarts 4
+done
+attack narnia oz 5
+done
+move elantris oz 2
+move hogwarts oz 5
+move hogwarts gondor 4
+done
+move gondor oz 8
+move gondor oz 9
+done
+attack elantris hogwarts 5
+done
+attack oz mordor 5
+done
+move gondor elantris 1
+done
+move oz mordor 1
+done
+attack oz narnia 4
+done
+attack mordor oz 8
+done
