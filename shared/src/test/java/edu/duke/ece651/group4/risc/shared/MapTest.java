@@ -105,4 +105,20 @@ public class MapTest {
         p2.removeFromTerritory(t3);
         assertEquals(1,map.getLoserId());
     }
+
+    @Test
+    public void test_map_reset(){
+        Player<Character> p1 = new TextPlayer("A");
+        ArrayList<String> lose = new ArrayList<>();
+        ArrayList<String> win = new ArrayList<>();
+        Territory<Character> t1 = new Territory<>("t1");
+        Territory<Character> t2 = new Territory<>("t2");
+        Map<Character> map = new Map<>();
+        map.addPlayer(p1);
+        p1.addWinTerritory(t1.getName());
+        p1.addLoseTerritory(t2.getName());
+        map.reset();
+        assertEquals(lose,p1.getLoseTerritories());
+        assertEquals(win,p1.getWinTerritories());
+    }
 }

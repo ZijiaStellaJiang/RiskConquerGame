@@ -77,9 +77,9 @@ public class MapTextView implements View{
                     break;
                 }
             }
-            if(!winnerName.equals("")){
-                out.print("You lose!\n"+winnerName+" is the winner.\nGood luck next time!\n");
-            }
+            //if(!winnerName.equals("")){
+            out.print("You lose!\n"+winnerName+" is the winner.\nGood luck next time!\n");
+            //}
         }
         //else this is the winner id
         else {
