@@ -74,4 +74,8 @@ public class TextPlayerTest {
         p1.removeFromTerritory(t2);
         assertTrue(p1.checkLose());
     }
+    @Test
+    public void test_last_round_change(){
+        //TODO: add test cases
+    }
 }

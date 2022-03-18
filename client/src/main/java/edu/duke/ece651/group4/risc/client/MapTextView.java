@@ -1,6 +1,7 @@
 package edu.duke.ece651.group4.risc.client;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
 
 import edu.duke.ece651.group4.risc.shared.Map;
 import edu.duke.ece651.group4.risc.shared.Player;
@@ -36,16 +37,36 @@ public class MapTextView implements View{
     @Override
     public void displayPlayerMsg(int id) {
         String player_name = toDisplay.getPlayerName(id);
-        if (player_name != null) {
-            out.print("You are the " + player_name + " player, what would you like to do?\n");
-            out.print("  Move <Source> <Destination> <number>\n  Attack <Source> <Destination> <number>\n  Done\n\n");
+        if(player_name==null){
+            throw new IllegalArgumentException("This is an invalid player id!");
         }
+        StringBuilder sb = new StringBuilder("You are the " + player_name + " player.\n");
+        Player<Character> thisPlayer = toDisplay.getPlayer(id);
+        ArrayList<String> lose = thisPlayer.getLoseTerritories();
+        ArrayList<String> win = thisPlayer.getWinTerritories();
+        if(lose.size()!=0 || win.size()!=0){
+            sb.append("In the last round,\n");
+            if(lose.size()!=0){
+                sb.append("You lose ");
+                sb.append(makeResultInfo(lose));
+            }
+            if(win.size()!=0){
+                sb.append("You win ");
+                sb.append(makeResultInfo(win));
+            }
+        }
+//        else {
+//            sb.append("You didn't win or lose any territories.\n");
+//        }
+        sb.append("What would you like to do?\n");
+        sb.append("  Move <Source> <Destination> <number>\n  Attack <Source> <Destination> <number>\n  Done\n\n");
+        out.print(sb);
     }
 
     @Override
     public void displayVictoryMsg(int id){
         if(toDisplay.getLoserId()==null){
-            throw new IllegalArgumentException("No one wins yet! Can not access this function now!");
+            throw new IllegalArgumentException("No one wins yet! Can not use this function here!");
         }
         // if this is the loser id
         if(toDisplay.getLoserId().equals(id)){
@@ -71,9 +92,7 @@ public class MapTextView implements View{
         StringBuilder sb = new StringBuilder(p.getName());
         sb.append(" player:\n");
         int splitLen = p.getName().length()+8;
-        for (int i=0;i<splitLen;i++){
-            sb.append("-");
-        }
+        sb.append("-".repeat(Math.max(0, splitLen)));
         sb.append("\n");
         for(Territory<Character> myTerri: p.getMyTerritories()){
             sb.append(makeTerritoryInfo(myTerri));
@@ -94,6 +113,20 @@ public class MapTextView implements View{
             }
         }
         sb.append(")\n");
+        return sb.toString();
+    }
+
+    protected String makeResultInfo(ArrayList<String> toPrint){
+        int num = toPrint.size();
+        StringBuilder sb = new StringBuilder(String.valueOf(num));
+        sb.append(" territories: ");
+        for (int i=0; i<toPrint.size(); i++){
+            sb.append(toPrint.get(i));
+            if(i!=toPrint.size()-1){
+                sb.append(", ");
+            }
+        }
+        sb.append("\n");
         return sb.toString();
     }
 

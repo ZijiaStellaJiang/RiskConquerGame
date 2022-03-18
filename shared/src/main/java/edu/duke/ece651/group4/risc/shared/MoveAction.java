@@ -10,16 +10,14 @@ public class MoveAction<T> extends Action<T>{
      *                  pass true if for real "move" order
      *                  pass false if this move is for attacker to move units into enemy's territory
      */
-    public MoveAction(/*ActionParser parser, Map<T> map, Player<T> player, */boolean samePlayer){
-        super(/*parser,map,player,*/new UnitNumberRuleChecker<>(new MoveOwnershipChecker<>(
-                new MovePathChecker<>(null))));
+    public MoveAction(boolean samePlayer){
+        super(new UnitNumberRuleChecker<>(new MoveOwnershipChecker<>(new MovePathChecker<>(null))));
         this.moveToSamePlayer = samePlayer;
     }
 
     /** for test constructor only, DO NOT use in server and client */
-    public MoveAction(/*ActionParser parser, Map<T> map, Player<T> player, */ActionRuleChecker<T> ruleChecker,
-                      boolean samePlayer){
-        super(/*parser, map, player, */ruleChecker);
+    public MoveAction(ActionRuleChecker<T> ruleChecker, boolean samePlayer){
+        super(ruleChecker);
         this.moveToSamePlayer = samePlayer;
     }
 

@@ -74,6 +74,10 @@ public class Map<T> implements java.io.Serializable {
     }
   }
 
+  /**
+   * @return the loser's id if the game ends
+   * otherwise return null
+   */
   public Integer getLoserId(){
     for (int i = 0; i<myPlayers.size(); i++){
       if(myPlayers.get(i).checkLose()){
@@ -81,5 +85,11 @@ public class Map<T> implements java.io.Serializable {
       }
     }
     return null;
+  }
+
+  public void reset(){
+    for (Player<T> p: myPlayers){
+      p.resetLastRoundChange();
+    }
   }
 }
