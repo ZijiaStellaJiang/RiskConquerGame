@@ -21,7 +21,7 @@ public class Client {
   private Action<Character> attack;
 
 
-  public Client(String serverName, int port, BufferedReader input, PrintStream outputStream) {
+  public Client(String serverName, int port, BufferedReader input, PrintStream outputStream) throws RuntimeException{
     inputReader = input;
     output = outputStream;
     // connection to Server
@@ -34,7 +34,7 @@ public class Client {
       player_out = new ObjectOutputStream(player_skd.getOutputStream());
       player_in = new ObjectInputStream(new BufferedInputStream(player_skd.getInputStream()));
     } catch (IOException e) {
-      e.printStackTrace();
+      throw new RuntimeException("cannot connect to server");
     }
   }
 
@@ -69,26 +69,28 @@ public class Client {
         displayInfo.displayPlayerMsg(player_id);
       }
     } catch (IOException e) {
-      e.printStackTrace();
+      //e.printStackTrace();
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }
   }
-  public void send_to_server(Object obj) {
+  public void send_to_server(Object obj) throws IOException{
     try {
       player_out.reset();
       player_out.writeObject(obj);
       player_out.flush();
     } catch(IOException e) {
-      e.printStackTrace();
+      throw e;
+      //e.printStackTrace();
     }
   }
-  public Object recv_from_server() {
+  public Object recv_from_server() throws IOException{
     Object obj = null;
     try{
       obj = player_in.readObject();
     } catch (IOException e) {
-      e.printStackTrace();
+      //e.printStackTrace();
+      throw e;
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }
@@ -177,6 +179,7 @@ public class Client {
     // close connection
     client.close_connection();
   }
+
 
 }
 
