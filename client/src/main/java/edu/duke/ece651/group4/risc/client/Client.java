@@ -169,7 +169,10 @@ public class Client {
     }
   }
   public static void main(String[] args) throws IOException {
-    Client client = new Client("localhost", 6066, new BufferedReader(new InputStreamReader(System.in)), System.out);
+    System.out.println("Enter server's ip:");
+    BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
+    String str = reader.readLine();
+    Client client = new Client(str, 6066, new BufferedReader(new InputStreamReader(System.in)), System.out);
     // receive initial map and id
     client.initializeGame();
     // play game
