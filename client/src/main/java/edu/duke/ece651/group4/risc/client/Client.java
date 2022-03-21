@@ -3,10 +3,21 @@
  */
 package edu.duke.ece651.group4.risc.client;
 
-import edu.duke.ece651.group4.risc.shared.*;
-import java.net.*;
 import java.io.*;
+import java.net.Socket;
 import java.util.ArrayList;
+
+import edu.duke.ece651.group4.risc.shared.Action;
+import edu.duke.ece651.group4.risc.shared.ActionParser;
+import edu.duke.ece651.group4.risc.shared.AttackAction;
+import edu.duke.ece651.group4.risc.shared.Map;
+import edu.duke.ece651.group4.risc.shared.MoveAction;
+import edu.duke.ece651.group4.risc.shared.Player;
+import javafx.application.Application;
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.scene.layout.StackPane;
+import javafx.stage.Stage;
 
 public class Client {
   private Map<Character> map;
@@ -21,7 +32,10 @@ public class Client {
   private Action<Character> attack;
 
 
-  public Client(String serverName, int port, BufferedReader input, PrintStream outputStream) throws RuntimeException{
+  /**
+   *
+   */
+  public Client(String serverName, int port, BufferedReader input, PrintStream outputStream) throws RuntimeException {
     inputReader = input;
     output = outputStream;
     // connection to Server
@@ -38,9 +52,10 @@ public class Client {
     }
   }
 
-  public Socket getSocket(){
+  public Socket getSocket() {
     return player_skd;
   }
+
   public static Socket connectServer(String serverName, int port) {
     try {
       System.out.println("Connecting to " + serverName + " on port " + port);
@@ -52,6 +67,7 @@ public class Client {
     }
     return null;
   }
+
   public void initializeGame() {
     try {
       // receive an object from server
@@ -69,42 +85,47 @@ public class Client {
         displayInfo.displayPlayerMsg(player_id);
       }
     } catch (IOException e) {
-      //e.printStackTrace();
+      // e.printStackTrace();
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }
   }
-  public void send_to_server(Object obj) throws IOException{
+
+  public void send_to_server(Object obj) throws IOException {
     try {
       player_out.reset();
       player_out.writeObject(obj);
       player_out.flush();
-    } catch(IOException e) {
+    } catch (IOException e) {
       throw e;
-      //e.printStackTrace();
+      // e.printStackTrace();
     }
   }
-  public Object recv_from_server() throws IOException{
+
+  public Object recv_from_server() throws IOException {
     Object obj = null;
-    try{
+    try {
       obj = player_in.readObject();
     } catch (IOException e) {
-      //e.printStackTrace();
+      // e.printStackTrace();
       throw e;
     } catch (ClassNotFoundException e) {
       e.printStackTrace();
     }
     return obj;
   }
+
   public boolean playOneRound() throws IOException {
     ArrayList<ActionParser> order_list = new ArrayList<ActionParser>();
     while (true) {
       // read an input from client
       String str = inputReader.readLine();
-      if (str == null) throw new EOFException("END");
+      if (str == null)
+        throw new EOFException("END");
       // check done
       str = str.toUpperCase();
-      if (str.equals("DONE")) break;
+      if (str.equals("DONE"))
+        break;
       // parse the input to order
       ActionParser order = null;
       try {
@@ -114,9 +135,11 @@ public class Client {
         continue;
       }
       // validate the order (fake action) -> invalid printout msg
-      //if (order.getType() == "MOVE")
-      //ActionRuleChecker<Character> ruleChecker = new UnitNumberRuleChecker<>(new MoveOwnershipChecker<>(null));
-      //Action<Character> move = new MoveAction<>(order, map, map.getPlayer(player_id), ruleChecker);
+      // if (order.getType() == "MOVE")
+      // ActionRuleChecker<Character> ruleChecker = new UnitNumberRuleChecker<>(new
+      // MoveOwnershipChecker<>(null));
+      // Action<Character> move = new MoveAction<>(order, map,
+      // map.getPlayer(player_id), ruleChecker);
 
       Player<Character> player = map.getPlayer(player_id);
       String result = null;
@@ -145,7 +168,7 @@ public class Client {
     // receive new update map
     output.println("-----------Receving message from server--------");
     map = null;
-    map = (Map<Character>)recv_from_server();
+    map = (Map<Character>) recv_from_server();
     // display new update map
     output.println("-----------showing the map--------");
     MapTextView displayInfo = new MapTextView(map, output);
@@ -159,16 +182,19 @@ public class Client {
     }
     return false;
   }
+
   public void close_connection() {
     try {
       player_out.close();
       player_in.close();
       player_skd.close();
-    } catch(IOException e) {
+    } catch (IOException e) {
       e.printStackTrace();
     }
   }
+
   public static void main(String[] args) throws IOException {
+    Application.launch(StartGame.class, args);
     System.out.println("Enter server's ip:");
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     String str = reader.readLine();
@@ -181,8 +207,8 @@ public class Client {
     }
     // close connection
     client.close_connection();
+
+
   }
 
-
 }
-
