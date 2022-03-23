@@ -14,10 +14,6 @@ import edu.duke.ece651.group4.risc.shared.Map;
 import edu.duke.ece651.group4.risc.shared.MoveAction;
 import edu.duke.ece651.group4.risc.shared.Player;
 import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
-import javafx.stage.Stage;
 
 public class Client {
   private Map<Character> map;
@@ -185,6 +181,7 @@ public class Client {
 
   public void close_connection() {
     try {
+      System.out.println("closing connection");
       player_out.close();
       player_in.close();
       player_skd.close();

@@ -21,14 +21,10 @@ public class StartGame extends Application {
     URL cssResource = getClass().getResource("/ui/button.css");
 
     GridPane gp = FXMLLoader.load(xmlResource);
-    //String javaVersion = System.getProperty("java.version");
-    //String javafxVersion = System.getProperty("javafx.version");
-    //Label l = new Label("Hello, JavaFX " + javafxVersion + ", running on Java " + javaVersion + ".");
     Scene scene = new Scene(gp, 640, 480);
     scene.getStylesheets().add(cssResource.toString());
     stage.setTitle("Really Interesting Strategic Conquest");
     stage.setScene(scene);
     stage.show();
-    //stage.close();
   }
 }

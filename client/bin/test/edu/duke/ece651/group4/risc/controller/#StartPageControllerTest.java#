@@ -41,7 +41,7 @@ public class StartPageControllerTest {
   public void test_start_button_pressed(FxRobot robot) throws IOException{
     Platform.runLater(()->{
         //      try {
-        controller.onButtonStart(new ActionEvent(b, null));
+        controller.onButtonStart(new ActionEvent(b, null);)
         //} catch (IOException e) {
         //e.printStackTrace();
         //}

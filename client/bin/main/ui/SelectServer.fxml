@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import javafx.collections.FXCollections?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.ChooseServerController">
+   <children>
+      <ChoiceBox fx:id="host_choice" layoutX="207.0" layoutY="164.0" prefWidth="150.0">
+          <items>
+              <FXCollections fx:factory="observableArrayList">
+                  <String fx:value="localhost" />
+                  <String fx:value="vcm" />
+              </FXCollections>
+          </items>
+      </ChoiceBox>
+      <Label layoutX="145.0" layoutY="125.0" text="Please choose your server ip" />
+      <Button layoutX="414.0" layoutY="165.0" mnemonicParsing="false" onAction="#connect_server" text="CONNECT" />
+      <Text fx:id="alert" layoutX="345.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
+   </children>
+</AnchorPane>
