@@ -4,7 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class FoodResourceTest {
+public class ResourceTest {
     @Test
     public void test_resource_num(){
         Resource<Character> f = new FoodResource<>(2);
@@ -13,5 +13,14 @@ public class FoodResourceTest {
         assertEquals(5,f.getNum());
         f.consumeResource(4);
         assertEquals(1,f.getNum());
+    }
+
+    @Test
+    public void test_equals(){
+        Resource<Character> f1 = new FoodResource<>(1);
+        Resource<Character> f2 = new FoodResource<>(3);
+        Resource<Character> w1 = new WoodResource<>(2);
+        assertEquals(f1, f2);
+        assertNotEquals(f1,w1);
     }
 }

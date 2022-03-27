@@ -4,11 +4,13 @@ import org.checkerframework.checker.units.qual.A;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Territory<T> implements java.io.Serializable {
   private final String name;
   private ArrayList<Territory<T>> myNeigh;
   private ArrayList<Unit<T>> myUnits;
+  //private HashMap<Integer,ArrayList<Unit<T>>> myUnits;
   private ArrayList<Unit<T>> enemyUnits;
   private int size;
   private ArrayList<Resource<T>> myResource;

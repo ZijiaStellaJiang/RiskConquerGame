@@ -59,21 +59,12 @@ public class TerritoryTest {
     assertEquals(neigh,territory1.getMyNeigh());
   }
 
-//  @Test
-//  public void test_change_player(){
-//    Player<Character> player = new TextPlayer("p");
-//    Territory<Character> territory1 = new Territory<Character>("t1");
-//    territory1.changePlayer(player);
-//    assertEquals("p", territory1.getPlayerName());
-//    territory1.changePlayer(player);
-//    assertEquals("p", territory1.getPlayerName());
-//  }
-
   @Test
   public void test_operate_get_unit_number(){
     Territory<Character> t1 = new Territory<>("A");
     assertEquals(0,t1.getUnitNumber());
     Unit<Character> u1 = new SimpleUnit<>();
+    assertEquals(0,u1.getLevel());
     t1.addUnit(u1);
     assertEquals(1,t1.getUnitNumber());
     Unit<Character> u2 = new SimpleUnit<>();
@@ -85,12 +76,11 @@ public class TerritoryTest {
     assertEquals(2,t1.getUnitNumber());
     t1.removeUnit(u1);
     assertEquals(1,t1.getUnitNumber());
-    ArrayList<Unit<Character>> units = new ArrayList<>();
-    units.addAll(Collections.nCopies(8,new SimpleUnit<>()));
-    for (Unit<Character> u: units){
-      t1.addUnit(u);
-    }
+    ArrayList<Unit<Character>> units = new ArrayList<>(Collections.nCopies(8, new SimpleUnit<>()));
+    t1.addGroupUnit(units);
     assertEquals(9,t1.getUnitNumber());
+    Unit<Character> u_level = new SimpleUnit<>(3);
+    assertEquals(3,u_level.getLevel());
   }
 
   @Test
