@@ -6,17 +6,26 @@ import javax.swing.*;
 import java.util.ArrayList;
 
 public class Territory<T> implements java.io.Serializable {
-  private String name;
-  private ArrayList<Territory<T>> myNeigh;//used to store neighbourhood information
-  //private Player<T> myPlayer;
+  private final String name;
+  private ArrayList<Territory<T>> myNeigh;
   private ArrayList<Unit<T>> myUnits;
   private ArrayList<Unit<T>> enemyUnits;
+  private int size;
+  private ArrayList<Resource<T>> myResource;
 
-  public Territory(String name){
+  public Territory(String name, int size){
     this.name = name;
-    myNeigh = new ArrayList<Territory<T>>();
-    myUnits = new ArrayList<>();
-    enemyUnits = new ArrayList<>();
+    this.myNeigh = new ArrayList<Territory<T>>();
+    this.myUnits = new ArrayList<>();
+    this.enemyUnits = new ArrayList<>();
+    this.size = size;
+    this.myResource = new ArrayList<>();
+  }
+  /**
+   * constructor holder for evol1, no use
+   */
+  public Territory(String name){
+    this(name,0);
   }
 
   public String getName(){
@@ -55,14 +64,6 @@ public class Territory<T> implements java.io.Serializable {
   public ArrayList<Territory<T>> getMyNeigh(){
     return myNeigh;
   }
-
-//  public void changePlayer(Player<T> playerToChange){
-//    myPlayer = playerToChange;
-//  }
-//
-//  public String getPlayerName(){
-//    return myPlayer.getName();
-//  }
 
   /**
    * return the number of units exist in this territory
