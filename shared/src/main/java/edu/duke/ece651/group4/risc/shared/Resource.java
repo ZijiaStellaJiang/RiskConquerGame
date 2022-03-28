@@ -17,6 +17,9 @@ public abstract class Resource<T> implements java.io.Serializable {
         this.num = num + toAdd;
     }
     public void consumeResource(int consume){
+        if(num<consume){
+            throw new IllegalArgumentException("don't have enough resource to consume");
+        }
         this.num = num - consume;
     }
 

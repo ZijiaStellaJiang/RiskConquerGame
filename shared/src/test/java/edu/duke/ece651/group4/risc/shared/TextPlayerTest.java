@@ -94,4 +94,20 @@ public class TextPlayerTest {
         assertEquals(new ArrayList<String>(),p1.getWinTerritories());
         assertEquals(new ArrayList<String>(),p1.getLoseTerritories());
     }
+    @Test
+    public void test_resource(){
+        Player<Character> p = new TextPlayer("a");
+        Territory<Character> t1 = new Territory<>("t1");
+        Territory<Character> t2 = new Territory<>("t2");
+        p.addToTerritory(t1);
+        p.addToTerritory(t2);
+        assertEquals(0,p.getFoodNum());
+        assertEquals(0,p.getWoodNum());
+        t1.produceResource(new FoodResource<>(5));
+        t2.produceResource(new WoodResource<>(4));
+        assertEquals(5,p.getFoodNum());
+        assertEquals(4,p.getWoodNum());
+        t2.produceResource(new FoodResource<>(3));
+        assertEquals(8,p.getFoodNum());
+    }
 }

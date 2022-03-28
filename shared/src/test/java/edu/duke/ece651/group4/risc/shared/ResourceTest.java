@@ -13,6 +13,7 @@ public class ResourceTest {
         assertEquals(5,f.getNum());
         f.consumeResource(4);
         assertEquals(1,f.getNum());
+        assertThrows(IllegalArgumentException.class, ()->f.consumeResource(2));
     }
 
     @Test

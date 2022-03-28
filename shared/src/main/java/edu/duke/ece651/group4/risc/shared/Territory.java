@@ -13,15 +13,21 @@ public class Territory<T> implements java.io.Serializable {
   //private HashMap<Integer,ArrayList<Unit<T>>> myUnits;
   private ArrayList<Unit<T>> enemyUnits;
   private int size;
+//  private Resource<T> food;
+//  private Resource<T> wood;
   private ArrayList<Resource<T>> myResource;
 
   public Territory(String name, int size){
     this.name = name;
-    this.myNeigh = new ArrayList<Territory<T>>();
+    this.myNeigh = new ArrayList<>();
     this.myUnits = new ArrayList<>();
     this.enemyUnits = new ArrayList<>();
     this.size = size;
+//    this.food = new FoodResource<>(0);
+//    this.wood = new WoodResource<>(0);
     this.myResource = new ArrayList<>();
+    myResource.add(new FoodResource<>(0));
+    myResource.add(new WoodResource<>(0));
   }
   /**
    * constructor holder for evol1, no use
@@ -125,6 +131,59 @@ public class Territory<T> implements java.io.Serializable {
     }
   }
 
+//  public void addFood(int num){
+//    food.addResource(num);
+//  }
+//
+//  public void consumeFood(int num){
+//    food.consumeResource(num);
+//  }
+//
+//  public void addWood(int num){
+//    wood.addResource(num);
+//  }
+//
+//  public void consumeWood(int num){
+//    wood.consumeResource(num);
+//  }
+//
+//  public int getFoodNum() {
+//    return food.getNum();
+//  }
+//
+//  public int getWoodNum(){
+//    return wood.getNum();
+//  }
+
+  /**
+   * used to produce resource after each turn
+   * can also be used to initialize resource at the before start of game (in mapFactory)
+   */
+  public void produceResource(Resource<T> toAdd) {
+    for (Resource<T> r:myResource){
+      if(r.equals(toAdd)) {
+        r.addResource(toAdd.getNum());
+        break;
+      }
+    }
+  }
+
+  public void consumeResource(Resource<T> consume){
+    for (Resource<T> r: myResource){
+      if(r.equals(consume)){
+        r.consumeResource(consume.getNum());
+        break;
+      }
+    }
+  }
+
+  public int getFoodNum(){
+    return myResource.get(0).getNum();
+  }
+
+  public int getWoodNum(){
+    return myResource.get(1).getNum();
+  }
   @Override
   public boolean equals(Object o){
     if(o.getClass().equals(getClass())){
