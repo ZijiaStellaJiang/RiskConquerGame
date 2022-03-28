@@ -9,8 +9,8 @@ import java.util.HashMap;
 public class Territory<T> implements java.io.Serializable {
   private final String name;
   private ArrayList<Territory<T>> myNeigh;
-  private ArrayList<Unit<T>> myUnits;
-  //private HashMap<Integer,ArrayList<Unit<T>>> myUnits;
+  //private ArrayList<Unit<T>> myUnits;
+  private HashMap<Integer,ArrayList<Unit<T>>> myUnits;
   private ArrayList<Unit<T>> enemyUnits;
   private int size;
   private int foodAbility;  //indicate how much resource this territory can produce in each turn
@@ -19,7 +19,8 @@ public class Territory<T> implements java.io.Serializable {
   public Territory(String name, int size, int foodAbility, int woodAbility){
     this.name = name;
     this.myNeigh = new ArrayList<>();
-    this.myUnits = new ArrayList<>();
+    //this.myUnits = new ArrayList<>();
+    this.myUnits = new HashMap<>();
     this.enemyUnits = new ArrayList<>();
     this.size = size;
     this.foodAbility = foodAbility;
@@ -70,31 +71,47 @@ public class Territory<T> implements java.io.Serializable {
   }
 
   /**
-   * return the number of units exist in this territory
+   * return the number of units of a certain level in this territory
+   */
+  public Integer getLevelUnitNum(int level){
+    if(myUnits.containsKey(level)) return myUnits.get(level).size();
+    return 0;
+  }
+
+  /**
+   * return the sum of all level units exist in this territory
    */
   public Integer getUnitNumber() {
-    return myUnits.size();
+    int sum = 0;
+    for (int i=0; i<myUnits.size(); i++){
+      sum += getLevelUnitNum(i);
+    }
+    return sum;
+    //return myUnits.size();
   }
 
   public void addUnit(Unit<T> unitToAdd){
-    myUnits.add(unitToAdd);
+    int level = unitToAdd.getLevel();
+    //if certain level units exist, add this unit to the value mapping to this level
+    if(myUnits.containsKey(level)){
+      myUnits.get(level).add(unitToAdd);
+    }
+    else {
+      ArrayList<Unit<T>> units = new ArrayList<>();
+      units.add(unitToAdd);
+      myUnits.put(level,units);
+    }
+    //myUnits.add(unitToAdd);
   }
 
   public void removeUnit(Unit<T> unitToRemove){
-    for(Unit<T> t: myUnits){
-      myUnits.remove(t);
-      break;
+    int level = unitToRemove.getLevel();
+    if(myUnits.containsKey(level) && myUnits.get(level).size()!=0){
+      myUnits.get(level).remove(0);
     }
-    /**
-     * in later version might change to below code to support different kind of unit
-     * for this version just use above simple one to realize test coverage
-     */
-//    for(Unit<T> t: myUnits){
-//      if (t.getClass().equals(unitToRemove.getClass())){
-//        myUnits.remove(t);
-//        break;
-//      }
-//    }
+    else {
+      throw new IllegalArgumentException("You don't have this level of unit to remove");
+    }
   }
 
   public Integer getEnemyUnitNum(){ return enemyUnits.size(); }
