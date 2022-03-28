@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
@@ -20,7 +21,7 @@ public class StartGame extends Application {
 
     URL cssResource = getClass().getResource("/ui/button.css");
 
-    GridPane gp = FXMLLoader.load(xmlResource);
+    AnchorPane gp = FXMLLoader.load(xmlResource);
     Scene scene = new Scene(gp, 640, 480);
     scene.getStylesheets().add(cssResource.toString());
     stage.setTitle("Really Interesting Strategic Conquest");

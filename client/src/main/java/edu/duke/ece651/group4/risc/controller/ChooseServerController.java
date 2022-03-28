@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.HashMap;
 
 public class ChooseServerController {
     Client client;
@@ -21,6 +22,10 @@ public class ChooseServerController {
     ChoiceBox host_choice;
     @FXML
     Text alert;
+
+    /**
+     * Constructor
+     */
     public ChooseServerController(){
 
     }
@@ -34,8 +39,11 @@ public class ChooseServerController {
          try{
              //create socket
              client = new Client(host, 6066, new BufferedReader(new InputStreamReader(System.in)), System.out);
+             //receive map and player color from server
+             client.initializeGame();
+             System.out.println("player: " + client.getPlayerId() + " playing");
              //jump to show display map page
-             MapGUIView mapGUIView = new MapGUIView();
+             MapGUIView mapGUIView = new MapGUIView(client);
              mapGUIView.showMain();
          }catch (RuntimeException e){
              //set text view to inform user
@@ -44,10 +52,6 @@ public class ChooseServerController {
 
         }
         //Client.connectServer();
-    }
-
-    public String getHost(){
-        return host;
     }
 
 }

@@ -16,6 +16,10 @@ public class MapTextView implements View{
         this.toDisplay = toDisplay;
         this.out = out;
     }
+
+    /**
+     * iterates over all territories and print their information
+     */
     @Override
     public void displayOriginMap(){
         StringBuilder ans = new StringBuilder("The map is shown below:\n");

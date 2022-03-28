@@ -63,7 +63,16 @@ public class Client {
     }
     return null;
   }
+  public int getPlayerId(){
+    return player_id;
+  }
 
+  public Map<Character> getMap(){
+    return this.map;
+  }
+  /**
+   * Receives map and player id from server
+   */
   public void initializeGame() {
     try {
       // receive an object from server
@@ -130,12 +139,6 @@ public class Client {
         output.println(e.getMessage());
         continue;
       }
-      // validate the order (fake action) -> invalid printout msg
-      // if (order.getType() == "MOVE")
-      // ActionRuleChecker<Character> ruleChecker = new UnitNumberRuleChecker<>(new
-      // MoveOwnershipChecker<>(null));
-      // Action<Character> move = new MoveAction<>(order, map,
-      // map.getPlayer(player_id), ruleChecker);
 
       Player<Character> player = map.getPlayer(player_id);
       String result = null;
