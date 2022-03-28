@@ -95,18 +95,4 @@ public class TerritoryTest {
     t1.removeEnemyUnit(new SimpleUnit<>());
     assertEquals(1,t1.getEnemyUnitNum());
   }
-
-  @Test
-  public void test_resource(){
-    Territory<Character> t = new Territory<>("a",2);
-    assertEquals(0,t.getFoodNum());
-    assertEquals(0,t.getWoodNum());
-    t.produceResource(new FoodResource<>(3));
-    t.produceResource(new WoodResource<>(5));
-    assertEquals(3,t.getFoodNum());
-    assertEquals(5,t.getWoodNum());
-    t.consumeResource(new WoodResource<>(4));
-    assertEquals(3,t.getFoodNum());
-    assertEquals(1,t.getWoodNum());
-  }
 }

@@ -9,15 +9,19 @@ public abstract class Player<T> implements java.io.Serializable{
   private ArrayList<Territory<T>> myTerritories;
   //this field stores the combat result of last round. If wins a territory, map true; if loses, map false
   private HashMap<String,Boolean> lastRoundChange;
-//  private ArrayList<Resource<T>> myResource;
+  private Resource<T> food;
+  private Resource<T> wood;
+  private ArrayList<Resource<T>> myResource;
 
   public Player(String name) {
     this.name = name;
     myTerritories = new ArrayList<Territory<T>>();
     lastRoundChange = new HashMap<>();
-//    myResource = new ArrayList<>();
-//    myResource.add(new FoodResource<>(0));
-//    myResource.add(new WoodResource<>(0));
+    food = new FoodResource<>(0);
+    wood = new WoodResource<>(0);
+    myResource = new ArrayList<>();
+    myResource.add(new FoodResource<>(0));
+    myResource.add(new WoodResource<>(0));
   }
 
   public String getName() {
@@ -85,6 +89,7 @@ public abstract class Player<T> implements java.io.Serializable{
     }
     return winTerritories;
   }
+
   /**
    * reset the field lastRoundChange to an empty map, to store next round's information
    */
@@ -92,19 +97,31 @@ public abstract class Player<T> implements java.io.Serializable{
     lastRoundChange = new HashMap<>();
   }
 
-  public int getFoodNum(){
-    int foodSum = 0;
-    for (Territory<T> t: myTerritories){
-      foodSum += t.getFoodNum();
+  public void consumeResource(Resource<T> consume){
+    for (Resource<T> r: myResource){
+      if(r.equals(consume)){
+        r.consumeResource(consume.getNum());
+        break;
+      }
     }
-    return foodSum;
+  }
+
+  /**
+   * this function should be called at the end of each turn
+   * to update the resource production in this turn
+   */
+  public void updateResource(){
+    for (Territory<T> t: myTerritories){
+      myResource.get(0).addResource(t.getFoodAbility());
+      myResource.get(1).addResource(t.getWoodAbility());
+    }
+  }
+
+  public int getFoodNum(){
+    return myResource.get(0).getNum();
   }
 
   public int getWoodNum(){
-    int woodSum = 0;
-    for (Territory<T> t: myTerritories){
-      woodSum += t.getWoodNum();
-    }
-    return woodSum;
+    return myResource.get(1).getNum();
   }
 }
