@@ -10,6 +10,7 @@ public abstract class Resource<T> implements java.io.Serializable {
     public Resource(int num){
         this.num = num;
     }
+
     public int getNum() {
         return num;
     }

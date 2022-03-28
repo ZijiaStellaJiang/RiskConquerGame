@@ -110,8 +110,11 @@ public class TextPlayerTest {
         p.consumeResource(new WoodResource<>(4));
         assertEquals(4,p.getFoodNum());
         assertEquals(5,p.getWoodNum());
+        p.removeFromTerritory(t1);
+        assertEquals(4,p.getFoodNum());
+        assertEquals(5,p.getWoodNum());
         p.updateResource();
-        assertEquals(9,p.getFoodNum());
-        assertEquals(14,p.getWoodNum());
+        assertEquals(5,p.getFoodNum());
+        assertEquals(11,p.getWoodNum());
     }
 }

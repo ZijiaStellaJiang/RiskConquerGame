@@ -10,4 +10,13 @@ public abstract class Unit<T> implements java.io.Serializable{
   public int getLevel(){
     return level;
   }
+
+  @Override
+  public boolean equals(Object o){
+    if(o.getClass().equals(getClass())){
+      Unit<T> unit = (Unit<T>) o;
+      return level == unit.getLevel();
+    }
+    return false;
+  }
 }
