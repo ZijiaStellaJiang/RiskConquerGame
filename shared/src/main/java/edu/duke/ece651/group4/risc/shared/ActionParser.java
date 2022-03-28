@@ -29,7 +29,7 @@ public class ActionParser implements java.io.Serializable{
 
   /**
    * Constructor
-   * @param input format type source destincation num
+   * @param input format type source destination num
    */
   public ActionParser(String input) {
     String upperString = input.toUpperCase();
