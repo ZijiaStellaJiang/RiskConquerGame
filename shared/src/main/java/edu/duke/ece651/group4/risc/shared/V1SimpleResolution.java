@@ -33,7 +33,7 @@ public class V1SimpleResolution<T> extends CombatResolution<T> {
             }
             if(attackRoll>defendRoll){
                 defendNum--;
-                defend.removeUnit(new SimpleUnit<>());
+                defend.removeMyUnit(new SimpleUnit<>());
             }
             else {
                 attackNum--;

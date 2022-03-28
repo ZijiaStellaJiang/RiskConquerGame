@@ -25,7 +25,7 @@ public class AttackAction<T> extends Action<T> {
             thePlayer.addWinTerritory(dest.getName());
             int remain = dest.getEnemyUnitNum();
             for(int i=0; i<remain; i++){
-                dest.addUnit(new SimpleUnit<>());
+                dest.addMyUnit(new SimpleUnit<>());
                 dest.removeEnemyUnit(new SimpleUnit<>());
             }
         }

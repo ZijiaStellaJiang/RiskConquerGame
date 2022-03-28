@@ -1,6 +1,5 @@
 package edu.duke.ece651.group4.risc.shared;
 
-import edu.duke.ece651.group4.risc.shared.*;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -16,10 +15,10 @@ public class UnitNumberRuleCheckerTest {
         Territory<Character> t2 = new Territory<>("t2");
         ArrayList<Unit<Character>> nUnits = new ArrayList<>(Collections.nCopies(8, new SimpleUnit<>()));
         for (Unit<Character> u: nUnits){
-            t1.addUnit(u);
+            t1.addMyUnit(u);
         }
         Unit<Character> u2 = new SimpleUnit<>();
-        t2.addUnit(u2);
+        t2.addMyUnit(u2);
         Player<Character> p = new TextPlayer("p1");
         Map<Character> map = new Map<>();
         map.addTerritory(t1);
