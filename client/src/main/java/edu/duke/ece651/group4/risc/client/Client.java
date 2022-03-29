@@ -70,6 +70,7 @@ public class Client {
   public Map<Character> getMap(){
     return this.map;
   }
+
   /**
    * Receives map and player id from server
    */

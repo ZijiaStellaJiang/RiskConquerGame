@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -30,6 +31,11 @@ public class ChooseServerController {
 
     }
 
+    /**
+     * After user click connect to server, create a new client and connect it to server
+     * @param ae click connect button behavior
+     * @throws IOException
+     */
     @FXML
     public void connect_server(ActionEvent ae) throws IOException {
         Object source = ae.getSource();
@@ -42,16 +48,16 @@ public class ChooseServerController {
              //receive map and player color from server
              client.initializeGame();
              System.out.println("player: " + client.getPlayerId() + " playing");
-             //jump to show display map page
+             //close current stage and jump to show display map page
              MapGUIView mapGUIView = new MapGUIView(client);
+             Stage primaryStage = (Stage) alert.getScene().getWindow();
+             primaryStage.close();
              mapGUIView.showMain();
          }catch (RuntimeException e){
              //set text view to inform user
             alert.setText("cannot connect to server");
          }
-
         }
-        //Client.connectServer();
     }
 
 }

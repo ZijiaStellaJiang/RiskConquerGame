@@ -40,7 +40,7 @@ public class MapGUIView {
             //display player's color
             MainMapController mapController=loader.getController();
             mapController.displayPlayerMsg();
-
+            mapController.displayTerritoryBorder();
             Scene scene = new Scene(root);
             scene.getStylesheets().add(cssResource.toString());
             //displayPlayerMsg(player_id);
