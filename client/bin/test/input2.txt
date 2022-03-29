@@ -1,0 +1,15 @@
+attack hogwarts narnia 9
+move elantris hogwarts 3
+done
+move elantris gondor 2
+done
+move elantris gondor 1
+done
+move hogwarts elantris 2
+done
+attack gondor hogwarts 1
+done
+attack elantris hogwarts 2
+done
+attack hogwarts elantris 3
+done
