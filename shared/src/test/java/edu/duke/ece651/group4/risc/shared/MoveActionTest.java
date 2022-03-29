@@ -1,6 +1,5 @@
 package edu.duke.ece651.group4.risc.shared;
 
-import org.checkerframework.checker.units.qual.A;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ public class MoveActionTest {
         ArrayList<Unit<Character>> nUnits = new ArrayList<>(Collections.nCopies(8, new SimpleUnit<>()));
         t1.addGroupUnit(nUnits);
         Unit<Character> u2 = new SimpleUnit<>();
-        t2.addUnit(u2);
+        t2.addMyUnit(u2);
         Player<Character> p1 = new TextPlayer("p1");
         Player<Character> p2 = new TextPlayer("p2");
         p1.addToTerritory(t);

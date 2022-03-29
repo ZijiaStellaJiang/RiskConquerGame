@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AttackPathCheckerTest {
     protected void addUnitsInTerritory(Territory<Character> target, ArrayList<Unit<Character>> toAdd){
         for (Unit<Character> u: toAdd){
-            target.addUnit(u);
+            target.addMyUnit(u);
         }
     }
     @Test

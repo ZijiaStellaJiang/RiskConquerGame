@@ -15,15 +15,15 @@ public class AttackOwnershipCheckerTest {
         Territory<Character> t3 = new Territory<>("t3");
         ArrayList<Unit<Character>> nUnits = new ArrayList<>(Collections.nCopies(8, new SimpleUnit<>()));
         for (Unit<Character> u: nUnits){
-            t1.addUnit(u);
+            t1.addMyUnit(u);
         }
         ArrayList<Unit<Character>> nUnits2 = new ArrayList<>(Collections.nCopies(5, new SimpleUnit<>()));
         for (Unit<Character> u: nUnits2){
-            t2.addUnit(u);
+            t2.addMyUnit(u);
         }
         ArrayList<Unit<Character>> nUnits3 = new ArrayList<>(Collections.nCopies(2, new SimpleUnit<>()));
         for (Unit<Character> u: nUnits3){
-            t3.addUnit(u);
+            t3.addMyUnit(u);
         }
         TextPlayer p1 = new TextPlayer("A");
         TextPlayer p2 = new TextPlayer("B");

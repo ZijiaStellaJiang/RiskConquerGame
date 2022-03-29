@@ -29,12 +29,12 @@ public class MoveAction<T> extends Action<T>{
             if(dest.getName().toUpperCase().equals(parser.getDest())){
                 for(int i=0; i<toMove; i++){
                     if(moveToSamePlayer){
-                        dest.addUnit(new SimpleUnit<>());
+                        dest.addMyUnit(new SimpleUnit<>());
                     }
                     else {
                         dest.addEnemyUnit(new SimpleUnit<>());
                     }
-                    source.removeUnit(new SimpleUnit<>());
+                    source.removeMyUnit(new SimpleUnit<>());
                 }
                 break;
             }
