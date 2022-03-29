@@ -4,6 +4,8 @@
 package edu.duke.ece651.group4.risc.client;
 
 import edu.duke.ece651.group4.risc.shared.*;
+import javafx.application.Application;
+
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -41,7 +43,13 @@ public class Client {
       throw new RuntimeException("cannot connect to server");
     }
   }
+  public int getPlayerId(){
+    return this.player_id;
+  }
 
+  public Map<Character> getMap(){
+    return this.map;
+  }
   public Socket getSocket(){
     return player_skd;
   }
@@ -200,6 +208,7 @@ public class Client {
     }
   }
   public static void main(String[] args) throws IOException {
+    Application.launch(StartGame.class, args);
     System.out.println("Enter server's ip:");
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     String str = reader.readLine();
