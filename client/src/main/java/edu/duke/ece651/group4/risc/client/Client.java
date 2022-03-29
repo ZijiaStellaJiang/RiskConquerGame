@@ -19,6 +19,8 @@ public class Client {
   private Action<Character> move_myself;
   private Action<Character> move_enemy;
   private Action<Character> attack;
+  private ArrayList<ActionParser> order_list;
+  private MapTextView displayInfo;
 
 
   public Client(String serverName, int port, BufferedReader input, PrintStream outputStream) throws RuntimeException{
@@ -30,6 +32,8 @@ public class Client {
     move_myself = new MoveAction<>(true);
     move_enemy = new MoveAction<>(false);
     attack = new AttackAction<>();
+    order_list = null;
+    displayInfo = null;
     try {
       player_out = new ObjectOutputStream(player_skd.getOutputStream());
       player_in = new ObjectInputStream(new BufferedInputStream(player_skd.getInputStream()));
@@ -96,28 +100,54 @@ public class Client {
     }
     return obj;
   }
-  public boolean playOneRound() throws IOException {
-    ArrayList<ActionParser> order_list = new ArrayList<ActionParser>();
-    while (true) {
-      // read an input from client
-      String str = inputReader.readLine();
-      if (str == null) throw new EOFException("END");
-      // check done
-      str = str.toUpperCase();
-      if (str.equals("DONE")) break;
-      // parse the input to order
-      ActionParser order = null;
-      try {
-        order = new ActionParser(str);
-      } catch (IllegalArgumentException e) {
-        output.println(e.getMessage());
-        continue;
-      }
-      // validate the order (fake action) -> invalid printout msg
-      //if (order.getType() == "MOVE")
-      //ActionRuleChecker<Character> ruleChecker = new UnitNumberRuleChecker<>(new MoveOwnershipChecker<>(null));
-      //Action<Character> move = new MoveAction<>(order, map, map.getPlayer(player_id), ruleChecker);
 
+  public String revcOrderStr() throws IOException{
+    String orderStr = null;
+    // read an input from client
+    String str = inputReader.readLine();
+    if (str == null) throw new EOFException("END");
+    // check done
+    str = str.toUpperCase();
+    if (!str.equals("DONE")) orderStr = str;
+    return orderStr;
+  }
+  public ActionParser parseOrder(String orderStr) {
+    ActionParser order = null;
+    try {
+      order = new ActionParser(orderStr);
+    } catch (IllegalArgumentException e) {
+      output.println(e.getMessage());
+    }
+    return order;
+  }
+  public void oneRoundBegin() {
+    order_list = new ArrayList<ActionParser>();
+  }
+  public void oneRoundEnd() throws IOException {
+    output.println("-----------Sending message to server--------");
+    // send order list to server
+    send_to_server(order_list);
+  }
+  public void oneRoundUpdate() throws IOException {
+    output.println("-----------Receving message from server--------");
+    map = null;
+    map = (Map<Character>)recv_from_server();
+  }
+  public void mapDisplay() {
+    output.println("-----------showing the map--------");
+    displayInfo = new MapTextView(map, output);
+    displayInfo.displayCurrentMap();
+    displayInfo.displayPlayerMsg(player_id);
+  }
+  public boolean checkGameOver() {
+    Integer id = map.getLoserId();
+    if (id != null) {
+      displayInfo.displayVictoryMsg(id);
+      return true;
+    }
+    return false;
+  }
+  public boolean addOrder(ActionParser order) {
       Player<Character> player = map.getPlayer(player_id);
       String result = null;
       if (order.getType().equals("MOVE")) {
@@ -126,39 +156,40 @@ public class Client {
         result = move_enemy.doAction(order, map, player);
       } else {
         System.out.println("WRONG TYPE ERROR!");
-        continue;
+        return false;
       }
       if (result != null) {
         output.println(result);
-        continue;
+        return false;
       } else {
         output.println("Valid Action!\n");
       }
-
-      // TODO assume valid order first
       // add to order list
       order_list.add(order);
-    }
-    output.println("-----------Sending message to server--------");
-    // send order list to server
-    send_to_server(order_list);
-    // receive new update map
-    output.println("-----------Receving message from server--------");
-    map = null;
-    map = (Map<Character>)recv_from_server();
-    // display new update map
-    output.println("-----------showing the map--------");
-    MapTextView displayInfo = new MapTextView(map, output);
-    displayInfo.displayCurrentMap();
-    displayInfo.displayPlayerMsg(player_id);
-    // make sure if the game is over
-    Integer id = map.getLoserId();
-    if (id != null) {
-      displayInfo.displayVictoryMsg(player_id);
       return true;
-    }
-    return false;
   }
+  public boolean playOneRound() throws IOException {
+    oneRoundBegin();
+    while (true) {
+      // recv an input String
+      String orderStr = revcOrderStr();
+      if (orderStr == null) break;
+      // parse the input to order
+      ActionParser order = parseOrder(orderStr);
+      // add order to orderlist
+      if (order != null) addOrder(order);
+    }
+    // send orderlist to server
+    oneRoundEnd();
+    // receive new update map
+    oneRoundUpdate();
+    // display new update map
+    mapDisplay();
+    // make sure if the game is over
+    return checkGameOver();
+  }
+
+
   public void close_connection() {
     try {
       player_out.close();
