@@ -110,5 +110,31 @@ public class MainMapController {
         stage.show();
     }
 
+    @FXML
+    public void showAttack(ActionEvent ae) throws IOException {
+        Button source = (Button)ae.getSource();
+        //show move page
+        URL xmlResource = getClass().getResource("/ui/AttackAction.fxml");
+        FXMLLoader loader = new FXMLLoader(xmlResource);
+        AnchorPane gp = FXMLLoader.load(xmlResource);
+        Scene scene = new Scene(gp);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    @FXML
+    public void showUpgrade(ActionEvent ae) throws IOException {
+        Button source = (Button)ae.getSource();
+        //show move page
+        URL xmlResource = getClass().getResource("/ui/UpgradeAction.fxml");
+        FXMLLoader loader = new FXMLLoader(xmlResource);
+        AnchorPane gp = loader.load();
+        Scene scene = new Scene(gp);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
 
 }
