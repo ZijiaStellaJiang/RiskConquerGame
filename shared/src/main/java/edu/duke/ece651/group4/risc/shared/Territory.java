@@ -7,7 +7,6 @@ public class Territory<T> implements java.io.Serializable {
   private final String name;
   private ArrayList<Territory<T>> myNeigh;
   private HashMap<Integer,ArrayList<Unit<T>>> myUnits;
-  //private ArrayList<Unit<T>> enemyUnits;
   private HashMap<Integer,ArrayList<Unit<T>>> enemyUnits;
   private int size;
   private int foodAbility;  //indicate how much resource this territory can produce in each turn
@@ -17,7 +16,6 @@ public class Territory<T> implements java.io.Serializable {
     this.name = name;
     this.myNeigh = new ArrayList<>();
     this.myUnits = new HashMap<>();
-    //this.enemyUnits = new ArrayList<>();
     this.enemyUnits = new HashMap<>();
     this.size = size;
     this.foodAbility = foodAbility;
