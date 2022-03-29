@@ -28,7 +28,7 @@ public class ActionParserTest {
 
     //test with error case
     assertThrows(IllegalArgumentException.class, () -> new ActionParser("a s v"));
-    assertThrows(IllegalArgumentException.class, () -> new ActionParser("move a b 2 3"));
+    assertThrows(IllegalArgumentException.class, () -> new ActionParser("move a b 2 3 3"));
     assertThrows(IllegalArgumentException.class, () -> new ActionParser("move1 a test 3"));
   }
 

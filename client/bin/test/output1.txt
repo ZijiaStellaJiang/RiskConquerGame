@@ -1,0 +1,213 @@
+Connecting to localhost on port 6066
+Just connected to localhost/127.0.0.1:6066
+Now the map is described as below:
+Green player:
+-------------
+ 8 units in Narnia (next to: Oz, Mordor, Hogwarts)
+ 3 units in Oz (next to: Narnia, Mordor)
+ 4 units in Mordor (next to: Narnia, Oz, Hogwarts)
+
+Blue player:
+------------
+ 9 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
+ 2 units in Gondor (next to: Hogwarts, Elantris)
+ 4 units in Elantris (next to: Hogwarts, Gondor)
+
+You are the Green player.
+What would you like to do?
+  Move <Source> <Destination> <number>
+  Attack <Source> <Destination> <number>
+  Done
+
+Valid Action!
+
+-----------Sending message to server--------
+-----------Receving message from server--------
+-----------showing the map--------
+Now the map is described as below:
+Green player:
+-------------
+ 4 units in Narnia (next to: Oz, Mordor, Hogwarts)
+ 4 units in Oz (next to: Narnia, Mordor)
+ 6 units in Mordor (next to: Narnia, Oz, Hogwarts)
+
+Blue player:
+------------
+ 4 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
+ 3 units in Gondor (next to: Hogwarts, Elantris)
+ 2 units in Elantris (next to: Hogwarts, Gondor)
+
+You are the Green player.
+What would you like to do?
+  Move <Source> <Destination> <number>
+  Attack <Source> <Destination> <number>
+  Done
+
+Valid Action!
+
+-----------Sending message to server--------
+-----------Receving message from server--------
+-----------showing the map--------
+Now the map is described as below:
+Green player:
+-------------
+ 9 units in Narnia (next to: Oz, Mordor, Hogwarts)
+ 1 units in Oz (next to: Narnia, Mordor)
+ 7 units in Mordor (next to: Narnia, Oz, Hogwarts)
+
+Blue player:
+------------
+ 5 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
+ 6 units in Gondor (next to: Hogwarts, Elantris)
+ 1 units in Elantris (next to: Hogwarts, Gondor)
+
+You are the Green player.
+What would you like to do?
+  Move <Source> <Destination> <number>
+  Attack <Source> <Destination> <number>
+  Done
+
+Valid Action!
+
+-----------Sending message to server--------
+-----------Receving message from server--------
+-----------showing the map--------
+Now the map is described as below:
+Green player:
+-------------
+ 10 units in Narnia (next to: Oz, Mordor, Hogwarts)
+ 2 units in Oz (next to: Narnia, Mordor)
+ 1 units in Mordor (next to: Narnia, Oz, Hogwarts)
+
+Blue player:
+------------
+ 4 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
+ 8 units in Gondor (next to: Hogwarts, Elantris)
+ 1 units in Elantris (next to: Hogwarts, Gondor)
+
+You are the Green player.
+What would you like to do?
+  Move <Source> <Destination> <number>
+  Attack <Source> <Destination> <number>
+  Done
+
+Valid Action!
+
+incorrect input
+-----------Sending message to server--------
+-----------Receving message from server--------
+-----------showing the map--------
+Now the map is described as below:
+Green player:
+-------------
+ 1 units in Narnia (next to: Oz, Mordor, Hogwarts)
+ 3 units in Oz (next to: Narnia, Mordor)
+ 2 units in Mordor (next to: Narnia, Oz, Hogwarts)
+ 8 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
+
+Blue player:
+------------
+ 9 units in Gondor (next to: Hogwarts, Elantris)
+ 4 units in Elantris (next to: Hogwarts, Gondor)
+
+You are the Green player.
+In the last round,
+You win 1 territories: Hogwarts
+What would you like to do?
+  Move <Source> <Destination> <number>
+  Attack <Source> <Destination> <number>
+  Done
+
+Valid Action!
+
+Valid Action!
+
+Valid Action!
+
+-----------Sending message to server--------
+-----------Receving message from server--------
+-----------showing the map--------
+Now the map is described as below:
+Green player:
+-------------
+ 1 units in Narnia (next to: Oz, Mordor, Hogwarts)
+ 4 units in Oz (next to: Narnia, Mordor)
+ 1 units in Mordor (next to: Narnia, Oz, Hogwarts)
+ 4 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
+ 2 units in Gondor (next to: Hogwarts, Elantris)
+
+Blue player:
+------------
+ 5 units in Elantris (next to: Hogwarts, Gondor)
+
+You are the Green player.
+In the last round,
+You win 1 territories: Gondor
+What would you like to do?
+  Move <Source> <Destination> <number>
+  Attack <Source> <Destination> <number>
+  Done
+
+Valid Action!
+
+Valid Action!
+
+That action is invalid: enter a wrong name or do attack from other's territory
+Valid Action!
+
+-----------Sending message to server--------
+-----------Receving message from server--------
+-----------showing the map--------
+Now the map is described as below:
+Green player:
+-------------
+ 2 units in Narnia (next to: Oz, Mordor, Hogwarts)
+ 1 units in Oz (next to: Narnia, Mordor)
+ 2 units in Mordor (next to: Narnia, Oz, Hogwarts)
+ 1 units in Gondor (next to: Hogwarts, Elantris)
+ 6 units in Elantris (next to: Hogwarts, Gondor)
+
+Blue player:
+------------
+ 3 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
+
+You are the Green player.
+In the last round,
+You lose 1 territories: Hogwarts
+You win 1 territories: Elantris
+What would you like to do?
+  Move <Source> <Destination> <number>
+  Attack <Source> <Destination> <number>
+  Done
+
+Valid Action!
+
+That action is invalid: enter a wrong name or do attack from other's territory
+Valid Action!
+
+-----------Sending message to server--------
+-----------Receving message from server--------
+-----------showing the map--------
+Now the map is described as below:
+Green player:
+-------------
+ 1 units in Narnia (next to: Oz, Mordor, Hogwarts)
+ 2 units in Oz (next to: Narnia, Mordor)
+ 1 units in Mordor (next to: Narnia, Oz, Hogwarts)
+ 2 units in Gondor (next to: Hogwarts, Elantris)
+ 4 units in Elantris (next to: Hogwarts, Gondor)
+ 5 units in Hogwarts (next to: Narnia, Mordor, Gondor, Elantris)
+
+Blue player:
+------------
+
+You are the Green player.
+In the last round,
+You win 1 territories: Hogwarts
+What would you like to do?
+  Move <Source> <Destination> <number>
+  Attack <Source> <Destination> <number>
+  Done
+
+You win!
+Congratulations!
