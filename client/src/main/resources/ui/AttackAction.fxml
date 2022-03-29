@@ -19,7 +19,7 @@
         <ChoiceBox fx:id="unit_level" layoutX="169.0" layoutY="196.0" prefWidth="150.0" />
         <Label layoutX="41.0" layoutY="256.0" text="Number of Unit:" />
         <TextField fx:id="unit_num" layoutX="169.0" layoutY="252.0" prefHeight="26.0" prefWidth="150.0" />
-        <Button fx:id="done_btn" layoutX="423.0" layoutY="310.0" mnemonicParsing="false" text="DONE" />
+        <Button fx:id="done_btn" layoutX="423.0" layoutY="310.0" mnemonicParsing="false" text="DONE" onAction="#done"/>
         <Text fx:id="alert" layoutX="330.0" layoutY="360.0" strokeType="OUTSIDE" strokeWidth="0.0" text="ATTACK ACTION SAVED SUCCESSFULLY" />
     </children>
 </AnchorPane>

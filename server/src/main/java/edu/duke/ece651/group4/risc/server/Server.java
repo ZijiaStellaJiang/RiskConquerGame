@@ -24,7 +24,8 @@ public class Server {
 
   public Server(int port) throws IOException {
     serverSocket = new ServerSocket(port);
-    mapFactory = new V1MapFactory();
+//    mapFactory = new V1MapFactory();
+    mapFactory = new V2MapFactory();
     map = mapFactory.generateMap();
     player_num = 2;
     player_skd = new ArrayList<Socket>();

@@ -1,11 +1,11 @@
 package edu.duke.ece651.group4.risc.controller;
 
 import edu.duke.ece651.group4.risc.client.Client;
-import edu.duke.ece651.group4.risc.shared.Action;
-import edu.duke.ece651.group4.risc.shared.Map;
-import edu.duke.ece651.group4.risc.shared.Player;
-import edu.duke.ece651.group4.risc.shared.Territory;
+import edu.duke.ece651.group4.risc.shared.*;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,9 +16,13 @@ import javafx.scene.text.Text;
 
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
+import javax.print.DocFlavor;
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class MainMapController {
     private Client client;//model
@@ -41,9 +45,12 @@ public class MainMapController {
     Text player_color;
     @FXML
     AnchorPane background;
+    static ArrayList<ActionParser> actions = new ArrayList<>();
+    private  HashMap<Class<?>, Object> controllers;
     public MainMapController(Client client){
         this.client = client;
         System.out.println(client.getPlayerId());
+        controllers = new HashMap<>();
     }
 
 
@@ -56,6 +63,22 @@ public class MainMapController {
         player_color.setText(player_name);
     }
 
+    public ArrayList<Territory<Character>> displayMyTerritory(){
+        Map<Character> myMap = client.getMap();
+        ArrayList<Player<Character>> players = myMap.getMyPlayers();
+        for(Territory<Character> terr:players.get(client.getPlayerId()).getMyTerritories()){
+            System.out.println(terr.getName());
+        }
+        return players.get(client.getPlayerId()).getMyTerritories();
+        //make option list
+//        ObservableList<String> sources = FXCollections.observableArrayList();
+//        for(Territory<Character> terr:myTerri){
+//            sources.add(terr.getName());
+//        }
+        //add sources to front end choice box
+
+    }
+
     /**
      * set border of territory according to which player the territory belong to
      */
@@ -66,7 +89,6 @@ public class MainMapController {
                 String terr_name = myTerri.getName().toUpperCase();
                 for(Node element:background.getChildren()){
                     if(element instanceof Button){
-
                         if(element.getId()!=null){
                             Button btn = (Button) element;
                             String btn_name = btn.getText().toUpperCase();
@@ -84,6 +106,7 @@ public class MainMapController {
             }
         }
     }
+
     @FXML
     public void displayTerritory(ActionEvent ae){
         Button source = (Button)ae.getSource();
@@ -99,15 +122,29 @@ public class MainMapController {
 
     @FXML
     public void showMove(ActionEvent ae) throws IOException {
+        displayMyTerritory();
         Button source = (Button)ae.getSource();
         //show move page
         URL xmlResource = getClass().getResource("/ui/MoveAction.fxml");
         FXMLLoader loader = new FXMLLoader(xmlResource);
-        AnchorPane gp = FXMLLoader.load(xmlResource);
+        //setup controller
+        controllers.put(MoveActionController.class, new MoveActionController(client.getPlayerId(), displayMyTerritory()));//create a new controller and add it
+        loader.setControllerFactory((c) -> {
+            return controllers.get(c);
+        });
+        AnchorPane gp = loader.load();
+        MoveActionController moveActionController= loader.getController();
+        moveActionController.setup();
         Scene scene = new Scene(gp);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+               showMyActions();
+            }
+        });
     }
 
     @FXML
@@ -116,11 +153,23 @@ public class MainMapController {
         //show move page
         URL xmlResource = getClass().getResource("/ui/AttackAction.fxml");
         FXMLLoader loader = new FXMLLoader(xmlResource);
-        AnchorPane gp = FXMLLoader.load(xmlResource);
+        controllers.put(AttackActionController.class, new AttackActionController(client.getPlayerId(), displayMyTerritory()));//create a new controller and add it
+        loader.setControllerFactory((c) -> {
+            return controllers.get(c);
+        });
+        AnchorPane gp = loader.load();
+        AttackActionController attackActionController= loader.getController();
+        attackActionController.setup();
         Scene scene = new Scene(gp);
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+            @Override
+            public void handle(WindowEvent event) {
+                showMyActions();
+            }
+        });
     }
 
     @FXML
@@ -134,6 +183,12 @@ public class MainMapController {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
+    }
+
+    public void showMyActions(){
+        for(ActionParser action : actions){
+            System.out.println(action.getSource() + " " + action.getDest() + " " + action.getUnit());
+        }
     }
 
 
