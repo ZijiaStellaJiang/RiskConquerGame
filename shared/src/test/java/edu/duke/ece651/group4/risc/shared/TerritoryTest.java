@@ -1,12 +1,11 @@
 package edu.duke.ece651.group4.risc.shared;
 
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Collections;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class TerritoryTest {
   @Test
@@ -14,13 +13,11 @@ public class TerritoryTest {
     Territory<Character> territory = new Territory<Character>("test");
     assertEquals("test", territory.getName());
   }
-
   @Test
   public void test_neigh_check() {
     Territory<Character> territory1 = new Territory<Character>("test1");
     Territory<Character> territory2 = new Territory<Character>("test2");
     Territory<Character> territory3 = new Territory<Character>("test3");
-
     territory1.addNeigh(territory3);
     territory1.addNeigh(territory1);
     assertEquals(true, territory1.checkNeigh(territory3));
@@ -36,7 +33,6 @@ public class TerritoryTest {
     //territory1.addNeigh(territory3);
     //territory1.removeNeigh(territory2);
   }
- 
   @Test
   public void test_equals(){
     Territory<Character> territory1 = new Territory<Character>("test1");
@@ -45,7 +41,6 @@ public class TerritoryTest {
     assertEquals(false, territory1.equals("test1"));
     assertEquals(false, territory1.equals(territory2));
   }
-
   @Test
   public void test_get_my_neigh(){
     Territory<Character> territory1 = new Territory<Character>("A");
@@ -58,45 +53,39 @@ public class TerritoryTest {
     neigh.add(territory3);
     assertEquals(neigh,territory1.getMyNeigh());
   }
-
-//  @Test
-//  public void test_change_player(){
-//    Player<Character> player = new TextPlayer("p");
-//    Territory<Character> territory1 = new Territory<Character>("t1");
-//    territory1.changePlayer(player);
-//    assertEquals("p", territory1.getPlayerName());
-//    territory1.changePlayer(player);
-//    assertEquals("p", territory1.getPlayerName());
-//  }
-
   @Test
   public void test_operate_get_unit_number(){
     Territory<Character> t1 = new Territory<>("A");
     assertEquals(0,t1.getUnitNumber());
     Unit<Character> u1 = new SimpleUnit<>();
-    t1.addUnit(u1);
+    assertEquals(0,u1.getLevel());
+    t1.addMyUnit(u1);
     assertEquals(1,t1.getUnitNumber());
     Unit<Character> u2 = new SimpleUnit<>();
     Unit<Character> u3 = new SimpleUnit<>();
-    t1.addUnit(u2);
-    t1.addUnit(u3);
+    t1.addMyUnit(u2);
+    t1.addMyUnit(u3);
     assertEquals(3,t1.getUnitNumber());
-    t1.removeUnit(u3);
+    t1.removeMyUnit(u3);
     assertEquals(2,t1.getUnitNumber());
-    t1.removeUnit(u1);
+    t1.removeMyUnit(u1);
     assertEquals(1,t1.getUnitNumber());
-    ArrayList<Unit<Character>> units = new ArrayList<>();
-    units.addAll(Collections.nCopies(8,new SimpleUnit<>()));
-    for (Unit<Character> u: units){
-      t1.addUnit(u);
-    }
+    ArrayList<Unit<Character>> units = new ArrayList<>(Collections.nCopies(8, new SimpleUnit<>()));
+    t1.addGroupUnit(units);
     assertEquals(9,t1.getUnitNumber());
+    Unit<Character> u_level = new SimpleUnit<>(3);
+    assertEquals(3,u_level.getLevel());
+    assertEquals(0,t1.getLevelUnitNum(3));
+    t1.addMyUnit(u_level);
+    assertEquals(1,t1.getLevelUnitNum(3));
+    assertEquals(10,t1.getUnitNumber());
+    assertThrows(IllegalArgumentException.class,()->t1.removeMyUnit(new SimpleUnit<>(2)));
   }
-
   @Test
   public void test_enemy_unit(){
     Territory<Character> t1 = new Territory<>("t1");
     assertEquals(0,t1.getEnemyUnitNum());
+    assertEquals(0,t1.getLevelEnemyUnitNum(1));
     Unit<Character> e1 = new SimpleUnit<>();
     Unit<Character> e2 = new SimpleUnit<>();
     t1.addEnemyUnit(e1);

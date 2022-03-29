@@ -70,7 +70,7 @@ public class Map<T> implements java.io.Serializable {
    */
   public void receive_new_units(){
     for (Territory<T> t: myTerritories){
-      t.addUnit(new SimpleUnit<>());
+      t.addMyUnit(new SimpleUnit<>());
     }
   }
 
