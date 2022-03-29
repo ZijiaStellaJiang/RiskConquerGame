@@ -35,7 +35,7 @@
          <tooltip>
             <Tooltip text="Empty Tooltip" />
          </tooltip></Button>
-      <Button layoutX="160.0" layoutY="446.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="MOVE" />
+      <Button layoutX="160.0" layoutY="446.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="MOVE" fx:id="showMove" onAction="#showMove"/>
       <Button layoutX="284.0" layoutY="446.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="ATTACK" />
       <Button layoutX="412.0" layoutY="446.0" mnemonicParsing="false" text="UPGRADE" />
       <Text fx:id="player_color" layoutX="96.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />

@@ -1,17 +1,24 @@
 package edu.duke.ece651.group4.risc.controller;
 
 import edu.duke.ece651.group4.risc.client.Client;
+import edu.duke.ece651.group4.risc.shared.Action;
 import edu.duke.ece651.group4.risc.shared.Map;
 import edu.duke.ece651.group4.risc.shared.Player;
 import edu.duke.ece651.group4.risc.shared.Territory;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import javafx.scene.control.Button;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
 
 public class MainMapController {
     private Client client;//model
@@ -88,6 +95,19 @@ public class MainMapController {
         sb.append("Belong to: test\n");
         sb.append("Units information: \n");
         oz_tooltip.setText(sb.toString());
+    }
+
+    @FXML
+    public void showMove(ActionEvent ae) throws IOException {
+        Button source = (Button)ae.getSource();
+        //show move page
+        URL xmlResource = getClass().getResource("/ui/MoveAction.fxml");
+        FXMLLoader loader = new FXMLLoader(xmlResource);
+        AnchorPane gp = FXMLLoader.load(xmlResource);
+        Scene scene = new Scene(gp);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
 
 

@@ -36,7 +36,7 @@ public class MapGUIView {
                 return controllers.get(c);
             });
 
-            AnchorPane root = loader.load();
+                AnchorPane root = loader.load();
             //display player's color
             MainMapController mapController=loader.getController();
             mapController.displayPlayerMsg();
