@@ -34,7 +34,7 @@ public class MoveActionTest {
         ActionParser parser1 = new ActionParser("move", "t1", "t", 3);
         Action<Character> move1 = new MoveAction<>(ruleChecker,true);
         //Action<Character> move = new MoveAction<>(parser1,map,p1);
-        assertEquals(null,move1.doAction(parser1,map,p1));
+        assertNull(move1.doAction(parser1, map, p1));
         assertEquals(5,t1.getUnitNumber());
         assertEquals(3,t.getUnitNumber());
         ActionParser parser2 = new ActionParser("move t1 t 3");
@@ -46,7 +46,7 @@ public class MoveActionTest {
                 move2.doAction(parse2_invalid,map,p2));
         ActionParser parse3_invalid = new ActionParser("move t1 t2 8");
         Action<Character> move3 = new MoveAction<>(ruleChecker,true);
-        assertEquals("That action is invalid: action number is larger than unit number in the territory.",
+        assertEquals("That action is invalid: this territory doesn't have enough units for this level.",
                 move3.doAction(parse3_invalid,map,p1));
     }
 
@@ -86,7 +86,7 @@ public class MoveActionTest {
         map.addPlayer(p2);
         ActionParser parse1 = new ActionParser("attack mordor hogwarts 3");
         Action<Character> attack_m1 = new MoveAction<>(false);
-        assertEquals(null,attack_m1.doAction(parse1,map,p1));
+        assertNull(attack_m1.doAction(parse1, map, p1));
         assertEquals(1,terriM.getUnitNumber());
         assertEquals(9,terriH.getUnitNumber());
         assertEquals(3,terriH.getEnemyUnitNum());
@@ -129,5 +129,12 @@ public class MoveActionTest {
         assertEquals(3,s.getUnitNumber());
         assertEquals(20,p1.getFoodNum());
         assertEquals(100,p1.getWoodNum());
+        //for test case coverage
+        Territory<Character> test = new Territory<>("test");
+        map.addTerritory(test);
+        ActionParser parser2 = new ActionParser("move", "s", "test", 2,0);
+        Action<Character> move_test = new MoveAction<>(new UnitNumberRuleChecker<>(null),true);
+        assertNull(move_test.doAction(parser2,map,p1));
+        assertEquals(20,p1.getFoodNum());
     }
 }
