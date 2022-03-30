@@ -2,12 +2,42 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tooltip?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="background" prefHeight="533.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.MainMapController">
    <children>
       <Label layoutX="35.0" layoutY="37.0" text="Player:" />
-      <Button layoutX="470.0" layoutY="315.0" mnemonicParsing="false" text="COMMIT" />
-      <Label layoutX="82.0" layoutY="37.0" text="GREEN" />
+      <Button fx:id="commit_btn" layoutX="542.0" layoutY="446.0" mnemonicParsing="false" text="COMMIT" onAction="#commit"/>
+      <Button fx:id="oz" layoutX="62.0" layoutY="91.0" mnemonicParsing="false" onAction="#displayTerritory" prefHeight="251.0" prefWidth="198.0" styleClass="map_btn_wa" text="Oz">
+         <tooltip>
+            <Tooltip fx:id="oz_tooltip" />
+         </tooltip>
+      </Button>
+      <Button fx:id="hogwarts" layoutX="384.0" layoutY="61.0" mnemonicParsing="false" onAction="#displayTerritory" prefHeight="159.0" prefWidth="178.0" styleClass="map_btn_queensland" text="Hogwarts">
+         <tooltip>
+            <Tooltip text="" fx:id="hogwarts_tooltip"/>
+         </tooltip></Button>
+      <Button fx:id="narnia" layoutX="260.0" layoutY="61.0" mnemonicParsing="false" onAction="#displayTerritory" prefHeight="159.0" prefWidth="124.0" styleClass="map_btn_north_territory" text="Narnia">
+         <tooltip>
+            <Tooltip text="" fx:id="narnia_tooltip"/>
+         </tooltip></Button>
+      <Button fx:id="mordor" layoutX="260.0" layoutY="190.0" mnemonicParsing="false" onAction="#displayTerritory" prefHeight="212.0" prefWidth="158.0" styleClass="map_btn_south_australia" text="Mordor">
+         <tooltip>
+            <Tooltip text="" fx:id="mordor_tooltip"/>
+         </tooltip></Button>
+      <Button fx:id="elantris" layoutX="418.0" layoutY="205.0" mnemonicParsing="false" onAction="#displayTerritory" prefHeight="135.0" prefWidth="158.0" styleClass="map_btn_new_south_wales" text="Elantris">
+         <tooltip>
+            <Tooltip text="" fx:id="elantris_tooltip"/>
+         </tooltip></Button>
+      <Button fx:id="gondor" layoutX="418.0" layoutY="273.0" mnemonicParsing="false" onAction="#displayTerritory" prefHeight="105.0" prefWidth="124.0" styleClass="map_btn_victoria" text="Gondor">
+         <tooltip>
+            <Tooltip text="" fx:id="gondor_tooltip"/>
+         </tooltip></Button>
+      <Button layoutX="160.0" layoutY="446.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="MOVE" fx:id="showMove" onAction="#showMove"/>
+      <Button layoutX="284.0" layoutY="446.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="ATTACK" fx:id="showAttack" onAction="#showAttack"/>
+      <Button layoutX="412.0" layoutY="446.0" mnemonicParsing="false" text="UPGRADE" onAction="#showUpgrade"/>
+      <Text fx:id="player_color" layoutX="96.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
    </children>
 </AnchorPane>

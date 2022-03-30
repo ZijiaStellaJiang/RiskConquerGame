@@ -5,11 +5,11 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.ChooseServerController">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.ChooseServerController">
    <children>
       <ChoiceBox fx:id="host_choice" layoutX="207.0" layoutY="164.0" prefWidth="150.0">
           <items>
@@ -19,7 +19,10 @@
               </FXCollections>
           </items>
       </ChoiceBox>
-      <Label layoutX="145.0" layoutY="125.0" text="Please choose your server ip" />
+      <Label layoutX="77.0" layoutY="93.0" text="Please choose your server ip">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
       <Button layoutX="414.0" layoutY="165.0" mnemonicParsing="false" onAction="#connect_server" text="CONNECT" />
       <Text fx:id="alert" layoutX="345.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
    </children>
