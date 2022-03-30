@@ -45,6 +45,17 @@ public class MainMapController {
     Text player_color;
     @FXML
     AnchorPane background;
+    @FXML
+    Tooltip hogwarts_tooltip;
+    @FXML
+    Tooltip narnia_tooltip;
+    @FXML
+    Tooltip gondor_tooltip;
+    @FXML
+    Tooltip elantris_tooltip;
+    @FXML
+    Tooltip mordor_tooltip;
+
     static ArrayList<ActionParser> actions = new ArrayList<>();
     private  HashMap<Class<?>, Object> controllers;
     public MainMapController(Client client){
@@ -107,17 +118,38 @@ public class MainMapController {
         }
     }
 
+    public String displayTerritoryInfo(Territory<Character> toDisplay){
+        StringBuilder sb = new StringBuilder(toDisplay.getName());
+        sb.append("\n--------------------\nSize : ");
+        sb.append(toDisplay.getSize());
+        sb.append("\nFood Ability : ");
+        sb.append(toDisplay.getFoodAbility());
+        sb.append("\nWood Ability : ");
+        sb.append(toDisplay.getWoodAbility());
+        sb.append("\nUnits :\n   Level 0 : ");
+        sb.append(toDisplay.getLevelUnitNum(0));
+        sb.append("\n   Level 1 : ");
+        sb.append(toDisplay.getLevelUnitNum(1));
+        sb.append("\n   Level 2 : ");
+        sb.append(toDisplay.getLevelUnitNum(2));
+        sb.append("\n   Level 3 : ");
+        sb.append(toDisplay.getLevelUnitNum(3));
+        sb.append("\n   Level 4 : ");
+        sb.append(toDisplay.getLevelUnitNum(4));
+        sb.append("\n   Level 5 : ");
+        sb.append(toDisplay.getLevelUnitNum(5));
+        sb.append("\n   Level 6 : ");
+        sb.append(toDisplay.getLevelUnitNum(6));
+        return sb.toString();
+    }
+
     @FXML
     public void displayTerritory(ActionEvent ae){
         Button source = (Button)ae.getSource();
         String territory_name = source.getId();
         System.out.println(territory_name);
-        StringBuilder sb = new StringBuilder("Player: ");
-        sb.append(territory_name);
-        sb.append("\n");
-        sb.append("Belong to: test\n");
-        sb.append("Units information: \n");
-        oz_tooltip.setText(sb.toString());
+        Territory<Character> terr = client.getMap().findTerritory(territory_name);
+        source.getTooltip().setText(displayTerritoryInfo(terr));
     }
 
     @FXML

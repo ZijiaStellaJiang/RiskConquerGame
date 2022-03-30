@@ -26,7 +26,16 @@ public class Map<T> implements java.io.Serializable {
       myTerritories.add(toAdd);
     }
   }
-
+  public Territory<T> findTerritory(String name){
+    for (Territory<T> t: myTerritories){
+      String expected_name = t.getName().toUpperCase();
+      String actual_name = name.toUpperCase();
+      if(expected_name.equals(actual_name)){
+        return t;
+      }
+    }
+    return null;
+  }
   /**
    * check if a territory is in the map
    */

@@ -17,23 +17,23 @@
       </Button>
       <Button fx:id="hogwarts" layoutX="384.0" layoutY="61.0" mnemonicParsing="false" onAction="#displayTerritory" prefHeight="159.0" prefWidth="178.0" styleClass="map_btn_queensland" text="Hogwarts">
          <tooltip>
-            <Tooltip text="Empty Tooltip" />
+            <Tooltip text="" fx:id="hogwarts_tooltip"/>
          </tooltip></Button>
       <Button fx:id="narnia" layoutX="260.0" layoutY="61.0" mnemonicParsing="false" onAction="#displayTerritory" prefHeight="159.0" prefWidth="124.0" styleClass="map_btn_north_territory" text="Narnia">
          <tooltip>
-            <Tooltip text="Empty Tooltip" />
+            <Tooltip text="" fx:id="narnia_tooltip"/>
          </tooltip></Button>
       <Button fx:id="mordor" layoutX="260.0" layoutY="190.0" mnemonicParsing="false" onAction="#displayTerritory" prefHeight="212.0" prefWidth="158.0" styleClass="map_btn_south_australia" text="Mordor">
          <tooltip>
-            <Tooltip text="Empty Tooltip" />
+            <Tooltip text="" fx:id="mordor_tooltip"/>
          </tooltip></Button>
       <Button fx:id="elantris" layoutX="418.0" layoutY="205.0" mnemonicParsing="false" onAction="#displayTerritory" prefHeight="135.0" prefWidth="158.0" styleClass="map_btn_new_south_wales" text="Elantris">
          <tooltip>
-            <Tooltip text="Empty Tooltip" />
+            <Tooltip text="" fx:id="elantris_tooltip"/>
          </tooltip></Button>
       <Button fx:id="gondor" layoutX="418.0" layoutY="273.0" mnemonicParsing="false" onAction="#displayTerritory" prefHeight="105.0" prefWidth="124.0" styleClass="map_btn_victoria" text="Gondor">
          <tooltip>
-            <Tooltip text="Empty Tooltip" />
+            <Tooltip text="" fx:id="gondor_tooltip"/>
          </tooltip></Button>
       <Button layoutX="160.0" layoutY="446.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="MOVE" fx:id="showMove" onAction="#showMove"/>
       <Button layoutX="284.0" layoutY="446.0" mnemonicParsing="false" prefHeight="26.0" prefWidth="75.0" text="ATTACK" fx:id="showAttack" onAction="#showAttack"/>
