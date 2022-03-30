@@ -87,9 +87,15 @@ public class Map<T> implements java.io.Serializable {
     return null;
   }
 
-  public void reset(){
+  public void resetLastRound(){
     for (Player<T> p: myPlayers){
       p.resetLastRoundChange();
+    }
+  }
+
+  public void resetDistance(){
+    for (Territory<T> t: myTerritories){
+      t.setDistance(100);
     }
   }
 }

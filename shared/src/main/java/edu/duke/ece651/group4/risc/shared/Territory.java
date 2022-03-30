@@ -11,6 +11,7 @@ public class Territory<T> implements java.io.Serializable {
   private int size;
   private int foodAbility;  //indicate how much resource this territory can produce in each turn
   private int woodAbility;
+  private int distance;  //indicate the distance from a source, used to find minimum cost
 
   public Territory(String name, int size, int foodAbility, int woodAbility){
     this.name = name;
@@ -20,6 +21,7 @@ public class Territory<T> implements java.io.Serializable {
     this.size = size;
     this.foodAbility = foodAbility;
     this.woodAbility = woodAbility;
+    this.distance = 100;
   }
   /**
    * constructor holder for evol1, no use
@@ -126,6 +128,18 @@ public class Territory<T> implements java.io.Serializable {
 
   public int getWoodAbility(){
     return woodAbility;
+  }
+
+  public int getSize() {
+    return size;
+  }
+
+  public int getDistance() {
+    return distance;
+  }
+
+  public void setDistance(int newDis) {
+    this.distance = newDis;
   }
   @Override
   public boolean equals(Object o){

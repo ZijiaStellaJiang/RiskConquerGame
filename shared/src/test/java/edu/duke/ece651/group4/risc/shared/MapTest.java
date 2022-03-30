@@ -1,6 +1,5 @@
 package edu.duke.ece651.group4.risc.shared;
 
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -107,7 +106,7 @@ public class MapTest {
     }
 
     @Test
-    public void test_map_reset(){
+    public void test_map_reset_last_round(){
         Player<Character> p1 = new TextPlayer("A");
         ArrayList<String> lose = new ArrayList<>();
         ArrayList<String> win = new ArrayList<>();
@@ -117,8 +116,23 @@ public class MapTest {
         map.addPlayer(p1);
         p1.addWinTerritory(t1.getName());
         p1.addLoseTerritory(t2.getName());
-        map.reset();
+        map.resetLastRound();
         assertEquals(lose,p1.getLoseTerritories());
         assertEquals(win,p1.getWinTerritories());
+    }
+    @Test
+    public void test_reset_distance(){
+        Territory<Character> t1 = new Territory<>("a");
+        Territory<Character> t2 = new Territory<>("b");
+        Territory<Character> t3 = new Territory<>("c");
+        Map<Character> map = new Map<>();
+        map.addTerritory(t1);
+        map.addTerritory(t2);
+        map.addTerritory(t3);
+        t2.setDistance(20);
+        t1.setDistance(10);
+        map.resetDistance();
+        assertEquals(100,t1.getDistance());
+        assertEquals(100,t2.getDistance());
     }
 }

@@ -12,6 +12,9 @@ public class TextPlayerTest {
     public void test_player_constructor() {
         TextPlayer player = new TextPlayer("test_player");
         assertEquals("test_player", player.getName());
+        Player<Character> p = new TextPlayer("p1",20,30);
+        assertEquals(20,p.getFoodNum());
+        assertEquals(30,p.getWoodNum());
     }
 
     @Test

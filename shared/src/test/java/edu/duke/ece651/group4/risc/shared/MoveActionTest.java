@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 public class MoveActionTest {
     @Test
@@ -93,5 +94,40 @@ public class MoveActionTest {
         Action<Character> attack_m2 = new MoveAction<>(false);
         assertEquals("That action is invalid: you can only attack directly adjacent territories.",
                 attack_m2.doAction(parse_invalid,map,p2));
+    }
+    @Test
+    public void test_move_for_myself_with_cost(){
+        Territory<Character> s = new Territory<>("s",9,1,1);
+        Territory<Character> d = new Territory<>("d",3,1,1);
+        Territory<Character> a = new Territory<>("a",8,1,1);
+        Territory<Character> b = new Territory<>("b",2,1,1);
+        Territory<Character> c = new Territory<>("c",4,1,1);
+        s.addNeigh(a);
+        s.addNeigh(c);
+        s.addNeigh(b);
+        d.addNeigh(a);
+        d.addNeigh(c);
+        ArrayList<Unit<Character>> nUnits = new ArrayList<>(Collections.nCopies(8, new SimpleUnit<>()));
+        s.addGroupUnit(nUnits);
+        Player<Character> p1 = new TextPlayer("p1",100,100);
+        p1.addToTerritory(s);
+        p1.addToTerritory(d);
+        p1.addToTerritory(a);
+        p1.addToTerritory(b);
+        p1.addToTerritory(c);
+        Map<Character> map = new Map<>();
+        map.addTerritory(s);
+        map.addTerritory(d);
+        map.addTerritory(a);
+        map.addTerritory(b);
+        map.addTerritory(c);
+        map.addPlayer(p1);
+        ActionParser parser1 = new ActionParser("move", "s", "d", 5,0);
+        Action<Character> move1 = new MoveAction<>(true);
+        assertNull(move1.doAction(parser1, map, p1));
+        assertEquals(5,d.getUnitNumber());
+        assertEquals(3,s.getUnitNumber());
+        assertEquals(20,p1.getFoodNum());
+        assertEquals(100,p1.getWoodNum());
     }
 }
