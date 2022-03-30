@@ -13,8 +13,10 @@ public class UnitNumberRuleChecker<T> extends ActionRuleChecker<T>{
     protected String checkMyRule(ActionParser parse, Map<T> map, Player<T> p){
         for(Territory<T> t: map.getMyTerritories()){
             if(t.getName().toUpperCase().equals(parse.getSource())){
-                if(t.getUnitNumber()<parse.getUnit()){
-                    return "That action is invalid: action number is larger than unit number in the territory.";
+                //find the source territory
+                int level = parse.getLevel();
+                if(t.getLevelUnitNum(level)<parse.getUnit()){
+                    return "That action is invalid: this territory doesn't have enough units for this level.";
                 }
                 break;
             }

@@ -1,8 +1,18 @@
 package edu.duke.ece651.group4.risc.shared;
 
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 public class MoveAction<T> extends Action<T>{
+    //define the comparator of priority queue in minimum path
+    Comparator<Territory<T>> cmp = new Comparator<Territory<T>>() {
+        @Override
+        public int compare(Territory<T> o1, Territory<T> o2) {
+            return o1.getDistance()-o2.getDistance();
+        }
+    };
     boolean moveToSamePlayer;
 
     /**
@@ -19,26 +29,6 @@ public class MoveAction<T> extends Action<T>{
     public MoveAction(ActionRuleChecker<T> ruleChecker, boolean samePlayer){
         super(ruleChecker);
         this.moveToSamePlayer = samePlayer;
-    }
-
-    /**
-     * helper function to move units
-     */
-    private void moveUnits(ActionParser parser,Territory<T> source, Collection<Territory<T> > toFind, int toMove){
-        for(Territory<T> dest: toFind){
-            if(dest.getName().toUpperCase().equals(parser.getDest())){
-                for(int i=0; i<toMove; i++){
-                    if(moveToSamePlayer){
-                        dest.addMyUnit(new SimpleUnit<>());
-                    }
-                    else {
-                        dest.addEnemyUnit(new SimpleUnit<>());
-                    }
-                    source.removeMyUnit(new SimpleUnit<>());
-                }
-                break;
-            }
-        }
     }
 
     @Override
@@ -63,15 +53,69 @@ public class MoveAction<T> extends Action<T>{
         for(Territory<T> source: thePlayer.getMyTerritories()){
             if(source.getName().toUpperCase().equals(parser.getSource())){
                 int toMove = parser.getUnit();
+                int unit_level = parser.getLevel();
                 if(moveToSamePlayer){
-                    moveUnits(parser,source,thePlayer.getMyTerritories(),toMove);
+                    int cost = moveUnits(parser,source,thePlayer.getMyTerritories(),toMove,unit_level);
+                    thePlayer.consumeResource(new FoodResource<>(cost));
                 }
                 else {
-                    moveUnits(parser,source,theMap.getMyTerritories(),toMove);
+                    moveUnits(parser,source,theMap.getMyTerritories(),toMove,unit_level);
                 }
+                theMap.resetDistance();
                 break;
             }
         }
         return null;
+    }
+
+    /**
+     * helper function
+     * @return the minimum cost of moving between to territories
+     */
+    private int findMinCost(Territory<T> source, Territory<T> dest){
+        //if the two territories are adjacent, minimum cost is the sum of their size
+        if(source.checkNeigh(dest)) return source.getSize()+dest.getSize();
+        //if now adjacent, perform bfs search
+        Queue<Territory<T>> pq = new PriorityQueue<>(cmp);
+        source.setDistance(source.getSize());
+        pq.add(source);
+        while (!pq.isEmpty()){
+            Territory<T> curr = pq.poll();
+            int curr_dis = curr.getDistance();
+            if(curr.getName().equals(dest.getName())) return curr_dis;
+            for (Territory<T> neigh: curr.getMyNeigh()){
+                if(neigh.getDistance()!=100) continue;
+                neigh.setDistance(neigh.getSize()+curr_dis);
+                pq.add(neigh);
+            }
+        }
+        //if it can not find a path, return -1
+        //but should not happen, because we check path first
+        return -1;
+    }
+
+    /**
+     * helper function to move units
+     * @return the minimum cost if it is a move order
+     * can not use the return value if it is for enemy move
+     */
+    private int moveUnits(ActionParser parser,Territory<T> source, Collection<Territory<T> > toFind,
+                           int toMove, int level){
+        for(Territory<T> dest: toFind){
+            if(dest.getName().toUpperCase().equals(parser.getDest())){
+                int minCost = findMinCost(source,dest);
+                for(int i=0; i<toMove; i++){
+                    if(moveToSamePlayer){
+                        dest.addMyUnit(new SimpleUnit<>(level));
+                    }
+                    else {
+                        dest.addEnemyUnit(new SimpleUnit<>(level));
+                    }
+                    source.removeMyUnit(new SimpleUnit<>(level));
+                }
+                return minCost * toMove;
+            }
+        }
+        return 0;
     }
 }
