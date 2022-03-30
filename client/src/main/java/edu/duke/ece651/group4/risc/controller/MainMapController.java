@@ -191,5 +191,22 @@ public class MainMapController {
         }
     }
 
+    /**
+     * clear all operations after receive new mal from server
+     */
+    public void clearAction(){
+        actions.clear();
+    }
+
+    @FXML
+    public void commit(ActionEvent ae) throws IOException {
+        client.send_to_server(actions);
+        actions.clear();
+        //receive connection
+
+
+        //then update
+    }
+
 
 }
