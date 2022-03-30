@@ -12,6 +12,12 @@ public class TerritoryTest {
   public void test_territory_constructor() {
     Territory<Character> territory = new Territory<Character>("test");
     assertEquals("test", territory.getName());
+    assertEquals(0,territory.getSize());
+    assertEquals(100,territory.getDistance());
+    territory.setDistance(10);
+    assertEquals(10,territory.getDistance());
+    Territory<Character> t2 = new Territory<>("t2",4,3,3);
+    assertEquals(4,t2.getSize());
   }
   @Test
   public void test_neigh_check() {
@@ -30,8 +36,6 @@ public class TerritoryTest {
     assertEquals(false, territory1.checkNeigh(territory3));
     assertEquals(false,territory3.checkNeigh(territory1));
     territory2.removeNeigh(territory3);
-    //territory1.addNeigh(territory3);
-    //territory1.removeNeigh(territory2);
   }
   @Test
   public void test_equals(){

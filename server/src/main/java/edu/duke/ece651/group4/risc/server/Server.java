@@ -145,8 +145,8 @@ public class Server {
     for (int i = 0; i < player_num; i++) {
       send_to_client(map, i);
     }
-    // reset last round change
-    map.reset();
+    // resetLastRound last round change
+    map.resetLastRound();
     if (map.getLoserId() != null)
       return "over";
     return null;

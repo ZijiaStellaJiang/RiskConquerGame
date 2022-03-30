@@ -9,19 +9,19 @@ public abstract class Player<T> implements java.io.Serializable{
   private ArrayList<Territory<T>> myTerritories;
   //this field stores the combat result of last round. If wins a territory, map true; if loses, map false
   private HashMap<String,Boolean> lastRoundChange;
-  private Resource<T> food;
-  private Resource<T> wood;
+  //private Resource<T> food;
+  //private Resource<T> wood;
   private ArrayList<Resource<T>> myResource;
 
-  public Player(String name) {
+  public Player(String name, int foodInit, int woodInit) {
     this.name = name;
     myTerritories = new ArrayList<Territory<T>>();
     lastRoundChange = new HashMap<>();
-    food = new FoodResource<>(0);
-    wood = new WoodResource<>(0);
+    //food = new FoodResource<>(0);
+    //wood = new WoodResource<>(0);
     myResource = new ArrayList<>();
-    myResource.add(new FoodResource<>(0));
-    myResource.add(new WoodResource<>(0));
+    myResource.add(new FoodResource<>(foodInit));
+    myResource.add(new WoodResource<>(woodInit));
   }
 
   public String getName() {
@@ -91,7 +91,7 @@ public abstract class Player<T> implements java.io.Serializable{
   }
 
   /**
-   * reset the field lastRoundChange to an empty map, to store next round's information
+   * resetLastRound the field lastRoundChange to an empty map, to store next round's information
    */
   public void resetLastRoundChange(){
     lastRoundChange = new HashMap<>();
@@ -123,5 +123,24 @@ public abstract class Player<T> implements java.io.Serializable{
 
   public int getWoodNum(){
     return myResource.get(1).getNum();
+  }
+
+  public ArrayList<Territory<T>> findDestinations(Territory<T> toFind,boolean findMyself){
+    ArrayList<Territory<T>> canPerform = new ArrayList<>();
+    //find territories a player can move to
+    if(findMyself){
+      for (Territory<T> t: myTerritories){
+        if(t.getName().equals(toFind.getName())) continue;
+        canPerform.add(t);
+      }
+    }
+    //find territories a player can attack
+    else {
+      for (Territory<T> t: toFind.getMyNeigh()){
+        if(myTerritories.contains(t)) continue;
+        canPerform.add(t);
+      }
+    }
+    return canPerform;
   }
 }

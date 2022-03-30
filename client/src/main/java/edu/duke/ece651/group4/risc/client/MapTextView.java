@@ -91,6 +91,31 @@ public class MapTextView implements View{
         }
     }
 
+    public String displayTerritoryInfo(Territory<Character> toDisplay){
+        StringBuilder sb = new StringBuilder(toDisplay.getName());
+        sb.append("\n--------------------\nSize : ");
+        sb.append(toDisplay.getSize());
+        sb.append("\nFood Ability : ");
+        sb.append(toDisplay.getFoodAbility());
+        sb.append("\nWood Ability : ");
+        sb.append(toDisplay.getWoodAbility());
+        sb.append("\nUnits :\n   Level 0 : ");
+        sb.append(toDisplay.getLevelUnitNum(0));
+        sb.append("\n   Level 1 : ");
+        sb.append(toDisplay.getLevelUnitNum(1));
+        sb.append("\n   Level 2 : ");
+        sb.append(toDisplay.getLevelUnitNum(2));
+        sb.append("\n   Level 3 : ");
+        sb.append(toDisplay.getLevelUnitNum(3));
+        sb.append("\n   Level 4 : ");
+        sb.append(toDisplay.getLevelUnitNum(4));
+        sb.append("\n   Level 5 : ");
+        sb.append(toDisplay.getLevelUnitNum(5));
+        sb.append("\n   Level 6 : ");
+        sb.append(toDisplay.getLevelUnitNum(6));
+        return sb.toString();
+    }
+
     protected String makePlayerInfo(Player<Character> p){
         StringBuilder sb = new StringBuilder(p.getName());
         sb.append(" player:\n");

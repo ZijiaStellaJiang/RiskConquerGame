@@ -12,6 +12,9 @@ public class TextPlayerTest {
     public void test_player_constructor() {
         TextPlayer player = new TextPlayer("test_player");
         assertEquals("test_player", player.getName());
+        Player<Character> p = new TextPlayer("p1",20,30);
+        assertEquals(20,p.getFoodNum());
+        assertEquals(30,p.getWoodNum());
     }
 
     @Test
@@ -116,5 +119,34 @@ public class TextPlayerTest {
         p.updateResource();
         assertEquals(5,p.getFoodNum());
         assertEquals(11,p.getWoodNum());
+    }
+    @Test
+    public void test_find_destinations(){
+        Territory<Character> n = new Territory<>("N");
+        Territory<Character> o = new Territory<>("O");
+        Territory<Character> a = new Territory<>("A");
+        Territory<Character> b = new Territory<>("B");
+        Territory<Character> m = new Territory<>("M");
+        n.addNeigh(o);
+        o.addNeigh(b);
+        o.addNeigh(m);
+        a.addNeigh(m);
+        Player<Character> green = new TextPlayer("g");
+        Player<Character> blue = new TextPlayer("b");
+        green.addToTerritory(n);
+        green.addToTerritory(o);
+        green.addToTerritory(b);
+        blue.addToTerritory(a);
+        blue.addToTerritory(m);
+        ArrayList<Territory<Character>> move = green.findDestinations(o,true);
+        assertTrue(move.contains(n));
+        assertTrue(move.contains(b));
+        assertFalse(move.contains(o));
+        assertFalse(move.contains(m));
+        assertFalse(move.contains(a));
+        ArrayList<Territory<Character>> attack = blue.findDestinations(m,false);
+        assertTrue(attack.contains(o));
+        assertFalse(attack.contains(n));
+        assertFalse(attack.contains(a));
     }
 }
