@@ -147,5 +147,20 @@ public class MapTextViewTest {
         view0.displayVictoryMsg(1);
         assertEquals("You win!\nCongratulations!\n",bytes0.toString());
     }
-
+    @Test
+    public void test_display_territory_info(){
+        ByteArrayOutputStream bytes0 = new ByteArrayOutputStream();
+        PrintStream ps0 = new PrintStream(bytes0,true);
+        Territory<Character> n = new Territory<>("Narnia",5,20,10);
+        ArrayList<Unit<Character>> units0 = new ArrayList<>(Collections.nCopies(3,new SimpleUnit<>()));
+        n.addGroupUnit(units0);
+        ArrayList<Unit<Character>> units3 = new ArrayList<>(Collections.nCopies(5,new SimpleUnit<>(3)));
+        n.addGroupUnit(units3);
+        Map<Character> map = new Map<>();
+        MapTextView view0 = new MapTextView(map,ps0);
+        String expected = "Narnia\n--------------------\nSize : 5\nFood Ability : 20\nWood Ability : 10\n"+
+                          "Units :\n   Level 0 : 3\n   Level 1 : 0\n   Level 2 : 0"+
+                          "\n   Level 3 : 5\n   Level 4 : 0\n   Level 5 : 0\n   Level 6 : 0";
+        assertEquals(expected,view0.displayTerritoryInfo(n));
+    }
 }

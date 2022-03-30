@@ -124,4 +124,23 @@ public abstract class Player<T> implements java.io.Serializable{
   public int getWoodNum(){
     return myResource.get(1).getNum();
   }
+
+  public ArrayList<Territory<T>> findDestinations(Territory<T> toFind,boolean findMyself){
+    ArrayList<Territory<T>> canPerform = new ArrayList<>();
+    //find territories a player can move to
+    if(findMyself){
+      for (Territory<T> t: myTerritories){
+        if(t.getName().equals(toFind.getName())) continue;
+        canPerform.add(t);
+      }
+    }
+    //find territories a player can attack
+    else {
+      for (Territory<T> t: toFind.getMyNeigh()){
+        if(myTerritories.contains(t)) continue;
+        canPerform.add(t);
+      }
+    }
+    return canPerform;
+  }
 }
