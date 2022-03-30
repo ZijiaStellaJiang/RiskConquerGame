@@ -113,7 +113,6 @@ public class MoveAction<T> extends Action<T>{
                     }
                     source.removeMyUnit(new SimpleUnit<>(level));
                 }
-                //break;
                 return minCost * toMove;
             }
         }
