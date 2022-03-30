@@ -46,7 +46,7 @@ public class MoveActionTest {
                 move2.doAction(parse2_invalid,map,p2));
         ActionParser parse3_invalid = new ActionParser("move t1 t2 8");
         Action<Character> move3 = new MoveAction<>(ruleChecker,true);
-        assertEquals("That action is invalid: action number is larger than unit number in the territory.",
+        assertEquals("That action is invalid: this territory doesn't have enough units for this level.",
                 move3.doAction(parse3_invalid,map,p1));
     }
 

@@ -9,16 +9,12 @@ public abstract class Player<T> implements java.io.Serializable{
   private ArrayList<Territory<T>> myTerritories;
   //this field stores the combat result of last round. If wins a territory, map true; if loses, map false
   private HashMap<String,Boolean> lastRoundChange;
-  //private Resource<T> food;
-  //private Resource<T> wood;
   private ArrayList<Resource<T>> myResource;
 
   public Player(String name, int foodInit, int woodInit) {
     this.name = name;
-    myTerritories = new ArrayList<Territory<T>>();
+    myTerritories = new ArrayList<>();
     lastRoundChange = new HashMap<>();
-    //food = new FoodResource<>(0);
-    //wood = new WoodResource<>(0);
     myResource = new ArrayList<>();
     myResource.add(new FoodResource<>(foodInit));
     myResource.add(new WoodResource<>(woodInit));
