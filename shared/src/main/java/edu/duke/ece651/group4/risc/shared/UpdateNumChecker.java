@@ -9,12 +9,16 @@ public class UpdateNumChecker<T> extends ActionRuleChecker<T>  {
     @Override
     protected String checkMyRule(ActionParser parse, Map<T> map, Player<T> p){
         int level = parse.getLevel();
-        int num = parse.getLevel();
-        Unit<T> unit = new SimpleUnit<T>(level);
-        int consume = unit.updateCost() * num;
-        int resource = p.getFoodNum();
-        if (consume > resource) {
-            return "That action is invalid: the number of certain level's unit is not enough";
+        int num = parse.getUnit();
+        Integer ter_num = null;
+        for(Territory<T> source : p.getMyTerritories()){
+            if(source.getName().toUpperCase().equals(parse.getSource())){
+                ter_num = source.getLevelUnitNum(level);
+                break;
+            }
+        }
+        if (ter_num == null || ter_num < num) {
+            return "That action is invalid: the number of certain level's unit is not enough.";
         }
         return null;
     }
