@@ -1,7 +1,10 @@
 package edu.duke.ece651.group4.risc.controller;
 
 import edu.duke.ece651.group4.risc.shared.ActionParser;
+import edu.duke.ece651.group4.risc.shared.Map;
+import edu.duke.ece651.group4.risc.shared.Player;
 import edu.duke.ece651.group4.risc.shared.Territory;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -27,12 +30,16 @@ public class MoveActionController {
     @FXML
     Text alert;
     private int playerId;
+    private Player<Character> player;
     private ArrayList<Territory<Character>> myTerr;
     private ObservableList<String> sources;
-
-    public MoveActionController(int playerId, ArrayList<Territory<Character>> myTerr) {
+    private Map<Character> map;
+    public MoveActionController(int playerId, ArrayList<Territory<Character>> myTerr, Player<Character> player, Map<Character> map) {
         this.playerId = playerId;
         this.myTerr = myTerr;
+        this.player = player;
+        this.map = map;
+
     }
 
 
@@ -43,7 +50,22 @@ public class MoveActionController {
             sources.add(terr.getName());
         }
         source.setItems(sources);
-        destination.setItems(sources);//TODO: change to destination
+        //destination.setItems(sources);//TODO: change to destination
+        source.getSelectionModel().selectedIndexProperty().addListener(
+                (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
+                    String select_source = source.getItems().get((Integer) new_val);
+                    System.out.println("chosen source: " + select_source);
+                    ArrayList<Territory<Character>> dest = player.findDestinations(map.findTerritory(select_source), true);
+                    if(dest!=null) {
+                        ObservableList<String> dest_names = FXCollections.observableArrayList();
+                        for (Territory<Character> t : dest) {
+                            dest_names.add(t.getName());
+                        }
+                        destination.setItems(dest_names);
+                    }else{
+
+                    }
+                });
         //set unit level
         ObservableList<Integer> level = FXCollections.observableArrayList();
         level.addAll(0,1,2,3,4,5,6);

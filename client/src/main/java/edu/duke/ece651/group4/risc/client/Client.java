@@ -93,7 +93,6 @@ public class Client {
       player_out.flush();
     } catch(IOException e) {
       throw e;
-      //e.printStackTrace();
     }
   }
   public Object recv_from_server() throws IOException{

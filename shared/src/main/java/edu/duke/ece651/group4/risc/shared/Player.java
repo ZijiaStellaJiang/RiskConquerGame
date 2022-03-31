@@ -121,7 +121,16 @@ public abstract class Player<T> implements java.io.Serializable{
     return myResource.get(1).getNum();
   }
 
+  /**
+   * Given a territory name, find move or attack destination
+   * @param toFind
+   * @param findMyself
+   * @return
+   */
   public ArrayList<Territory<T>> findDestinations(Territory<T> toFind,boolean findMyself){
+    if(toFind==null){
+      return null;
+    }
     ArrayList<Territory<T>> canPerform = new ArrayList<>();
     //find territories a player can move to
     if(findMyself){

@@ -9,6 +9,11 @@ public class Map<T> implements java.io.Serializable {
     myPlayers = new ArrayList<>();
     myTerritories = new ArrayList<>();
   }
+
+
+  public Player<T> getOnePlayer(int id){
+    return  myPlayers.get(id);
+  }
   /**
    * add a player to this map
    */
@@ -26,10 +31,19 @@ public class Map<T> implements java.io.Serializable {
       myTerritories.add(toAdd);
     }
   }
+
+  /**
+   * Given a territory name, find the territory
+   * @param name name of the territory
+   * @return territory
+   */
   public Territory<T> findTerritory(String name){
+    if(name==null){
+      return null;
+    }
+    String actual_name = name.toUpperCase();
     for (Territory<T> t: myTerritories){
       String expected_name = t.getName().toUpperCase();
-      String actual_name = name.toUpperCase();
       if(expected_name.equals(actual_name)){
         return t;
       }

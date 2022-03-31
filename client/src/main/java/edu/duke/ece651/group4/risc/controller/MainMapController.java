@@ -160,7 +160,7 @@ public class MainMapController {
         URL xmlResource = getClass().getResource("/ui/MoveAction.fxml");
         FXMLLoader loader = new FXMLLoader(xmlResource);
         //setup controller
-        controllers.put(MoveActionController.class, new MoveActionController(client.getPlayerId(), displayMyTerritory()));//create a new controller and add it
+        controllers.put(MoveActionController.class, new MoveActionController(client.getPlayerId(), displayMyTerritory(), client.getMap().getMyPlayers().get(client.getPlayerId()), client.getMap()));//create a new controller and add it
         loader.setControllerFactory((c) -> {
             return controllers.get(c);
         });
