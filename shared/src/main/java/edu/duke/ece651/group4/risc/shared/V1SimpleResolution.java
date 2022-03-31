@@ -31,6 +31,8 @@ public class V1SimpleResolution<T> extends CombatResolution<T> {
                 attackRoll = new Random(seed_num).nextInt(20);
                 defendRoll = new Random(1).nextInt(20); //this seed generate 5
             }
+            //TODO: add bonus
+
             if(attackRoll>defendRoll){
                 defendNum--;
                 defend.removeMyUnit(new SimpleUnit<>());
