@@ -21,7 +21,8 @@ public class MoveAction<T> extends Action<T>{
      *                  pass false if this move is for attacker to move units into enemy's territory
      */
     public MoveAction(boolean samePlayer){
-        super(new UnitNumberRuleChecker<>(new MoveOwnershipChecker<>(new MovePathChecker<>(null))));
+        super(new UnitNumberRuleChecker<>(new MoveOwnershipChecker<>(new MovePathChecker<>(
+                new MoveResourceChecker<>(null)))));
         this.moveToSamePlayer = samePlayer;
     }
 
