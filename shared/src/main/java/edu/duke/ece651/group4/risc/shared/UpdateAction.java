@@ -19,7 +19,6 @@ public class UpdateAction<T> extends Action<T>{
 
   @Override
   public String doAction(ActionParser parser, Map<T> theMap, Player<T> thePlayer) {
-    // TODO: parser construction and update more than one level
     // chceck Rule First
     String checkMyRule = ruleChecker.checkActionRule(parser, theMap, thePlayer);
     if (checkMyRule != null) return checkMyRule;
@@ -43,7 +42,6 @@ public class UpdateAction<T> extends Action<T>{
       territory.removeMyUnit(new SimpleUnit<T>(curLevel));
       territory.addMyUnit(new SimpleUnit<T>(curLevel + 1));
       player.consumeResource(new WoodResource<T>(1));
-      //TODO check rule
     }
   }
 }

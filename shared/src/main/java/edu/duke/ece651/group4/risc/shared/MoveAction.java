@@ -54,13 +54,14 @@ public class MoveAction<T> extends Action<T>{
             if(source.getName().toUpperCase().equals(parser.getSource())){
                 int toMove = parser.getUnit();
                 int unit_level = parser.getLevel();
+                int cost;
                 if(moveToSamePlayer){
-                    int cost = moveUnits(parser,source,thePlayer.getMyTerritories(),toMove,unit_level);
-                    thePlayer.consumeResource(new FoodResource<>(cost));
+                    cost = moveUnits(parser, source, thePlayer.getMyTerritories(), toMove, unit_level);
                 }
                 else {
-                    moveUnits(parser,source,theMap.getMyTerritories(),toMove,unit_level);
+                    cost = moveUnits(parser, source, theMap.getMyTerritories(), toMove, unit_level);
                 }
+                thePlayer.consumeResource(new FoodResource<>(cost));
                 theMap.resetDistance();
                 break;
             }
@@ -103,7 +104,9 @@ public class MoveAction<T> extends Action<T>{
                            int toMove, int level){
         for(Territory<T> dest: toFind){
             if(dest.getName().toUpperCase().equals(parser.getDest())){
-                int minCost = findMinCost(source,dest);
+                int cost = 1;
+                if(moveToSamePlayer) cost = findMinCost(source,dest);
+                //int minCost = findMinCost(source,dest);
                 for(int i=0; i<toMove; i++){
                     if(moveToSamePlayer){
                         dest.addMyUnit(new SimpleUnit<>(level));
@@ -113,7 +116,7 @@ public class MoveAction<T> extends Action<T>{
                     }
                     source.removeMyUnit(new SimpleUnit<>(level));
                 }
-                return minCost * toMove;
+                return cost * toMove;
             }
         }
         return 0;

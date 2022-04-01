@@ -24,7 +24,6 @@ public class SimpleUnit<T> extends Unit<T>{
       return cost[level];
     }
 
-    //TODO: update more than one level
     public boolean canUpdate() {
       if (level < max_level)
         return true;
