@@ -25,7 +25,7 @@ public class Server {
 
   public Server(int port) throws IOException {
     serverSocket = new ServerSocket(port);
-    mapFactory = new V1MapFactory();
+    mapFactory = new V2MapFactory();
     map = mapFactory.generateMap();
     player_num = 2;
     player_skd = new ArrayList<Socket>();
@@ -138,8 +138,11 @@ public class Server {
       attack.doAction(null, map, cur_player);
     }
 
-    // add unit to each territory
+    // add unit to each territory and Update Resource
     map.receive_new_units();
+    for (int i = 0; i < player_num; i++) {
+      map.getPlayer(i).updateResource();
+    }
 
     // sending updating map
     for (int i = 0; i < player_num; i++) {
