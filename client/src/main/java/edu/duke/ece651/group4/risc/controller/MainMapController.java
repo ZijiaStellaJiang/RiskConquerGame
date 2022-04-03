@@ -81,12 +81,6 @@ public class MainMapController {
             System.out.println(terr.getName());
         }
         return players.get(client.getPlayerId()).getMyTerritories();
-        //make option list
-//        ObservableList<String> sources = FXCollections.observableArrayList();
-//        for(Territory<Character> terr:myTerri){
-//            sources.add(terr.getName());
-//        }
-        //add sources to front end choice box
 
     }
 
@@ -160,7 +154,7 @@ public class MainMapController {
         URL xmlResource = getClass().getResource("/ui/MoveAction.fxml");
         FXMLLoader loader = new FXMLLoader(xmlResource);
         //setup controller
-        controllers.put(MoveActionController.class, new MoveActionController(client.getPlayerId(), displayMyTerritory(), client.getMap().getMyPlayers().get(client.getPlayerId()), client.getMap()));//create a new controller and add it
+        controllers.put(MoveActionController.class, new MoveActionController(client, client.getPlayerId(), displayMyTerritory(), client.getMap().getMyPlayers().get(client.getPlayerId()), client.getMap()));//create a new controller and add it
         loader.setControllerFactory((c) -> {
             return controllers.get(c);
         });
@@ -185,7 +179,7 @@ public class MainMapController {
         //show move page
         URL xmlResource = getClass().getResource("/ui/AttackAction.fxml");
         FXMLLoader loader = new FXMLLoader(xmlResource);
-        controllers.put(AttackActionController.class, new AttackActionController(client.getPlayerId(), displayMyTerritory()));//create a new controller and add it
+        controllers.put(AttackActionController.class, new AttackActionController(client, client.getPlayerId(), displayMyTerritory(), client.getMap().getMyPlayers().get(client.getPlayerId())));//create a new controller and add it
         loader.setControllerFactory((c) -> {
             return controllers.get(c);
         });
@@ -210,7 +204,13 @@ public class MainMapController {
         //show move page
         URL xmlResource = getClass().getResource("/ui/UpgradeAction.fxml");
         FXMLLoader loader = new FXMLLoader(xmlResource);
+        controllers.put(UpgradeActionController.class, new UpgradeActionController(client));
+        loader.setControllerFactory((c) -> {
+            return controllers.get(c);
+        });
         AnchorPane gp = loader.load();
+        UpgradeActionController upgradeActionController = loader.getController();
+        upgradeActionController.setup();
         Scene scene = new Scene(gp);
         Stage stage = new Stage();
         stage.setScene(scene);
@@ -223,19 +223,18 @@ public class MainMapController {
         }
     }
 
-    /**
-     * clear all operations after receive new mal from server
-     */
-    public void clearAction(){
-        actions.clear();
-    }
+
 
     @FXML
     public void commit(ActionEvent ae) throws IOException {
-        client.send_to_server(actions);
-        actions.clear();
         //receive connection
-
+        ArrayList<ActionParser> actions = client.getOrder_list();
+        if(actions==null){
+            return;
+        }
+        for(ActionParser action: actions){
+            System.out.println(action.getSource() +" "+action.getDest()+" "+action.getUnit());
+        }
 
         //then update
     }

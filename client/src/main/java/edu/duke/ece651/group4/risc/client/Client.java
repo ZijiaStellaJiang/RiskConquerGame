@@ -36,7 +36,7 @@ public class Client {
     move_enemy = new MoveAction<>(false);
     attack = new AttackAction<>();
     update = new UpdateAction<>();
-    order_list = null;
+    order_list =  new ArrayList<ActionParser>();
     displayInfo = null;
     try {
       player_out = new ObjectOutputStream(player_skd.getOutputStream());
@@ -45,6 +45,11 @@ public class Client {
       throw new RuntimeException("cannot connect to server");
     }
   }
+
+  public ArrayList<ActionParser> getOrder_list() {
+    return order_list;
+  }
+
   public int getPlayerId(){
     return this.player_id;
   }
@@ -200,6 +205,11 @@ public class Client {
     return checkGameOver();
   }
 
+  public boolean playOneRound_GUI() throws IOException{
+    oneRoundBegin();
+    return checkGameOver();
+  }
+
 
   public void close_connection() {
     try {
@@ -210,6 +220,8 @@ public class Client {
       e.printStackTrace();
     }
   }
+
+
   public static void main(String[] args) throws IOException {
     Application.launch(StartGame.class, args);
     System.out.println("Enter server's ip:");

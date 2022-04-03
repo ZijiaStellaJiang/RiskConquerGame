@@ -42,8 +42,8 @@ public class V2MapFactory implements AbstractMapFactory<Character> {
         map.addTerritory(terriH);
         map.addTerritory(terriG);
         map.addTerritory(terriE);
-        TextPlayer p1 = new TextPlayer("Green");
-        TextPlayer p2 = new TextPlayer("Blue");
+        TextPlayer p1 = new TextPlayer("Green", 200, 200);
+        TextPlayer p2 = new TextPlayer("Blue", 200, 200);
         p1.addToTerritory(terriN);
         p1.addToTerritory(terriO);
         p1.addToTerritory(terriM);
