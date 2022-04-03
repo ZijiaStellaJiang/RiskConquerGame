@@ -21,11 +21,27 @@ public class ActionParser implements java.io.Serializable{
     this(type, source, dest, num, 0, 0);
   }
 
+  /**
+   * Used for move/attack in project 2
+   * @param type
+   * @param source
+   * @param dest
+   * @param num
+   * @param level
+   */
   public ActionParser(String type, String source, String dest, int num, int level) {
     this(type, source, dest, num, level, 1);
   }
 
-
+  /**
+   * Used for upgrade in project 2
+   * @param type
+   * @param source
+   * @param dest
+   * @param num
+   * @param level
+   * @param levelUp
+   */
   public ActionParser(String type, String source, String dest, int num, int level, int levelUp) {
     String type_upper = type.toUpperCase();
     if(!type_upper.equals("MOVE") && !type_upper.equals("ATTACK") && !type_upper.equals("UPDATE")){

@@ -77,7 +77,7 @@ public class AttackActionController {
         System.out.println(source_terr + " " + dest_terr + " " + level + " " + num);
         //TODO: check vadility
         try {
-            ActionParser newAction = new ActionParser("ATTACK", source_terr, dest_terr, Integer.parseInt(num));
+            ActionParser newAction = new ActionParser("ATTACK", source_terr, dest_terr, Integer.parseInt(num), level);
             if(client.addOrder(newAction)==false){
                 alert.setText("Invalid input");
             }

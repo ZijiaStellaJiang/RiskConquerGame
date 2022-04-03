@@ -34,14 +34,12 @@ public class MoveActionController {
     private Player<Character> player;
     private ArrayList<Territory<Character>> myTerr;
     private ObservableList<String> sources;
-    private Map<Character> map;
     private Client client;
-    public MoveActionController(Client client, int playerId, ArrayList<Territory<Character>> myTerr, Player<Character> player, Map<Character> map) {
+    public MoveActionController(Client client, int playerId, ArrayList<Territory<Character>> myTerr, Player<Character> player) {
         this.client = client;
         this.playerId = playerId;
         this.myTerr = myTerr;
         this.player = player;
-        this.map = map;
 
     }
 
@@ -59,7 +57,7 @@ public class MoveActionController {
                     String select_source = source.getItems().get((Integer) new_val);
                     System.out.println("chosen source: " + select_source);
                     //TODO: refactor
-                    ArrayList<Territory<Character>> dest = player.findDestinations(map.findTerritory(select_source), true);
+                    ArrayList<Territory<Character>> dest = player.findDestinations(client.getMap().findTerritory(select_source), true);
                     if(dest!=null) {
                         ObservableList<String> dest_names = FXCollections.observableArrayList();
                         for (Territory<Character> t : dest) {
@@ -85,7 +83,7 @@ public class MoveActionController {
         System.out.println(source_terr + " " + dest_terr + " " + level + " " + num);
         //TODO: check vadility
         try {
-            ActionParser newAction = new ActionParser("MOVE", source_terr, dest_terr, Integer.parseInt(num));
+            ActionParser newAction = new ActionParser("MOVE", source_terr, dest_terr, Integer.parseInt(num), level);
             if(client.addOrder(newAction)==false){
                 alert.setText("Invalid input");
             }

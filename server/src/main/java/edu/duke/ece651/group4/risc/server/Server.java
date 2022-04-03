@@ -119,7 +119,7 @@ public class Server {
       // accept the order and execute MOVING
       ArrayList<ActionParser> order_list = (ArrayList<ActionParser>) recv_from_client(i);
       for(ActionParser action: order_list){
-        System.out.println(action.getSource() + " " + action.getDest() + " " + action.getUnit());
+        System.out.println(action.getType()+ " " + action.getSource() + " " + action.getDest() + " " + action.getUnit());
       }
       Player<Character> cur_player = map.getPlayer(i);
       for (int j = 0; j < order_list.size(); j++) {

@@ -55,7 +55,8 @@ public class MainMapController {
     Tooltip elantris_tooltip;
     @FXML
     Tooltip mordor_tooltip;
-
+    @FXML
+    Text wait_msg;
     static ArrayList<ActionParser> actions = new ArrayList<>();
     private  HashMap<Class<?>, Object> controllers;
     public MainMapController(Client client){
@@ -112,6 +113,11 @@ public class MainMapController {
         }
     }
 
+    /**
+     * Display territory info at tooltip
+     * @param toDisplay territory
+     * @return the details of this territory
+     */
     public String displayTerritoryInfo(Territory<Character> toDisplay){
         StringBuilder sb = new StringBuilder(toDisplay.getName());
         sb.append("\n--------------------\nSize : ");
@@ -154,7 +160,7 @@ public class MainMapController {
         URL xmlResource = getClass().getResource("/ui/MoveAction.fxml");
         FXMLLoader loader = new FXMLLoader(xmlResource);
         //setup controller
-        controllers.put(MoveActionController.class, new MoveActionController(client, client.getPlayerId(), displayMyTerritory(), client.getMap().getMyPlayers().get(client.getPlayerId()), client.getMap()));//create a new controller and add it
+        controllers.put(MoveActionController.class, new MoveActionController(client, client.getPlayerId(), displayMyTerritory(), client.getMap().getMyPlayers().get(client.getPlayerId())));//create a new controller and add it
         loader.setControllerFactory((c) -> {
             return controllers.get(c);
         });
@@ -235,8 +241,14 @@ public class MainMapController {
         for(ActionParser action: actions){
             System.out.println(action.getSource() +" "+action.getDest()+" "+action.getUnit());
         }
-
+        //send to server
+        client.oneRoundEnd();
+        wait_msg.setText("Waiting for other player");
         //then update
+        client.oneRoundUpdate();
+        wait_msg.setText("");
+        //display new map
+        displayTerritoryBorder();
     }
 
 

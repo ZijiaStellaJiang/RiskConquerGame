@@ -13,12 +13,13 @@
       <ChoiceBox fx:id="source" layoutX="196.0" layoutY="75.0" prefWidth="150.0" />
       <Label layoutX="65.0" layoutY="136.0" text="Upgrade from:" />
       <Label layoutX="65.0" layoutY="192.0" text="Upgrade to:" />
-      <TextField fx:id="from" layoutX="196.0" layoutY="132.0" />
-      <TextField fx:id="to" layoutX="196.0" layoutY="188.0" />
       <Label layoutX="241.0" layoutY="300.0" text="Cost:" />
       <Text layoutX="289.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100" />
-      <Button fx:id="done" layoutX="442.0" layoutY="308.0" mnemonicParsing="false" text="DONE" />
+      <Button fx:id="done" layoutX="442.0" layoutY="308.0" mnemonicParsing="false" text="DONE" onAction="#done"/>
       <TextField fx:id="num" layoutX="196.0" layoutY="243.0" />
       <Label layoutX="74.0" layoutY="248.0" text="Number:" />
+      <Text fx:id="alert" layoutX="244.0" layoutY="358.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <ChoiceBox fx:id="from" layoutX="196.0" layoutY="132.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="to" layoutX="196.0" layoutY="188.0" prefWidth="150.0" />
    </children>
 </AnchorPane>
