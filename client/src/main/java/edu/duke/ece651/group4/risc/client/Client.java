@@ -161,7 +161,7 @@ public class Client {
     }
     return false;
   }
-  public boolean addOrder(ActionParser order) {
+  public String addOrder(ActionParser order) {
       Player<Character> player = map.getPlayer(player_id);
       String result = null;
       if (order.getType().equals("MOVE")) {
@@ -171,18 +171,22 @@ public class Client {
       } else if (order.getType().equals("UPDATE")) {
         result = update.doAction(order, map, player);
       } else {
-        System.out.println("WRONG TYPE ERROR!");
-        return false;
+        result = "WRONG TYPE ERROR!";
       }
+      if (result != null) {
+        return result;
+      } 
+      /*
       if (result != null) {
         output.println(result);
         return false;
       } else {
         output.println("Valid Action!\n");
       }
+      */
       // add to order list
       order_list.add(order);
-      return true;
+      return result;
   }
   public boolean playOneRound() throws IOException {
     oneRoundBegin();
@@ -205,10 +209,6 @@ public class Client {
     return checkGameOver();
   }
 
-  public boolean playOneRound_GUI() throws IOException{
-    oneRoundBegin();
-    return checkGameOver();
-  }
 
 
   public void close_connection() {

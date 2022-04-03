@@ -78,15 +78,16 @@ public class AttackActionController {
         //TODO: check vadility
         try {
             ActionParser newAction = new ActionParser("ATTACK", source_terr, dest_terr, Integer.parseInt(num), level);
-            if(client.addOrder(newAction)==false){
-                alert.setText("Invalid input");
+            String result = client.addOrder(newAction);
+            if(result!=null){
+                alert.setText(result);
+            }else{
+                Stage primaryStage = (Stage) source.getScene().getWindow();
+                primaryStage.close();
             }
         }catch (IllegalArgumentException e) {
             alert.setText("Invalid input");
             return;
         }
-
-        Stage primaryStage = (Stage) source.getScene().getWindow();
-        primaryStage.close();
     }
 }

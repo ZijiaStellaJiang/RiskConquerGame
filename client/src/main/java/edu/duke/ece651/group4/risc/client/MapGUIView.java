@@ -24,11 +24,8 @@ public class MapGUIView {
     public void showMain() throws IOException{
         try {
             System.out.println("showing the player" + client.getPlayerId());
-            //
             URL xmlResource = getClass().getResource("/ui/Map.fxml");
             FXMLLoader loader = new FXMLLoader(xmlResource);
-
-            //AnchorPane root = FXMLLoader.load(getClass().getResource("/ui/Map.fxml"));
             URL cssResource = getClass().getResource("/ui/button.css");
             HashMap<Class<?>, Object> controllers = new HashMap<>();
             controllers.put(MainMapController.class, new MainMapController(client));//create a new controller and add it

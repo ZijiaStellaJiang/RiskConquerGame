@@ -24,7 +24,7 @@ public class UpgradeActionController {
     ChoiceBox<Integer> from;
 
     @FXML
-    ChoiceBox<Integer> to;
+    TextField levelup;
 
     @FXML
     TextField num;
@@ -44,9 +44,9 @@ public class UpgradeActionController {
     public ArrayList<Territory<Character>> displayMyTerritory() {
         Map<Character> myMap = client.getMap();
         ArrayList<Player<Character>> players = myMap.getMyPlayers();
-        for (Territory<Character> terr : players.get(client.getPlayerId()).getMyTerritories()) {
-            System.out.println(terr.getName());
-        }
+//        for (Territory<Character> terr : players.get(client.getPlayerId()).getMyTerritories()) {
+//            System.out.println(terr.getName());
+//        }
         return players.get(client.getPlayerId()).getMyTerritories();
     }
 
@@ -62,30 +62,31 @@ public class UpgradeActionController {
         ObservableList<Integer> level = FXCollections.observableArrayList();
         level.addAll(0,1,2,3,4,5,6);
         from.setItems(level);
-        to.setItems(level);
+
     }
 
     @FXML
     public void done(){
         String source_terr = source.getValue();
         Integer upgrade_from = from.getValue();
-        Integer upgrade_to = from.getValue();
+        Integer level_up = Integer.parseInt(levelup.getText());
         //TODO check the format of unit from
 
         Integer unit_num = Integer.parseInt(num.getText());
-        System.out.println(source_terr + " " + upgrade_from+ " " + upgrade_to + " " + unit_num);
+        System.out.println(source_terr + " " + upgrade_from+ " " + level_up + " " + unit_num);
         try {
-            ActionParser newAction = new ActionParser("UPDATE", source_terr, null, unit_num, upgrade_from, upgrade_to);
-            if(client.addOrder(newAction)==false){
-                alert.setText("Invalid input");
+            ActionParser newAction = new ActionParser("UPDATE", source_terr, null, unit_num, upgrade_from, level_up);
+            String result = client.addOrder(newAction);
+            if(result!=null){
+                alert.setText(result);
+            }else{
+                Stage primaryStage = (Stage) source.getScene().getWindow();
+                primaryStage.close();
             }
         }catch (IllegalArgumentException e) {
             alert.setText("Invalid input");
             return;
         }
-
-        Stage primaryStage = (Stage) source.getScene().getWindow();
-        primaryStage.close();
     }
 
 }

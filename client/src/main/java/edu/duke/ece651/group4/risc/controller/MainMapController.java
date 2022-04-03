@@ -57,8 +57,8 @@ public class MainMapController {
     Tooltip mordor_tooltip;
     @FXML
     Text wait_msg;
-    static ArrayList<ActionParser> actions = new ArrayList<>();
     private  HashMap<Class<?>, Object> controllers;
+
     public MainMapController(Client client){
         this.client = client;
         System.out.println(client.getPlayerId());
@@ -75,6 +75,10 @@ public class MainMapController {
         player_color.setText(player_name);
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Territory<Character>> displayMyTerritory(){
         Map<Character> myMap = client.getMap();
         ArrayList<Player<Character>> players = myMap.getMyPlayers();
@@ -143,13 +147,37 @@ public class MainMapController {
         return sb.toString();
     }
 
+    public void showDetails(String text) throws IOException {
+        URL xmlResource = getClass().getResource("/ui/TerritoryDetail.fxml");
+        FXMLLoader loader = new FXMLLoader(xmlResource);
+        //setup controller
+        controllers.put(TerritoryDetailController.class, new TerritoryDetailController());
+        loader.setControllerFactory((c) -> {
+            return controllers.get(c);
+        });
+        AnchorPane gp = loader.load();
+        TerritoryDetailController territoryDetailController = loader.getController();
+        territoryDetailController.setup(text);
+        Scene scene = new Scene(gp);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    /**
+     * display details of each territory
+     * @param ae
+     */
     @FXML
-    public void displayTerritory(ActionEvent ae){
+    public void displayTerritory(ActionEvent ae) throws IOException{
         Button source = (Button)ae.getSource();
         String territory_name = source.getId();
-        System.out.println(territory_name);
         Territory<Character> terr = client.getMap().findTerritory(territory_name);
+        String text = displayTerritoryInfo(terr);
+        System.out.println(text);
+        showDetails(text);
         source.getTooltip().setText(displayTerritoryInfo(terr));
+
     }
 
     @FXML
@@ -171,12 +199,6 @@ public class MainMapController {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-               showMyActions();
-            }
-        });
     }
 
     @FXML
@@ -196,12 +218,6 @@ public class MainMapController {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            @Override
-            public void handle(WindowEvent event) {
-                showMyActions();
-            }
-        });
     }
 
     @FXML
@@ -223,23 +239,15 @@ public class MainMapController {
         stage.show();
     }
 
-    public void showMyActions(){
-        for(ActionParser action : actions){
-            System.out.println(action.getSource() + " " + action.getDest() + " " + action.getUnit());
-        }
-    }
-
-
 
     @FXML
     public void commit(ActionEvent ae) throws IOException {
         //receive connection
         ArrayList<ActionParser> actions = client.getOrder_list();
-        if(actions==null){
-            return;
-        }
-        for(ActionParser action: actions){
-            System.out.println(action.getSource() +" "+action.getDest()+" "+action.getUnit());
+        if(actions!=null) {
+            for (ActionParser action : actions) {
+                System.out.println(action.getSource() + " " + action.getDest() + " " + action.getUnit());
+            }
         }
         //send to server
         client.oneRoundEnd();
@@ -249,6 +257,8 @@ public class MainMapController {
         wait_msg.setText("");
         //display new map
         displayTerritoryBorder();
+        client.checkGameOver();
+        System.out.println("finish one round game");
     }
 
 
