@@ -19,18 +19,22 @@ public class UpdateAction<T> extends Action<T>{
 
   @Override
   public String doAction(ActionParser parser, Map<T> theMap, Player<T> thePlayer) {
+    // TODO Auto-generated method stub
     // chceck Rule First
     String checkMyRule = ruleChecker.checkActionRule(parser, theMap, thePlayer);
     if (checkMyRule != null) return checkMyRule;
     // find the Sorcee territory
     for(Territory<T> source: thePlayer.getMyTerritories()){
       if(source.getName().toUpperCase().equals(parser.getSource())){
-          int updateNum = parser.getUnit();
-          int curLevel = parser.getLevel();
-          updateUnits(source, thePlayer, updateNum, curLevel);
-          break;
+        int updateNum = parser.getUnit();
+        int curLevel = parser.getLevel();
+        int levelUp = parser.getLevelUp();
+        for (int i = curLevel; i < curLevel + levelUp; i++) {
+          updateUnits(source, thePlayer, updateNum, i);
+        }
+        break;
       }
-  }
+    }
     return null;
   }
 
@@ -45,5 +49,6 @@ public class UpdateAction<T> extends Action<T>{
     }
   }
 }
+
 
 
