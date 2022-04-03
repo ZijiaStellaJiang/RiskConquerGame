@@ -98,4 +98,21 @@ public class TerritoryTest {
     t1.removeEnemyUnit(new SimpleUnit<>());
     assertEquals(1,t1.getEnemyUnitNum());
   }
+  @Test
+  public void test_max_min_level(){
+    Territory<Character> t = new Territory<>("A");
+    t.addMyUnit(new SimpleUnit<>(2));
+    t.addMyUnit(new SimpleUnit<>());
+    t.addMyUnit(new SimpleUnit<>(5));
+    assertEquals(5,t.getMyMaxUnit());
+    assertEquals(0,t.getMyMinUnit());
+    t.removeMyUnit(new SimpleUnit<>(5));
+    assertEquals(2,t.getMyMaxUnit());
+    t.addEnemyUnit(new SimpleUnit<>(1));
+    t.addEnemyUnit(new SimpleUnit<>(4));
+    t.addEnemyUnit(new SimpleUnit<>(2));
+    t.addEnemyUnit(new SimpleUnit<>(4));
+    assertEquals(4,t.getEnemyMaxUnit());
+    assertEquals(1,t.getEnemyMinUnit());
+  }
 }

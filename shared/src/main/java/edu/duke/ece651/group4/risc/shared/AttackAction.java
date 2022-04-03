@@ -4,7 +4,8 @@ public class AttackAction<T> extends Action<T> {
     String seed;
 
     public AttackAction(){
-        super(new UnitNumberRuleChecker<>(new AttackOwnershipChecker<>(new AttackPathChecker<>(null))));
+        super(new UnitNumberRuleChecker<>(new AttackOwnershipChecker<>(
+                new AttackPathChecker<>(new AttackResourceChecker<>(null)))));
         this.seed=null;
     }
 
@@ -25,8 +26,9 @@ public class AttackAction<T> extends Action<T> {
             thePlayer.addWinTerritory(dest.getName());
             int remain = dest.getEnemyUnitNum();
             for(int i=0; i<remain; i++){
-                dest.addMyUnit(new SimpleUnit<>());
-                dest.removeEnemyUnit(new SimpleUnit<>());
+                int minLevel = dest.getEnemyMinUnit();
+                dest.addMyUnit(new SimpleUnit<>(minLevel));
+                dest.removeEnemyUnit(new SimpleUnit<>(minLevel));
             }
         }
         //attacker loses, ownership doesn't change, nothing changed
@@ -44,6 +46,7 @@ public class AttackAction<T> extends Action<T> {
     public String doAction(ActionParser parser,Map<T> theMap, Player<T> thePlayer){
         for (Territory<T> toResolve: theMap.getMyTerritories()){
             if(!thePlayer.checkMyTerritory(toResolve)){
+                //TODO: move and attack resource checker
                 resolveHelper(toResolve,theMap,thePlayer);
             }
         }

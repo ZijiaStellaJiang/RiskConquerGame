@@ -23,7 +23,7 @@ public class SimpleUnit<T> extends Unit<T>{
     public int updateCost() {
       return cost[level];
     }
-  
+
     public boolean canUpdate() {
       if (level < max_level)
         return true;
