@@ -77,8 +77,8 @@ public class MapTextViewTest {
         t2.addGroupUnit(n2);
         ArrayList<Unit<Character>> n3 = new ArrayList<>(Collections.nCopies(2,new SimpleUnit<>()));
         t3.addGroupUnit(n3);
-        TextPlayer p1 = new TextPlayer("A");
-        TextPlayer p2 = new TextPlayer("B");
+        TextPlayer p1 = new TextPlayer("A",200,200);
+        TextPlayer p2 = new TextPlayer("B",200,200);
         p1.addToTerritory(t1);
         p1.addToTerritory(t2);
         p2.addToTerritory(t3);

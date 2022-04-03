@@ -21,6 +21,7 @@ public class Client {
   private Action<Character> move_myself;
   private Action<Character> move_enemy;
   private Action<Character> attack;
+  private Action<Character> update;
   private ArrayList<ActionParser> order_list;
   private MapTextView displayInfo;
 
@@ -34,6 +35,7 @@ public class Client {
     move_myself = new MoveAction<>(true);
     move_enemy = new MoveAction<>(false);
     attack = new AttackAction<>();
+    update = new UpdateAction<>();
     order_list = null;
     displayInfo = null;
     try {
@@ -161,6 +163,8 @@ public class Client {
         result = move_myself.doAction(order, map, player);
       } else if (order.getType().equals("ATTACK")) {
         result = move_enemy.doAction(order, map, player);
+      } else if (order.getType().equals("UPDATE")) {
+        result = update.doAction(order, map, player);
       } else {
         System.out.println("WRONG TYPE ERROR!");
         return false;

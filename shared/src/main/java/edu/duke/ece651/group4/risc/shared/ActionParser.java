@@ -8,6 +8,7 @@ public class ActionParser implements java.io.Serializable{
   String dest_name;
   int numofUnit;
   int levelofUnit;
+  int levelUp;
 
   /**
    * Constructor
@@ -17,10 +18,15 @@ public class ActionParser implements java.io.Serializable{
    * @param num number of unit
    */
   public ActionParser(String type, String source, String dest, int num) {
-    this(type, source, dest, num, 0);
+    this(type, source, dest, num, 0, 0);
   }
 
   public ActionParser(String type, String source, String dest, int num, int level) {
+    this(type, source, dest, num, level, 1);
+  }
+
+
+  public ActionParser(String type, String source, String dest, int num, int level, int levelUp) {
     String type_upper = type.toUpperCase();
     if(!type_upper.equals("MOVE") && !type_upper.equals("ATTACK") && !type_upper.equals("UPDATE")){
       throw new IllegalArgumentException("type needs to be move or attack or update");
@@ -30,6 +36,7 @@ public class ActionParser implements java.io.Serializable{
     this.dest_name = dest == null ? null : dest.toUpperCase();
     this.numofUnit = num;
     this.levelofUnit = level;
+    this.levelUp = levelUp;
   }
   /**
    * Constructor
@@ -49,6 +56,7 @@ public class ActionParser implements java.io.Serializable{
     this.dest_name = res[2];
     this.numofUnit = Integer.valueOf(res[3]).intValue();
     this.levelofUnit = res.length == 4 ? 0 : Integer.valueOf(res[4]).intValue();
+    this.levelUp = 1;
   }
 
   /**
@@ -89,5 +97,13 @@ public class ActionParser implements java.io.Serializable{
    */
   public int getLevel() {
     return levelofUnit;
+  }
+
+  /**
+   * get number of unit of one territory
+   * @return get number of unit
+   */
+  public int getLevelUp() {
+    return levelUp;
   }
 }

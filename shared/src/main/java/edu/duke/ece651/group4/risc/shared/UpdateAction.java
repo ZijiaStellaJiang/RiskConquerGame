@@ -28,10 +28,13 @@ public class UpdateAction<T> extends Action<T>{
       if(source.getName().toUpperCase().equals(parser.getSource())){
           int updateNum = parser.getUnit();
           int curLevel = parser.getLevel();
-          updateUnits(source, thePlayer, updateNum, curLevel);
+          int levelUp = parser.getLevelUp();
+          for (int i = curLevel; i < curLevel + levelUp; i++) {
+            updateUnits(source, thePlayer, updateNum, i);
+          }
           break;
       }
-  }
+    }
     return null;
   }
 
@@ -46,5 +49,6 @@ public class UpdateAction<T> extends Action<T>{
     }
   }
 }
+
 
 

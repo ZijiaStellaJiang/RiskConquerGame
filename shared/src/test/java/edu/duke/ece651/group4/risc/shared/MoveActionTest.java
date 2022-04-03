@@ -75,7 +75,7 @@ public class MoveActionTest {
         map.addTerritory(terriM);
         map.addTerritory(terriH);
         map.addTerritory(check);
-        TextPlayer p1 = new TextPlayer("Green");
+        TextPlayer p1 = new TextPlayer("Green",100,100);
         TextPlayer p2 = new TextPlayer("Blue");
         p1.addToTerritory(terriN);
         p1.addToTerritory(terriO);

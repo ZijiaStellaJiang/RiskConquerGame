@@ -17,6 +17,7 @@ public class V1SimpleResolution<T> extends CombatResolution<T> {
     public boolean resolveCombat(){
         int attackNum = defend.getEnemyUnitNum();
         int defendNum = defend.getUnitNumber();
+        int turnNum = 1;   //decide whether this turn to use "MaxAttack VS MinDefend" or inverse.
         while(true){
             if(attackNum==0){
                 return false;
@@ -31,14 +32,24 @@ public class V1SimpleResolution<T> extends CombatResolution<T> {
                 attackRoll = new Random(seed_num).nextInt(20);
                 defendRoll = new Random(1).nextInt(20); //this seed generate 5
             }
+            Unit<T> attacker = new SimpleUnit<>(defend.getEnemyMaxUnit());
+            Unit<T> defender = new SimpleUnit<>(defend.getMyMinUnit());
+            // if this is the even number turn, then MinAttacker VS MaxDefender
+            if(turnNum%2 == 0) {
+                attacker = new SimpleUnit<>(defend.getEnemyMinUnit());
+                defender = new SimpleUnit<>(defend.getMyMaxUnit());
+            }
+            attackRoll = attackRoll + attacker.getBonus();
+            defendRoll = defendRoll + defender.getBonus();
             if(attackRoll>defendRoll){
                 defendNum--;
-                defend.removeMyUnit(new SimpleUnit<>());
+                defend.removeMyUnit(defender);
             }
             else {
                 attackNum--;
-                defend.removeEnemyUnit(new SimpleUnit<>());
+                defend.removeEnemyUnit(attacker);
             }
+            turnNum++;
         }
     }
 }

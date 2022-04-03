@@ -141,6 +141,35 @@ public class Territory<T> implements java.io.Serializable {
   public void setDistance(int newDis) {
     this.distance = newDis;
   }
+
+  public int getMyMaxUnit(){
+    if(getUnitNumber()==0) {
+      throw new IllegalArgumentException("can not access this function here, no units");
+    }
+    return getMaxHelper(myUnits);
+  }
+
+  public int getMyMinUnit(){
+    if(getUnitNumber()==0) {
+      throw new IllegalArgumentException("can not access this function here, no units");
+    }
+    return getMinHelper(myUnits);
+  }
+
+  public int getEnemyMaxUnit(){
+    if(getEnemyUnitNum()==0) {
+      throw new IllegalArgumentException("can not access this function here, no units");
+    }
+    return getMaxHelper(enemyUnits);
+  }
+
+  public int getEnemyMinUnit(){
+    if(getEnemyUnitNum()==0) {
+      throw new IllegalArgumentException("can not access this function here, no units");
+    }
+    return getMinHelper(enemyUnits);
+  }
+
   @Override
   public boolean equals(Object o){
     if(o.getClass().equals(getClass())){
@@ -170,5 +199,23 @@ public class Territory<T> implements java.io.Serializable {
     else {
       throw new IllegalArgumentException("You don't have this level of unit to remove");
     }
+  }
+
+  private int getMaxHelper(HashMap<Integer, ArrayList<Unit<T>>> units){
+    int max_level = new SimpleUnit<T>().getMaxLevel();
+    for (int i=max_level; i>0; i--){
+      if(!units.containsKey(i)) continue;
+      else if(units.get(i).size()>0) return i;
+    }
+    return 0;
+  }
+
+  private int getMinHelper(HashMap<Integer, ArrayList<Unit<T>>> units){
+    int max_level = new SimpleUnit<T>().getMaxLevel();
+    for (int i=0; i<max_level; i++){
+      if(!units.containsKey(i)) continue;
+      else if(units.get(i).size()>0) return i;
+    }
+    return max_level;
   }
 }
