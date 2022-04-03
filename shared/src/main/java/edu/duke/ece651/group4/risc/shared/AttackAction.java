@@ -4,7 +4,8 @@ public class AttackAction<T> extends Action<T> {
     String seed;
 
     public AttackAction(){
-        super(new UnitNumberRuleChecker<>(new AttackOwnershipChecker<>(new AttackPathChecker<>(null))));
+        super(new UnitNumberRuleChecker<>(new AttackOwnershipChecker<>(
+                new AttackPathChecker<>(new AttackResourceChecker<>(null)))));
         this.seed=null;
     }
 

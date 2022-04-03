@@ -39,4 +39,27 @@ public class ResourceCheckerTest {
         assertEquals("That action is invalid: player doesn't have enough food to move.",
                 resource_c.checkActionRule(parse2,map,p));
     }
+    @Test
+    public void test_attack_resource_checker(){
+        Territory<Character> a = new Territory<>("A",3,4,4);
+        Territory<Character> b = new Territory<>("B",5,3,3);
+        a.addNeigh(b);
+        ArrayList<Unit<Character>> nUnits = new ArrayList<>(Collections.nCopies(6,new SimpleUnit<>()));
+        a.addGroupUnit(nUnits);
+        Player<Character> p1 = new TextPlayer("p1",4,4);
+        Player<Character> p2 = new TextPlayer("p2",4,4);
+        Map<Character> map = new Map<>();
+        map.addPlayer(p1);
+        map.addPlayer(p2);
+        map.addTerritory(a);
+        map.addTerritory(b);
+        p1.addToTerritory(a);
+        p2.addToTerritory(b);
+        ActionRuleChecker<Character> resource_c = new AttackResourceChecker<>(null);
+        ActionParser parser1 = new ActionParser("attack a b 4 0");
+        assertNull(resource_c.checkActionRule(parser1,map,p1));
+        ActionParser parser2 = new ActionParser("attack a b 5 0");
+        assertEquals("That action is invalid: player doesn't have enough food to attack.",
+                resource_c.checkActionRule(parser2,map,p1));
+    }
 }

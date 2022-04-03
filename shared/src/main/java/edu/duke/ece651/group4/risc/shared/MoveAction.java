@@ -45,7 +45,7 @@ public class MoveAction<T> extends Action<T>{
         //if this move is used for attack, the rule checker should change
         if(!moveToSamePlayer){
             ruleChecker = new UnitNumberRuleChecker<>(new AttackOwnershipChecker<>(
-                    new AttackPathChecker<>(null)));
+                    new AttackPathChecker<>(new AttackResourceChecker<>(null))));
         }
         String checkRule = ruleChecker.checkActionRule(parser,theMap,thePlayer);
         if(checkRule!=null){
