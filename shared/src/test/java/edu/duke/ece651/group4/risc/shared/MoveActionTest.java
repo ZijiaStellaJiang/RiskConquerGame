@@ -129,12 +129,14 @@ public class MoveActionTest {
         assertEquals(3,s.getUnitNumber());
         assertEquals(20,p1.getFoodNum());
         assertEquals(100,p1.getWoodNum());
+        ActionParser parser2 = new ActionParser("move d c 2 0");
+        assertNull(move1.doAction(parser2,map,p1));
         //for test case coverage
         Territory<Character> test = new Territory<>("test");
         map.addTerritory(test);
-        ActionParser parser2 = new ActionParser("move", "s", "test", 2,0);
+        ActionParser parser3 = new ActionParser("move", "s", "test", 2,0);
         Action<Character> move_test = new MoveAction<>(new UnitNumberRuleChecker<>(null),true);
-        assertNull(move_test.doAction(parser2,map,p1));
-        assertEquals(20,p1.getFoodNum());
+        assertNull(move_test.doAction(parser3,map,p1));
+        assertEquals(6,p1.getFoodNum());
     }
 }

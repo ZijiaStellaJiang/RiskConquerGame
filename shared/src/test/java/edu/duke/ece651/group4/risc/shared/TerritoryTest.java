@@ -106,6 +106,8 @@ public class TerritoryTest {
     t.addMyUnit(new SimpleUnit<>(5));
     assertEquals(5,t.getMyMaxUnit());
     assertEquals(0,t.getMyMinUnit());
+    assertThrows(IllegalArgumentException.class, ()->t.getEnemyMaxUnit());
+    assertThrows(IllegalArgumentException.class, ()->t.getEnemyMinUnit());
     t.removeMyUnit(new SimpleUnit<>(5));
     assertEquals(2,t.getMyMaxUnit());
     t.addEnemyUnit(new SimpleUnit<>(1));
@@ -114,5 +116,8 @@ public class TerritoryTest {
     t.addEnemyUnit(new SimpleUnit<>(4));
     assertEquals(4,t.getEnemyMaxUnit());
     assertEquals(1,t.getEnemyMinUnit());
+    Territory<Character> test = new Territory<>("test");
+    assertThrows(IllegalArgumentException.class, ()->test.getMyMaxUnit());
+    assertThrows(IllegalArgumentException.class, ()->test.getMyMinUnit());
   }
 }
