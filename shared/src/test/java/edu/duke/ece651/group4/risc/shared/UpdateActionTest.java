@@ -35,7 +35,7 @@ public class UpdateActionTest {
     update = new UpdateAction<>();
     result = update.doAction(parse, map , p1);
     assertEquals("That action is invalid: the number of certain level's unit is not enough.", result);
-    // valid
+    // valid 
     parse = new ActionParser("update", "t1", null, 5, 0, 5);
     update = new UpdateAction<>();
     result = update.doAction(parse, map , p1);
@@ -51,7 +51,7 @@ public class UpdateActionTest {
     update = new UpdateAction<>();
     result = update.doAction(parse, map , p1);
     assertEquals("That action is invalid: the unit already achieved max level.", result);
-
+    
   }
 
 }

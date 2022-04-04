@@ -21,10 +21,11 @@ public class Server {
   private Action<Character> move_myself;
   private Action<Character> move_enemy;
   private Action<Character> attack;
+  private Action<Character> update;
 
   public Server(int port) throws IOException {
     serverSocket = new ServerSocket(port);
-    mapFactory = new V1MapFactory();
+    mapFactory = new V2MapFactory();
     map = mapFactory.generateMap();
     player_num = 2;
     player_skd = new ArrayList<Socket>();
@@ -33,6 +34,7 @@ public class Server {
     move_myself = new MoveAction<>(true);
     move_enemy = new MoveAction<>(false);
     attack = new AttackAction<>();
+    update = new UpdateAction<>();
   }
 
   public ServerSocket getServerSocket() {
@@ -122,6 +124,8 @@ public class Server {
           move_myself.doAction(order, map, cur_player);
         } else if (order.getType().equals("ATTACK")) {
           move_enemy.doAction(order, map, cur_player);
+        } else if (order.getType().equals("UPDATE")) {
+          update.doAction(order, map, cur_player);
         } else {
           System.out.println("WRONG TYPE ERROR!");
         }
@@ -134,8 +138,11 @@ public class Server {
       attack.doAction(null, map, cur_player);
     }
 
-    // add unit to each territory
+    // add unit to each territory and Update Resource
     map.receive_new_units();
+    for (int i = 0; i < player_num; i++) {
+      map.getPlayer(i).updateResource();
+    }
 
     // sending updating map
     for (int i = 0; i < player_num; i++) {
