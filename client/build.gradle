@@ -4,11 +4,11 @@
 
 plugins {
     id 'edu.duke.ece651.group4.risc.java-application-conventions'
-    id 'org.openjfx.javafxplugin' version '0.0.9'
+    id 'org.openjfx.javafxplugin' version '0.0.10'
 }
 
 javafx {
-    version = "15.0.1"
+    version = "17.0.1"
     modules = [ 'javafx.controls', 'javafx.fxml'  ]
 }
 
