@@ -222,6 +222,12 @@ public class Client {
     client.close_connection();
   }
 
+  public int getPlayerFood(){
+    return map.getPlayerFood(player_id);
+  }
+  public int getPlayerWood(){
+    return map.getPlayerWood(player_id);
+  }
 
 }
 

@@ -82,6 +82,7 @@ public class AttackActionTest {
         ActionParser parse2 = new ActionParser("attack oz narnia 1 6");
         ActionParser parse3 = new ActionParser("attack oz narnia 1 1");
         ActionParser parse4 = new ActionParser("attack oz narnia 1 0");
+        //assertEquals("food: 1",attack_move.actionCost(parse2,map));
         attack_move.doAction(parse1,map,p2);
         attack_move.doAction(parse2,map,p2);
         attack_move.doAction(parse3,map,p2);
