@@ -1,9 +1,12 @@
 package edu.duke.ece651.group4.risc.shared;
+
+import java.util.Objects;
+
 /**
  * This class is used to parse user input like move source destination #ofunits
  */
 public class ActionParser implements java.io.Serializable{
-  String type;// type refers to move or attack
+  String type;// type refers to move or attack or update
   String source_name;
   String dest_name;
   int numofUnit;
@@ -105,5 +108,31 @@ public class ActionParser implements java.io.Serializable{
    */
   public int getLevelUp() {
     return levelUp;
+  }
+
+  /**
+   * get the cost of this parser
+   */
+  public String getCost(Map<Character> theMap){
+    //TODO test cases
+    Territory<Character> source = theMap.getTerritory(source_name);
+    Territory<Character> dest = theMap.getTerritory(dest_name);
+    if(type.equals("MOVE")){
+      MinCostFinder<Character> finder = new MinCostFinder<>();
+      int cost = finder.findMinCost(source,dest);
+      return "food: "+cost*numofUnit;
+    }
+    else if(type.equals("ATTACK")){
+      int cost = 1;
+      return "food: "+cost*numofUnit;
+    }
+    else {
+      int cost = 0;
+      for (int i=levelofUnit; i<levelUp; i++){
+        Unit<Character> unit = new SimpleUnit<>(i);
+        cost = cost + unit.updateCost();
+      }
+      return "wood: "+cost*numofUnit;
+    }
   }
 }

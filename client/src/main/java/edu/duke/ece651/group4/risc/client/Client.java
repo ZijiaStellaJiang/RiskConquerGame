@@ -222,6 +222,10 @@ public class Client {
     client.close_connection();
   }
 
+  public int getPlayerFood(){
+    //TODO
+    return 0;
+  }
 
 }
 

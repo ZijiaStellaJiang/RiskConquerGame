@@ -127,6 +127,7 @@ public class MoveActionTest {
         assertNull(move1.doAction(parser1, map, p1));
         assertEquals(5,d.getUnitNumber());
         assertEquals(3,s.getUnitNumber());
+        //assertEquals("food: 80",move1.actionCost(parser1,map));
         assertEquals(20,p1.getFoodNum());
         assertEquals(100,p1.getWoodNum());
         ActionParser parser2 = new ActionParser("move d c 2 0");

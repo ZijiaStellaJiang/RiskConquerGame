@@ -6,13 +6,13 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 public class MoveAction<T> extends Action<T>{
-    //define the comparator of priority queue in minimum path
-    Comparator<Territory<T>> cmp = new Comparator<Territory<T>>() {
-        @Override
-        public int compare(Territory<T> o1, Territory<T> o2) {
-            return o1.getDistance()-o2.getDistance();
-        }
-    };
+//    //define the comparator of priority queue in minimum path
+//    Comparator<Territory<T>> cmp = new Comparator<Territory<T>>() {
+//        @Override
+//        public int compare(Territory<T> o1, Territory<T> o2) {
+//            return o1.getDistance()-o2.getDistance();
+//        }
+//    };
     boolean moveToSamePlayer;
 
     /**
@@ -69,32 +69,37 @@ public class MoveAction<T> extends Action<T>{
         }
         return null;
     }
+//    public String actionCost(ActionParser parser,Map<T> theMap){
+//        Territory<T> source = theMap.getTerritory(parser.getSource());
+//        Territory<T> dest = theMap.getTerritory(parser.getDest());
+//        int cost = 1;
+//        String type = "food: ";
+//        if(moveToSamePlayer) cost = findMinCost(source,dest);
+//        int totalCost = cost * parser.getUnit();
+//        return type + totalCost;
+//    }
 
-    /**
-     * helper function
-     * @return the minimum cost of moving between to territories
-     */
-    private int findMinCost(Territory<T> source, Territory<T> dest){
-        //if the two territories are adjacent, minimum cost is the sum of their size
-        if(source.checkNeigh(dest)) return source.getSize()+dest.getSize();
-        //if now adjacent, perform bfs search
-        Queue<Territory<T>> pq = new PriorityQueue<>(cmp);
-        source.setDistance(source.getSize());
-        pq.add(source);
-        while (!pq.isEmpty()){
-            Territory<T> curr = pq.poll();
-            int curr_dis = curr.getDistance();
-            if(curr.getName().equals(dest.getName())) return curr_dis;
-            for (Territory<T> neigh: curr.getMyNeigh()){
-                if(neigh.getDistance()!=100) continue;
-                neigh.setDistance(neigh.getSize()+curr_dis);
-                pq.add(neigh);
-            }
-        }
-        //if it can not find a path, return -1
-        //but should not happen, because we check path first
-        return -1;
-    }
+//    private int findMinCost(Territory<T> source, Territory<T> dest){
+//        //if the two territories are adjacent, minimum cost is the sum of their size
+//        if(source.checkNeigh(dest)) return source.getSize()+dest.getSize();
+//        //if now adjacent, perform bfs search
+//        Queue<Territory<T>> pq = new PriorityQueue<>(cmp);
+//        source.setDistance(source.getSize());
+//        pq.add(source);
+//        while (!pq.isEmpty()){
+//            Territory<T> curr = pq.poll();
+//            int curr_dis = curr.getDistance();
+//            if(curr.getName().equals(dest.getName())) return curr_dis;
+//            for (Territory<T> neigh: curr.getMyNeigh()){
+//                if(neigh.getDistance()!=100) continue;
+//                neigh.setDistance(neigh.getSize()+curr_dis);
+//                pq.add(neigh);
+//            }
+//        }
+//        //if it can not find a path, return -1
+//        //but should not happen, because we check path first
+//        return -1;
+//    }
 
     /**
      * helper function to move units
@@ -103,10 +108,11 @@ public class MoveAction<T> extends Action<T>{
      */
     private int moveUnits(ActionParser parser,Territory<T> source, Collection<Territory<T> > toFind,
                            int toMove, int level){
+        MinCostFinder<T> finder = new MinCostFinder<>();
         for(Territory<T> dest: toFind){
             if(dest.getName().toUpperCase().equals(parser.getDest())){
                 int cost = 1;
-                if(moveToSamePlayer) cost = findMinCost(source,dest);
+                if(moveToSamePlayer) cost = finder.findMinCost(source,dest);
                 //int minCost = findMinCost(source,dest);
                 for(int i=0; i<toMove; i++){
                     if(moveToSamePlayer){

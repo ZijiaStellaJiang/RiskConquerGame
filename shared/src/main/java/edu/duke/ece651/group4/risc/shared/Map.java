@@ -98,4 +98,11 @@ public class Map<T> implements java.io.Serializable {
       t.setDistance(100);
     }
   }
+
+  public Territory<T> getTerritory(String name){
+    for (Territory<T> t: myTerritories){
+      if(t.getName().toUpperCase().equals(name)) return t;
+    }
+    return null;
+  }
 }
