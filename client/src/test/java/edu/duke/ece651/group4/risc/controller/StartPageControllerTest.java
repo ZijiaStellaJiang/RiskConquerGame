@@ -26,7 +26,7 @@ public class StartPageControllerTest {
   StackPane pane;
 
   @Start
-  private void start(Stage stage){
+  private void start(Stage stage) {
 
     controller = new StartPageController();
     pane = new StackPane();
@@ -38,22 +38,18 @@ public class StartPageControllerTest {
   }
 
   @Test
-  public void test_start_button_pressed(FxRobot robot) throws IOException{
-    Platform.runLater(()->{
-        //      try {
-        controller.onButtonStart(new ActionEvent(b, null));
-        //} catch (IOException e) {
-        //e.printStackTrace();
-        //}
+  public void test_start_button_pressed(FxRobot robot) throws IOException {
+    Platform.runLater(() -> {
+
+      controller.onButtonStart(new ActionEvent(b, null));
 
     });
     WaitForAsyncUtils.waitForFxEvents();
   }
 
-
   @Test
-  public void test_exit_button_pressed(FxRobot robot){
-    Platform.runLater(()->{
+  public void test_exit_button_pressed(FxRobot robot) {
+    Platform.runLater(() -> {
       controller.onButtonExit(new ActionEvent(b, null));
 
     });

@@ -9,21 +9,20 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
 
+/**
+ * This class is the controller of select server page
+ */
 public class ChooseServerController {
     Client client;
     private String host;
     @FXML
-    ChoiceBox host_choice;
-    @FXML
     Text alert;
-
+    @FXML
+    TextField select;
     /**
      * Constructor
      */
@@ -40,7 +39,7 @@ public class ChooseServerController {
     public void connect_server(ActionEvent ae) throws IOException {
         Object source = ae.getSource();
         if (source instanceof Button){
-         host = (String) host_choice.getValue();
+         host = (String) select.getText();
          System.out.println("connect to host: " + host);
          try{
              //create socket

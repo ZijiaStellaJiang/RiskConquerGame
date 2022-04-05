@@ -1,7 +1,5 @@
 package edu.duke.ece651.group4.risc.controller;
 
-import edu.duke.ece651.group4.risc.client.Client;
-import edu.duke.ece651.group4.risc.client.MapGUIView;
 import edu.duke.ece651.group4.risc.client.SelectServerView;
 import javafx.fxml.FXML;
 
@@ -10,11 +8,15 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import java.io.IOException;
 
+/**
+ * Start page controller for the whole game
+ */
 public class StartPageController {
     @FXML
     Button start_btn;
     @FXML
     Button exit_btn;
+
     /**
      * Deal with exit and start botton
      * if start button pressed, jump to display map view, if exit button pressed, exit the program
@@ -24,10 +26,10 @@ public class StartPageController {
     @FXML
     public void onButtonStart(ActionEvent ae) {
         Object source = ae.getSource();
-            Button btn = (Button) source;
-            Stage primaryStage = (Stage) btn.getScene().getWindow();
-                //initialize game
-            SelectServerView view = new SelectServerView();
+        Button btn = (Button) source;
+        Stage primaryStage = (Stage) btn.getScene().getWindow();
+        //initialize game
+        SelectServerView view = new SelectServerView();//jump to select server page
         try {
             view.showMain();
         } catch (IOException e) {

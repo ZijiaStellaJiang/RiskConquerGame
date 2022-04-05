@@ -1,5 +1,7 @@
 package edu.duke.ece651.group4.risc.controller;
 
+import java.util.ArrayList;
+
 import edu.duke.ece651.group4.risc.client.Client;
 import edu.duke.ece651.group4.risc.shared.ActionParser;
 import edu.duke.ece651.group4.risc.shared.Player;
@@ -8,13 +10,12 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-
+import javafx.scene.layout.AnchorPane;
 public class AttackActionController {
     @FXML
     ChoiceBox<String> source;
@@ -26,7 +27,10 @@ public class AttackActionController {
     TextField unit_num;
     @FXML
     Text alert;
-
+    @FXML
+    AnchorPane pane;
+    @FXML
+    Button done_btn;
     private int playerId;
     private ArrayList<Territory<Character>> myTerr;
     private ObservableList<String> sources;

@@ -23,7 +23,6 @@ public class MapGUIView {
 
     public void showMain() throws IOException{
         try {
-            System.out.println("showing the player" + client.getPlayerId());
             URL xmlResource = getClass().getResource("/ui/Map.fxml");
             FXMLLoader loader = new FXMLLoader(xmlResource);
             URL cssResource = getClass().getResource("/ui/button.css");
