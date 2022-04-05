@@ -5,6 +5,9 @@ import javafx.fxml.FXML;
 
 import javafx.event.ActionEvent;
 import javafx.scene.control.Button;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.FontSmoothingType;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import java.io.IOException;
 
@@ -16,7 +19,19 @@ public class StartPageController {
     Button start_btn;
     @FXML
     Button exit_btn;
-
+    @FXML
+    Text title;
+    /**
+     * initialize the controller
+     */
+    @FXML
+    public void initialize(){
+        title.setFontSmoothingType(FontSmoothingType.LCD);
+        exit_btn.addEventHandler(MouseEvent.MOUSE_ENTERED, e->exit_btn.setStyle("-fx-border-color: blue;-fx-background-color: transparent;-fx-text-fill: black"));
+        exit_btn.addEventHandler(MouseEvent.MOUSE_EXITED,e->exit_btn.setStyle("-fx-border-color: black;-fx-background-color: transparent;-fx-text-fill: black"));
+        start_btn.addEventHandler(MouseEvent.MOUSE_ENTERED, e->start_btn.setStyle("-fx-border-color: blue;-fx-background-color: transparent;-fx-text-fill: black"));
+        start_btn.addEventHandler(MouseEvent.MOUSE_EXITED,e->start_btn.setStyle("-fx-border-color: black;-fx-background-color: transparent;-fx-text-fill: black"));
+    }
     /**
      * Deal with exit and start botton
      * if start button pressed, jump to display map view, if exit button pressed, exit the program

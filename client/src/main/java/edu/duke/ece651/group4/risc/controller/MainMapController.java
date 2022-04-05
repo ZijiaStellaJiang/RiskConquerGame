@@ -2,10 +2,7 @@ package edu.duke.ece651.group4.risc.controller;
 
 import edu.duke.ece651.group4.risc.client.Client;
 import edu.duke.ece651.group4.risc.shared.*;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -16,7 +13,6 @@ import javafx.scene.text.Text;
 
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.net.URL;
@@ -58,6 +54,10 @@ public class MainMapController {
   Text wait_msg;
   @FXML
   Button showMove;
+  @FXML
+  Text food;
+  @FXML
+  Text wood;
   private HashMap<Class<?>, Object> controllers;
 
   public MainMapController(Client client) {
@@ -86,6 +86,10 @@ public class MainMapController {
       System.out.println(terr.getName());
     }
     return players.get(client.getPlayerId()).getMyTerritories();
+
+  }
+
+  public void updateFoodAndWood(){
 
   }
 

@@ -175,15 +175,7 @@ public class Client {
       }
       if (result != null) {
         return result;
-      } 
-      /*
-      if (result != null) {
-        output.println(result);
-        return false;
-      } else {
-        output.println("Valid Action!\n");
       }
-      */
       // add to order list
       order_list.add(order);
       return result;
@@ -224,7 +216,7 @@ public class Client {
 
   public static void main(String[] args) throws IOException {
     Application.launch(StartGame.class, args);
-    System.out.println("Enter server's ip:");
+    /*System.out.println("Enter server's ip:");
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     String str = reader.readLine();
     Client client = new Client(str, 6066, new BufferedReader(new InputStreamReader(System.in)), System.out);
@@ -235,7 +227,7 @@ public class Client {
       if (client.playOneRound()) break;
     }
     // close connection
-    client.close_connection();
+    client.close_connection();*/
   }
 
 

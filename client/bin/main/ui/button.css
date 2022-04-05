@@ -66,3 +66,19 @@
     -fx-text-fill: white;
 }
 
+.fancytext {
+    -fx-font: 20px Tahoma;
+    -fx-stroke: black;
+    -fx-border-width: 2 2 2 2;
+}
+
+#title{
+    -fx-font:bold 20pt "Arial";
+    -fx-effect:dropshadow(one-pass-box,#E6F514,8,0.0,2,0);
+}
+
+#msg{
+-fx-font:bold 15pt "Arial";
+}
+
+

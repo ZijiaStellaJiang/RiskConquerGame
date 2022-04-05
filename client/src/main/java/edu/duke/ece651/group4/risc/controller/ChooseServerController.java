@@ -1,17 +1,18 @@
 package edu.duke.ece651.group4.risc.controller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 import edu.duke.ece651.group4.risc.client.Client;
 import edu.duke.ece651.group4.risc.client.MapGUIView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 
 /**
  * This class is the controller of select server page
@@ -23,6 +24,8 @@ public class ChooseServerController {
     Text alert;
     @FXML
     TextField select;
+    @FXML
+    AnchorPane pane;
     /**
      * Constructor
      */

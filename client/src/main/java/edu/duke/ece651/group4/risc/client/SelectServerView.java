@@ -9,7 +9,10 @@ import java.io.IOException;
 import java.net.URL;
 
 public class SelectServerView {
-
+    /**
+     * take control of main page
+     * @throws IOException
+     */
     public void showMain() throws IOException {
         AnchorPane root = FXMLLoader.load(getClass().getResource("/ui/SelectServer.fxml"));
         URL cssResource = getClass().getResource("/ui/button.css");
@@ -18,9 +21,5 @@ public class SelectServerView {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
-
-
     }
-
-
 }

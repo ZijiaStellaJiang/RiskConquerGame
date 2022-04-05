@@ -2,22 +2,18 @@ package edu.duke.ece651.group4.risc.controller;
 
 import edu.duke.ece651.group4.risc.client.Client;
 import edu.duke.ece651.group4.risc.shared.ActionParser;
-import edu.duke.ece651.group4.risc.shared.Map;
 import edu.duke.ece651.group4.risc.shared.Player;
 import edu.duke.ece651.group4.risc.shared.Territory;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.ResourceBundle;
 
 public class MoveActionController {
     @FXML
