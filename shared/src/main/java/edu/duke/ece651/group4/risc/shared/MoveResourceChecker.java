@@ -18,7 +18,7 @@ public class MoveResourceChecker<T> extends ActionRuleChecker<T> {
                 for(Territory<T> dest:p.getMyTerritories()){
                     if(dest.getName().toUpperCase().equals(parse.getDest())){
                         //find the source and dest territories
-                        int cost = finder.findMinCost(source,dest);
+                        int cost = finder.findMinCost(source,dest,p);
                         map.resetDistance();
                         if(p.getFoodNum()>=cost*parse.getUnit()) return null;
                         break;

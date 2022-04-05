@@ -16,7 +16,7 @@ public class MinCostFinder<T> {
     /**
      * @return the minimum cost of moving between two territories
      */
-    public int findMinCost(Territory<T> source, Territory<T> dest){
+    public int findMinCost(Territory<T> source, Territory<T> dest, Player<T> player){
         //if the two territories are adjacent, minimum cost is the sum of their size
         if(source.checkNeigh(dest)) return source.getSize()+dest.getSize();
         //if now adjacent, perform bfs search
@@ -28,6 +28,7 @@ public class MinCostFinder<T> {
             int curr_dis = curr.getDistance();
             if(curr.getName().equals(dest.getName())) return curr_dis;
             for (Territory<T> neigh: curr.getMyNeigh()){
+                if(!player.checkMyTerritory(neigh)) continue;
                 if(neigh.getDistance()!=100) continue;
                 neigh.setDistance(neigh.getSize()+curr_dis);
                 pq.add(neigh);

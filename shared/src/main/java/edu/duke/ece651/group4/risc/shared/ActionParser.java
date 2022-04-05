@@ -117,9 +117,10 @@ public class ActionParser implements java.io.Serializable{
     //TODO test cases
     Territory<Character> source = theMap.getTerritory(source_name);
     Territory<Character> dest = theMap.getTerritory(dest_name);
+    Player<Character> player = theMap.findPlayer(source);
     if(type.equals("MOVE")){
       MinCostFinder<Character> finder = new MinCostFinder<>();
-      int cost = finder.findMinCost(source,dest);
+      int cost = finder.findMinCost(source,dest,player);
       return "food: "+cost*numofUnit;
     }
     else if(type.equals("ATTACK")){
