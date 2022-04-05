@@ -114,7 +114,6 @@ public class ActionParser implements java.io.Serializable{
    * get the cost of this parser
    */
   public String getCost(Map<Character> theMap){
-    //TODO test cases
     Territory<Character> source = theMap.getTerritory(source_name);
     Territory<Character> dest = theMap.getTerritory(dest_name);
     Player<Character> player = theMap.findPlayer(source);

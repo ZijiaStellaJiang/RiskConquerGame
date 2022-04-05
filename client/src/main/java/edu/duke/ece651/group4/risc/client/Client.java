@@ -223,8 +223,10 @@ public class Client {
   }
 
   public int getPlayerFood(){
-    //TODO
-    return 0;
+    return map.getPlayerFood(player_id);
+  }
+  public int getPlayerWood(){
+    return map.getPlayerWood(player_id);
   }
 
 }
