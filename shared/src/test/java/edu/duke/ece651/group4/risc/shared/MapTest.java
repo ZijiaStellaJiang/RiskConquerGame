@@ -135,4 +135,27 @@ public class MapTest {
         assertEquals(100,t1.getDistance());
         assertEquals(100,t2.getDistance());
     }
+    @Test
+    public void test_get_territory(){
+        Territory<Character> t1 = new Territory<>("a",3,2,2);
+        Territory<Character> t2 = new Territory<>("b",4,3,3);
+        Territory<Character> t3 = new Territory<>("c");
+        Map<Character> map = new Map<>();
+        map.addTerritory(t1);
+        map.addTerritory(t2);
+        map.addTerritory(t3);
+        assertEquals(t1,map.getTerritory("A"));
+        assertEquals(4,map.getTerritory("B").getSize());
+        assertNull(map.getTerritory("AC"));
+    }
+    @Test
+    public void test_get_player_resource(){
+        Player<Character> p1 = new TextPlayer("a",100,200);
+        Player<Character> p2 = new TextPlayer("b",300,400);
+        Map<Character> map = new Map<>();
+        map.addPlayer(p1);
+        map.addPlayer(p2);
+        assertEquals(100,map.getPlayerFood(0));
+        assertEquals(400,map.getPlayerWood(1));
+    }
 }

@@ -10,6 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 public class ResourceCheckerTest {
     @Test
     public void test_move_resource_checker(){
+        Territory<Character> test = new Territory<>("test",2,2,2);
         Territory<Character> a = new Territory<>("A",3,4,4);
         Territory<Character> b = new Territory<>("B",5,3,3);
         Territory<Character> c = new Territory<>("C",1,3,3);
@@ -20,13 +21,16 @@ public class ResourceCheckerTest {
         c.addNeigh(d);
         ArrayList<Unit<Character>> aUnits = new ArrayList<>(Collections.nCopies(8, new SimpleUnit<>()));
         a.addGroupUnit(aUnits);
+        c.addMyUnit(new SimpleUnit<>());
         Player<Character> p = new TextPlayer("p",40,40);
         Map<Character> map = new Map<>();
         map.addPlayer(p);
+        map.addTerritory(test);
         map.addTerritory(a);
         map.addTerritory(b);
         map.addTerritory(c);
         map.addTerritory(d);
+        p.addToTerritory(test);
         p.addToTerritory(a);
         p.addToTerritory(b);
         p.addToTerritory(c);
@@ -38,6 +42,10 @@ public class ResourceCheckerTest {
         resource_c.checkActionRule(parse2,map,p);
         assertEquals("That action is invalid: player doesn't have enough food to move.",
                 resource_c.checkActionRule(parse2,map,p));
+        ActionParser parse3 = new ActionParser("move c b 1 0");
+        assertNull(resource_c.checkActionRule(parse3,map,p));
+        ActionParser parse4 = new ActionParser("move a test 3 0");
+        assertNull(resource_c.checkActionRule(parse4,map,p));
     }
     @Test
     public void test_attack_resource_checker(){

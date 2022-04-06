@@ -46,7 +46,6 @@ public class AttackAction<T> extends Action<T> {
     public String doAction(ActionParser parser,Map<T> theMap, Player<T> thePlayer){
         for (Territory<T> toResolve: theMap.getMyTerritories()){
             if(!thePlayer.checkMyTerritory(toResolve)){
-                //TODO: move and attack resource checker
                 resolveHelper(toResolve,theMap,thePlayer);
             }
         }
