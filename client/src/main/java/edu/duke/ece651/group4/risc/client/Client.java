@@ -152,6 +152,7 @@ public class Client {
     map = null;
     map = (Map<Character>)recv_from_server();
     order_list = new ArrayList<ActionParser>();
+    displayInfo = new MapTextView(map, output);
   }
   /*
   public void mapDisplay() {
@@ -263,7 +264,8 @@ public class Client {
     }
     return territories;
   }
-  public ArrayList<String> getClientCanReach(Territory<Character> source,boolean findMyself){
+  public ArrayList<String> getClientCanReach(String sourceName,boolean findMyself){
+    Territory<Character> source = map.getTerritory(sourceName.toUpperCase());
     ArrayList<Territory<Character>> canReach = map.getPlayer(player_id).findDestinations(source,findMyself);
     ArrayList<String> canReachName = new ArrayList<>();
     for (Territory<Character> t:canReach){

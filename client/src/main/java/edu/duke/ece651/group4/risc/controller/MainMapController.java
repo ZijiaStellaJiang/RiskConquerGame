@@ -210,8 +210,7 @@ public class MainMapController {
     URL xmlResource = getClass().getResource("/ui/MoveAction.fxml");
     FXMLLoader loader = new FXMLLoader(xmlResource);
     // setup controller
-    controllers.put(MoveActionController.class, new MoveActionController(client, client.getPlayerId(),
-        displayMyTerritory(), client.getMap().getMyPlayers().get(client.getPlayerId())));// create a new controller and
+    controllers.put(MoveActionController.class, new MoveActionController(client));// create a new controller and
                                                                                          // add it
     loader.setControllerFactory((c) -> {
       return controllers.get(c);
@@ -233,8 +232,7 @@ public class MainMapController {
     // show move page
     URL xmlResource = getClass().getResource("/ui/AttackAction.fxml");
     FXMLLoader loader = new FXMLLoader(xmlResource);
-    controllers.put(AttackActionController.class, new AttackActionController(client, client.getPlayerId(),
-        displayMyTerritory(), client.getMap().getMyPlayers().get(client.getPlayerId())));// create a new controller and
+    controllers.put(AttackActionController.class, new AttackActionController(client));// create a new controller and
                                                                                          // add it
     loader.setControllerFactory((c) -> {
       return controllers.get(c);
@@ -303,7 +301,7 @@ public class MainMapController {
 
     System.out.println("commit clicked");
     //disable all button
-    //setButtonsDisable(true);
+    setButtonsDisable(true);
     Button source = (Button) ae.getSource();
     // receive connection
     ArrayList<ActionParser> actions = client.getOrder_list();
@@ -313,37 +311,23 @@ public class MainMapController {
         System.out.println(action.getType()+ " " + action.getSource() + " " + action.getDest() + " " + action.getUnit());
       }
     }
-    Platform.runLater(() -> {
-      try {
-        client.oneRoundEnd();
-        client.oneRoundUpdate();
-      } catch (IOException e) {
-        e.printStackTrace();
-      }
-      // then update
-
-    });
     // send to server
     client.oneRoundEnd();
     // then update
     client.oneRoundUpdate();
-//    Thread update = new UpdateThread(client);
-//    update.start();
-//    update.join();
     System.out.println("updated!!!");
     wait_msg.setText("Please enter your next actions");
     setButtonsDisable(false);
-    /*
-    wait_msg.setText("");
+
+    //wait_msg.setText("");
     // display new map
+
     displayTerritoryBorder();
     String msg = client.getPlayerRoundInfo();
     victory_msg.setText(msg);
     if(client.checkGameOver()==true){
       String end_msg = client.getVictoryInfo();
-
       //close stage, jump to start page
-
       URL xmlResource = getClass().getResource("/ui/EndGame.fxml");
       FXMLLoader loader = new FXMLLoader(xmlResource);
       controllers.put(EndGameController.class, new EndGameController());
@@ -360,7 +344,7 @@ public class MainMapController {
       Stage stage = new Stage();
       stage.setScene(scene);
       stage.show();
-    }*/
+    }
     System.out.println("finish one round game");
   }
 

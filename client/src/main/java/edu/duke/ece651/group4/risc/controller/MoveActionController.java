@@ -28,17 +28,12 @@ public class MoveActionController {
     Text alert;
     @FXML
     Text cost;
-    private int playerId;
-    private Player<Character> player;
-    private ArrayList<Territory<Character>> myTerr;
     private ObservableList<String> sources;
     private Client client;
 
-    public MoveActionController(Client client, int playerId, ArrayList<Territory<Character>> myTerr, Player<Character> player) {
+    public MoveActionController(Client client) {
         this.client = client;
-        this.playerId = playerId;
-        this.myTerr = myTerr;
-        this.player = player;
+
     }
     public boolean checkIntegerValid(){
         String unit = unit_num.getText();
@@ -60,6 +55,7 @@ public class MoveActionController {
                 String dest_terr = destination.getValue();
                 Integer level = unit_level.getValue();
                 Integer num = Integer.parseInt(unit_num.getText());
+                System.out.println("Calculating cost: " + source_terr + " " + dest_terr + " " + level + " " + num);
                 ActionParser parser = new ActionParser("MOVE", source_terr, dest_terr, num, level);
                 String cost_val = parser.getCost(client.getMap());
                 cost.setText(cost_val);
@@ -73,8 +69,8 @@ public class MoveActionController {
     public void setup() {
         //set source territory name
         sources = FXCollections.observableArrayList();
-        for(Territory<Character> terr:myTerr){
-            sources.add(terr.getName());
+        for(String terr:client.getClientTerritories()){
+            sources.add(terr);
         }
         source.setItems(sources);
         //add destination
@@ -83,11 +79,11 @@ public class MoveActionController {
                     String select_source = source.getItems().get((Integer) new_val);
                     System.out.println("chosen source: " + select_source);
                     //TODO: refactor
-                    ArrayList<Territory<Character>> dest = player.findDestinations(client.getMap().findTerritory(select_source), true);
+                    ArrayList<String> dest = client.getClientCanReach(select_source,true);
                     if(dest!=null) {
                         ObservableList<String> dest_names = FXCollections.observableArrayList();
-                        for (Territory<Character> t : dest) {
-                            dest_names.add(t.getName());
+                        for (String d : dest) {
+                            dest_names.add(d);
                         }
                         destination.setItems(dest_names);
                     }else{
@@ -136,6 +132,7 @@ public class MoveActionController {
             ActionParser newAction = new ActionParser("MOVE", source_terr, dest_terr, Integer.parseInt(num), level);
             String result = client.addOrder(newAction);
             if(result!=null){
+                System.out.println(result);
                 alert.setText(result);
             }else{
                 Stage primaryStage = (Stage) source.getScene().getWindow();
