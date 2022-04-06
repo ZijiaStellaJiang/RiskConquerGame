@@ -31,6 +31,8 @@ public class AttackActionController {
     AnchorPane pane;
     @FXML
     Button done_btn;
+    @FXML
+    Text cost;
     private int playerId;
     private ArrayList<Territory<Character>> myTerr;
     private ObservableList<String> sources;
@@ -43,6 +45,38 @@ public class AttackActionController {
         this.player = player;
     }
 
+    public boolean checkIntegerValid(){
+        String unit = unit_num.getText();
+        if(unit_num.getText()!=null){
+            return unit.matches("[0-9]+");
+        }
+        return true;
+    }
+    public void showCost(){
+        alert.setText("");
+        if((source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_level.getValue()!=null)&&(unit_num.getText()!=null)){
+            if(checkIntegerValid()==false){
+                cost.setText("unit number needs to be integer");
+                alert.setText("");
+                return;
+            }
+            try{
+                String source_terr = source.getValue();
+                String dest_terr = destination.getValue();
+                Integer level = unit_level.getValue();
+                Integer num = Integer.parseInt(unit_num.getText());
+                ActionParser parser = new ActionParser("ATTACK", source_terr, dest_terr, num, level);
+                String cost_val = parser.getCost(client.getMap());
+                cost.setText(cost_val);
+                return;
+            } catch (IllegalArgumentException e) {
+            }
+        }
+        cost.setText("Unavailable");
+    }
+    /**
+     * Sets up the page
+     */
     public void setup() {
         //set source territory name
         sources = FXCollections.observableArrayList();
@@ -70,10 +104,38 @@ public class AttackActionController {
         ObservableList<Integer> level = FXCollections.observableArrayList();
         level.addAll(0,1,2,3,4,5,6);
         unit_level.setItems(level);
+
+        source.getSelectionModel().selectedIndexProperty().addListener(
+                (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
+                    showCost();
+                });
+        destination.getSelectionModel().selectedIndexProperty().addListener(
+                (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
+                    showCost();
+                });
+        unit_level.getSelectionModel().selectedIndexProperty().addListener(
+                (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
+                    showCost();
+                });
+        unit_num.textProperty().addListener((observable, oldValue, newValue) -> {
+            showCost();
+        });
+
     }
 
+    /**
+     * What happens when user click done
+     */
     @FXML
     public void done(){
+        if(!(source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_level.getValue()!=null)&&(unit_num.getText()!=null)) {
+            alert.setText("Please fill in all blanks");
+            return;
+        }
+        if(checkIntegerValid()==false){
+            alert.setText("unit number needs to be integer");
+            return;
+        }
         String source_terr = source.getValue();
         String dest_terr =destination.getValue();
         Integer level = unit_level.getValue();

@@ -41,11 +41,13 @@ public class UpdateAction<T> extends Action<T>{
    * helper function to update units
    */
   private void updateUnits(Territory<T> territory, Player<T> player, int updateNum, int curLevel) {
-    for (int i = 0; i < updateNum; i++) {
-      territory.removeMyUnit(new SimpleUnit<T>(curLevel));
-      territory.addMyUnit(new SimpleUnit<T>(curLevel + 1));
-      player.consumeResource(new WoodResource<T>(1));
-    }
+      for (int i = 0; i < updateNum; i++) {
+          territory.removeMyUnit(new SimpleUnit<T>(curLevel));
+          territory.addMyUnit(new SimpleUnit<T>(curLevel + 1));
+          //player.consumeResource(new WoodResource<T>(1));
+      }
+      Unit<T> unit = new SimpleUnit<>(curLevel);
+      player.consumeResource(new WoodResource<>(updateNum*unit.updateCost()));
   }
 }
 

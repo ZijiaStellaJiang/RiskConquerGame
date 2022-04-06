@@ -20,6 +20,8 @@
       <Label layoutX="41.0" layoutY="256.0" text="Number of Unit:" />
       <TextField fx:id="unit_num" layoutX="169.0" layoutY="252.0" prefHeight="26.0" prefWidth="150.0" />
       <Button fx:id="done_btn" layoutX="423.0" layoutY="310.0" mnemonicParsing="false" onAction="#done" text="DONE" />
-      <Text fx:id="alert" layoutX="280.0" layoutY="347.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
+      <Text fx:id="alert" layoutX="250.0" layoutY="334.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="1.0" />
+      <Text layoutX="56.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cost:" />
+      <Text fx:id="cost" layoutX="107.0" layoutY="328.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
    </children>
 </AnchorPane>

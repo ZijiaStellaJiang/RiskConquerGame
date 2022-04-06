@@ -45,5 +45,6 @@
       <Text layoutX="418.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wood: " />
       <Text fx:id="food" layoutX="323.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Text fx:id="wood" layoutX="475.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="victory_msg" layoutX="624.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </AnchorPane>

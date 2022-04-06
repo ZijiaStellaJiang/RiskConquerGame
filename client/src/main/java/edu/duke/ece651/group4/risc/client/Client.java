@@ -237,5 +237,13 @@ public class Client {
     return map.getPlayerWood(player_id);
   }
 
+  public String getPlayerRoundInfo(){
+    return displayInfo.getRoundPlayerMsg(player_id);
+  }
+
+  public String getVictoryInfo(){
+    return displayInfo.getVictoryMsg(player_id);
+  }
+
 }
 

@@ -41,5 +41,9 @@
       <Text fx:id="player_color" layoutX="96.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
       <Text fx:id="wait_msg" layoutX="161.0" layoutY="498.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Text fx:id="result_msg" layoutX="223.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text layoutX="272.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food:" />
+      <Text layoutX="418.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wood: " />
+      <Text fx:id="food" layoutX="323.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="wood" layoutX="475.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" />
    </children>
 </AnchorPane>

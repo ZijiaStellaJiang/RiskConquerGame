@@ -58,6 +58,8 @@ public class MainMapController {
   Text food;
   @FXML
   Text wood;
+  @FXML
+  Text victory_msg;
   private HashMap<Class<?>, Object> controllers;
 
   public MainMapController(Client client) {
@@ -90,7 +92,8 @@ public class MainMapController {
   }
 
   public void updateFoodAndWood(){
-
+    food.setText(""+client.getPlayerFood());
+    wood.setText(""+client.getPlayerWood());
   }
 
   /**
@@ -119,6 +122,7 @@ public class MainMapController {
         }
       }
     }
+    updateFoodAndWood();
   }
 
   /**
@@ -207,6 +211,7 @@ public class MainMapController {
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.show();
+    listenStageClose(stage);
   }
 
   @FXML
@@ -228,8 +233,18 @@ public class MainMapController {
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.show();
+    listenStageClose(stage);
   }
-
+  public void listenStageClose(Stage stage){
+//    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+//      @Override
+//      public void handle(WindowEvent event) {
+//        System.out.println("close stage");
+//        updateFoodAndWood();
+//      }
+//    });
+    stage.setOnHidden(event -> {System.out.println("close stage");updateFoodAndWood();});
+  }
   @FXML
   public void showUpgrade(ActionEvent ae) throws IOException {
     Button source = (Button) ae.getSource();
@@ -247,10 +262,12 @@ public class MainMapController {
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.show();
+    listenStageClose(stage);
   }
 
   @FXML
   public void commit(ActionEvent ae) throws IOException {
+    Button source = (Button) ae.getSource();
     // receive connection
     ArrayList<ActionParser> actions = client.getOrder_list();
     if (actions != null) {
@@ -266,7 +283,30 @@ public class MainMapController {
     wait_msg.setText("");
     // display new map
     displayTerritoryBorder();
-    client.checkGameOver();
+    String msg = client.getPlayerRoundInfo();
+    victory_msg.setText(msg);
+    if(client.checkGameOver()==true){
+      String end_msg = client.getVictoryInfo();
+
+      //close stage, jump to start page
+
+      URL xmlResource = getClass().getResource("/ui/EndGame.fxml");
+      FXMLLoader loader = new FXMLLoader(xmlResource);
+      controllers.put(EndGameController.class, new EndGameController());
+      loader.setControllerFactory((c) -> {
+        return controllers.get(c);
+      });
+      AnchorPane gp = loader.load();
+      EndGameController cont = loader.getController();
+      cont.setup(end_msg);
+      Stage primaryStage = (Stage) source.getScene().getWindow();
+      client.close_connection();
+      primaryStage.close();
+      Scene scene = new Scene(gp);
+      Stage stage = new Stage();
+      stage.setScene(scene);
+      stage.show();
+    }
     System.out.println("finish one round game");
   }
 

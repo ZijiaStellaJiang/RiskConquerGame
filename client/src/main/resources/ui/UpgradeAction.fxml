@@ -14,7 +14,7 @@
       <Label layoutX="65.0" layoutY="136.0" text="Upgrade from:" />
       <Label layoutX="73.0" layoutY="193.0" text="Level up:" />
       <Label layoutX="241.0" layoutY="300.0" text="Cost:" />
-      <Text layoutX="289.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100" />
+      <Text fx:id="cost" layoutX="289.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Button fx:id="done" layoutX="442.0" layoutY="308.0" mnemonicParsing="false" onAction="#done" text="DONE" />
       <TextField fx:id="num" layoutX="196.0" layoutY="243.0" />
       <Label layoutX="74.0" layoutY="248.0" text="Number:" />

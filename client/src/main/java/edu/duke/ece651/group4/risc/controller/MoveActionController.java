@@ -26,6 +26,8 @@ public class MoveActionController {
     TextField unit_num;
     @FXML
     Text alert;
+    @FXML
+    Text cost;
     private int playerId;
     private Player<Character> player;
     private ArrayList<Territory<Character>> myTerr;
@@ -36,9 +38,36 @@ public class MoveActionController {
         this.playerId = playerId;
         this.myTerr = myTerr;
         this.player = player;
-
     }
-
+    public boolean checkIntegerValid(){
+        String unit = unit_num.getText();
+        if(unit_num.getText()!=null){
+            return unit.matches("[0-9]+");
+        }
+        return true;
+    }
+    public void showCost(){
+        alert.setText("");
+        if((source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_level.getValue()!=null)&&(unit_num.getText()!=null)){
+            if(checkIntegerValid()==false){
+                cost.setText("unit number needs to be integer");
+                alert.setText("");
+                return;
+            }
+            try{
+                String source_terr = source.getValue();
+                String dest_terr = destination.getValue();
+                Integer level = unit_level.getValue();
+                Integer num = Integer.parseInt(unit_num.getText());
+                ActionParser parser = new ActionParser("MOVE", source_terr, dest_terr, num, level);
+                String cost_val = parser.getCost(client.getMap());
+                cost.setText(cost_val);
+                return;
+            } catch (IllegalArgumentException e) {
+            }
+        }
+        cost.setText("Unavailable");
+    }
 
     public void setup() {
         //set source territory name
@@ -68,16 +97,40 @@ public class MoveActionController {
         ObservableList<Integer> level = FXCollections.observableArrayList();
         level.addAll(0,1,2,3,4,5,6);
         unit_level.setItems(level);
+        //add listener
+        source.getSelectionModel().selectedIndexProperty().addListener(
+                (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
+                    showCost();
+                });
+        destination.getSelectionModel().selectedIndexProperty().addListener(
+                (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
+                    showCost();
+                });
+        unit_level.getSelectionModel().selectedIndexProperty().addListener(
+                (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
+                    showCost();
+                });
+        unit_num.textProperty().addListener((observable, oldValue, newValue) -> {
+            showCost();
+        });
+
     }
 
     @FXML
     public void done(){
+        if(!(source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_level.getValue()!=null)&&(unit_num.getText()!=null)) {
+            alert.setText("Please fill in all blanks");
+            return;
+        }
+        if(checkIntegerValid()==false){
+            alert.setText("unit number needs to be integer");
+            return;
+        }
         String source_terr = source.getValue();
         String dest_terr =destination.getValue();
         Integer level = unit_level.getValue();
         String num = unit_num.getText();
         System.out.println(source_terr + " " + dest_terr + " " + level + " " + num);
-        //TODO: check vadility
         try {
             ActionParser newAction = new ActionParser("MOVE", source_terr, dest_terr, Integer.parseInt(num), level);
             String result = client.addOrder(newAction);
