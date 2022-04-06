@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 
 public class EndGameController {
@@ -26,7 +27,7 @@ public class EndGameController {
 
 
     @FXML
-    public void backToMain(ActionEvent ae){
+    public void backToMain(ActionEvent ae) throws IOException {
         Button source = (Button) ae.getSource();
         Stage primaryStage = (Stage) source.getScene().getWindow();
         primaryStage.close();

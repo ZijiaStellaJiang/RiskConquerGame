@@ -62,7 +62,8 @@ public class ClientTest {
 
   @Test
   public void test_connect_server_failure() {
-    BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+    //BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
+    //assertThrows(Exception.class, () -> new Client("localhost", 1003, null, null));
     //assertThrows(RuntimeException.class, () -> Client.connectServer("noExistServer", 1234));
     //assertThrows(RuntimeException.class, () -> new Client("noExistServer", 1234, in, System.out));
   }
@@ -131,4 +132,83 @@ public class ClientTest {
 //
 //
 //  }
+  @Test
+  public void test_OneRoundBegin() throws InterruptedException, IOException {
+    int port = 6070;
+    // Server t = new Server(port);
+    Thread th = new Thread() {
+      @Override()
+      public void run() {
+        try {
+          ServerSocket server = new ServerSocket(port);
+          Socket server_socket = server.accept();
+          // FactorServer.main(new String[0]);
+          ObjectOutputStream os = new ObjectOutputStream(server_socket.getOutputStream());
+          ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(server_socket.getInputStream()));
+          
+          // os.flush();
+          // generate a map
+          Map<Character> mymap = generateTestMap();
+          os.writeObject(mymap);
+          os.flush();
+          os.writeObject(1);
+          os.flush();
+          // receive order lists
+          ArrayList<ActionParser> order_list = (ArrayList<ActionParser>) is.readObject();
+          assertEquals(0, order_list.size());
+          // send map
+          os.writeObject(mymap);
+          os.flush();
+
+
+        } catch (Exception e) {
+        }
+      }
+    };
+    th.start();
+    Thread.sleep(200);
+    // client part
+    Client client = new Client("localhost", 6070, new BufferedReader(new InputStreamReader(System.in)), System.out);
+    assertEquals("localhost/127.0.0.1:6070", client.getSocket().getRemoteSocketAddress().toString());
+    // finish test successfully and start test transimitting data
+    client.initializeGame(); 
+    
+    client.oneRoundBegin();
+    client.addOrder(new ActionParser("move", "a", null, 0, 0, 0));
+    client.addOrder(new ActionParser("attack", "b", null, 0, 0, 0));
+    client.addOrder(new ActionParser("update", "c", null, 0, 0, 0));
+    client.oneRoundEnd();
+    client.oneRoundUpdate();
+    //client.send_to_server("hello from client\n");
+    //String received = (String) client.recv_from_server();
+    //assertEquals("hello from server\n", received);
+    //assertThrows(IllegalArgumentException.class,()->client.initializeGame());
+    // close connection
+    client.close_connection();
+
+    //test recv and send failure
+    //assertThrows(IOException.class, ()->client.send_to_server("fail"));
+    //assertThrows(IOException.class, ()->client.recv_from_server());
+    
+  }
+
+  public Map<Character> generateTestMap() {
+    Map<Character> testMap = new Map<Character>();
+    Territory<Character> terriN = new Territory<Character>("Narnia", 5, 15, 10);
+    Territory<Character> terriO = new Territory<Character>("Oz", 10, 20, 15);
+    terriN.addNeigh(terriO);
+    ArrayList<Unit<Character>> nUnits = new ArrayList<>(Collections.nCopies(8, new SimpleUnit<>(0)));
+    terriN.addGroupUnit(nUnits);
+    ArrayList<Unit<Character>> oUnits = new ArrayList<>(Collections.nCopies(3, new SimpleUnit<>(0)));
+    terriO.addGroupUnit(oUnits);
+    testMap.addTerritory(terriN);
+    testMap.addTerritory(terriO);
+    TextPlayer p1 = new TextPlayer("Green", 200, 200);
+    TextPlayer p2 = new TextPlayer("Blue", 200, 200);
+    p1.addToTerritory(terriN);
+    p2.addToTerritory(terriO);
+    testMap.addPlayer(p1);
+    testMap.addPlayer(p2);
+    return testMap;
+  }
 }
