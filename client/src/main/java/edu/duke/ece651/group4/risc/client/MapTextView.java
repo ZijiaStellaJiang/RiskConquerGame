@@ -36,62 +36,22 @@ public class MapTextView implements View{
 
     @Override
     public void displayPlayerMsg(int id) {
-        String msg = getRoundPlayerMsg(id);
+        String player_name = toDisplay.getPlayerName(id);
+        if(player_name==null){
+            throw new IllegalArgumentException("This is an invalid player id!");
+        }
+        String head = "You are the "+player_name + " player.\n";
+        String msg = head + getRoundPlayerMsg(id);
         if(toDisplay.getLoserId()==null){
             msg = msg+"What would you like to do?\n";
             msg = msg+"  Move <Source> <Destination> <number>\n  Attack <Source> <Destination> <number>\n  Done\n\n";
         }
         out.print(msg);
-//        String player_name = toDisplay.getPlayerName(id);
-//        if(player_name==null){
-//            throw new IllegalArgumentException("This is an invalid player id!");
-//        }
-//        StringBuilder sb = new StringBuilder("You are the " + player_name + " player.\n");
-//        Player<Character> thisPlayer = toDisplay.getPlayer(id);
-//        ArrayList<String> lose = thisPlayer.getLoseTerritories();
-//        ArrayList<String> win = thisPlayer.getWinTerritories();
-//        if(lose.size()!=0 || win.size()!=0){
-//            sb.append("In the last round,\n");
-//            if(lose.size()!=0){
-//                sb.append("You lose ");
-//                sb.append(makeResultInfo(lose));
-//            }
-//            if(win.size()!=0){
-//                sb.append("You win ");
-//                sb.append(makeResultInfo(win));
-//            }
-//        }
-//        if(toDisplay.getLoserId()==null){
-//            sb.append("What would you like to do?\n");
-//            sb.append("  Move <Source> <Destination> <number>\n  Attack <Source> <Destination> <number>\n  Done\n\n");
-//        }
-//        out.print(sb);
     }
 
     @Override
     public void displayVictoryMsg(int id){
         out.print(getVictoryMsg(id));
-//        if(toDisplay.getLoserId()==null){
-//            throw new IllegalArgumentException("No one wins yet! Can not use this function here!");
-//        }
-//        // if this is the loser id
-//        if(toDisplay.getLoserId().equals(id)){
-//            String winnerName = "";
-//            for (int i=0; i<toDisplay.getMyPlayers().size(); i++){
-//                if(id!=i){
-//                    //find the winner's id
-//                    winnerName = toDisplay.getPlayer(i).getName();
-//                    break;
-//                }
-//            }
-//            //if(!winnerName.equals("")){
-//            out.print("You lose!\n"+winnerName+" is the winner.\nGood luck next time!\n");
-//            //}
-//        }
-//        //else this is the winner id
-//        else {
-//            out.print("You win!\nCongratulations!\n");
-//        }
     }
 
     public String displayTerritoryInfo(Territory<Character> toDisplay){
@@ -120,26 +80,20 @@ public class MapTextView implements View{
     }
 
     public String getRoundPlayerMsg(int id){
-        String player_name = toDisplay.getPlayerName(id);
-        if(player_name==null){
-            throw new IllegalArgumentException("This is an invalid player id!");
-        }
-        StringBuilder sb = new StringBuilder("You are the " + player_name + " player.\n");
+        String msg = "";
         Player<Character> thisPlayer = toDisplay.getPlayer(id);
         ArrayList<String> lose = thisPlayer.getLoseTerritories();
         ArrayList<String> win = thisPlayer.getWinTerritories();
         if(lose.size()!=0 || win.size()!=0){
-            sb.append("In the last round,\n");
+            msg = msg+"In the last round,\n";
             if(lose.size()!=0){
-                sb.append("You lose ");
-                sb.append(makeResultInfo(lose));
+                msg = msg+"You lose "+makeResultInfo(lose);
             }
             if(win.size()!=0){
-                sb.append("You win ");
-                sb.append(makeResultInfo(win));
+                msg = msg+"You win "+makeResultInfo(win);
             }
         }
-        return sb.toString();
+        return msg;
     }
 
     public String getVictoryMsg(int id){
@@ -157,14 +111,10 @@ public class MapTextView implements View{
                 }
             }
             return "You lose!\n"+winnerName+" is the winner.\nGood luck next time!\n";
-            //if(!winnerName.equals("")){
-            //out.print("You lose!\n"+winnerName+" is the winner.\nGood luck next time!\n");
-            //}
         }
         //else this is the winner id
         else {
             return "You win!\nCongratulations!\n";
-            //out.print("You win!\nCongratulations!\n");
         }
     }
 
