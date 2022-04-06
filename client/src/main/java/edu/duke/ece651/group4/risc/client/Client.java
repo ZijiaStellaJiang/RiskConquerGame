@@ -4,6 +4,8 @@
 package edu.duke.ece651.group4.risc.client;
 
 import edu.duke.ece651.group4.risc.shared.*;
+import javafx.application.Application;
+
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
@@ -35,7 +37,7 @@ public class Client {
     move_enemy = new MoveAction<>(false);
     attack = new AttackAction<>();
     update = new UpdateAction<>();
-    order_list = null;
+    order_list =  new ArrayList<ActionParser>();
     displayInfo = null;
     try {
       player_out = new ObjectOutputStream(player_skd.getOutputStream());
@@ -45,6 +47,17 @@ public class Client {
     }
   }
 
+  public ArrayList<ActionParser> getOrder_list() {
+    return order_list;
+  }
+
+  public int getPlayerId(){
+    return this.player_id;
+  }
+
+  public Map<Character> getMap(){
+    return this.map;
+  }
   public Socket getSocket(){
     return player_skd;
   }
@@ -88,7 +101,6 @@ public class Client {
       player_out.flush();
     } catch(IOException e) {
       throw e;
-      //e.printStackTrace();
     }
   }
   public Object recv_from_server() throws IOException{
@@ -134,11 +146,14 @@ public class Client {
     output.println("-----------Sending message to server--------");
     // send order list to server
     send_to_server(order_list);
+
   }
   public void oneRoundUpdate() throws IOException {
     output.println("-----------Receving message from server--------");
     map = null;
     map = (Map<Character>)recv_from_server();
+    order_list = new ArrayList<ActionParser>();
+    displayInfo = new MapTextView(map, output);
   }
   /*
   public void mapDisplay() {
@@ -148,14 +163,14 @@ public class Client {
     displayInfo.displayPlayerMsg(player_id);
   }
   */
-  public String checkGameOver() {
+  public boolean checkGameOver() {
     Integer id = map.getLoserId();
     if (id != null) {
       //displayInfo.displayVictoryMsg(id);
-      return "TODO";
+      return true;
       
     }
-    return null;
+    return false;
   }
   public String addOrder(ActionParser order) {
       Player<Character> player = map.getPlayer(player_id);
@@ -169,15 +184,7 @@ public class Client {
       } 
       if (result != null) {
         return result;
-      } 
-      /*
-      if (result != null) {
-        output.println(result);
-        return false;
-      } else {
-        output.println("Valid Action!\n");
       }
-      */
       // add to order list
       order_list.add(order);
       return result;
@@ -206,6 +213,7 @@ public class Client {
   */
 
 
+
   public void close_connection() {
     try {
       player_out.close();
@@ -215,9 +223,11 @@ public class Client {
       e.printStackTrace();
     }
   }
-  /*
+
+
   public static void main(String[] args) throws IOException {
-    System.out.println("Enter server's ip:");
+    Application.launch(StartGame.class, args);
+    /*System.out.println("Enter server's ip:");
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
     String str = reader.readLine();
     Client client = new Client(str, 6066, new BufferedReader(new InputStreamReader(System.in)), System.out);
@@ -228,9 +238,9 @@ public class Client {
       if (client.playOneRound()) break;
     }
     // close connection
-    client.close_connection();
+    client.close_connection();*/
   }
-  */
+
 
   public int getPlayerFood(){
     //return map.getPlayerFood(player_id);
