@@ -48,6 +48,8 @@ public class ActionParserTest {
     d.addNeigh(b);
     ArrayList<Unit<Character>> nUnits = new ArrayList<>(Collections.nCopies(8, new SimpleUnit<>()));
     s.addGroupUnit(nUnits);
+    ArrayList<Unit<Character>> dUnits = new ArrayList<>(Collections.nCopies(3,new SimpleUnit<>(3)));
+    d.addGroupUnit(dUnits);
     Player<Character> p1 = new TextPlayer("p1",100,100);
     Player<Character> p2 = new TextPlayer("p2",100,100);
     p1.addToTerritory(s);
@@ -69,6 +71,8 @@ public class ActionParserTest {
     assertEquals("food: 2",parser2.getCost(map));
     ActionParser parser3 = new ActionParser("update","s",null,4,0,2);
     assertEquals("wood: 44",parser3.getCost(map));
+    ActionParser parser4 = new ActionParser("update","d",null,2,3,3);
+    assertEquals("wood: 220",parser4.getCost(map));
   }
 
 }
