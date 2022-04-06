@@ -14,6 +14,8 @@ public class UpdateActionTest {
     Territory<Character> t1 = new Territory<>("t1", 100, 1000, 1000);
     ArrayList<Unit<Character>> Units = new ArrayList<>(Collections.nCopies(5, new SimpleUnit<>()));
     t1.addGroupUnit(Units);
+    ArrayList<Unit<Character>> check_units = new ArrayList<>(Collections.nCopies(4,new SimpleUnit<>(2)));
+    t1.addGroupUnit(check_units);
     Map<Character> map = new Map<Character>();
     map.addTerritory(t_test);
     map.addTerritory(t1);
@@ -41,7 +43,7 @@ public class UpdateActionTest {
     result = update.doAction(parse, map , p1);
     assertEquals(0, t1.getLevelUnitNum(0));
     assertEquals(0, t1.getLevelUnitNum(1));
-    assertEquals(0, t1.getLevelUnitNum(2));
+    assertEquals(4, t1.getLevelUnitNum(2));
     assertEquals(0, t1.getLevelUnitNum(3));
     assertEquals(0, t1.getLevelUnitNum(4));
     assertEquals(5, t1.getLevelUnitNum(5));
@@ -51,7 +53,9 @@ public class UpdateActionTest {
     update = new UpdateAction<>();
     result = update.doAction(parse, map , p1);
     assertEquals("That action is invalid: the unit will exceed max level.", result);
-    
+    parse = new ActionParser("update","t1",null,3,2,5);
+    update = new UpdateAction<>();
+    assertEquals("That action is invalid: the unit will exceed max level.",update.doAction(parse,map,p1));
   }
 
 }

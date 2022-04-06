@@ -127,8 +127,9 @@ public class ActionParser implements java.io.Serializable{
       return "food: "+cost*numofUnit;
     }
     else {
+      //TODO
       int cost = 0;
-      for (int i=levelofUnit; i<levelUp; i++){
+      for (int i=levelofUnit; i<levelofUnit+levelUp; i++){
         Unit<Character> unit = new SimpleUnit<>(i);
         cost = cost + unit.updateCost();
       }
