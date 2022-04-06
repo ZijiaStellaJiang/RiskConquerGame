@@ -2,6 +2,8 @@ package edu.duke.ece651.group4.risc.controller;
 
 import edu.duke.ece651.group4.risc.client.Client;
 import edu.duke.ece651.group4.risc.shared.*;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,11 +15,14 @@ import javafx.scene.text.Text;
 
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 public class MainMapController {
   private Client client;// model
@@ -54,6 +59,12 @@ public class MainMapController {
   Text wait_msg;
   @FXML
   Button showMove;
+  @FXML
+  Button showAttack;
+  @FXML
+  Button showUpgrade;
+  @FXML
+  Button commit_btn;
   @FXML
   Text food;
   @FXML
@@ -192,6 +203,7 @@ public class MainMapController {
 
   @FXML
   public void showMove(ActionEvent ae) throws IOException {
+    wait_msg.setText("");
     //    displayMyTerritory();
     Button source = (Button) ae.getSource();
     // show move page
@@ -216,6 +228,7 @@ public class MainMapController {
 
   @FXML
   public void showAttack(ActionEvent ae) throws IOException {
+    wait_msg.setText("");
     Button source = (Button) ae.getSource();
     // show move page
     URL xmlResource = getClass().getResource("/ui/AttackAction.fxml");
@@ -236,17 +249,12 @@ public class MainMapController {
     listenStageClose(stage);
   }
   public void listenStageClose(Stage stage){
-//    stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-//      @Override
-//      public void handle(WindowEvent event) {
-//        System.out.println("close stage");
-//        updateFoodAndWood();
-//      }
-//    });
-    stage.setOnHidden(event -> {System.out.println("close stage");updateFoodAndWood();});
+    stage.setOnHidden(event -> {updateFoodAndWood();});
   }
+
   @FXML
   public void showUpgrade(ActionEvent ae) throws IOException {
+    wait_msg.setText("");
     Button source = (Button) ae.getSource();
     // show move page
     URL xmlResource = getClass().getResource("/ui/UpgradeAction.fxml");
@@ -264,22 +272,68 @@ public class MainMapController {
     stage.show();
     listenStageClose(stage);
   }
+  public void setButtonsDisable(boolean whether){
+    showMove.setDisable(whether);
+    showAttack.setDisable(whether);
+    showUpgrade.setDisable(whether);
+    commit_btn.setDisable(whether);
 
+  }
+  private void updateUI() throws InterruptedException, ExecutionException {
+
+    // actual work to update UI:
+    FutureTask<Void> updateUITask = new FutureTask(() -> {
+
+      // code to update UI...
+      setButtonsDisable(true);
+      wait_msg.setText("Waiting for other player");
+
+    }, /* return value from task: */ null);
+
+    // submit for execution on FX Application Thread:
+    Platform.runLater(updateUITask);
+
+    // block until work complete:
+    updateUITask.get();
+  }
   @FXML
-  public void commit(ActionEvent ae) throws IOException {
+  public void commit(ActionEvent ae) throws IOException, InterruptedException, ExecutionException {
+
+    wait_msg.setText("Waiting for other player");
+
+    System.out.println("commit clicked");
+    //disable all button
+    //setButtonsDisable(true);
     Button source = (Button) ae.getSource();
     // receive connection
     ArrayList<ActionParser> actions = client.getOrder_list();
     if (actions != null) {
+      System.out.println("sending actions:");
       for (ActionParser action : actions) {
-        System.out.println(action.getSource() + " " + action.getDest() + " " + action.getUnit());
+        System.out.println(action.getType()+ " " + action.getSource() + " " + action.getDest() + " " + action.getUnit());
       }
     }
+    Platform.runLater(() -> {
+      try {
+        client.oneRoundEnd();
+        client.oneRoundUpdate();
+      } catch (IOException e) {
+        e.printStackTrace();
+      }
+      // then update
+
+    });
     // send to server
     client.oneRoundEnd();
-    wait_msg.setText("Waiting for other player");
     // then update
     client.oneRoundUpdate();
+//    Thread update = new UpdateThread(client);
+//    update.start();
+//    update.join();
+    System.out.println("updated!!!");
+    wait_msg.setText("Please enter your next actions");
+    setButtonsDisable(false);
+    /*
     wait_msg.setText("");
     // display new map
     displayTerritoryBorder();
@@ -306,7 +360,7 @@ public class MainMapController {
       Stage stage = new Stage();
       stage.setScene(scene);
       stage.show();
-    }
+    }*/
     System.out.println("finish one round game");
   }
 

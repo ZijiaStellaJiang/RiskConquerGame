@@ -33,6 +33,7 @@ public class MoveActionController {
     private ArrayList<Territory<Character>> myTerr;
     private ObservableList<String> sources;
     private Client client;
+
     public MoveActionController(Client client, int playerId, ArrayList<Territory<Character>> myTerr, Player<Character> player) {
         this.client = client;
         this.playerId = playerId;

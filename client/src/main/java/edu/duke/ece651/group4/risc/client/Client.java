@@ -145,11 +145,13 @@ public class Client {
     output.println("-----------Sending message to server--------");
     // send order list to server
     send_to_server(order_list);
+
   }
   public void oneRoundUpdate() throws IOException {
     output.println("-----------Receving message from server--------");
     map = null;
     map = (Map<Character>)recv_from_server();
+    order_list = new ArrayList<ActionParser>();
   }
   /*
   public void mapDisplay() {
@@ -159,14 +161,14 @@ public class Client {
     displayInfo.displayPlayerMsg(player_id);
   }
   */
-  public String checkGameOver() {
+  public boolean checkGameOver() {
     Integer id = map.getLoserId();
     if (id != null) {
       //displayInfo.displayVictoryMsg(id);
-      return "TODO";
+      return true;
       
     }
-    return null;
+    return false;
   }
   public String addOrder(ActionParser order) {
       Player<Character> player = map.getPlayer(player_id);
