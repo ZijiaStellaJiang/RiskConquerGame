@@ -29,7 +29,7 @@ import javafx.stage.Stage;
 
 @ExtendWith(ApplicationExtension.class)
 public class MoveActionControllerTest {
-  private MoveActionController cont;
+  private ActionController cont;
   private Client mockClient;
   Button done;
   ChoiceBox<String> source;
@@ -53,7 +53,7 @@ public class MoveActionControllerTest {
     ArrayList<Territory<Character>> myTerr = new ArrayList<Territory<Character>>();
     myTerr.add(terriN);
     myTerr.add(terriO);
-    cont = new MoveActionController(mockClient);
+    cont = new ActionController(mockClient, "MOVE");
     // setup element
     done = new Button();
     done.setId("done");

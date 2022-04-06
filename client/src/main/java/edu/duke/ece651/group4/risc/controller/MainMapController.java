@@ -15,7 +15,6 @@ import javafx.scene.text.Text;
 
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -220,14 +219,14 @@ public class MainMapController {
     URL xmlResource = getClass().getResource("/ui/MoveAction.fxml");
     FXMLLoader loader = new FXMLLoader(xmlResource);
     // setup controller
-    controllers.put(MoveActionController.class, new MoveActionController(client));// create a new controller and
+    controllers.put(ActionController.class, new ActionController(client, "MOVE"));// create a new controller and
                                                                                          // add it
     loader.setControllerFactory((c) -> {
       return controllers.get(c);
     });
     AnchorPane gp = loader.load();
-    MoveActionController moveActionController = loader.getController();
-    moveActionController.setup();
+    ActionController actionController = loader.getController();
+    actionController.setup();
     Scene scene = new Scene(gp);
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -247,13 +246,13 @@ public class MainMapController {
     // show move page
     URL xmlResource = getClass().getResource("/ui/AttackAction.fxml");
     FXMLLoader loader = new FXMLLoader(xmlResource);
-    controllers.put(AttackActionController.class, new AttackActionController(client));// create a new controller and
+    controllers.put(ActionController.class, new ActionController(client, "ATTACK"));// create a new controller and
                                                                                          // add it
     loader.setControllerFactory((c) -> {
       return controllers.get(c);
     });
     AnchorPane gp = loader.load();
-    AttackActionController attackActionController = loader.getController();
+    ActionController attackActionController = loader.getController();
     attackActionController.setup();
     Scene scene = new Scene(gp);
     Stage stage = new Stage();
@@ -327,15 +326,11 @@ public class MainMapController {
         System.out.println(action.getType()+ " " + action.getSource() + " " + action.getDest() + " " + action.getUnit());
       }
     }
-    // send to server
     client.oneRoundEnd();
-    // then update
     client.oneRoundUpdate();
     System.out.println("updated!!!");
     wait_msg.setText("Please enter your next actions");
     setButtonsDisable(false);
-
-    //wait_msg.setText("");
     // display new map
 
     displayTerritoryBorder();
