@@ -11,7 +11,7 @@ public class UpdateMaxLevelChecker<T> extends ActionRuleChecker<T> {
         int level = parse.getLevel();
         Unit<T> unit = new SimpleUnit<T>(0);
         int maxLevel = unit.getMaxLevel();
-        int levelUp = parse.getLevel();
+        int levelUp = parse.getLevelUp();
         if (level + levelUp > maxLevel) {
             return "That action is invalid: the unit will exceed max level.";
         }
