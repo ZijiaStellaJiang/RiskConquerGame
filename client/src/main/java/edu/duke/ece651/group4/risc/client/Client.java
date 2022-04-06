@@ -9,6 +9,7 @@ import javafx.application.Application;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Client {
   private Map<Character> map;

@@ -136,6 +136,7 @@ public class ActionParser implements java.io.Serializable{
     if(type.equals("MOVE")){
       MinCostFinder<Character> finder = new MinCostFinder<>();
       int cost = finder.findMinCost(source,dest,player);
+      theMap.resetDistance();
       return "food: "+cost*numofUnit;
     }
     else if(type.equals("ATTACK")){
