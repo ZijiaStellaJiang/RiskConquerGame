@@ -53,7 +53,7 @@ public class AttackActionControllerTest {
     ArrayList<Territory<Character>> myTerr = new ArrayList<Territory<Character>>();
     myTerr.add(terriN);
     myTerr.add(terriO);
-    cont = new AttackActionController(mockClient, 0, myTerr, p1);
+    cont = new AttackActionController(mockClient);
     // setup element
     done = new Button();
     done.setId("done");
@@ -61,7 +61,7 @@ public class AttackActionControllerTest {
     source.getSelectionModel().selectFirst();
     destination = new ChoiceBox<String>(FXCollections.observableArrayList("oz", "narnia"));
     destination.getSelectionModel().select(1);
-    ;
+
     unit_level = new ChoiceBox<Integer>(FXCollections.observableArrayList(0, 1));
     unit_level.getSelectionModel().selectFirst();
     unit_num = new TextField("1");

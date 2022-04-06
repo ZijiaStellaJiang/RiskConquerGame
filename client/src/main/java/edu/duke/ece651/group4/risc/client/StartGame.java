@@ -14,7 +14,11 @@ import java.io.IOException;
 import java.net.URL;
 
 public class StartGame extends Application {
-
+  /**
+   * Starts the whole game
+   * @param stage
+   * @throws IOException
+   */
   @Override
   public void start(Stage stage) throws IOException {
     URL xmlResource = getClass().getResource("/ui/StartPage.fxml");

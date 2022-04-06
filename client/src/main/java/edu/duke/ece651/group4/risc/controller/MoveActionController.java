@@ -31,10 +31,19 @@ public class MoveActionController {
     private ObservableList<String> sources;
     private Client client;
 
+    /**
+     * Constructor
+     * @param client
+     */
     public MoveActionController(Client client) {
         this.client = client;
 
     }
+
+    /**
+     * Check wheter use input integer
+     * @return
+     */
     public boolean checkIntegerValid(){
         String unit = unit_num.getText();
         if(unit_num.getText()!=null){
@@ -42,6 +51,10 @@ public class MoveActionController {
         }
         return true;
     }
+
+    /**
+     * Show cost
+     */
     public void showCost(){
         alert.setText("");
         if((source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_level.getValue()!=null)&&(unit_num.getText()!=null)){
@@ -66,6 +79,9 @@ public class MoveActionController {
         cost.setText("Unavailable");
     }
 
+    /**
+     * Set up page
+     */
     public void setup() {
         //set source territory name
         sources = FXCollections.observableArrayList();
@@ -113,6 +129,9 @@ public class MoveActionController {
 
     }
 
+    /**
+     * Action after click done button
+     */
     @FXML
     public void done(){
         if(!(source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_level.getValue()!=null)&&(unit_num.getText()!=null)) {

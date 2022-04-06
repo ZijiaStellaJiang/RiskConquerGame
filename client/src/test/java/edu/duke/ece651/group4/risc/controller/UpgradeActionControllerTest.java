@@ -1,15 +1,25 @@
 package edu.duke.ece651.group4.risc.controller;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
+
+import java.util.ArrayList;
+import java.util.Collections;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
+import org.testfx.api.FxRobot;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
 import org.testfx.util.WaitForAsyncUtils;
 
 import edu.duke.ece651.group4.risc.client.Client;
+import edu.duke.ece651.group4.risc.shared.Map;
+import edu.duke.ece651.group4.risc.shared.SimpleUnit;
+import edu.duke.ece651.group4.risc.shared.Territory;
+import edu.duke.ece651.group4.risc.shared.TextPlayer;
+import edu.duke.ece651.group4.risc.shared.Unit;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.scene.Scene;
@@ -31,34 +41,57 @@ public class UpgradeActionControllerTest {
   private TextField unit_num;
   private Text alert;
   private AnchorPane pane;
+  private Map<Character> testMap;
+  private Text cost;
+  public void generateTestMap() {
+    testMap = new Map<Character>();
+    Territory<Character> terriN = new Territory<Character>("Narnia", 5, 15, 10);
+    Territory<Character> terriO = new Territory<Character>("Oz", 10, 20, 15);
+    terriN.addNeigh(terriO);
+    ArrayList<Unit<Character>> nUnits = new ArrayList<>(Collections.nCopies(8, new SimpleUnit<>(0)));
+    terriN.addGroupUnit(nUnits);
+    ArrayList<Unit<Character>> oUnits = new ArrayList<>(Collections.nCopies(3, new SimpleUnit<>(0)));
+    terriO.addGroupUnit(oUnits);
+    testMap.addTerritory(terriN);
+    testMap.addTerritory(terriO);
+    TextPlayer p1 = new TextPlayer("Green", 200, 200);
+    TextPlayer p2 = new TextPlayer("Blue", 200, 200);
+    p1.addToTerritory(terriN);
+    p2.addToTerritory(terriO);
+    testMap.addPlayer(p1);
+    testMap.addPlayer(p2);
+  }
+  
 
   @Start
   private void start(Stage stage) {
     mockClient = Mockito.mock(Client.class);
+    generateTestMap();
     Mockito.when(mockClient.addOrder(any())).thenReturn("wrong");
+    Mockito.when(mockClient.getMap()).thenReturn(testMap);
     cont = new UpgradeActionController(mockClient);
     done = new Button("done");
     done.setId("done");
     cont.done = done;
-
+    cost = new Text();
     mockSource = new ChoiceBox<String>(FXCollections.observableArrayList("oz"));
-    // mockFrom = (ChoiceBox<Integer>) Mockito.mock(ChoiceBox.class);
-    // mockSource.setItems(FXCollections.observableArrayList("oz"));
-    // mockFrom.setItems(FXCollections.observableArrayList(0));
-    // Mockito.when(mockSource.getValue()).thenReturn("oz");
-    // Mockito.when(mockFrom.getValue()).thenReturn(0);
     mockFrom = new ChoiceBox<Integer>(FXCollections.observableArrayList(0, 1));
-    level_up = Mockito.spy(new TextField("1"));
-    unit_num = Mockito.spy(new TextField("1"));
+    level_up = new TextField("1");
+    unit_num = new TextField("1");
+    level_up.setId("levelup");
+    //level_up = Mockito.spy(new TextField("1"));
+    //unit_num = Mockito.spy(new TextField("1"));
     mockFrom.getSelectionModel().selectFirst();
     mockSource.getSelectionModel().selectFirst();
     cont.num = unit_num;
+    cont.cost = cost;
     cont.levelup = level_up;
     cont.from = mockFrom;
     alert = new Text();
     cont.alert = alert;
     cont.source = mockSource;
     pane = new AnchorPane(mockSource);
+    //pane.getChildren().addAll(alert, unit_num, cost, level_up, mockFrom, mockSource);
     cont.pane = pane;
     Scene scene = new Scene(pane);
     // Stage primarystage = stage;
@@ -80,5 +113,13 @@ public class UpgradeActionControllerTest {
     });
     WaitForAsyncUtils.waitForFxEvents();
   }
+
+  @Test
+  public void test_show_cost() {
+    // set up
+    cont.showCost();
+  }
+
+  
 
 }

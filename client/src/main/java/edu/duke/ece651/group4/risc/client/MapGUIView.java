@@ -21,6 +21,10 @@ public class MapGUIView {
         this.client = client;
     }
 
+    /**
+     * Responsible for showing main
+     * @throws IOException
+     */
     public void showMain() throws IOException{
         try {
             URL xmlResource = getClass().getResource("/ui/Map.fxml");

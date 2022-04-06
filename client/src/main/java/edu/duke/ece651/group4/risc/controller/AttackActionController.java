@@ -39,6 +39,10 @@ public class AttackActionController {
         this.client = client;
     }
 
+    /**
+     * Check whether use entered interge in num and level up
+     * @return
+     */
     public boolean checkIntegerValid(){
         String unit = unit_num.getText();
         if(unit_num.getText()!=null){
@@ -46,6 +50,10 @@ public class AttackActionController {
         }
         return true;
     }
+
+    /**
+     * Show cost when the action has not been submited
+     */
     public void showCost(){
         alert.setText("");
         if((source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_level.getValue()!=null)&&(unit_num.getText()!=null)){

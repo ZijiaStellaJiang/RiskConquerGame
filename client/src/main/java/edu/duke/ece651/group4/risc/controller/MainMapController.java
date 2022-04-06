@@ -167,7 +167,12 @@ public class MainMapController {
     return sb.toString();
   }
 
-  public void showDetails(String text) throws IOException {
+  /**
+   * Show details of the territory
+   * @param text
+   * @throws IOException
+   */
+  public void  showDetails(String text) throws IOException {
     URL xmlResource = getClass().getResource("/ui/TerritoryDetail.fxml");
     FXMLLoader loader = new FXMLLoader(xmlResource);
     // setup controller
@@ -201,6 +206,11 @@ public class MainMapController {
 
   }
 
+  /**
+   * Actions after move button is clicked
+   * @param ae
+   * @throws IOException
+   */
   @FXML
   public void showMove(ActionEvent ae) throws IOException {
     wait_msg.setText("");
@@ -225,6 +235,11 @@ public class MainMapController {
     listenStageClose(stage);
   }
 
+  /**
+   * Actions after attack button is clicked
+   * @param ae
+   * @throws IOException
+   */
   @FXML
   public void showAttack(ActionEvent ae) throws IOException {
     wait_msg.setText("");
@@ -250,6 +265,11 @@ public class MainMapController {
     stage.setOnHidden(event -> {updateFoodAndWood();});
   }
 
+  /**
+   * Actions after upgrade button is clicked
+   * @param ae
+   * @throws IOException
+   */
   @FXML
   public void showUpgrade(ActionEvent ae) throws IOException {
     wait_msg.setText("");
@@ -270,6 +290,11 @@ public class MainMapController {
     stage.show();
     listenStageClose(stage);
   }
+
+  /**
+   * Set button disabled
+   * @param whether
+   */
   public void setButtonsDisable(boolean whether){
     showMove.setDisable(whether);
     showAttack.setDisable(whether);
@@ -277,23 +302,14 @@ public class MainMapController {
     commit_btn.setDisable(whether);
 
   }
-  private void updateUI() throws InterruptedException, ExecutionException {
 
-    // actual work to update UI:
-    FutureTask<Void> updateUITask = new FutureTask(() -> {
-
-      // code to update UI...
-      setButtonsDisable(true);
-      wait_msg.setText("Waiting for other player");
-
-    }, /* return value from task: */ null);
-
-    // submit for execution on FX Application Thread:
-    Platform.runLater(updateUITask);
-
-    // block until work complete:
-    updateUITask.get();
-  }
+  /**
+   * Commit game
+   * @param ae
+   * @throws IOException
+   * @throws InterruptedException
+   * @throws ExecutionException
+   */
   @FXML
   public void commit(ActionEvent ae) throws IOException, InterruptedException, ExecutionException {
 

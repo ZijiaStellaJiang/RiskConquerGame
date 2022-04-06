@@ -53,7 +53,7 @@ public class MoveActionControllerTest {
     ArrayList<Territory<Character>> myTerr = new ArrayList<Territory<Character>>();
     myTerr.add(terriN);
     myTerr.add(terriO);
-    cont = new MoveActionController(mockClient, 0, myTerr, p1);
+    cont = new MoveActionController(mockClient);
     // setup element
     done = new Button();
     done.setId("done");
