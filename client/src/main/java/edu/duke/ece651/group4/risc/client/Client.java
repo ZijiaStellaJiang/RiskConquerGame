@@ -48,15 +48,15 @@ public class Client {
     return player_skd;
   }
   public static Socket connectServer(String serverName, int port) {
+    Socket client_skd = null;
     try {
       System.out.println("Connecting to " + serverName + " on port " + port);
-      Socket client_skd = new Socket(serverName, port);
+      client_skd = new Socket(serverName, port);
       System.out.println("Just connected to " + client_skd.getRemoteSocketAddress());
-      return client_skd;
     } catch (IOException e) {
       e.printStackTrace();
     }
-    return null;
+    return client_skd;
   }
   public void initializeGame() {
     try {
@@ -103,6 +103,7 @@ public class Client {
     return obj;
   }
 
+  /*
   public String revcOrderStr() throws IOException{
     String orderStr = null;
     // read an input from client
@@ -113,6 +114,8 @@ public class Client {
     if (!str.equals("DONE")) orderStr = str;
     return orderStr;
   }
+  */
+  /*
   public ActionParser parseOrder(String orderStr) {
     ActionParser order = null;
     try {
@@ -122,6 +125,7 @@ public class Client {
     }
     return order;
   }
+  */
   public void oneRoundBegin() {
     order_list = new ArrayList<ActionParser>();
   }
@@ -135,19 +139,22 @@ public class Client {
     map = null;
     map = (Map<Character>)recv_from_server();
   }
+  /*
   public void mapDisplay() {
     output.println("-----------showing the map--------");
     displayInfo = new MapTextView(map, output);
     displayInfo.displayCurrentMap();
     displayInfo.displayPlayerMsg(player_id);
   }
-  public boolean checkGameOver() {
+  */
+  public String checkGameOver() {
     Integer id = map.getLoserId();
     if (id != null) {
-      displayInfo.displayVictoryMsg(id);
-      return true;
+      //displayInfo.displayVictoryMsg(id);
+      return "TODO";
+      
     }
-    return false;
+    return null;
   }
   public String addOrder(ActionParser order) {
       Player<Character> player = map.getPlayer(player_id);
@@ -158,9 +165,7 @@ public class Client {
         result = move_enemy.doAction(order, map, player);
       } else if (order.getType().equals("UPDATE")) {
         result = update.doAction(order, map, player);
-      } else {
-        result = "WRONG TYPE ERROR!";
-      }
+      } 
       if (result != null) {
         return result;
       } 
@@ -176,6 +181,7 @@ public class Client {
       order_list.add(order);
       return result;
   }
+  /*
   public boolean playOneRound() throws IOException {
     oneRoundBegin();
     while (true) {
@@ -196,6 +202,7 @@ public class Client {
     // make sure if the game is over
     return checkGameOver();
   }
+  */
 
 
   public void close_connection() {
@@ -207,6 +214,7 @@ public class Client {
       e.printStackTrace();
     }
   }
+  /*
   public static void main(String[] args) throws IOException {
     System.out.println("Enter server's ip:");
     BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
@@ -221,6 +229,7 @@ public class Client {
     // close connection
     client.close_connection();
   }
+  */
 
 
 }

@@ -50,7 +50,7 @@ public class UpdateActionTest {
     parse = new ActionParser("update", "t1", null, 5, 5, 2);
     update = new UpdateAction<>();
     result = update.doAction(parse, map , p1);
-    assertEquals("That action is invalid: the unit already achieved max level.", result);
+    assertEquals("That action is invalid: the unit will exceed max level.", result);
     
   }
 
