@@ -232,18 +232,35 @@ public class Client {
   */
 
   public int getPlayerFood(){
-    return map.getPlayerFood(player_id);
+    //return map.getPlayerFood(player_id);
+    return map.getPlayer(player_id).getFoodNum();
   }
   public int getPlayerWood(){
-    return map.getPlayerWood(player_id);
+    //return map.getPlayerWood(player_id);
+    return map.getPlayer(player_id).getWoodNum();
   }
 
   public String getPlayerRoundInfo(){
     return displayInfo.getRoundPlayerMsg(player_id);
   }
-
   public String getVictoryInfo(){
     return displayInfo.getVictoryMsg(player_id);
+  }
+
+  public ArrayList<String> getClientTerritories(){
+    ArrayList<String> territories = new ArrayList<>();
+    for (Territory<Character> t:map.getPlayer(player_id).getMyTerritories()){
+      territories.add(t.getName());
+    }
+    return territories;
+  }
+  public ArrayList<String> getClientCanReach(Territory<Character> source,boolean findMyself){
+    ArrayList<Territory<Character>> canReach = map.getPlayer(player_id).findDestinations(source,findMyself);
+    ArrayList<String> canReachName = new ArrayList<>();
+    for (Territory<Character> t:canReach){
+      canReachName.add(t.getName());
+    }
+    return canReachName;
   }
 
 }
