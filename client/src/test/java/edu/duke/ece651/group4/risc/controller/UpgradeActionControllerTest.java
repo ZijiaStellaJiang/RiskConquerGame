@@ -9,9 +9,10 @@ import java.util.Collections;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
-import org.testfx.api.FxRobot;
+import org.testfx.api.FxAssert;
 import org.testfx.framework.junit5.ApplicationExtension;
 import org.testfx.framework.junit5.Start;
+import org.testfx.matcher.control.TextMatchers;
 import org.testfx.util.WaitForAsyncUtils;
 
 import edu.duke.ece651.group4.risc.client.Client;
@@ -43,6 +44,7 @@ public class UpgradeActionControllerTest {
   private AnchorPane pane;
   private Map<Character> testMap;
   private Text cost;
+
   public void generateTestMap() {
     testMap = new Map<Character>();
     Territory<Character> terriN = new Territory<Character>("Narnia", 5, 15, 10);
@@ -61,7 +63,6 @@ public class UpgradeActionControllerTest {
     testMap.addPlayer(p1);
     testMap.addPlayer(p2);
   }
-  
 
   @Start
   private void start(Stage stage) {
@@ -79,8 +80,8 @@ public class UpgradeActionControllerTest {
     level_up = new TextField("1");
     unit_num = new TextField("1");
     level_up.setId("levelup");
-    //level_up = Mockito.spy(new TextField("1"));
-    //unit_num = Mockito.spy(new TextField("1"));
+    // level_up = Mockito.spy(new TextField("1"));
+    // unit_num = Mockito.spy(new TextField("1"));
     mockFrom.getSelectionModel().selectFirst();
     mockSource.getSelectionModel().selectFirst();
     cont.num = unit_num;
@@ -91,7 +92,8 @@ public class UpgradeActionControllerTest {
     cont.alert = alert;
     cont.source = mockSource;
     pane = new AnchorPane(mockSource);
-    //pane.getChildren().addAll(alert, unit_num, cost, level_up, mockFrom, mockSource);
+    // pane.getChildren().addAll(alert, unit_num, cost, level_up, mockFrom,
+    // mockSource);
     cont.pane = pane;
     Scene scene = new Scene(pane);
     // Stage primarystage = stage;
@@ -120,6 +122,40 @@ public class UpgradeActionControllerTest {
     cont.showCost();
   }
 
-  
+  @Test
+  public void test_check_integer() {
+    cont.levelup.setText("1");
+    cont.num.setText("1.5");
+    Platform.runLater(() -> {
+      assertEquals(false, cont.checkIntegerValid());
+      cont.done();
+    });
+    WaitForAsyncUtils.waitForFxEvents();
+    FxAssert.verifyThat(alert, TextMatchers.hasText("Please enter integer"));
+  }
 
+  @Test
+  public void test_check_cost_failure() {
+    cont.levelup.setText("1");
+    cont.num.setText("1.5");
+    Platform.runLater(() -> {
+      assertEquals(false, cont.checkIntegerValid());
+      cont.showCost();
+    });
+    WaitForAsyncUtils.waitForFxEvents();
+    FxAssert.verifyThat(cost, TextMatchers.hasText("Level up or num needs to be integer"));
+  }
+
+  @Test
+  public void test_max_level() {
+    cont.levelup.setText("100");
+    //cont.num.setText("1.5");
+    Platform.runLater(() -> {
+        //assertEquals(false, cont.checkIntegerValid());
+      cont.showCost();
+    });
+    WaitForAsyncUtils.waitForFxEvents();
+    FxAssert.verifyThat(alert, TextMatchers.hasText("Maximum level is 6"));
+
+  }
 }

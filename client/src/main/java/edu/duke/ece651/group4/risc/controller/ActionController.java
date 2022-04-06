@@ -45,7 +45,7 @@ public class ActionController {
      */
     public boolean checkIntegerValid(){
         String unit = unit_num.getText();
-        if(unit_num.getText()!=null){
+        if(!unit_num.getText().equals("")){
             return unit.matches("[0-9]+");
         }
         return true;
@@ -56,7 +56,7 @@ public class ActionController {
      */
     public void showCost(){
         alert.setText("");
-        if((source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_level.getValue()!=null)&&(unit_num.getText()!=null)){
+        if((source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_level.getValue()!=null)&&(unit_num.getText()!=null)&&!unit_num.getText().equals("")){
             if(checkIntegerValid()==false){
                 cost.setText("unit number needs to be integer");
                 alert.setText("");
@@ -137,7 +137,7 @@ public class ActionController {
      */
     @FXML
     public void done(){
-        if(!(source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_level.getValue()!=null)&&(unit_num.getText()!=null)) {
+      if((!(source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_level.getValue()!=null)&&(unit_num.getText()!=null)) || (unit_num.getText().equals(""))) {
             alert.setText("Please fill in all blanks");
             return;
         }

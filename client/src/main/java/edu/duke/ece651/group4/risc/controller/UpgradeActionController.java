@@ -66,13 +66,14 @@ public class UpgradeActionController {
    */
   public boolean checkIntegerValid() {
     String level_up_str = levelup.getText();
-    if (level_up_str.matches("[0-9]+")) {
-      return true;
-    }
     String unit_num_str = num.getText();
-    if (unit_num_str.matches("[0-9]+")) {
+    if (level_up_str.matches("[0-9]+") && unit_num_str.matches("[0-9]+")) {
       return true;
     }
+    //String unit_num_str = num.getText();
+    /*if (unit_num_str.matches("[0-9]+")) {
+      return true;
+      }*/
     return false;
   }
 
@@ -95,6 +96,7 @@ public class UpgradeActionController {
         Integer unit_num = Integer.parseInt(num.getText());
         if (level_up > 6) {
           alert.setText("Maximum level is 6");
+          return;
         }
         ActionParser parser = new ActionParser("UPDATE", source_terr, null, unit_num, upgrade_from, level_up);
         String cost_val = parser.getCost(client.getMap());
@@ -147,6 +149,7 @@ public class UpgradeActionController {
       return;
     }
     if (checkIntegerValid() == false) {
+      alert.setText("Please enter integer");
       return;
     }
 
