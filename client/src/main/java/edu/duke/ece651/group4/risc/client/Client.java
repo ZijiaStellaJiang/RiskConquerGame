@@ -7,6 +7,7 @@ import edu.duke.ece651.group4.risc.shared.*;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class Client {
   private Map<Character> map;
@@ -254,7 +255,8 @@ public class Client {
     }
     return territories;
   }
-  public ArrayList<String> getClientCanReach(Territory<Character> source,boolean findMyself){
+  public ArrayList<String> getClientCanReach(String sourceName,boolean findMyself){
+    Territory<Character> source = map.getTerritory(sourceName.toUpperCase());
     ArrayList<Territory<Character>> canReach = map.getPlayer(player_id).findDestinations(source,findMyself);
     ArrayList<String> canReachName = new ArrayList<>();
     for (Territory<Character> t:canReach){
