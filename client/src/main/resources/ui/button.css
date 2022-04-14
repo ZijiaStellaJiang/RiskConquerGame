@@ -75,6 +75,10 @@
     -fx-text-fill: black;
 }
 
+.transparent_btn{
+    -fx-background-color: transparent;
+}
+
 #title{
     -fx-font:bold 20pt "Copperplate";
     -fx-effect:dropshadow(one-pass-box,#E6F514,8,0.0,2,0);
