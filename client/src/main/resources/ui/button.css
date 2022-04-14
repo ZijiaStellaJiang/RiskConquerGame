@@ -94,4 +94,14 @@
     -fx-font:bold 15pt "Copperplate";
 }
 
+.text_css{
+    -fx-font:bold 15pt "Copperplate";
+}
+
+
+.textarea_css{
+    -fx-font:bold 13pt "Copperplate";
+    -fx-background-color: transparent;
+}
+
 

@@ -7,9 +7,11 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
@@ -78,7 +80,13 @@ public class MainMapController {
     System.out.println(client.getPlayerId());
     controllers = new HashMap<>();
   }
-
+  @FXML
+  public void initialize(){
+    showMove.addEventHandler(MouseEvent.MOUSE_ENTERED, e->showMove.setCursor(Cursor.HAND));
+    showAttack.addEventHandler(MouseEvent.MOUSE_ENTERED, e->showAttack.setCursor(Cursor.HAND));
+    showUpgrade.addEventHandler(MouseEvent.MOUSE_ENTERED, e->showUpgrade.setCursor(Cursor.HAND));
+    commit_btn.addEventHandler(MouseEvent.MOUSE_ENTERED, e->commit_btn.setCursor(Cursor.HAND));
+  }
   /**
    * tell user they are green player or blue player
    */
@@ -174,6 +182,7 @@ public class MainMapController {
    */
   public void  showDetails(String text) throws IOException {
     URL xmlResource = getClass().getResource("/ui/TerritoryDetail.fxml");
+    URL cssResource = getClass().getResource("/ui/button.css");
     FXMLLoader loader = new FXMLLoader(xmlResource);
     // setup controller
     controllers.put(TerritoryDetailController.class, new TerritoryDetailController());
@@ -184,6 +193,7 @@ public class MainMapController {
     TerritoryDetailController territoryDetailController = loader.getController();
     territoryDetailController.setup(text);
     Scene scene = new Scene(gp);
+    scene.getStylesheets().add(cssResource.toString());
     Stage stage = new Stage();
     stage.setScene(scene);
     stage.show();
