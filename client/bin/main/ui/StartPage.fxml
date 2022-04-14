@@ -11,7 +11,7 @@
       <font>
          <Font name="System Italic" size="35.0" />
       </font></Text>
-        <Button fx:id="start_btn" layoutX="230.0" layoutY="179.0" onAction="#onButtonStart" prefHeight="69.0" prefWidth="160.0" style="-fx-background-color: transparent; -fx-border-color: #000000;-fx-text-fill: black" styleClass="fancytext" text="START" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-        <Button fx:id="exit_btn" layoutX="230.0" layoutY="291.0" onAction="#onButtonExit" prefHeight="69.0" prefWidth="160.0" style="-fx-background-color: transparent; -fx-border-color: #000000;-fx-text-fill: black" styleClass="fancytext" text="EXIT" GridPane.columnIndex="2" GridPane.rowIndex="4">
+        <Button fx:id="start_btn" layoutX="230.0" layoutY="179.0" onAction="#onButtonStart" prefHeight="69.0" prefWidth="160.0" styleClass="fancytext" text="START" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+        <Button fx:id="exit_btn" layoutX="230.0" layoutY="291.0" onAction="#onButtonExit" prefHeight="69.0" prefWidth="160.0" styleClass="fancytext" text="EXIT" GridPane.columnIndex="2" GridPane.rowIndex="4">
         </Button>
 </AnchorPane>

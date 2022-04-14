@@ -9,6 +9,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -19,8 +20,11 @@ public class ActionController {
     ChoiceBox<String> source;
     @FXML
     ChoiceBox<String> destination;
+//    @FXML
+//    ChoiceBox<Integer> unit_level;
     @FXML
-    ChoiceBox<Integer> unit_level;
+    Slider unit_level;
+
     @FXML
     TextField unit_num;
     @FXML
@@ -39,6 +43,16 @@ public class ActionController {
         this.client = client;
         this.type = type;
     }
+    @FXML
+    public void initialize(){
+        unit_level.setMin(0);
+        unit_level.setMax(6);
+        unit_level.setBlockIncrement(1);
+        unit_level.setMajorTickUnit(1);
+        unit_level.setMinorTickCount(0);
+        unit_level.setShowTickLabels(true);
+        unit_level.setSnapToTicks(true);
+    }
     /**
      * Check whether use entered interge in num and level up
      * @return
@@ -56,7 +70,7 @@ public class ActionController {
      */
     public void showCost(){
         alert.setText("");
-        if((source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_level.getValue()!=null)&&(unit_num.getText()!=null)&&!unit_num.getText().equals("")){
+        if((source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_num.getText()!=null)){
             if(checkIntegerValid()==false){
                 cost.setText("unit number needs to be integer");
                 alert.setText("");
@@ -65,10 +79,10 @@ public class ActionController {
             try{
                 String source_terr = source.getValue();
                 String dest_terr = destination.getValue();
-                Integer level = unit_level.getValue();
+                double level = unit_level.getValue();
                 Integer num = Integer.parseInt(unit_num.getText());
                 System.out.println("Calculating cost: " + source_terr + " " + dest_terr + " " + level + " " + num);
-                ActionParser parser = new ActionParser(type, source_terr, dest_terr, num, level);
+                ActionParser parser = new ActionParser(type, source_terr, dest_terr, num, (int)level);
                 String cost_val = parser.getCost(client.getMap());
                 cost.setText(cost_val);
                 return;
@@ -110,9 +124,9 @@ public class ActionController {
                     }
                 });
         //set unit level
-        ObservableList<Integer> level = FXCollections.observableArrayList();
-        level.addAll(0,1,2,3,4,5,6);
-        unit_level.setItems(level);
+//        ObservableList<Integer> level = FXCollections.observableArrayList();
+//        level.addAll(0,1,2,3,4,5,6);
+//        unit_level.setItems(level);
 
         source.getSelectionModel().selectedIndexProperty().addListener(
                 (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
@@ -122,7 +136,7 @@ public class ActionController {
                 (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
                     showCost();
                 });
-        unit_level.getSelectionModel().selectedIndexProperty().addListener(
+        unit_level.valueProperty().addListener(
                 (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
                     showCost();
                 });
@@ -137,7 +151,7 @@ public class ActionController {
      */
     @FXML
     public void done(){
-      if((!(source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_level.getValue()!=null)&&(unit_num.getText()!=null)) || (unit_num.getText().equals(""))) {
+      if((!(source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_num.getText()!=null))) {
             alert.setText("Please fill in all blanks");
             return;
         }
@@ -147,11 +161,11 @@ public class ActionController {
         }
         String source_terr = source.getValue();
         String dest_terr =destination.getValue();
-        Integer level = unit_level.getValue();
+        double level = unit_level.getValue();
         String num = unit_num.getText();
         System.out.println(source_terr + " " + dest_terr + " " + level + " " + num);
         try {
-            ActionParser newAction = new ActionParser(type, source_terr, dest_terr, Integer.parseInt(num), level);
+            ActionParser newAction = new ActionParser(type, source_terr, dest_terr, Integer.parseInt(num), (int)level);
             String result = client.addOrder(newAction);
             if(result!=null){
                 System.out.println(result);

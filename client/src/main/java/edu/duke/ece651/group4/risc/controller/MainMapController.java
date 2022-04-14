@@ -70,6 +70,7 @@ public class MainMapController {
   Text wood;
   @FXML
   Text victory_msg;
+
   private HashMap<Class<?>, Object> controllers;
 
   public MainMapController(Client client) {

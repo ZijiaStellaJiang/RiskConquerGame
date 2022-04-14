@@ -22,6 +22,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -34,7 +35,8 @@ public class AttackActionControllerTest {
   Button done;
   ChoiceBox<String> source;
   ChoiceBox<String> destination;
-  ChoiceBox<Integer> unit_level;
+  Slider unit_level;
+  //ChoiceBox<Integer> unit_level;
   TextField unit_num;
   AnchorPane pane;
   Text alert;
@@ -61,9 +63,10 @@ public class AttackActionControllerTest {
     source.getSelectionModel().selectFirst();
     destination = new ChoiceBox<String>(FXCollections.observableArrayList("oz", "narnia"));
     destination.getSelectionModel().select(1);
-
-    unit_level = new ChoiceBox<Integer>(FXCollections.observableArrayList(0, 1));
-    unit_level.getSelectionModel().selectFirst();
+    unit_level = new Slider(0,6,1);
+    //unit_level = new ChoiceBox<Integer>(FXCollections.observableArrayList(0, 1));
+    //unit_level.getSelectionModel().selectFirst();
+    unit_level.setValue(0);
     unit_num = new TextField("1");
     cont.source = source;
     cont.destination = destination;
