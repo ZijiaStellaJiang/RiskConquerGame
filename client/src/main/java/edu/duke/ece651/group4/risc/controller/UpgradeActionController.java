@@ -1,16 +1,12 @@
 package edu.duke.ece651.group4.risc.controller;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 import edu.duke.ece651.group4.risc.client.Client;
 import edu.duke.ece651.group4.risc.shared.ActionParser;
 import edu.duke.ece651.group4.risc.shared.Map;
 import edu.duke.ece651.group4.risc.shared.Player;
-import edu.duke.ece651.group4.risc.shared.SimpleUnit;
 import edu.duke.ece651.group4.risc.shared.Territory;
-import edu.duke.ece651.group4.risc.shared.TextPlayer;
-import edu.duke.ece651.group4.risc.shared.Unit;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -22,7 +18,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class UpgradeActionController {
+public class UpgradeActionController implements Controller{
   @FXML
   ChoiceBox<String> source;
 
@@ -45,7 +41,6 @@ public class UpgradeActionController {
   Text cost;
   private Client client;
   private ObservableList<String> sources;
-  private Map<Character> testMap;
   public UpgradeActionController(Client client) {
     this.client = client;
   }
@@ -70,10 +65,6 @@ public class UpgradeActionController {
     if (level_up_str.matches("[0-9]+") && unit_num_str.matches("[0-9]+")) {
       return true;
     }
-    //String unit_num_str = num.getText();
-    /*if (unit_num_str.matches("[0-9]+")) {
-      return true;
-      }*/
     return false;
   }
 

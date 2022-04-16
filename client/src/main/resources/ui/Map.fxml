@@ -32,7 +32,7 @@
          <tooltip>
             <Tooltip fx:id="narnia_tooltip" text="" />
          </tooltip></Button>
-      <Button fx:id="mordor" layoutX="260.0" layoutY="190.0" mnemonicParsing="false" onAction="#displayTerritory" prefHeight="212.0" prefWidth="158.0" styleClass="map_btn_south_australia" text="Mordor">
+      <Button fx:id="mordor" layoutX="260.0" layoutY="193.0" mnemonicParsing="false" onAction="#displayTerritory" prefHeight="212.0" prefWidth="158.0" styleClass="map_btn_south_australia" text="Mordor">
          <tooltip>
             <Tooltip fx:id="mordor_tooltip" text="" />
          </tooltip></Button>
@@ -76,11 +76,11 @@
                </image>
             </ImageView>
          </graphic></Button>
-      <Text fx:id="player_color" layoutX="210.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" styleClass="text_css"/>
+      <Text fx:id="player_color" layoutX="210.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" text="" />
       <Text fx:id="wait_msg" layoutX="161.0" layoutY="498.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Text fx:id="result_msg" layoutX="150.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text fx:id="food" layoutX="420.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css"/>
-      <Text fx:id="wood" layoutX="642.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css"/>
+      <Text fx:id="food" layoutX="420.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" />
+      <Text fx:id="wood" layoutX="642.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" />
       <Text fx:id="victory_msg" layoutX="624.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <ImageView fitHeight="40.0" fitWidth="139.0" layoutX="61.0" layoutY="17.0" preserveRatio="true">
          <image>

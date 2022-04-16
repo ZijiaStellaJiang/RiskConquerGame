@@ -14,7 +14,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.layout.AnchorPane;
-public class ActionController {
+public class ActionController implements Controller{
     private String type;//attack or move
     @FXML
     ChoiceBox<String> source;
@@ -123,10 +123,6 @@ public class ActionController {
 
                     }
                 });
-        //set unit level
-//        ObservableList<Integer> level = FXCollections.observableArrayList();
-//        level.addAll(0,1,2,3,4,5,6);
-//        unit_level.setItems(level);
 
         source.getSelectionModel().selectedIndexProperty().addListener(
                 (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {

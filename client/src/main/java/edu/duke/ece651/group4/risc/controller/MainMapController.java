@@ -23,7 +23,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
-import java.util.concurrent.FutureTask;
 
 public class MainMapController {
   private Client client;// model
@@ -216,6 +215,24 @@ public class MainMapController {
 
   }
 
+  public FXMLLoader loadLoader(String fxml){
+    URL xmlResource = getClass().getResource(fxml);
+    FXMLLoader loader = new FXMLLoader(xmlResource);
+    return loader;
+  }
+
+  public void loadNewPage(FXMLLoader loader, String css) throws IOException {
+    AnchorPane gp = loader.load();
+    Controller controller = loader.getController();
+    controller.setup();
+    URL cssResource = getClass().getResource(css);
+    Scene scene = new Scene(gp);
+    scene.getStylesheets().add(cssResource.toString());
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.show();
+    listenStageClose(stage);
+  }
   /**
    * Actions after move button is clicked
    * @param ae
@@ -227,22 +244,15 @@ public class MainMapController {
     //    displayMyTerritory();
     Button source = (Button) ae.getSource();
     // show move page
-    URL xmlResource = getClass().getResource("/ui/MoveAction.fxml");
-    FXMLLoader loader = new FXMLLoader(xmlResource);
+
+    FXMLLoader loader =loadLoader("/ui/MoveAction.fxml");
     // setup controller
     controllers.put(ActionController.class, new ActionController(client, "MOVE"));// create a new controller and
                                                                                          // add it
     loader.setControllerFactory((c) -> {
       return controllers.get(c);
     });
-    AnchorPane gp = loader.load();
-    ActionController actionController = loader.getController();
-    actionController.setup();
-    Scene scene = new Scene(gp);
-    Stage stage = new Stage();
-    stage.setScene(scene);
-    stage.show();
-    listenStageClose(stage);
+    loadNewPage(loader, "/ui/button.css");
   }
 
   /**
@@ -255,21 +265,14 @@ public class MainMapController {
     wait_msg.setText("");
     Button source = (Button) ae.getSource();
     // show move page
-    URL xmlResource = getClass().getResource("/ui/AttackAction.fxml");
-    FXMLLoader loader = new FXMLLoader(xmlResource);
+    //URL xmlResource = getClass().getResource("/ui/AttackAction.fxml");
+    FXMLLoader loader = loadLoader("/ui/MoveAction.fxml");
     controllers.put(ActionController.class, new ActionController(client, "ATTACK"));// create a new controller and
                                                                                          // add it
     loader.setControllerFactory((c) -> {
       return controllers.get(c);
     });
-    AnchorPane gp = loader.load();
-    ActionController attackActionController = loader.getController();
-    attackActionController.setup();
-    Scene scene = new Scene(gp);
-    Stage stage = new Stage();
-    stage.setScene(scene);
-    stage.show();
-    listenStageClose(stage);
+    loadNewPage(loader, "/ui/button.css");
   }
   public void listenStageClose(Stage stage){
     stage.setOnHidden(event -> {updateFoodAndWood();});
@@ -285,20 +288,13 @@ public class MainMapController {
     wait_msg.setText("");
     Button source = (Button) ae.getSource();
     // show move page
-    URL xmlResource = getClass().getResource("/ui/UpgradeAction.fxml");
-    FXMLLoader loader = new FXMLLoader(xmlResource);
+    //URL xmlResource = getClass().getResource("/ui/UpgradeAction.fxml");
+    FXMLLoader loader = loadLoader("/ui/UpgradeAction.fxml");
     controllers.put(UpgradeActionController.class, new UpgradeActionController(client));
     loader.setControllerFactory((c) -> {
       return controllers.get(c);
     });
-    AnchorPane gp = loader.load();
-    UpgradeActionController upgradeActionController = loader.getController();
-    upgradeActionController.setup();
-    Scene scene = new Scene(gp);
-    Stage stage = new Stage();
-    stage.setScene(scene);
-    stage.show();
-    listenStageClose(stage);
+    loadNewPage(loader, "/ui/button.css");
   }
 
   /**
