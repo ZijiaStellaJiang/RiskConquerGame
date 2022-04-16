@@ -1,20 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="pane" prefHeight="400.0" prefWidth="600.0" styleClass="background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.ChooseServerController">
    <children>
-      <Label id="title" layoutX="77.0" layoutY="93.0" text="Please enter your server ip">
-         <font>
-            <Font size="20.0" name="Copperplate"/>
-         </font></Label>
-      <Button fx:id="connect" layoutX="414.0" layoutY="165.0" mnemonicParsing="false" onAction="#connect_server" text="CONNECT" styleClass="fancytext"/>
-      <Text id="msg" fx:id="alert" layoutX="305.0" layoutY="294.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
-      <TextField fx:id="select" layoutX="139.0" layoutY="166.0" styleClass="textfield_css"/>
+      <ImageView fitHeight="510.0" fitWidth="643.0">
+         <image>
+            <Image url="@../pic/background1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="406.0" fitWidth="572.0" layoutX="36.0" layoutY="85.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/selectserver/server_back.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="connect" layoutX="412.0" layoutY="202.0" mnemonicParsing="false" onAction="#connect_server" styleClass="transparent_btn">
+         <graphic>
+            <ImageView fitHeight="39.0" fitWidth="140.0" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/selectserver/connect_btn.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Text id="msg" fx:id="alert" layoutX="141.0" layoutY="267.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" wrappingWidth="210.0" />
+      <TextField fx:id="select" layoutX="141.0" layoutY="202.0" prefHeight="42.0" prefWidth="210.0" styleClass="textfield_css" />
+      <ImageView fitHeight="64.0" fitWidth="472.0" layoutX="78.0" layoutY="108.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/selectserver/select_title.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

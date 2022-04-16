@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Tooltip?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="background" prefHeight="533.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.MainMapController">
    <children>
-      <Label layoutX="35.0" layoutY="37.0" text="Player:" />
-      <Button fx:id="commit_btn" layoutX="542.0" layoutY="446.0" mnemonicParsing="false" onAction="#commit" text="COMMIT" />
+      <ImageView fitHeight="560.0" fitWidth="786.0" layoutX="-10.0" layoutY="-21.0">
+         <image>
+            <Image url="@../pic/background1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="529.0" fitWidth="751.0" layoutX="18.0" layoutY="4.0">
+         <image>
+            <Image url="@../pic/map/info.png" />
+         </image>
+      </ImageView>
       <Button fx:id="oz" layoutX="62.0" layoutY="91.0" mnemonicParsing="false" onAction="#displayTerritory" prefHeight="251.0" prefWidth="198.0" styleClass="map_btn_wa" text="Oz">
          <tooltip>
             <Tooltip fx:id="oz_tooltip" />
@@ -23,7 +32,7 @@
          <tooltip>
             <Tooltip fx:id="narnia_tooltip" text="" />
          </tooltip></Button>
-      <Button fx:id="mordor" layoutX="260.0" layoutY="190.0" mnemonicParsing="false" onAction="#displayTerritory" prefHeight="212.0" prefWidth="158.0" styleClass="map_btn_south_australia" text="Mordor">
+      <Button fx:id="mordor" layoutX="260.0" layoutY="193.0" mnemonicParsing="false" onAction="#displayTerritory" prefHeight="212.0" prefWidth="158.0" styleClass="map_btn_south_australia" text="Mordor">
          <tooltip>
             <Tooltip fx:id="mordor_tooltip" text="" />
          </tooltip></Button>
@@ -35,16 +44,58 @@
          <tooltip>
             <Tooltip fx:id="gondor_tooltip" text="" />
          </tooltip></Button>
-      <Button fx:id="showMove" layoutX="160.0" layoutY="446.0" mnemonicParsing="false" onAction="#showMove" prefHeight="26.0" prefWidth="75.0" text="MOVE" />
-      <Button fx:id="showAttack" layoutX="284.0" layoutY="446.0" mnemonicParsing="false" onAction="#showAttack" prefHeight="26.0" prefWidth="75.0" text="ATTACK" />
-      <Button fx:id="showUpgrade" layoutX="412.0" layoutY="446.0" mnemonicParsing="false" onAction="#showUpgrade" text="UPGRADE" />
-      <Text fx:id="player_color" layoutX="96.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
+      <Button fx:id="showMove" layoutX="35.0" layoutY="410.0" mnemonicParsing="false" onAction="#showMove" prefHeight="94.0" prefWidth="191.0" styleClass="transparent_btn">
+         <graphic>
+            <ImageView fitHeight="111.0" fitWidth="174.0">
+               <image>
+                  <Image url="@../pic/map/move_btn.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="showAttack" layoutX="217.0" layoutY="410.0" mnemonicParsing="false" onAction="#showAttack" prefHeight="121.0" prefWidth="213.0" styleClass="transparent_btn">
+         <graphic>
+            <ImageView fitHeight="107.0" fitWidth="180.0">
+               <image>
+                  <Image url="@../pic/map/attack_btn.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="showUpgrade" layoutX="418.0" layoutY="410.0" mnemonicParsing="false" onAction="#showUpgrade" styleClass="transparent_btn">
+         <graphic>
+            <ImageView fitHeight="112.0" fitWidth="169.0">
+               <image>
+                  <Image url="@../pic/map/upgrade_btn.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Button fx:id="commit_btn" layoutX="585.0" layoutY="412.0" mnemonicParsing="false" onAction="#commit" styleClass="transparent_btn">
+         <graphic>
+            <ImageView fitHeight="108.0" fitWidth="174.0">
+               <image>
+                  <Image url="@../pic/map/commit_btn.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
+      <Text fx:id="player_color" layoutX="210.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" text="" />
       <Text fx:id="wait_msg" layoutX="161.0" layoutY="498.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Text fx:id="result_msg" layoutX="150.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="272.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Food:" />
-      <Text layoutX="418.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Wood: " />
-      <Text fx:id="food" layoutX="323.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text fx:id="wood" layoutX="475.0" layoutY="34.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="food" layoutX="420.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" />
+      <Text fx:id="wood" layoutX="642.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" />
       <Text fx:id="victory_msg" layoutX="624.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <ImageView fitHeight="40.0" fitWidth="139.0" layoutX="61.0" layoutY="17.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/map/player_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="139.0" layoutX="280.0" layoutY="16.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/map/food_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="40.0" fitWidth="139.0" layoutX="493.0" layoutY="17.0">
+         <image>
+            <Image url="@../pic/map/wood_icon.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>

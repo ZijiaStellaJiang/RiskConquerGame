@@ -57,9 +57,8 @@ public class ActionController implements Controller{
      * Check whether use entered interge in num and level up
      * @return
      */
-    public boolean checkIntegerValid(){
-        String unit = unit_num.getText();
-        if(!unit_num.getText().equals("")){
+    public boolean checkIntegerValid(String unit){
+        if(!unit.equals("")){
             return unit.matches("[0-9]+");
         }
         return true;
@@ -69,9 +68,13 @@ public class ActionController implements Controller{
      * Show cost when the action has not been submited
      */
     public void showCost(){
+        double level = unit_level.getValue();
+        if(level % 1 !=0){
+            return;
+        }
         alert.setText("");
         if((source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_num.getText()!=null)){
-            if(checkIntegerValid()==false){
+            if(checkIntegerValid(unit_num.getText())==false){
                 cost.setText("unit number needs to be integer");
                 alert.setText("");
                 return;
@@ -79,7 +82,6 @@ public class ActionController implements Controller{
             try{
                 String source_terr = source.getValue();
                 String dest_terr = destination.getValue();
-                double level = unit_level.getValue();
                 Integer num = Integer.parseInt(unit_num.getText());
                 System.out.println("Calculating cost: " + source_terr + " " + dest_terr + " " + level + " " + num);
                 ActionParser parser = new ActionParser(type, source_terr, dest_terr, num, (int)level);
@@ -134,7 +136,7 @@ public class ActionController implements Controller{
                 });
         unit_level.valueProperty().addListener(
                 (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
-                    showCost();
+                        showCost();
                 });
         unit_num.textProperty().addListener((observable, oldValue, newValue) -> {
             showCost();
@@ -151,7 +153,7 @@ public class ActionController implements Controller{
             alert.setText("Please fill in all blanks");
             return;
         }
-        if(checkIntegerValid()==false){
+        if(checkIntegerValid(unit_num.getText())==false){
             alert.setText("unit number needs to be integer");
             return;
         }
