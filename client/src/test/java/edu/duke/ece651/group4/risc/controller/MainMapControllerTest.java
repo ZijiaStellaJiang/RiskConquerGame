@@ -116,6 +116,7 @@ public class MainMapControllerTest {
     WaitForAsyncUtils.waitForFxEvents();
   }
 
+  @Disabled
   @Test
   public void test_show_territory_details(FxRobot robot) throws IOException {
     // first get the string to display

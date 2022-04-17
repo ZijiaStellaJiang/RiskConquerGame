@@ -68,7 +68,8 @@ public class Client {
       client_skd = new Socket(serverName, port);
       System.out.println("Just connected to " + client_skd.getRemoteSocketAddress());
     } catch (IOException e) {
-      e.printStackTrace();
+//      e.printStackTrace();
+      System.err.println("Fail to connect to server");
     }
     return client_skd;
   }

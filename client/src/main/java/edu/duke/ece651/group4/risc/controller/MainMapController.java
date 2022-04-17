@@ -317,7 +317,7 @@ public class MainMapController {
    * @throws ExecutionException
    */
   @FXML
-  public void commit(ActionEvent ae) throws IOException, InterruptedException, ExecutionException {
+  public void commit(ActionEvent ae) throws IOException {
 
     wait_msg.setText("Waiting for other player");
 
