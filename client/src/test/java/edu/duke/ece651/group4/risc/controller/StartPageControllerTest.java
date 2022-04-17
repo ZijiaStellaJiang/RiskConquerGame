@@ -4,6 +4,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
@@ -36,7 +37,7 @@ public class StartPageControllerTest {
     Scene scene = new Scene(pane, 640, 480);
     stage.setScene(scene);
   }
-
+  @Disabled
   @Test
   public void test_start_button_pressed(FxRobot robot) throws IOException {
     Platform.runLater(() -> {
