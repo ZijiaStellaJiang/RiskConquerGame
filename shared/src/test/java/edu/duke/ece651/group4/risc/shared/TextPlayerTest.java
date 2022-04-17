@@ -149,4 +149,25 @@ public class TextPlayerTest {
         assertFalse(attack.contains(n));
         assertFalse(attack.contains(a));
     }
+
+    @Test
+    public void test_check_visibility() {
+        Territory<Character> t1 = new Territory<>("a");
+        Territory<Character> t2 = new Territory<>("b");
+        Territory<Character> t3 = new Territory<>("c");
+        Territory<Character> k1 = new Territory<>("d");
+        t2.addNeigh(t1);
+        t1.addNeigh(t3);
+        t2.addNeigh(k1);
+        Player<Character> p1 = new TextPlayer("p1");
+        Player<Character> p2 = new TextPlayer("p2");
+        p1.addToTerritory(t1);
+        p1.addToTerritory(t2);
+        p1.addToTerritory(t3);
+        p2.addToTerritory(k1);
+        p1.checkTerritoryVisibility(t2);
+        assertTrue(p1.checkTerritoryVisibility(t2));
+        assertFalse(p1.checkTerritoryVisibility(t1));
+        assertThrows(IllegalArgumentException.class, ()->p2.checkTerritoryVisibility(t3));
+    }
 }
