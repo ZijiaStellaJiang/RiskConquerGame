@@ -3,6 +3,7 @@ package edu.duke.ece651.group4.risc.shared;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.IdentityHashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -169,5 +170,71 @@ public class TextPlayerTest {
         assertTrue(p1.checkTerritoryVisibility(t2));
         assertFalse(p1.checkTerritoryVisibility(t1));
         assertThrows(IllegalArgumentException.class, ()->p2.checkTerritoryVisibility(t3));
+    }
+
+    @Test
+    public void test_handle_visibility_and_update_get_info() {
+        Territory<Character> a1 = new Territory<>("a1");
+        Territory<Character> a2 = new Territory<>("a2");
+        Territory<Character> a3 = new Territory<>("a3");
+        Territory<Character> b1 = new Territory<>("b1");
+        Territory<Character> b2 = new Territory<>("b2");
+        a1.addNeigh(a2);
+        a1.addNeigh(a3);
+        a1.addNeigh(b1);
+        a2.addNeigh(a3);
+        a3.addNeigh(b1);
+        b1.addNeigh(b2);
+        ArrayList<Unit<Character>> a1Unit = new ArrayList<>(Collections.nCopies(2,new SimpleUnit<>(6)));
+        a1.addGroupUnit(a1Unit);
+        ArrayList<Unit<Character>> a3Unit = new ArrayList<>(Collections.nCopies(4,new SimpleUnit<>(3)));
+        a3.addGroupUnit(a3Unit);
+        Player<Character> p1 = new TextPlayer("p1");
+        Player<Character> p2 = new TextPlayer("p2");
+        p1.addToTerritory(a1);
+        p1.addToTerritory(a2);
+        p1.addToTerritory(a3);
+        p2.addToTerritory(b1);
+        p2.addToTerritory(b2);
+
+        assertNull(a3.getEnemyInfo());
+        p1.handleVisibility();
+        p2.handleVisibility();
+        p1.updatePlayerTerritoriesInfo();
+        p2.updatePlayerTerritoriesInfo();
+        assertNull(a2.getEnemyInfo());
+        assertNull(b2.getEnemyInfo());
+        assertEquals(4, a3.getEnemyInfo().get(3));
+        assertEquals(4,a3.getMyInfo().get(3));
+        assertEquals(2,a1.getEnemyInfo().get(6));
+        a1.addMyUnit(new SimpleUnit<>(1));
+        p1.handleVisibility();
+        p2.handleVisibility();
+        p1.updatePlayerTerritoriesInfo();
+        p2.updatePlayerTerritoriesInfo();
+        assertEquals(1,a1.getEnemyInfo().get(1));
+
+        p2.removeFromTerritory(b1);
+        p1.addToTerritory(b1);
+        p1.handleVisibility();
+        p2.handleVisibility();
+        p1.updatePlayerTerritoriesInfo();
+        p2.updatePlayerTerritoriesInfo();
+        assertEquals(0,b2.getEnemyInfo().get(0));
+        assertEquals(2,a1.getEnemyInfo().get(6));
+
+        a1.removeMyUnit(new SimpleUnit<>(6));
+        p1.handleVisibility();
+        p2.handleVisibility();
+        p1.updatePlayerTerritoriesInfo();
+        p2.updatePlayerTerritoriesInfo();
+        assertEquals(2,a1.getEnemyInfo().get(6));
+
+        b2.addMyUnit(new SimpleUnit<>(5));
+        p1.handleVisibility();
+        p2.handleVisibility();
+        p1.updatePlayerTerritoriesInfo();
+        p2.updatePlayerTerritoriesInfo();
+        assertEquals(1,b2.getEnemyInfo().get(5));
     }
 }

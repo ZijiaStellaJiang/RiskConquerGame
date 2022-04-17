@@ -200,21 +200,31 @@ public class Territory<T> implements java.io.Serializable {
     }
   }
 
+  //TODO: add test case (test setCanBeSeen and player.handleVisibility at the same time)
+  public void updateOneRoundInfo () {
+    updateInfo(true);
+    if (canBeSeen || !seen) updateInfo(false);
+  }
+
   public ArrayList<Integer> getMyInfo(){
     return infoForMyself.getUnitNumList();
   }
 
   public ArrayList<Integer> getEnemyInfo() {
+    if (!seen && !canBeSeen) return null;
     return infoForEnemy.getUnitNumList();
   }
 
-  //TODO: test cases for the two set
   public void setSeen(boolean toSet) {
     this.seen = toSet;
   }
 
   public void setCanBeSeen(boolean toSet) {
     this.canBeSeen = toSet;
+  }
+
+  public boolean checkSeen() {
+    return seen;
   }
 
   @Override

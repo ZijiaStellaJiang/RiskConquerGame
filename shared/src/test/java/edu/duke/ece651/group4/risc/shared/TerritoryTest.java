@@ -124,6 +124,8 @@ public class TerritoryTest {
   @Test
   public void test_update_display_info() {
     Territory<Character> t1 = new Territory<>("t1");
+    t1.setCanBeSeen(true);
+    t1.setSeen(true);
     ArrayList<Unit<Character>> units = new ArrayList<>(Collections.nCopies(3,new SimpleUnit<>()));
     units.addAll(Collections.nCopies(5,new SimpleUnit<>(2)));
     units.addAll(Collections.nCopies(4,new SimpleUnit<>(6)));
@@ -137,5 +139,13 @@ public class TerritoryTest {
     assertEquals(3,t1.getEnemyInfo().get(0));
     t1.updateInfo(false);
     assertEquals(2,t1.getEnemyInfo().get(0));
+  }
+
+  @Test
+  public void test_visibility() {
+    Territory<Character> t1 = new Territory<>("t1");
+    assertFalse(t1.checkSeen());
+    t1.setSeen(true);
+    assertTrue(t1.checkSeen());
   }
 }

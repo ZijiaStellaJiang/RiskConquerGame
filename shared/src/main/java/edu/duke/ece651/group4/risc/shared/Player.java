@@ -172,6 +172,15 @@ public abstract class Player<T> implements java.io.Serializable{
 
   public void handleVisibility() {
     for (Territory<T> toHandle: myTerritories) {
+      boolean visible = checkTerritoryVisibility(toHandle);
+      toHandle.setCanBeSeen(visible);
+      if (!toHandle.checkSeen() && visible) toHandle.setSeen(true);
+    }
+  }
+
+  public void updatePlayerTerritoriesInfo() {
+    for (Territory<T> t: myTerritories) {
+      t.updateOneRoundInfo();
     }
   }
 }
