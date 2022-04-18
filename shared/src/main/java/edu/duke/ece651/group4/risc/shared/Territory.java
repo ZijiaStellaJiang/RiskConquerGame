@@ -12,6 +12,16 @@ public class Territory<T> implements java.io.Serializable {
   private int foodAbility;  //indicate how much resource this territory can produce in each turn
   private int woodAbility;
   private int distance;  //indicate the distance from a source, used to find minimum cost
+  private TerritoryDisplayInfo<T> infoForMyself;
+  private TerritoryDisplayInfo<T> infoForEnemy;
+  /**
+   * if canBeSeen is true, show the latest info to enemy
+   * if canBeSeen is false, if seen is true, show old information
+   *                        if seen is false, show null (just outline)
+   * should update visibility at the start of each round
+   */
+  private boolean seen;            //indicate whether this territory has seen by enemy
+  private boolean canBeSeen;       //indicate whether this territory can be seen by enemy at present
 
   public Territory(String name, int size, int foodAbility, int woodAbility){
     this.name = name;
@@ -22,7 +32,12 @@ public class Territory<T> implements java.io.Serializable {
     this.foodAbility = foodAbility;
     this.woodAbility = woodAbility;
     this.distance = 100;
+    this.infoForMyself = new TerritoryDisplayInfo<>();
+    this.infoForEnemy = new TerritoryDisplayInfo<>();
+    this.seen = false;
+    this.canBeSeen = false;
   }
+
   /**
    * constructor holder for evol1, no use
    */
@@ -168,6 +183,48 @@ public class Territory<T> implements java.io.Serializable {
       throw new IllegalArgumentException("can not access this function here, no units");
     }
     return getMinHelper(enemyUnits);
+  }
+
+  /**
+   * this function update info of player's own or for enemy's view
+   * should update myself after each round (own territory always visible)
+   * should update enemy's view as long as enemy has right to see
+   *     (if enemy lose the right to see the territory, do not update, keep the old version to display)
+   *     (but if enemy hasn't gain right to see, also update, but don't show to enemy)
+   * @param isForMyself: determine whose display to update
+   */
+  public void updateInfo (boolean isForMyself) {
+    for (int i=0; i<7; i++){
+      if(isForMyself) infoForMyself.updateLevelInfo(i, getLevelUnitNum(i));
+      else infoForEnemy.updateLevelInfo(i, getLevelUnitNum(i));
+    }
+  }
+
+  //TODO: add test case (test setCanBeSeen and player.handleVisibility at the same time)
+  public void updateOneRoundInfo () {
+    updateInfo(true);
+    if (canBeSeen || !seen) updateInfo(false);
+  }
+
+  public ArrayList<Integer> getMyInfo(){
+    return infoForMyself.getUnitNumList();
+  }
+
+  public ArrayList<Integer> getEnemyInfo() {
+    if (!seen && !canBeSeen) return null;
+    return infoForEnemy.getUnitNumList();
+  }
+
+  public void setSeen(boolean toSet) {
+    this.seen = toSet;
+  }
+
+  public void setCanBeSeen(boolean toSet) {
+    this.canBeSeen = toSet;
+  }
+
+  public boolean checkSeen() {
+    return seen;
   }
 
   @Override
