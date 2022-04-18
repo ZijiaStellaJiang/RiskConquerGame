@@ -120,4 +120,32 @@ public class TerritoryTest {
     assertThrows(IllegalArgumentException.class, ()->test.getMyMaxUnit());
     assertThrows(IllegalArgumentException.class, ()->test.getMyMinUnit());
   }
+
+  @Test
+  public void test_update_display_info() {
+    Territory<Character> t1 = new Territory<>("t1");
+    t1.setCanBeSeen(true);
+    t1.setSeen(true);
+    ArrayList<Unit<Character>> units = new ArrayList<>(Collections.nCopies(3,new SimpleUnit<>()));
+    units.addAll(Collections.nCopies(5,new SimpleUnit<>(2)));
+    units.addAll(Collections.nCopies(4,new SimpleUnit<>(6)));
+    t1.addGroupUnit(units);
+    assertEquals(0,t1.getMyInfo().get(2));
+    t1.updateInfo(true);
+    assertEquals(5,t1.getMyInfo().get(2));
+    assertEquals(4,t1.getMyInfo().get(6));
+    t1.updateInfo(false);
+    t1.removeMyUnit(new SimpleUnit<>());
+    assertEquals(3,t1.getEnemyInfo().get(0));
+    t1.updateInfo(false);
+    assertEquals(2,t1.getEnemyInfo().get(0));
+  }
+
+  @Test
+  public void test_visibility() {
+    Territory<Character> t1 = new Territory<>("t1");
+    assertFalse(t1.checkSeen());
+    t1.setSeen(true);
+    assertTrue(t1.checkSeen());
+  }
 }

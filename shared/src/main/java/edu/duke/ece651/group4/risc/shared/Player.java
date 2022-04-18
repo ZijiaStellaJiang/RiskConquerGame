@@ -148,4 +148,39 @@ public abstract class Player<T> implements java.io.Serializable{
     }
     return canPerform;
   }
+
+  /**
+   * check whether a territory that belongs to this player can be seen by enemy
+   * for now just deal with adjacency
+   * @return true if this territory can be seen by enemy at present, otherwise false.
+   */
+  public boolean checkTerritoryVisibility(Territory<T> toCheck) {
+    if (!checkMyTerritory(toCheck)) {
+      throw new IllegalArgumentException("The territory to check doesn't belong to the player");
+    }
+    boolean finalVisibility = false;
+    // 1st condition: find a neighbour that belongs to enemy, then enemy can see
+    for (Territory<T> neigh: toCheck.getMyNeigh()) {
+      if (!checkMyTerritory(neigh)) {
+        finalVisibility = true;
+        break;
+      }
+    }
+    //TODO: add other condition later
+    return finalVisibility;
+  }
+
+  public void handleVisibility() {
+    for (Territory<T> toHandle: myTerritories) {
+      boolean visible = checkTerritoryVisibility(toHandle);
+      toHandle.setCanBeSeen(visible);
+      if (!toHandle.checkSeen() && visible) toHandle.setSeen(true);
+    }
+  }
+
+  public void updatePlayerTerritoriesInfo() {
+    for (Territory<T> t: myTerritories) {
+      t.updateOneRoundInfo();
+    }
+  }
 }
