@@ -20,4 +20,12 @@ public class TerritoryDisplayInfoTest {
         i1.updateLevelInfo(3,2);
         assertEquals(2,i1.getUnitNumList().get(3));
     }
+
+    @Test
+    public void test_latest() {
+        TerritoryDisplayInfo<Character> i1 = new TerritoryDisplayInfo<>();
+        assertTrue(i1.checkLatest());
+        i1.setIsLatest(false);
+        assertFalse(i1.checkLatest());
+    }
 }

@@ -10,9 +10,12 @@ import java.util.Collections;
  */
 public class TerritoryDisplayInfo<T> implements java.io.Serializable{
     private ArrayList<Integer> levelUnitNum; //store the amount of unit in each level to display
+    private boolean isLatest;  //indicate whether this information is updated to current.
+                               //for my own info, always true
 
     public TerritoryDisplayInfo() {
         this.levelUnitNum = new ArrayList<>(Collections.nCopies(7,0));
+        this.isLatest = true;
     }
 
     public ArrayList<Integer> getUnitNumList() {
@@ -21,5 +24,13 @@ public class TerritoryDisplayInfo<T> implements java.io.Serializable{
 
     public void updateLevelInfo(int level, int num) {
         levelUnitNum.set(level,num);
+    }
+
+    public void setIsLatest(boolean toSet) {
+        this.isLatest = toSet;
+    }
+
+    public boolean checkLatest() {
+        return isLatest;
     }
 }
