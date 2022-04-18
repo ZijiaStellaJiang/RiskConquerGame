@@ -275,5 +275,15 @@ public class Client {
     return canReachName;
   }
 
+  public boolean territoryIsMine (String territoryName) {
+    Territory<Character> territory = map.findTerritory(territoryName);
+    for (Territory<Character> t: map.getPlayer(player_id).getMyTerritories()) {
+      if(t.equals(territory)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
 }
 

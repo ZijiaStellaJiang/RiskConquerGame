@@ -40,8 +40,10 @@ public class TerritoryTest {
   @Test
   public void test_equals(){
     Territory<Character> territory1 = new Territory<Character>("test1");
+    Territory<Character> terr1 = new Territory<>("test1");
     Territory<Character> territory2 = new Territory<Character>("test2");
     assertEquals(true, territory1.equals(territory1));
+    assertEquals(true,terr1.equals(territory1));
     assertEquals(false, territory1.equals("test1"));
     assertEquals(false, territory1.equals(territory2));
   }

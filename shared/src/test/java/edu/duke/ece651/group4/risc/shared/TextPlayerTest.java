@@ -207,12 +207,17 @@ public class TextPlayerTest {
         assertEquals(4, a3.getEnemyInfo().get(3));
         assertEquals(4,a3.getMyInfo().get(3));
         assertEquals(2,a1.getEnemyInfo().get(6));
+        assertEquals(0,a1.getEnemyInfo().get(1));
+        assertTrue(a1.checkLatest());
+        assertTrue(b1.checkLatest());
+        assertThrows(IllegalArgumentException.class, b2::checkLatest);
         a1.addMyUnit(new SimpleUnit<>(1));
         p1.handleVisibility();
         p2.handleVisibility();
         p1.updatePlayerTerritoriesInfo();
         p2.updatePlayerTerritoriesInfo();
         assertEquals(1,a1.getEnemyInfo().get(1));
+        assertTrue(a1.checkLatest());
 
         p2.removeFromTerritory(b1);
         p1.addToTerritory(b1);
@@ -222,6 +227,8 @@ public class TextPlayerTest {
         p2.updatePlayerTerritoriesInfo();
         assertEquals(0,b2.getEnemyInfo().get(0));
         assertEquals(2,a1.getEnemyInfo().get(6));
+        assertFalse(a1.checkLatest());
+        assertTrue(b2.checkLatest());
 
         a1.removeMyUnit(new SimpleUnit<>(6));
         p1.handleVisibility();
@@ -229,6 +236,8 @@ public class TextPlayerTest {
         p1.updatePlayerTerritoriesInfo();
         p2.updatePlayerTerritoriesInfo();
         assertEquals(2,a1.getEnemyInfo().get(6));
+        assertEquals(1,a1.getMyInfo().get(6));
+        assertFalse(a1.checkLatest());
 
         b2.addMyUnit(new SimpleUnit<>(5));
         p1.handleVisibility();
@@ -236,5 +245,6 @@ public class TextPlayerTest {
         p1.updatePlayerTerritoriesInfo();
         p2.updatePlayerTerritoriesInfo();
         assertEquals(1,b2.getEnemyInfo().get(5));
+        assertTrue(b2.checkLatest());
     }
 }

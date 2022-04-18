@@ -200,7 +200,6 @@ public class Territory<T> implements java.io.Serializable {
     }
   }
 
-  //TODO: add test case (test setCanBeSeen and player.handleVisibility at the same time)
   public void updateOneRoundInfo () {
     updateInfo(true);
     if (canBeSeen || !seen) updateInfo(false);
@@ -223,8 +222,23 @@ public class Territory<T> implements java.io.Serializable {
     this.canBeSeen = toSet;
   }
 
+  public void setLatest(boolean toSet) {
+    infoForEnemy.setIsLatest(toSet);
+  }
+
   public boolean checkSeen() {
     return seen;
+  }
+
+  /**
+   * check getEnemyInfo() not null first !!!
+   * this function should not be used when a territory has not been seen yet
+   */
+  public boolean checkLatest() {
+    if(!seen && !canBeSeen) {
+      throw new IllegalArgumentException("can not access here, infoForEnemy should return null");
+    }
+    return infoForEnemy.checkLatest();
   }
 
   @Override
