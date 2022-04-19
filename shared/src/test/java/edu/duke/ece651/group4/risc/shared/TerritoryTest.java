@@ -150,4 +150,21 @@ public class TerritoryTest {
     t1.setSeen(true);
     assertTrue(t1.checkSeen());
   }
+
+  @Test
+  public void test_add_remove_spy() {
+    Territory<Character> t = new Territory<>("t1");
+    assertEquals(0,t.getSpyNumber());
+    assertEquals(0,t.getEnemySpyNumber());
+    t.addMySpy();
+    t.addMySpy();
+    t.addEnemySpy();
+    assertEquals(2,t.getSpyNumber());
+    assertEquals(1,t.getEnemySpyNumber());
+    assertTrue(t.hasEnemySpy());
+    t.removeMySpy();
+    t.removeEnemySpy();
+    assertEquals(1,t.getSpyNumber());
+    assertFalse(t.hasEnemySpy());
+  }
 }

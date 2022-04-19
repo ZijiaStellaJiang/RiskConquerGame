@@ -128,11 +128,4 @@ public class Map<T> implements java.io.Serializable {
     }
     return null;
   }
-
-//  public int getPlayerFood(int playerId){
-//    return myPlayers.get(playerId).getFoodNum();
-//  }
-//  public int getPlayerWood(int playerId){
-//    return myPlayers.get(playerId).getWoodNum();
-//  }
 }

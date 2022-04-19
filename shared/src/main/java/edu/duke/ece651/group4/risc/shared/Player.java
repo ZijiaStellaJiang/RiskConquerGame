@@ -166,7 +166,9 @@ public abstract class Player<T> implements java.io.Serializable{
         break;
       }
     }
-    //TODO: add other condition later
+    // 2nd condition: if there's am enemy spy, then enemy can see
+    if (toCheck.hasEnemySpy()) finalVisibility = true;
+    //todo: add other condition later
     return finalVisibility;
   }
 

@@ -293,5 +293,11 @@ public class Client {
     return false;
   }
 
+  public void updateVisibility () {
+    Player<Character> thePlayer = map.getPlayer(player_id);
+    thePlayer.handleVisibility();
+    thePlayer.updatePlayerTerritoriesInfo();
+  }
+
 }
 

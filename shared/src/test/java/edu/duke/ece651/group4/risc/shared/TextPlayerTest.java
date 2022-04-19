@@ -166,10 +166,11 @@ public class TextPlayerTest {
         p1.addToTerritory(t2);
         p1.addToTerritory(t3);
         p2.addToTerritory(k1);
-        p1.checkTerritoryVisibility(t2);
         assertTrue(p1.checkTerritoryVisibility(t2));
         assertFalse(p1.checkTerritoryVisibility(t1));
         assertThrows(IllegalArgumentException.class, ()->p2.checkTerritoryVisibility(t3));
+        t1.addEnemySpy();
+        assertTrue(p1.checkTerritoryVisibility(t1));
     }
 
     @Test
@@ -199,8 +200,8 @@ public class TextPlayerTest {
 
         assertNull(a3.getEnemyInfo());
         p1.handleVisibility();
-        p2.handleVisibility();
         p1.updatePlayerTerritoriesInfo();
+        p2.handleVisibility();
         p2.updatePlayerTerritoriesInfo();
         assertNull(a2.getEnemyInfo());
         assertNull(b2.getEnemyInfo());
@@ -213,8 +214,8 @@ public class TextPlayerTest {
         assertThrows(IllegalArgumentException.class, b2::checkLatest);
         a1.addMyUnit(new SimpleUnit<>(1));
         p1.handleVisibility();
-        p2.handleVisibility();
         p1.updatePlayerTerritoriesInfo();
+        p2.handleVisibility();
         p2.updatePlayerTerritoriesInfo();
         assertEquals(1,a1.getEnemyInfo().get(1));
         assertTrue(a1.checkLatest());
@@ -222,8 +223,8 @@ public class TextPlayerTest {
         p2.removeFromTerritory(b1);
         p1.addToTerritory(b1);
         p1.handleVisibility();
-        p2.handleVisibility();
         p1.updatePlayerTerritoriesInfo();
+        p2.handleVisibility();
         p2.updatePlayerTerritoriesInfo();
         assertEquals(0,b2.getEnemyInfo().get(0));
         assertEquals(2,a1.getEnemyInfo().get(6));
@@ -232,8 +233,8 @@ public class TextPlayerTest {
 
         a1.removeMyUnit(new SimpleUnit<>(6));
         p1.handleVisibility();
-        p2.handleVisibility();
         p1.updatePlayerTerritoriesInfo();
+        p2.handleVisibility();
         p2.updatePlayerTerritoriesInfo();
         assertEquals(2,a1.getEnemyInfo().get(6));
         assertEquals(1,a1.getMyInfo().get(6));
@@ -241,8 +242,8 @@ public class TextPlayerTest {
 
         b2.addMyUnit(new SimpleUnit<>(5));
         p1.handleVisibility();
-        p2.handleVisibility();
         p1.updatePlayerTerritoriesInfo();
+        p2.handleVisibility();
         p2.updatePlayerTerritoriesInfo();
         assertEquals(1,b2.getEnemyInfo().get(5));
         assertTrue(b2.checkLatest());
