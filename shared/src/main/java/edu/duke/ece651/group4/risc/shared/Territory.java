@@ -16,6 +16,7 @@ public class Territory<T> implements java.io.Serializable {
   private int distance;  //indicate the distance from a source, used to find minimum cost
   private TerritoryDisplayInfo<T> infoForMyself;
   private TerritoryDisplayInfo<T> infoForEnemy;
+  private Cloak cloak;
   /**
    * if canBeSeen is true, show the latest info to enemy
    * if canBeSeen is false, if seen is true, show old information
@@ -40,6 +41,7 @@ public class Territory<T> implements java.io.Serializable {
     this.infoForEnemy = new TerritoryDisplayInfo<>();
     this.seen = false;
     this.canBeSeen = false;
+    this.cloak = new Cloak();
   }
 
   /**
@@ -51,6 +53,20 @@ public class Territory<T> implements java.io.Serializable {
 
   public String getName(){
     return this.name;
+  }
+
+
+
+  public int cloakgetCount() {
+    return cloak.getCount();
+  }
+
+  public void cloakrenewCount(int count) {
+    cloak.renewCount(count);
+  }
+
+  public void cloakcountDown() {
+    cloak.countDown();
   }
 
   /**
