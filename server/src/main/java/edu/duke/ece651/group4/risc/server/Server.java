@@ -23,6 +23,8 @@ public class Server {
   private Action<Character> attack;
   private Action<Character> update;
   private Action<Character> supdate;
+  private Action<Character> rcloak;
+  private Action<Character> cloak;
 
   public Server(int port) throws IOException {
     serverSocket = new ServerSocket(port);
