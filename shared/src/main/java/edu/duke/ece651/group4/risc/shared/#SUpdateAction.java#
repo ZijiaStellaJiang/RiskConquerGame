@@ -2,7 +2,7 @@ package edu.duke.ece651.group4.risc.shared;
 
 public class SUpdateAction<T> extends Action<T> {
     public SUpdateAction() {
-        super(new SUpdateNumChecker<T>(new SUpdateResourceChecker<T>(null)));
+        super(new UpdateMaxLevelChecker<T>(new UpdateNumChecker<T>(new UpdateResourceChecker<T>(null))));
     }
 
 
@@ -17,8 +17,7 @@ public class SUpdateAction<T> extends Action<T> {
      * */
     @Override
     public String doAction(ActionParser parser, Map<T> map, Player<T> thePlayer) {
-        String checkMyRule = ruleChecker.checkActionRule(parser, map, thePlayer);
-        if (checkMyRule != null) return checkMyRule;
+        // TODO: check the rule first
         // find the source territory
         for(Territory<T> source: thePlayer.getMyTerritories()){
             if(source.getName().toUpperCase().equals(parser.getSource())){
@@ -32,7 +31,7 @@ public class SUpdateAction<T> extends Action<T> {
 
     private void updateUnits(Territory<T> territory, Player<T> player, int updateNum, int curLevel) {
         for (int i = 0; i < updateNum; i++) {
-            territory.removeMyUnit(new SimpleUnit<T>(0));
+            territory.removeMySpy();
             territory.addMySpy();
         }
         player.consumeResource(new WoodResource<>(updateNum * 20));

@@ -30,6 +30,8 @@ public class Territory<T> implements java.io.Serializable {
     this.myNeigh = new ArrayList<>();
     this.myUnits = new HashMap<>();
     this.enemyUnits = new HashMap<>();
+    this.mySpy = new ArrayList<>();
+    this.enemySpy = new ArrayList<>();
     this.size = size;
     this.foodAbility = foodAbility;
     this.woodAbility = woodAbility;
@@ -138,16 +140,16 @@ public class Territory<T> implements java.io.Serializable {
   }
 
   public void addMySpy() {
-    mySpy.remove(mySpy.size() - 1);
-  }
-  public void removeMySpy() {
     mySpy.add(new Spy<T>());
   }
+  public void removeMySpy() {
+    mySpy.remove(0);
+  }
   public void addEnemySpy() {
-    enemySpy.remove(enemySpy.size() - 1);
+    enemySpy.add(new Spy<T>());
   }
   public void removeEnemySpy() {
-    enemySpy.add(new Spy<T>());
+    enemySpy.remove(0);
   }
 
   public void addGroupUnit(ArrayList<Unit<T>> toAdd){
