@@ -76,6 +76,7 @@ public class UpgradeActionController implements Controller{
     if ((source.getValue() != null) && (from.getValue() != null) && (levelup.getText() != null)
         && (num.getText() != null)) {
       if (checkIntegerValid() == false) {
+        cost.setStyle("-fx-font:bold 10pt Copperplate");
         cost.setText("Level up or num needs to be integer");
         alert.setText("");
         return;
@@ -91,11 +92,13 @@ public class UpgradeActionController implements Controller{
         }
         ActionParser parser = new ActionParser("UPDATE", source_terr, null, unit_num, upgrade_from, level_up);
         String cost_val = parser.getCost(client.getMap());
+        cost.setStyle("-fx-font:bold 15pt Copperplate");
         cost.setText(cost_val);
         return;
       } catch (IllegalArgumentException e) {
       }
     }
+    cost.setStyle("-fx-font:bold 15pt Copperplate");
     cost.setText("Unavailable");
   }
 
@@ -125,6 +128,7 @@ public class UpgradeActionController implements Controller{
         .addListener((ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
           showCost();
         });
+    cost.setStyle("-fx-font:bold 15pt Copperplate");
     cost.setText("Unavailable");
 
   }

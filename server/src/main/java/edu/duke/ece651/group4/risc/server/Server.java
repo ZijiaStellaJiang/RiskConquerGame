@@ -22,6 +22,7 @@ public class Server {
   private Action<Character> move_enemy;
   private Action<Character> attack;
   private Action<Character> update;
+  private Action<Character> supdate;
 
   public Server(int port) throws IOException {
     serverSocket = new ServerSocket(port);
@@ -35,6 +36,7 @@ public class Server {
     move_enemy = new MoveAction<>(false);
     attack = new AttackAction<>();
     update = new UpdateAction<>();
+    supdate = new SUpdateAction<>();
   }
 
   public ServerSocket getServerSocket() {
@@ -133,6 +135,12 @@ public class Server {
           move_enemy.doAction(order, map, cur_player);
         } else if (order.getType().equals("UPDATE")) {
           update.doAction(order, map, cur_player);
+        } else if (order.getType().equals("SUPDATE")) {
+          supdate.doAction(order, map, cur_player);
+        } else if (order.getType().equals("SMOVE")) {
+          // TODO
+        } else if (order.getType().equals("CLOAK")) {
+          // TODO
         } else {
           System.out.println("WRONG TYPE ERROR!");
         }

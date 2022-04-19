@@ -239,12 +239,12 @@ public class MainMapController {
     return loader;
   }
 
-  public void loadNewPage(FXMLLoader loader, String css) throws IOException {
+  public void loadNewPage(FXMLLoader loader, String css, int width, int height) throws IOException {
     AnchorPane gp = loader.load();
     Controller controller = loader.getController();
     controller.setup();
     URL cssResource = getClass().getResource(css);
-    Scene scene = new Scene(gp);
+    Scene scene = new Scene(gp, width, height);
     scene.getStylesheets().add(cssResource.toString());
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -270,7 +270,7 @@ public class MainMapController {
     loader.setControllerFactory((c) -> {
       return controllers.get(c);
     });
-    loadNewPage(loader, "/ui/button.css");
+    loadNewPage(loader, "/ui/button.css", 629, 450);
   }
 
   /**
@@ -290,7 +290,7 @@ public class MainMapController {
     loader.setControllerFactory((c) -> {
       return controllers.get(c);
     });
-    loadNewPage(loader, "/ui/button.css");
+    loadNewPage(loader, "/ui/button.css", 629, 450);
   }
   public void listenStageClose(Stage stage){
     stage.setOnHidden(event -> {updateFoodAndWood();});
@@ -312,7 +312,7 @@ public class MainMapController {
     loader.setControllerFactory((c) -> {
       return controllers.get(c);
     });
-    loadNewPage(loader, "/ui/button.css");
+    loadNewPage(loader, "/ui/button.css", 681, 428);
   }
 
   /**

@@ -23,6 +23,7 @@ public class Client {
   private Action<Character> move_enemy;
   private Action<Character> attack;
   private Action<Character> update;
+  private Action<Character> supdate;
   private ArrayList<ActionParser> order_list;
   private MapTextView displayInfo;
 
@@ -37,6 +38,7 @@ public class Client {
     move_enemy = new MoveAction<>(false);
     attack = new AttackAction<>();
     update = new UpdateAction<>();
+    supdate = new SUpdateAction<>();
     order_list =  new ArrayList<ActionParser>();
     displayInfo = null;
     try {
@@ -182,7 +184,13 @@ public class Client {
         result = move_enemy.doAction(order, map, player);
       } else if (order.getType().equals("UPDATE")) {
         result = update.doAction(order, map, player);
-      } 
+      } else if (order.getType().equals("SUPDATE")) {
+        result = supdate.doAction(order, map, player);
+      } else if (order.getType().equals("SUPDATE")) {
+        // TODO
+      } else if (order.getType().equals("CLOAK")) {
+        // TODO
+      }
       if (result != null) {
         return result;
       }

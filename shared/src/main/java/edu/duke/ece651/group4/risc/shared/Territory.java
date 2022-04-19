@@ -8,6 +8,8 @@ public class Territory<T> implements java.io.Serializable {
   private ArrayList<Territory<T>> myNeigh;
   private HashMap<Integer,ArrayList<Unit<T>>> myUnits;
   private HashMap<Integer,ArrayList<Unit<T>>> enemyUnits;
+  private ArrayList<Spy<T>> mySpy;
+  private ArrayList<Spy<T>> enemySpy;
   private int size;
   private int foodAbility;  //indicate how much resource this territory can produce in each turn
   private int woodAbility;
@@ -28,6 +30,8 @@ public class Territory<T> implements java.io.Serializable {
     this.myNeigh = new ArrayList<>();
     this.myUnits = new HashMap<>();
     this.enemyUnits = new HashMap<>();
+    this.mySpy = new ArrayList<>();
+    this.enemySpy = new ArrayList<>();
     this.size = size;
     this.foodAbility = foodAbility;
     this.woodAbility = woodAbility;
@@ -101,6 +105,10 @@ public class Territory<T> implements java.io.Serializable {
     return sum;
   }
 
+  public Integer getSpyNumber() {
+    return mySpy.size();
+  }
+
   public Integer getLevelEnemyUnitNum(int level){
     if(enemyUnits.containsKey(level)) return enemyUnits.get(level).size();
     return 0;
@@ -129,6 +137,19 @@ public class Territory<T> implements java.io.Serializable {
 
   public void removeEnemyUnit(Unit<T> unitToRemove){
     removeUnitHelper(unitToRemove,enemyUnits);
+  }
+
+  public void addMySpy() {
+    mySpy.add(new Spy<T>());
+  }
+  public void removeMySpy() {
+    mySpy.remove(0);
+  }
+  public void addEnemySpy() {
+    enemySpy.add(new Spy<T>());
+  }
+  public void removeEnemySpy() {
+    enemySpy.remove(0);
   }
 
   public void addGroupUnit(ArrayList<Unit<T>> toAdd){
