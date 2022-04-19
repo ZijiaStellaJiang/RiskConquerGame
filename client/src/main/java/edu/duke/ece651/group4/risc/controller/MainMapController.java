@@ -2,8 +2,6 @@ package edu.duke.ece651.group4.risc.controller;
 
 import edu.duke.ece651.group4.risc.client.Client;
 import edu.duke.ece651.group4.risc.shared.*;
-import javafx.animation.PauseTransition;
-import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -129,6 +127,7 @@ public class MainMapController {
               String btn_name = btn.getText().toUpperCase();
               if (btn_name.equals(terr_name)) {
                 String player_name = p.getName().toUpperCase();
+                //TODO needs update
                 if (player_name.equals("GREEN")) {
                   btn.setStyle("-fx-border-color: green");
                 } else {
@@ -208,7 +207,26 @@ public class MainMapController {
     Button source = (Button) ae.getSource();
     String territory_name = source.getId();
     Territory<Character> terr = client.getMap().findTerritory(territory_name);
-    String text = displayTerritoryInfo(terr);
+    //check whether this territory belongs to my self
+    String text;
+    if(client.territoryIsMine(territory_name)){
+      text = displayTerritoryInfo(terr);//TODO change to get my info
+    }else{//if territory belongs to enemy
+        ArrayList<Integer> units_num = terr.getEnemyInfo();
+      if(units_num==null){
+        //cannot see
+        text = "you can not see the territory details\n";
+      }else{
+        //check whether it is old info
+        if(terr.checkLatest()){
+          //
+          text = "you can see enemy's new info\n";
+        }else{
+          //indicate it is old info
+          text = "you can see the old info\n";
+        }
+      }
+    }
     //    System.out.println(text);
     showDetails(text);
     source.getTooltip().setText(displayTerritoryInfo(terr));
