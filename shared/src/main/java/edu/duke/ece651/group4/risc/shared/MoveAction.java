@@ -51,22 +51,18 @@ public class MoveAction<T> extends Action<T>{
         if(checkRule!=null){
             return checkRule;
         }
-        for(Territory<T> source: thePlayer.getMyTerritories()){
-            if(source.getName().toUpperCase().equals(parser.getSource())){
-                int toMove = parser.getUnit();
-                int unit_level = parser.getLevel();
-                int cost;
-                if(moveToSamePlayer){
-                    cost = moveUnits(parser, source, thePlayer.getMyTerritories(), toMove, unit_level, thePlayer);
-                }
-                else {
-                    cost = moveUnits(parser, source, theMap.getMyTerritories(), toMove, unit_level, thePlayer);
-                }
-                thePlayer.consumeResource(new FoodResource<>(cost));
-                theMap.resetDistance();
-                break;
-            }
+        Territory<T> source = theMap.findTerritory(parser.getSource());
+        int toMove = parser.getUnit();
+        int unit_level = parser.getLevel();
+        int cost;
+        if(moveToSamePlayer){
+            cost = moveUnits(parser, source, thePlayer.getMyTerritories(), toMove, unit_level, thePlayer);
         }
+        else {
+            cost = moveUnits(parser, source, theMap.getMyTerritories(), toMove, unit_level, thePlayer);
+        }
+        thePlayer.consumeResource(new FoodResource<>(cost));
+        theMap.resetDistance();
         return null;
     }
 

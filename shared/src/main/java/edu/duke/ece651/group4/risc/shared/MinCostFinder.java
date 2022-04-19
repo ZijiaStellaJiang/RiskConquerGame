@@ -19,7 +19,7 @@ public class MinCostFinder<T> {
     public int findMinCost(Territory<T> source, Territory<T> dest, Player<T> player){
         //if the two territories are adjacent, minimum cost is the sum of their size
         if(source.checkNeigh(dest)) return source.getSize()+dest.getSize();
-        //if now adjacent, perform bfs search
+        //if not adjacent, perform bfs search
         Queue<Territory<T>> pq = new PriorityQueue<>(cmp);
         source.setDistance(source.getSize());
         pq.add(source);
