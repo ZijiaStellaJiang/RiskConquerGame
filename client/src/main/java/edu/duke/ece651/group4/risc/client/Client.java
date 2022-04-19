@@ -299,5 +299,10 @@ public class Client {
     return false;
   }
 
+  public boolean cloakIsResearch() {
+    Player<Character> player = map.getPlayer(player_id);
+    return player.cloakIsResearch();
+  }
+
 }
 
