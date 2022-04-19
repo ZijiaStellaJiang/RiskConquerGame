@@ -24,6 +24,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 public class ServerTest {
 
+  @Disabled
   @Test
   public void test_send_map() throws IOException, InterruptedException, ClassNotFoundException {
     ByteArrayOutputStream bytes = new ByteArrayOutputStream();
@@ -55,6 +56,7 @@ public class ServerTest {
   }
 
   // TODO: test connection
+  @Disabled
   @Test
   // @Timeout(2500)
   public void test_server() throws IOException, InterruptedException, ClassNotFoundException {

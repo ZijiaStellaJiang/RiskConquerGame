@@ -1,6 +1,6 @@
 package edu.duke.ece651.group4.risc.shared;
 
-public class Cloak {
+public class Cloak  implements java.io.Serializable {
     private int count;
     public Cloak() {
         this.count = 0;
