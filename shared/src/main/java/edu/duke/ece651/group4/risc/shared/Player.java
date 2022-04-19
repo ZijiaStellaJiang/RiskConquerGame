@@ -10,6 +10,7 @@ public abstract class Player<T> implements java.io.Serializable{
   //this field stores the combat result of last round. If wins a territory, map true; if loses, map false
   private HashMap<String,Boolean> lastRoundChange;
   private ArrayList<Resource<T>> myResource;
+  private boolean moveSpyInEnemy;
 
   public Player(String name, int foodInit, int woodInit) {
     this.name = name;
@@ -18,6 +19,7 @@ public abstract class Player<T> implements java.io.Serializable{
     myResource = new ArrayList<>();
     myResource.add(new FoodResource<>(foodInit));
     myResource.add(new WoodResource<>(woodInit));
+    moveSpyInEnemy = false;
   }
 
   public String getName() {
@@ -185,5 +187,13 @@ public abstract class Player<T> implements java.io.Serializable{
     for (Territory<T> t: myTerritories) {
       t.updateOneRoundInfo();
     }
+  }
+
+  public void setMoveSpyInEnemy(boolean toSet) {
+    this.moveSpyInEnemy = toSet;
+  }
+
+  public boolean getMoveSpyInEnemy() {
+    return this.moveSpyInEnemy;
   }
 }

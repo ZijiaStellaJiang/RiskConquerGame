@@ -1,13 +1,9 @@
 package edu.duke.ece651.group4.risc.shared;
 
 public class SMoveAction<T> extends Action<T> {
-    boolean moveFromMy;
-    boolean moveToMy;
-    public SMoveAction(boolean moveFromMy, boolean toMy) {
-        //todo: add checker
-        super(null);
-        this.moveFromMy = moveFromMy;
-        this.moveToMy = toMy;
+
+    public SMoveAction() {
+        super(new SMoveNumChecker<>(new SMovePathChecker<>(null)));
     }
 
     @Override
@@ -18,6 +14,8 @@ public class SMoveAction<T> extends Action<T> {
         }
         Territory<T> source = map.findTerritory(parser.getSource());
         Territory<T> dest = map.findTerritory(parser.getDest());
+        boolean moveFromMy = player.checkMyTerritory(source);
+        boolean moveToMy = player.checkMyTerritory(dest);
 
         //handle spy numbers in source and dest
         for (int i=0; i<parser.getUnit(); i++) {
