@@ -103,6 +103,10 @@ public class Territory<T> implements java.io.Serializable {
     return sum;
   }
 
+  public Integer getSpyNumber() {
+    return mySpy.size();
+  }
+
   public Integer getLevelEnemyUnitNum(int level){
     if(enemyUnits.containsKey(level)) return enemyUnits.get(level).size();
     return 0;
