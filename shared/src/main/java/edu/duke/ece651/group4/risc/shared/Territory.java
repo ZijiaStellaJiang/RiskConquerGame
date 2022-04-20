@@ -124,6 +124,9 @@ public class Territory<T> implements java.io.Serializable {
   public Integer getSpyNumber() {
     return mySpy.size();
   }
+  public Integer getEnemySpyNumber() {
+    return enemySpy.size();
+  }
 
   public Integer getLevelEnemyUnitNum(int level){
     if(enemyUnits.containsKey(level)) return enemyUnits.get(level).size();
@@ -166,6 +169,9 @@ public class Territory<T> implements java.io.Serializable {
   }
   public void removeEnemySpy() {
     enemySpy.remove(0);
+  }
+  public boolean hasEnemySpy() {
+    return getEnemySpyNumber()>0;
   }
 
   public void addGroupUnit(ArrayList<Unit<T>> toAdd){
