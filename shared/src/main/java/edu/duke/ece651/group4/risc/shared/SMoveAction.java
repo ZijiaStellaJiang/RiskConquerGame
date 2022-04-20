@@ -16,9 +16,10 @@ public class SMoveAction<T> extends Action<T> {
         Territory<T> dest = map.findTerritory(parser.getDest());
         boolean moveFromMy = player.checkMyTerritory(source);
         boolean moveToMy = player.checkMyTerritory(dest);
+        int toMove = parser.getUnit();
 
         //handle spy numbers in source and dest
-        for (int i=0; i<parser.getUnit(); i++) {
+        for (int i=0; i<toMove; i++) {
             if(moveFromMy) source.removeMySpy();
             else source.removeEnemySpy();
 
@@ -36,7 +37,7 @@ public class SMoveAction<T> extends Action<T> {
             //from enemy to mine
             else cost = costForMoveBetweenDifferentPlayer(source,dest,player);
         }
-        player.consumeResource(new FoodResource<>(cost));
+        player.consumeResource(new FoodResource<>(cost*toMove));
         map.resetDistance();
         return null;
     }

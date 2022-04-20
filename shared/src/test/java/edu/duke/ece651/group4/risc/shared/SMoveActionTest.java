@@ -7,7 +7,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class SMoveActionTest {
     @Test
     public void test_spy_move() {
-        //todo: test case
         Territory<Character> a1 = new Territory<>("a1",5,3,3);
         Territory<Character> a2 = new Territory<>("a2",2,6,6);
         Territory<Character> a3 = new Territory<>("a3",9,4,4);
