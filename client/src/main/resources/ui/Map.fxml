@@ -98,7 +98,7 @@
          </image>
       </ImageView>
       <ImageView fx:id="player_img" fitHeight="200.0" fitWidth="250.0" layoutX="500.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="clock_btn" layoutX="35.0" layoutY="349.0" mnemonicParsing="false" styleClass="transparent_btn">
+      <Button fx:id="cloak_btn" layoutX="35.0" layoutY="349.0" mnemonicParsing="false" styleClass="transparent_btn" onAction="#cloakAction">
          <graphic>
             <ImageView fitHeight="65.0" fitWidth="86.0" preserveRatio="true">
                <image>

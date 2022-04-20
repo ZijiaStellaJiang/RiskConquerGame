@@ -18,12 +18,9 @@ import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.ExecutionException;
@@ -80,6 +77,8 @@ public class MainMapController {
   private HashMap<Class<?>, Object> controllers;
   private HashMap<Integer, String> name_set1;
   private HashMap<Integer, String> name_set2;
+  @FXML
+  Button cloak_btn;
   public MainMapController(Client client) {
     this.client = client;
     System.out.println(client.getPlayerId());
@@ -94,6 +93,7 @@ public class MainMapController {
     showAttack.addEventHandler(MouseEvent.MOUSE_ENTERED, e->showAttack.setCursor(Cursor.HAND));
     showUpgrade.addEventHandler(MouseEvent.MOUSE_ENTERED, e->showUpgrade.setCursor(Cursor.HAND));
     commit_btn.addEventHandler(MouseEvent.MOUSE_ENTERED, e->commit_btn.setCursor(Cursor.HAND));
+    cloak_btn.addEventHandler(MouseEvent.MOUSE_ENTERED, e->commit_btn.setCursor(Cursor.HAND));
   }
   /**
    * tell user they are green player or blue player
@@ -424,6 +424,34 @@ public class MainMapController {
       stage.show();
     }
     System.out.println("finish one round game");
+  }
+
+  /**
+   * Handle cloak action
+   * @param ae
+   */
+  @FXML
+  public void cloakAction(ActionEvent ae) throws IOException {
+    //determine whether cloaked before
+    boolean ifCloak = client.cloakIsResearch();
+    if(ifCloak){//if have cloaked
+      //show cloak page
+      FXMLLoader loader = loadLoader("/ui/Cloak.fxml");
+      controllers.put(CloakController.class, new CloakController(client));// create a new controller and
+      // add it
+      loader.setControllerFactory((c) -> {
+        return controllers.get(c);
+      });
+      loadNewPage(loader, "/ui/button.css", 600, 400);
+
+    }else{//if have not cloaked
+      FXMLLoader loader = loadLoader("/ui/ResearchCloak.fxml");
+      controllers.put(ResearchCloakController.class, new ResearchCloakController(client));
+      loader.setControllerFactory((c) -> {
+        return controllers.get(c);
+      });
+      loadNewPage(loader, "/ui/button.css", 600, 400);
+    }
   }
 
 }
