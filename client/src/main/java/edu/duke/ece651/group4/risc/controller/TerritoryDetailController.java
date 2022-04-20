@@ -72,7 +72,7 @@ public class TerritoryDetailController {
     public void showUnit(){
         //Integer units = terr.getUnitNumber();
         //place images
-        if(player_id==0){
+        if(player_id==1){
             Image image1= new Image("pic/unit_icon/blue/jocker.png", 400, 300, true, false);
             unit0.setText(""+terr.getLevelUnitNum(0));
             unit0_img.setImage(image1);

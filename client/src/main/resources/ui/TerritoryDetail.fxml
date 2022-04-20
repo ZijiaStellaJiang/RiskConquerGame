@@ -31,9 +31,9 @@
             <Image url="@../pic/info/pic.png" />
          </image>
       </ImageView>
-      <Label layoutX="64.0" layoutY="166.0" styleClass="text_css" text="Territory Name:" />
+      <Label layoutX="64.0" layoutY="179.0" styleClass="text_css" text="Territory Name:" />
       <Text fx:id="name" layoutX="250.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" wrappingWidth="4.0" />
-      <Text layoutX="380.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" text="Size:" />
+      <Text layoutX="380.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" text="Size:" />
       <Text layoutX="64.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" text="Food:" />
       <Text layoutX="380.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" text="Weight:" />
       <Text fx:id="size" layoutX="500.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" wrappingWidth="26.40625" />
