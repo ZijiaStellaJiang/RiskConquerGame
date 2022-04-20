@@ -26,7 +26,7 @@ public class SUpdateAction<T> extends Action<T> {
                 updateUnits(source, thePlayer, updateNum, 0);
                 break;
             }
-          }
+        }
         return null;
     }
 

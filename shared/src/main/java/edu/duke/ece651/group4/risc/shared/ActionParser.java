@@ -48,11 +48,12 @@ public class ActionParser implements java.io.Serializable{
   public ActionParser(String type, String source, String dest, int num, int level, int levelUp) {
     String upper = type.toUpperCase();
     if(!upper.equals("MOVE") && !upper.equals("ATTACK") && !upper.equals("UPDATE") 
-      && !upper.equals("SUPDATE") && !upper.equals("SMOVE") && !upper.equals("CLOAK")){
+      && !upper.equals("SUPDATE") && !upper.equals("SMOVE") && !upper.equals("CLOAK")
+      && !upper.equals("RCLOAK")){
       throw new IllegalArgumentException("type needs to be move or attack or update");
     }
     this.type = upper;
-    this.source_name = source.toUpperCase();
+    this.source_name = upper.equals("RCLOAK") ? null : source.toUpperCase();
     this.dest_name = dest == null ? null : dest.toUpperCase();
     this.numofUnit = num;
     this.levelofUnit = level;
