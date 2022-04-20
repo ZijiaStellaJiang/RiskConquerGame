@@ -78,11 +78,15 @@ public class MainMapController {
   @FXML
   ImageView player_img;
   private HashMap<Class<?>, Object> controllers;
-
+  private HashMap<Integer, String> name_set1;
+  private HashMap<Integer, String> name_set2;
   public MainMapController(Client client) {
     this.client = client;
     System.out.println(client.getPlayerId());
     controllers = new HashMap<>();
+    name_set1 = new HashMap<>();
+    name_set2 = new HashMap<>();
+
   }
   @FXML
   public void initialize(){
