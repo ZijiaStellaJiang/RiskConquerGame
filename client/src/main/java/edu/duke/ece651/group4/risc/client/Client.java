@@ -309,6 +309,9 @@ public class Client {
     thePlayer.handleVisibility();
     thePlayer.updatePlayerTerritoriesInfo();
     thePlayer.setMoveSpyInEnemy(false);
+    for (Territory<Character> t: thePlayer.getMyTerritories()) {
+      t.cloakcountDown();
+    }
   }
 
 }

@@ -3,7 +3,7 @@ package edu.duke.ece651.group4.risc.shared;
 public class SMoveAction<T> extends Action<T> {
 
     public SMoveAction() {
-        super(new SMoveNumChecker<>(new SMovePathChecker<>(null)));
+        super(new SMoveNumChecker<>(new SMovePathChecker<>(new SMoveResourceChecker<>(null))));
     }
 
     @Override
@@ -30,12 +30,11 @@ public class SMoveAction<T> extends Action<T> {
         //calculate cost
         int cost;
         MinCostFinder<T> finder = new MinCostFinder<>();
-        if(moveFromMy==moveToMy) cost = finder.findMinCost(source,dest,player);
+        if(source.checkNeigh(dest)) cost = source.getSize()+dest.getSize();
+        else if(moveFromMy==moveToMy) cost = finder.findMinCost(source,dest,player);
         else {
             //from mine to enemy
-            if(moveFromMy) cost = costForMoveBetweenDifferentPlayer(dest,source,player);
-            //from enemy to mine
-            else cost = costForMoveBetweenDifferentPlayer(source,dest,player);
+            cost = costForMoveBetweenDifferentPlayer(dest,source,player);
         }
         player.consumeResource(new FoodResource<>(cost*toMove));
         map.resetDistance();

@@ -41,6 +41,9 @@ public class AttackAction<T> extends Action<T> {
                 dest.addMySpy();
             }
             dest.setSeen(false);
+            while(dest.cloakgetCount()>0) {
+                dest.cloakcountDown();
+            }
             //todo: test
         }
         //attacker loses, ownership doesn't change, nothing changed
