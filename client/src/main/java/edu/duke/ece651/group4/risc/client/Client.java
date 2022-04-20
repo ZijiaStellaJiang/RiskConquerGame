@@ -24,6 +24,8 @@ public class Client {
   private Action<Character> attack;
   private Action<Character> update;
   private Action<Character> supdate;
+  private Action<Character> rcloak;
+  private Action<Character> cloak;
   private ArrayList<ActionParser> order_list;
   private MapTextView displayInfo;
 
@@ -39,6 +41,8 @@ public class Client {
     attack = new AttackAction<>();
     update = new UpdateAction<>();
     supdate = new SUpdateAction<>();
+    rcloak = new CloakAction<>();
+    cloak = new CloakAction<>();
     order_list =  new ArrayList<ActionParser>();
     displayInfo = null;
     try {
@@ -185,10 +189,12 @@ public class Client {
         result = update.doAction(order, map, player);
       } else if (order.getType().equals("SUPDATE")) {
         result = supdate.doAction(order, map, player);
-      } else if (order.getType().equals("SUPDATE")) {
+      } else if (order.getType().equals("SMOVE")) {
         // TODO
       } else if (order.getType().equals("CLOAK")) {
-        // TODO
+        result = cloak.doAction(order, map, player);
+      } else if (order.getType().equals("RCLOAK")) {
+        result = rcloak.doAction(order, map, player);
       }
       if (result != null) {
         return result;
@@ -293,11 +299,9 @@ public class Client {
     return false;
   }
 
-  public void updateOneRoundNeeded () {
-    Player<Character> thePlayer = map.getPlayer(player_id);
-    thePlayer.handleVisibility();
-    thePlayer.updatePlayerTerritoriesInfo();
-    thePlayer.setMoveSpyInEnemy(false);
+  public boolean cloakIsResearch() {
+    Player<Character> player = map.getPlayer(player_id);
+    return player.cloakIsResearch();
   }
 
 }

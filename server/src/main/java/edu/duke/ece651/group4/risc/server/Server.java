@@ -7,6 +7,7 @@ package edu.duke.ece651.group4.risc.server;
 import edu.duke.ece651.group4.risc.shared.*;
 
 import java.net.*;
+import java.time.Clock;
 import java.io.*;
 import java.util.ArrayList;
 
@@ -23,6 +24,8 @@ public class Server {
   private Action<Character> attack;
   private Action<Character> update;
   private Action<Character> supdate;
+  private Action<Character> rcloak;
+  private Action<Character> cloak;
 
   public Server(int port) throws IOException {
     serverSocket = new ServerSocket(port);
@@ -37,6 +40,8 @@ public class Server {
     attack = new AttackAction<>();
     update = new UpdateAction<>();
     supdate = new SUpdateAction<>();
+    rcloak = new CloakAction<>();
+    cloak = new CloakAction<>();
   }
 
   public ServerSocket getServerSocket() {
@@ -140,7 +145,9 @@ public class Server {
         } else if (order.getType().equals("SMOVE")) {
           // TODO
         } else if (order.getType().equals("CLOAK")) {
-          // TODO
+          cloak.doAction(order, map, cur_player);
+        } else if (order.getType().equals("RCLOAK")) {
+          rcloak.doAction(order, map, cur_player);
         } else {
           System.out.println("WRONG TYPE ERROR!");
         }
