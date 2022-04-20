@@ -304,5 +304,12 @@ public class Client {
     return player.cloakIsResearch();
   }
 
+  public void updateOneRoundNeeded() {
+    Player<Character> thePlayer = map.getPlayer(player_id);
+    thePlayer.handleVisibility();
+    thePlayer.updatePlayerTerritoriesInfo();
+    thePlayer.setMoveSpyInEnemy(false);
+  }
+
 }
 

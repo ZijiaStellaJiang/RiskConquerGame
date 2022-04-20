@@ -19,7 +19,6 @@ public class AttackAction<T> extends Action<T> {
         CombatResolution<T> resolve = new V1SimpleResolution<>(dest,seed);
         //if attacker wins, change both player's own territory
         if(resolve.resolveCombat()){
-            //TODO: set seen and canBeSeen
             Player<T> preOwner = theMap.findPlayer(dest);
             preOwner.removeFromTerritory(dest);
             preOwner.addLoseTerritory(dest.getName());
@@ -31,6 +30,18 @@ public class AttackAction<T> extends Action<T> {
                 dest.addMyUnit(new SimpleUnit<>(minLevel));
                 dest.removeEnemyUnit(new SimpleUnit<>(minLevel));
             }
+            int mySpy = dest.getSpyNumber();
+            int enemySpy = dest.getEnemySpyNumber();
+            for (int i=0; i<mySpy; i++) {
+                dest.removeMySpy();
+                dest.addEnemySpy();
+            }
+            for (int i=0; i<enemySpy; i++) {
+                dest.removeEnemySpy();
+                dest.addMySpy();
+            }
+            dest.setSeen(false);
+            //todo: test
         }
         //attacker loses, ownership doesn't change, nothing changed
     }

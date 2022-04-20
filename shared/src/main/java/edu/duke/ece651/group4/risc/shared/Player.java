@@ -11,6 +11,7 @@ public abstract class Player<T> implements java.io.Serializable{
   private HashMap<String,Boolean> lastRoundChange;
   private ArrayList<Resource<T>> myResource;
   private boolean researchCloak;
+  private boolean moveSpyInEnemy;
   
 
   public Player(String name, int foodInit, int woodInit) {
@@ -21,6 +22,7 @@ public abstract class Player<T> implements java.io.Serializable{
     myResource.add(new FoodResource<>(foodInit));
     myResource.add(new WoodResource<>(woodInit));
     this.researchCloak = false;
+    this.moveSpyInEnemy = false;
   }
 
   public String getName() {
@@ -177,7 +179,9 @@ public abstract class Player<T> implements java.io.Serializable{
         break;
       }
     }
-    //TODO: add other condition later
+    // 2nd condition: if there's am enemy spy, then enemy can see
+    if (toCheck.hasEnemySpy()) finalVisibility = true;
+    //todo: add other condition later
     return finalVisibility;
   }
 
@@ -194,5 +198,13 @@ public abstract class Player<T> implements java.io.Serializable{
     for (Territory<T> t: myTerritories) {
       t.updateOneRoundInfo();
     }
+  }
+
+  public void setMoveSpyInEnemy(boolean toSet) {
+    this.moveSpyInEnemy = toSet;
+  }
+
+  public boolean getMoveSpyInEnemy() {
+    return this.moveSpyInEnemy;
   }
 }
