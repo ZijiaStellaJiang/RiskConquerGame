@@ -219,6 +219,25 @@ public class MainMapController {
     stage.show();
   }
 
+  public void showFogWar(Territory<Character> terr, String text) throws IOException {
+    URL xmlResource = getClass().getResource("/ui/TerritoryDetail.fxml");
+    URL cssResource = getClass().getResource("/ui/button.css");
+    FXMLLoader loader = new FXMLLoader(xmlResource);
+    // setup controller
+    controllers.put(TerritoryDetailController.class, new TerritoryDetailController(terr, client.getPlayerId()));
+    loader.setControllerFactory((c) -> {
+      return controllers.get(c);
+    });
+    AnchorPane gp = loader.load();
+    TerritoryDetailController territoryDetailController = loader.getController();
+    territoryDetailController.setup(text);
+    Scene scene = new Scene(gp);
+    scene.getStylesheets().add(cssResource.toString());
+    Stage stage = new Stage();
+    stage.setScene(scene);
+    stage.show();
+  }
+
   /**
    * display details of each territory
    * 
@@ -250,7 +269,8 @@ public class MainMapController {
       }
     }
     //    System.out.println(text);
-    showDetails(text);
+    //showDetails(text);
+    showFogWar(terr, text);
     source.getTooltip().setText(displayTerritoryInfo(terr));
 
   }
