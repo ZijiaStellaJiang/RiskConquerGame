@@ -11,6 +11,7 @@ public abstract class Player<T> implements java.io.Serializable{
   private HashMap<String,Boolean> lastRoundChange;
   private ArrayList<Resource<T>> myResource;
   private boolean researchCloak;
+  private boolean moveSpyInEnemy;
   
 
   public Player(String name, int foodInit, int woodInit) {
@@ -21,6 +22,7 @@ public abstract class Player<T> implements java.io.Serializable{
     myResource.add(new FoodResource<>(foodInit));
     myResource.add(new WoodResource<>(woodInit));
     this.researchCloak = false;
+    this.moveSpyInEnemy = false;
   }
 
   public String getName() {
