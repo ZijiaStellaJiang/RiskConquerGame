@@ -7,9 +7,9 @@ public class SMovePathChecker<T> extends ActionRuleChecker<T> {
 
     @Override
     protected String checkMyRule(ActionParser parse, Map<T> map, Player<T> p) {
-        //todo: test
         Territory<T> source = map.findTerritory(parse.getSource());
         Territory<T> dest = map.findTerritory(parse.getDest());
+        if(source.equals(dest)) return null;
         boolean sourceMine = p.checkMyTerritory(source);
         boolean destMine = p.checkMyTerritory(dest);
         //if move from own territory
