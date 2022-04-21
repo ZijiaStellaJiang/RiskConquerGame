@@ -74,6 +74,8 @@ public class MainMapController {
   Text victory_msg;
   @FXML
   ImageView player_img;
+  @FXML
+  Button spy_btn;
   private HashMap<Class<?>, Object> controllers;
   private HashMap<Integer, String> name_set1;
   private HashMap<Integer, String> name_set2;
@@ -107,7 +109,8 @@ public class MainMapController {
     showAttack.addEventHandler(MouseEvent.MOUSE_ENTERED, e->showAttack.setCursor(Cursor.HAND));
     showUpgrade.addEventHandler(MouseEvent.MOUSE_ENTERED, e->showUpgrade.setCursor(Cursor.HAND));
     commit_btn.addEventHandler(MouseEvent.MOUSE_ENTERED, e->commit_btn.setCursor(Cursor.HAND));
-    cloak_btn.addEventHandler(MouseEvent.MOUSE_ENTERED, e->commit_btn.setCursor(Cursor.HAND));
+    cloak_btn.addEventHandler(MouseEvent.MOUSE_ENTERED, e->cloak_btn.setCursor(Cursor.HAND));
+    spy_btn.addEventHandler(MouseEvent.MOUSE_ENTERED, e->spy_btn.setCursor(Cursor.HAND));
     cloak_icons.add(cloak1);
     cloak_icons.add(cloak2);
     cloak_icons.add(cloak3);
@@ -506,4 +509,13 @@ public class MainMapController {
     }
   }
 
+  @FXML
+  public void spyAction() throws IOException {
+    FXMLLoader loader = loadLoader("/ui/Spy.fxml");
+    controllers.put(SpyController.class, new SpyController(client));
+    loader.setControllerFactory((c) -> {
+      return controllers.get(c);
+    });
+    loadNewPage(loader, "/ui/button.css", 600, 400);
+  }
 }
