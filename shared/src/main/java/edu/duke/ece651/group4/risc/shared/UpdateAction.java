@@ -34,6 +34,8 @@ public class UpdateAction<T> extends Action<T>{
           break;
       }
     }
+    Territory<T> source = theMap.findTerritory(parser.getSource());
+    source.updateInfo(true);
     return null;
   }
 
