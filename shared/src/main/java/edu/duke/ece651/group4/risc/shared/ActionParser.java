@@ -1,5 +1,6 @@
 package edu.duke.ece651.group4.risc.shared;
 
+import java.awt.*;
 import java.util.Objects;
 
 /**
@@ -135,24 +136,62 @@ public class ActionParser implements java.io.Serializable{
     Territory<Character> source = theMap.getTerritory(source_name);
     Territory<Character> dest = theMap.getTerritory(dest_name);
     Player<Character> player = theMap.findPlayer(source);
-    if(type.equals("MOVE")){
-      MinCostFinder<Character> finder = new MinCostFinder<>();
-      int cost = finder.findMinCost(source,dest,player);
-      theMap.resetDistance();
-      return "food: "+cost*numofUnit;
-    }
-    else if(type.equals("ATTACK")){
-      int cost = 1;
-      return "food: "+cost*numofUnit;
-    }
-    else {
-      //TODO
-      int cost = 0;
-      for (int i=levelofUnit; i<levelofUnit+levelUp; i++){
-        Unit<Character> unit = new SimpleUnit<>(i);
-        cost = cost + unit.updateCost();
+    switch (type) {
+      case "MOVE" -> {
+        MinCostFinder<Character> finder = new MinCostFinder<>();
+        int cost = finder.findMinCost(source, dest, player);
+        theMap.resetDistance();
+        return "food: " + cost * numofUnit;
       }
-      return "wood: "+cost*numofUnit;
+      case "ATTACK" -> {
+        int cost = 1;
+        return "food: " + cost * numofUnit;
+      }
+      case "UPDATE" -> {
+        int cost = 0;
+        for (int i = levelofUnit; i < levelofUnit + levelUp; i++) {
+          Unit<Character> unit = new SimpleUnit<>(i);
+          cost = cost + unit.updateCost();
+        }
+        return "wood: " + cost * numofUnit;
+      }
+      case "SUPDATE" -> {
+        int cost = 20;
+        return "wood: " + cost * numofUnit;
+      }
+      case "SMOVE" -> {
+        boolean moveToSame = player.checkMyTerritory(source) && player.checkMyTerritory(dest);
+        int cost;
+        MinCostFinder<Character> finder = new MinCostFinder<>();
+        if (source.checkNeigh(dest)) cost = source.getSize() + dest.getSize();
+        else if (moveToSame) cost = finder.findMinCost(source, dest, player);
+        else {
+          //from mine to enemy
+          cost = costForMoveBetweenDifferentPlayer(dest, source, player);
+        }
+        theMap.resetDistance();
+        return "food: " + cost * numofUnit;
+      }
+      case "CLOAK" -> {
+        int cost = 20;
+        return "wood: " + cost;
+      }
+      case "RCLOAK" -> {
+        int cost = 100;
+        return "wood: " + cost;
+      }
     }
+    return null;
+  }
+  private int costForMoveBetweenDifferentPlayer (Territory<Character> findAdjacent, Territory<Character> endPoint,
+                                                 Player<Character> player) {
+    int minCost = 300;
+    MinCostFinder<Character> finder = new MinCostFinder<>();
+    for(Territory<Character> neigh: findAdjacent.getMyNeigh()) {
+      if(!player.checkMyTerritory(neigh)) continue;
+      int cost = finder.findMinCost(neigh,endPoint,player);
+      if(cost<minCost) minCost = cost;
+    }
+    return minCost + findAdjacent.getSize();
   }
 }
