@@ -128,4 +128,15 @@ public class Map<T> implements java.io.Serializable {
     }
     return null;
   }
+
+  public void updateOneRound() {
+    for (Player<T> p: myPlayers) {
+      p.handleVisibility();
+      p.updatePlayerTerritoriesInfo();
+      p.setMoveSpyInEnemy(false);
+      for (Territory<T> t: p.getMyTerritories()) {
+        t.cloakcountDown();
+      }
+    }
+  }
 }

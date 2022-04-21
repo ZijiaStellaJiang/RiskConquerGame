@@ -117,7 +117,8 @@ public class MainMapController {
     for(int i=0; i<cloak_icons.size(); i++){
       cloak_icons.get(i).setVisible(false);
     }
-    client.updateOneRoundNeeded();
+//    client.updateOneRoundNeeded();
+    client.getMap().updateOneRound();
   }
   /**
    * tell user they are green player or blue player
@@ -447,7 +448,7 @@ public class MainMapController {
     client.oneRoundUpdate();
     System.out.println("updated!!!");
     wait_msg.setText("Please enter your next actions");
-    client.updateOneRoundNeeded();
+    client.getMap().updateOneRound();
     setButtonsDisable(false);
     // display new map
 
