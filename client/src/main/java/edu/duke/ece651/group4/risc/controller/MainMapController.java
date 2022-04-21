@@ -79,12 +79,26 @@ public class MainMapController {
   private HashMap<Integer, String> name_set2;
   @FXML
   Button cloak_btn;
+  @FXML
+  ImageView cloak1;
+  @FXML
+  ImageView cloak2;
+  @FXML
+  ImageView cloak3;
+  @FXML
+  ImageView cloak4;
+  @FXML
+  ImageView cloak5;
+  @FXML
+  ImageView cloak6;
+  private ArrayList<ImageView> cloak_icons;
   public MainMapController(Client client) {
     this.client = client;
     System.out.println(client.getPlayerId());
     controllers = new HashMap<>();
     name_set1 = new HashMap<>();
     name_set2 = new HashMap<>();
+    cloak_icons = new ArrayList<ImageView>();
 
   }
   @FXML
@@ -94,11 +108,21 @@ public class MainMapController {
     showUpgrade.addEventHandler(MouseEvent.MOUSE_ENTERED, e->showUpgrade.setCursor(Cursor.HAND));
     commit_btn.addEventHandler(MouseEvent.MOUSE_ENTERED, e->commit_btn.setCursor(Cursor.HAND));
     cloak_btn.addEventHandler(MouseEvent.MOUSE_ENTERED, e->commit_btn.setCursor(Cursor.HAND));
+    cloak_icons.add(cloak1);
+    cloak_icons.add(cloak2);
+    cloak_icons.add(cloak3);
+    cloak_icons.add(cloak4);
+    cloak_icons.add(cloak5);
+    cloak_icons.add(cloak6);
+    for(int i=0; i<cloak_icons.size(); i++){
+      cloak_icons.get(i).setVisible(false);
+    }
+    client.updateOneRoundNeeded();
   }
   /**
    * tell user they are green player or blue player
    */
-  public void displayPlayerMsg() throws FileNotFoundException {
+  public void displayPlayerMsg(){
     String player_name = client.getMap().getPlayerName(client.getPlayerId());
     player_color.setText(player_name);
     String image_path;
@@ -211,7 +235,7 @@ public class MainMapController {
     });
     AnchorPane gp = loader.load();
     TerritoryDetailController territoryDetailController = loader.getController();
-    territoryDetailController.setup(text);
+    territoryDetailController.setup();
     Scene scene = new Scene(gp);
     scene.getStylesheets().add(cssResource.toString());
     Stage stage = new Stage();
@@ -219,19 +243,24 @@ public class MainMapController {
     stage.show();
   }
 
-  public void showFogWar(Territory<Character> terr, String text) throws IOException {
+  /**
+   * Show the territory details in fog war
+   * @param terr
+   * @throws IOException
+   */
+  public void showFogWar(Territory<Character> terr) throws IOException {
     URL xmlResource = getClass().getResource("/ui/TerritoryDetail.fxml");
     URL cssResource = getClass().getResource("/ui/button.css");
     FXMLLoader loader = new FXMLLoader(xmlResource);
     // setup controller
-    controllers.put(TerritoryDetailController.class, new TerritoryDetailController(terr, client.getPlayerId()));
+    controllers.put(TerritoryDetailController.class, new TerritoryDetailController(terr, client.getPlayerId(), client.territoryIsMine(terr.getName())));
     loader.setControllerFactory((c) -> {
       return controllers.get(c);
     });
     AnchorPane gp = loader.load();
     TerritoryDetailController territoryDetailController = loader.getController();
-    territoryDetailController.setup(text);
-    Scene scene = new Scene(gp);
+    territoryDetailController.setup();
+    Scene scene = new Scene(gp, 600, 550);
     scene.getStylesheets().add(cssResource.toString());
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -241,7 +270,7 @@ public class MainMapController {
   /**
    * display details of each territory
    * 
-   * @param ae
+   * @param ae action event
    */
   @FXML
   public void displayTerritory(ActionEvent ae) throws IOException {
@@ -249,38 +278,50 @@ public class MainMapController {
     String territory_name = source.getId();
     Territory<Character> terr = client.getMap().findTerritory(territory_name);
     //check whether this territory belongs to my self
-    String text;
-    if(client.territoryIsMine(territory_name)){
-      text = displayTerritoryInfo(terr);//TODO change to get my info
-    }else{//if territory belongs to enemy
-        ArrayList<Integer> units_num = terr.getEnemyInfo();
-      if(units_num==null){
-        //cannot see
-        text = "you can not see the territory details\n";
-      }else{
-        //check whether it is old info
-        if(terr.checkLatest()){
-          //
-          text = "you can see enemy's new info\n";
-        }else{
-          //indicate it is old info
-          text = "you can see the old info\n";
-        }
-      }
-    }
+//    String text;
+//    if(client.territoryIsMine(territory_name)){
+//      text = "This is your territory info";//TODO change to get my info
+//    }else{//if territory belongs to enemy
+//        ArrayList<Integer> units_num = terr.getEnemyInfo();
+//      if(units_num==null){
+//        //cannot see
+//        text = "you can not see the territory details\n";
+//      }else{
+//        //check whether it is old info
+//        if(terr.checkLatest()){
+//          //
+//          text = "you can see enemy's new info\n";
+//        }else{
+//          //indicate it is old info
+//          text = "you can see the old info\n";
+//        }
+//      }
+//    }
     //    System.out.println(text);
     //showDetails(text);
-    showFogWar(terr, text);
-    source.getTooltip().setText(displayTerritoryInfo(terr));
+    showFogWar(terr);
 
   }
 
+  /**
+   * Init loader
+   * @param fxml loader file
+   * @return
+   */
   public FXMLLoader loadLoader(String fxml){
     URL xmlResource = getClass().getResource(fxml);
     FXMLLoader loader = new FXMLLoader(xmlResource);
     return loader;
   }
 
+  /**
+   * Loads new page
+   * @param loader fxml loader
+   * @param css css fime
+   * @param width window width
+   * @param height window height
+   * @throws IOException
+   */
   public void loadNewPage(FXMLLoader loader, String css, int width, int height) throws IOException {
     AnchorPane gp = loader.load();
     Controller controller = loader.getController();
@@ -334,8 +375,17 @@ public class MainMapController {
     });
     loadNewPage(loader, "/ui/button.css", 629, 450);
   }
+
+  /**
+   * Update cloak icon visibility
+   */
+  public void updateCloakIconVisiblity(){
+//    if(client.cloakIsResearch() && client)
+  }
   public void listenStageClose(Stage stage){
-    stage.setOnHidden(event -> {updateFoodAndWood();});
+
+    stage.setOnHidden(event -> {updateFoodAndWood();updateCloakIconVisiblity();
+    });
   }
 
   /**
@@ -397,6 +447,7 @@ public class MainMapController {
     client.oneRoundUpdate();
     System.out.println("updated!!!");
     wait_msg.setText("Please enter your next actions");
+    client.updateOneRoundNeeded();
     setButtonsDisable(false);
     // display new map
 

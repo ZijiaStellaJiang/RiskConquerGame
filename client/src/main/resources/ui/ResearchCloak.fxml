@@ -20,7 +20,7 @@
         </ImageView>
 
         <Text fx:id="alert" layoutX="116.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text layoutX="215.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do you want to research cloak?" textAlignment="CENTER" styleClass="text_css"/>
+      <Text layoutX="185.0" layoutY="131.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Do you want to research cloak?" textAlignment="CENTER" styleClass="text_css"/>
       <Button fx:id="yes_btn" layoutX="175.0" layoutY="189.0" mnemonicParsing="false" text="YES" onAction="#researchCloak"/>
       <Button fx:id="no_btn" layoutX="339.0" layoutY="189.0" mnemonicParsing="false" text="NO" onAction="#exit"/>
     </children>

@@ -52,18 +52,22 @@ public class MoveAction<T> extends Action<T>{
             return checkRule;
         }
         Territory<T> source = theMap.findTerritory(parser.getSource());
+        Territory<T> dest = theMap.findTerritory(parser.getDest());
         int toMove = parser.getUnit();
         int unit_level = parser.getLevel();
         int cost;
         if(moveToSamePlayer){
             cost = moveUnits(parser, source, thePlayer.getMyTerritories(), toMove, unit_level, thePlayer);
+            dest.updateInfo(true);
         }
         else {
             cost = moveUnits(parser, source, theMap.getMyTerritories(), toMove, unit_level, thePlayer);
         }
+        source.updateInfo(true);
         thePlayer.consumeResource(new FoodResource<>(cost));
         theMap.resetDistance();
         return null;
+
     }
 
     /**

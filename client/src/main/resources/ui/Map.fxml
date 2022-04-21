@@ -98,7 +98,7 @@
          </image>
       </ImageView>
       <ImageView fx:id="player_img" fitHeight="200.0" fitWidth="250.0" layoutX="500.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
-      <Button fx:id="cloak_btn" layoutX="35.0" layoutY="349.0" mnemonicParsing="false" styleClass="transparent_btn" onAction="#cloakAction">
+      <Button fx:id="cloak_btn" layoutX="35.0" layoutY="349.0" mnemonicParsing="false" onAction="#cloakAction" styleClass="transparent_btn">
          <graphic>
             <ImageView fitHeight="65.0" fitWidth="86.0" preserveRatio="true">
                <image>
@@ -116,5 +116,35 @@
             </ImageView>
          </graphic>
       </Button>
+      <ImageView fx:id="cloak1" fitHeight="58.0" fitWidth="51.0" layoutX="87.0" layoutY="274.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/map/cloak_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="cloak3" fitHeight="58.0" fitWidth="51.0" layoutX="271.0" layoutY="205.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/map/cloak_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="cloak4" fitHeight="58.0" fitWidth="51.0" layoutX="393.0" layoutY="66.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/map/cloak_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="cloak2" fitHeight="58.0" fitWidth="51.0" layoutX="271.0" layoutY="66.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/map/cloak_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="cloak5" fitHeight="58.0" fitWidth="51.0" layoutX="419.0" layoutY="205.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/map/cloak_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="cloak6" fitHeight="58.0" fitWidth="51.0" layoutX="419.0" layoutY="274.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/map/cloak_icon.png" />
+         </image>
+      </ImageView>
    </children>
 </AnchorPane>
