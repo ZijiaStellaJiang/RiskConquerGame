@@ -77,11 +77,11 @@
             </ImageView>
          </graphic></Button>
       <Text fx:id="player_color" layoutX="210.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" text="" />
-      <Text fx:id="wait_msg" layoutX="161.0" layoutY="498.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="wait_msg" layoutX="161.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css"/>
       <Text fx:id="result_msg" layoutX="150.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Text fx:id="food" layoutX="420.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" />
       <Text fx:id="wood" layoutX="642.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" />
-      <Text fx:id="victory_msg" layoutX="624.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="victory_msg" layoutX="624.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" wrappingWidth="100"/>
       <ImageView fitHeight="40.0" fitWidth="139.0" layoutX="61.0" layoutY="17.0" preserveRatio="true">
          <image>
             <Image url="@../pic/map/player_icon.png" />

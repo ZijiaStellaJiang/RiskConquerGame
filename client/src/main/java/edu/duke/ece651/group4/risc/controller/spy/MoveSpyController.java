@@ -1,6 +1,7 @@
-package edu.duke.ece651.group4.risc.controller;
+package edu.duke.ece651.group4.risc.controller.spy;
 
 import edu.duke.ece651.group4.risc.client.Client;
+import edu.duke.ece651.group4.risc.controller.Controller;
 import edu.duke.ece651.group4.risc.shared.ActionParser;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -13,10 +14,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import javax.print.attribute.standard.Destination;
 
-
-public class MoveSpyController implements Controller{
+public class MoveSpyController implements Controller {
     private Client client;
     @FXML
     Button done_btn;
@@ -89,6 +88,7 @@ public class MoveSpyController implements Controller{
         }
         cost.setText("Unavailable");
     }
+
     @FXML
     public void done(ActionEvent ae){
         if((!(source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_num.getText()!=null))) {

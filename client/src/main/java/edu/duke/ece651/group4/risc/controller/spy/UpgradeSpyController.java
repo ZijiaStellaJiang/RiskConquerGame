@@ -1,6 +1,7 @@
-package edu.duke.ece651.group4.risc.controller;
+package edu.duke.ece651.group4.risc.controller.spy;
 
 import edu.duke.ece651.group4.risc.client.Client;
+import edu.duke.ece651.group4.risc.controller.Controller;
 import edu.duke.ece651.group4.risc.shared.ActionParser;
 import edu.duke.ece651.group4.risc.shared.Map;
 import edu.duke.ece651.group4.risc.shared.Player;
@@ -18,7 +19,7 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
-public class UpgradeSpyController implements Controller{
+public class UpgradeSpyController implements Controller {
     private Client client;
     @FXML
     ChoiceBox<String> source;

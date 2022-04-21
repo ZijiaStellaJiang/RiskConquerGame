@@ -1,6 +1,7 @@
-package edu.duke.ece651.group4.risc.controller;
+package edu.duke.ece651.group4.risc.controller.spy;
 
 import edu.duke.ece651.group4.risc.client.Client;
+import edu.duke.ece651.group4.risc.controller.Controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,7 +14,7 @@ import java.net.URL;
 import java.util.HashMap;
 
 
-public class SpyController implements Controller{
+public class SpyController implements Controller {
     private HashMap<Class<?>, Object> controllers;
     private Client client;
     public SpyController(Client client){
@@ -41,7 +42,7 @@ public class SpyController implements Controller{
      */
     @FXML
     public void moveAction(ActionEvent ae) throws IOException {
-        URL xmlResource = getClass().getResource("/ui/MoveSpy.fxml");
+        URL xmlResource = getClass().getResource("/ui/spy/MoveSpy.fxml");
         FXMLLoader loader = new FXMLLoader(xmlResource);
         controllers.put(MoveSpyController.class, new MoveSpyController(client));// create a new controller and
         // add it
@@ -57,7 +58,7 @@ public class SpyController implements Controller{
      */
     @FXML
     public void upgradeAction(ActionEvent ae) throws IOException {
-        URL xmlResource = getClass().getResource("/ui/UpgradeSpy.fxml");
+        URL xmlResource = getClass().getResource("/ui/spy/UpgradeSpy.fxml");
         FXMLLoader loader = new FXMLLoader(xmlResource);
         controllers.put(UpgradeSpyController.class, new UpgradeSpyController(client));// create a new controller and
         // add it

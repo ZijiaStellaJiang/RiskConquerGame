@@ -1,6 +1,9 @@
 package edu.duke.ece651.group4.risc.controller;
 
 import edu.duke.ece651.group4.risc.client.Client;
+import edu.duke.ece651.group4.risc.controller.cloak.CloakController;
+import edu.duke.ece651.group4.risc.controller.cloak.ResearchCloakController;
+import edu.duke.ece651.group4.risc.controller.spy.SpyController;
 import edu.duke.ece651.group4.risc.shared.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,7 +21,6 @@ import javafx.scene.text.Text;
 import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -94,6 +96,7 @@ public class MainMapController {
   @FXML
   ImageView cloak6;
   private ArrayList<ImageView> cloak_icons;
+  private ArrayList<String> terr_names;
   public MainMapController(Client client) {
     this.client = client;
     System.out.println(client.getPlayerId());
@@ -101,6 +104,13 @@ public class MainMapController {
     name_set1 = new HashMap<>();
     name_set2 = new HashMap<>();
     cloak_icons = new ArrayList<ImageView>();
+    terr_names = new ArrayList<>();
+    terr_names.add("Oz");
+    terr_names.add("Narnia");
+    terr_names.add("Mordor");
+    terr_names.add("Hogwarts");
+    terr_names.add("Elantris");
+    terr_names.add("Gondor");
 
   }
   @FXML
@@ -167,7 +177,8 @@ public class MainMapController {
    */
   public void displayTerritoryBorder() {
     Map<Character> map = client.getMap();
-    for (Player<Character> p : map.getMyPlayers()) {
+    Player<Character>  p= map.getMyPlayers().get(client.getPlayerId());
+    //for (Player<Character> p : map.getMyPlayers()) {
       for (Territory<Character> myTerri : p.getMyTerritories()) {
         String terr_name = myTerri.getName().toUpperCase();
         for (Node element : background.getChildren()) {
@@ -188,7 +199,7 @@ public class MainMapController {
           }
         }
       }
-    }
+    //}
     updateFoodAndWood();
   }
 
@@ -384,7 +395,14 @@ public class MainMapController {
    * Update cloak icon visibility
    */
   public void updateCloakIconVisiblity(){
-//    if(client.cloakIsResearch() && client)
+    if(client.cloakIsResearch()){
+      for(int i=0; i<terr_names.size(); i++){
+        if(client.cloakRemain(terr_names.get(i))>0){//TODO show details of cloak turn
+          System.out.println("Find cloak in territory: " + terr_names.get(i) + "with turn: " + client.cloakRemain(terr_names.get(i)));
+          cloak_icons.get(i).setVisible(true);
+        }
+      }
+    }
   }
   public void listenStageClose(Stage stage){
 
@@ -481,6 +499,15 @@ public class MainMapController {
     System.out.println("finish one round game");
   }
 
+  public void jumpToCloakPage() throws IOException {
+    FXMLLoader loader = loadLoader("/ui/cloak/ResearchCloak.fxml");
+    controllers.put(ResearchCloakController.class, new ResearchCloakController(client));
+    loader.setControllerFactory((c) -> {
+      return controllers.get(c);
+    });
+    loadNewPage(loader, "/ui/button.css", 600, 400);
+  }
+
   /**
    * Handle cloak action
    * @param ae
@@ -491,7 +518,7 @@ public class MainMapController {
     boolean ifCloak = client.cloakIsResearch();
     if(ifCloak){//if have cloaked
       //show cloak page
-      FXMLLoader loader = loadLoader("/ui/Cloak.fxml");
+      FXMLLoader loader = loadLoader("/ui/cloak/Cloak.fxml");
       controllers.put(CloakController.class, new CloakController(client));// create a new controller and
       // add it
       loader.setControllerFactory((c) -> {
@@ -500,18 +527,14 @@ public class MainMapController {
       loadNewPage(loader, "/ui/button.css", 600, 400);
 
     }else{//if have not cloaked
-      FXMLLoader loader = loadLoader("/ui/ResearchCloak.fxml");
-      controllers.put(ResearchCloakController.class, new ResearchCloakController(client));
-      loader.setControllerFactory((c) -> {
-        return controllers.get(c);
-      });
-      loadNewPage(loader, "/ui/button.css", 600, 400);
+      jumpToCloakPage();
+
     }
   }
 
   @FXML
   public void spyAction() throws IOException {
-    FXMLLoader loader = loadLoader("/ui/Spy.fxml");
+    FXMLLoader loader = loadLoader("/ui/spy/Spy.fxml");
     controllers.put(SpyController.class, new SpyController(client));
     loader.setControllerFactory((c) -> {
       return controllers.get(c);

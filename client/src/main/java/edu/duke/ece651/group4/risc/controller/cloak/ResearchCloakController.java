@@ -1,6 +1,7 @@
-package edu.duke.ece651.group4.risc.controller;
+package edu.duke.ece651.group4.risc.controller.cloak;
 
 import edu.duke.ece651.group4.risc.client.Client;
+import edu.duke.ece651.group4.risc.controller.Controller;
 import edu.duke.ece651.group4.risc.shared.ActionParser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 
-public class ResearchCloakController implements Controller{
+public class ResearchCloakController implements Controller {
 
     @FXML
     Button yes_btn;
@@ -48,8 +49,10 @@ public class ResearchCloakController implements Controller{
         if(result!=null){
             alert.setText(result);
         }else{
+            exit_page();
             //jump to cloak page
-            URL xmlResource = getClass().getResource("/ui/Cloak.fxml");
+            /*
+            URL xmlResource = getClass().getResource("/ui/cloak/Cloak.fxml");
             URL cssResource = getClass().getResource("/ui/button.css");
             FXMLLoader loader = new FXMLLoader(xmlResource);
             controllers.put(CloakController.class, new CloakController(client));
@@ -61,8 +64,7 @@ public class ResearchCloakController implements Controller{
             scene.getStylesheets().add(cssResource.toString());
             Stage stage = new Stage();
             stage.setScene(scene);
-            stage.show();
-            exit_page();
+            stage.show();*/
         }
     }
 }

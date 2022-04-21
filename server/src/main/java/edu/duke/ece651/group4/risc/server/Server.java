@@ -26,7 +26,7 @@ public class Server {
   private Action<Character> supdate;
   private Action<Character> rcloak;
   private Action<Character> cloak;
-
+  private Action<Character> smove;
   public Server(int port) throws IOException {
     serverSocket = new ServerSocket(port);
     mapFactory = new V2MapFactory();
@@ -40,8 +40,9 @@ public class Server {
     attack = new AttackAction<>();
     update = new UpdateAction<>();
     supdate = new SUpdateAction<>();
-    rcloak = new CloakAction<>();
+    rcloak = new ResearchCloakAction<>();
     cloak = new CloakAction<>();
+    smove = new SMoveAction<>();
   }
 
   public ServerSocket getServerSocket() {
@@ -144,6 +145,7 @@ public class Server {
           supdate.doAction(order, map, cur_player);
         } else if (order.getType().equals("SMOVE")) {
           // TODO
+          smove.doAction(order, map, cur_player);
         } else if (order.getType().equals("CLOAK")) {
           cloak.doAction(order, map, cur_player);
         } else if (order.getType().equals("RCLOAK")) {

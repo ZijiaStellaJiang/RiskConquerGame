@@ -1,6 +1,7 @@
-package edu.duke.ece651.group4.risc.controller;
+package edu.duke.ece651.group4.risc.controller.cloak;
 
 import edu.duke.ece651.group4.risc.client.Client;
+import edu.duke.ece651.group4.risc.controller.Controller;
 import edu.duke.ece651.group4.risc.shared.ActionParser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -11,7 +12,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class CloakController implements Controller{
+public class CloakController implements Controller {
 
     @FXML
     Text cost;
@@ -42,6 +43,7 @@ public class CloakController implements Controller{
     public void setup(){
 
     }
+
     @FXML
     public void done(ActionEvent actionEvent) {
         if(territory.getValue()==null){

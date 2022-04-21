@@ -9,16 +9,16 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="pane" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.MoveSpyController">
+<AnchorPane fx:id="pane" prefHeight="450.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.spy.MoveSpyController">
     <children>
         <ImageView fitHeight="450.0" fitWidth="629.0">
             <image>
-                <Image url="@../pic/background1.png" />
+                <Image url="@../../pic/background1.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="410.0" fitWidth="601.0" layoutX="19.0" layoutY="20.0" preserveRatio="true">
             <image>
-                <Image url="@../pic/move/back.png" />
+                <Image url="@../../pic/move/back.png" />
             </image>
         </ImageView>
         <Group />
@@ -29,7 +29,7 @@
             <graphic>
                 <ImageView fitHeight="62.0" fitWidth="64.0" preserveRatio="true">
                     <image>
-                        <Image url="@../pic/move/done_btn.png" />
+                        <Image url="@../../pic/move/done_btn.png" />
                     </image>
                 </ImageView>
             </graphic></Button>
@@ -37,22 +37,22 @@
         <Text fx:id="cost" layoutX="374.0" layoutY="240.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" text="" />
         <ImageView fitHeight="22.0" fitWidth="200.0" layoutX="107.0" layoutY="86.0">
             <image>
-                <Image url="@../pic/move/source.png" />
+                <Image url="@../../pic/move/source.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="47.0" fitWidth="251.0" layoutX="107.0" layoutY="128.0" preserveRatio="true">
             <image>
-                <Image url="@../pic/move/destination.png" />
+                <Image url="@../../pic/move/destination.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="23.0" fitWidth="68.0" layoutX="107.0" layoutY="225.0" preserveRatio="true">
             <image>
-                <Image url="@../pic/move/cost.png" />
+                <Image url="@../../pic/move/cost.png" />
             </image>
         </ImageView>
         <ImageView fitHeight="22.0" fitWidth="192.0" layoutX="107.0" layoutY="180.0" preserveRatio="true">
             <image>
-                <Image url="@../pic/move/unit_num.png" />
+                <Image url="@../../pic/move/unit_num.png" />
             </image>
         </ImageView>
     </children>
