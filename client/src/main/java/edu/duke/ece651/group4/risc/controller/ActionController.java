@@ -20,8 +20,6 @@ public class ActionController implements Controller{
     ChoiceBox<String> source;
     @FXML
     ChoiceBox<String> destination;
-//    @FXML
-//    ChoiceBox<Integer> unit_level;
     @FXML
     Slider unit_level;
 

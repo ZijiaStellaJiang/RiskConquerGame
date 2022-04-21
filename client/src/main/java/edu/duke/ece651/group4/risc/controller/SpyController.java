@@ -41,9 +41,9 @@ public class SpyController implements Controller{
      */
     @FXML
     public void moveAction(ActionEvent ae) throws IOException {
-        URL xmlResource = getClass().getResource("/ui/Cloak.fxml");
+        URL xmlResource = getClass().getResource("/ui/MoveSpy.fxml");
         FXMLLoader loader = new FXMLLoader(xmlResource);
-        controllers.put(CloakController.class, new UpgradeSpyController(client));// create a new controller and
+        controllers.put(MoveSpyController.class, new MoveSpyController(client));// create a new controller and
         // add it
         loader.setControllerFactory((c) -> {
             return controllers.get(c);

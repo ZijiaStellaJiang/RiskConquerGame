@@ -26,7 +26,7 @@
             <Image url="@../pic/upgrade/choose_territory.png" />
          </image>
       </ImageView>
-      <ChoiceBox fx:id="source" layoutX="334.0" layoutY="117.0" prefWidth="150.0" />
+      <ChoiceBox fx:id="source" layoutX="334.0" layoutY="117.0" prefWidth="150.0" styleClass="text_css"/>
       <Button layoutX="236.0" layoutY="298.0" mnemonicParsing="false" onAction="#done" styleClass="transparent_btn">
          <graphic>
             <ImageView fitHeight="43.0" fitWidth="116.0" preserveRatio="true">
@@ -51,9 +51,9 @@
             <Image url="@../pic/upgrade/upgrade_from.png" />
          </image>
       </ImageView>
-      <Text fx:id="cost" layoutX="334.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Slider fx:id="unit_level" layoutX="334.0" layoutY="161.0" />
-      <TextField fx:id="unit_num" layoutX="329.0" layoutY="201.0" />
-      <Text fx:id="alert" layoutX="103.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="cost" layoutX="334.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css"/>
+      <Slider fx:id="unit_level" layoutX="334.0" layoutY="161.0" styleClass="slider_css"/>
+      <TextField fx:id="unit_num" layoutX="329.0" layoutY="201.0" styleClass="text_css"/>
+      <Text fx:id="alert" layoutX="103.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css"/>
    </children>
 </AnchorPane>

@@ -118,7 +118,7 @@ public class UpgradeSpyController implements Controller{
 
     @FXML
     public void done(ActionEvent actionEvent) {
-        ActionParser parser = new ActionParser("SUPGRADE", source.getValue(), null, Integer.parseInt(unit_num.getText()), (int) unit_level.getValue(), 0);
+        ActionParser parser = new ActionParser("SUPDATE", source.getValue(), null, Integer.parseInt(unit_num.getText()), (int) unit_level.getValue(), 0);
         String result = client.addOrder(parser);
         if(result!=null){
             alert.setText(result);
