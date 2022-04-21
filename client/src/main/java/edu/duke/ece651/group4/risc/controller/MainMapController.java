@@ -267,15 +267,17 @@ public class MainMapController {
     URL xmlResource = getClass().getResource("/ui/TerritoryDetail.fxml");
     URL cssResource = getClass().getResource("/ui/button.css");
     FXMLLoader loader = new FXMLLoader(xmlResource);
+
+    int cloak_num = client.cloakRemain(terr.getName());
     // setup controller
-    controllers.put(TerritoryDetailController.class, new TerritoryDetailController(terr, client.getPlayerId(), client.territoryIsMine(terr.getName())));
+    controllers.put(TerritoryDetailController.class, new TerritoryDetailController(terr, client.getPlayerId(), client.territoryIsMine(terr.getName()), cloak_num));
     loader.setControllerFactory((c) -> {
       return controllers.get(c);
     });
     AnchorPane gp = loader.load();
     TerritoryDetailController territoryDetailController = loader.getController();
     territoryDetailController.setup();
-    Scene scene = new Scene(gp, 600, 550);
+    Scene scene = new Scene(gp, 600, 600);
     scene.getStylesheets().add(cssResource.toString());
     Stage stage = new Stage();
     stage.setScene(scene);
@@ -293,27 +295,6 @@ public class MainMapController {
     String territory_name = source.getId();
     Territory<Character> terr = client.getMap().findTerritory(territory_name);
     //check whether this territory belongs to my self
-//    String text;
-//    if(client.territoryIsMine(territory_name)){
-//      text = "This is your territory info";//TODO change to get my info
-//    }else{//if territory belongs to enemy
-//        ArrayList<Integer> units_num = terr.getEnemyInfo();
-//      if(units_num==null){
-//        //cannot see
-//        text = "you can not see the territory details\n";
-//      }else{
-//        //check whether it is old info
-//        if(terr.checkLatest()){
-//          //
-//          text = "you can see enemy's new info\n";
-//        }else{
-//          //indicate it is old info
-//          text = "you can see the old info\n";
-//        }
-//      }
-//    }
-    //    System.out.println(text);
-    //showDetails(text);
     showFogWar(terr);
 
   }
@@ -469,11 +450,12 @@ public class MainMapController {
     client.oneRoundUpdate();
     System.out.println("updated!!!");
     wait_msg.setText("Please enter your next actions");
-    client.getMap().updateOneRound();
+    //client.getMap().updateOneRound();
     setButtonsDisable(false);
     // display new map
 
     displayTerritoryBorder();
+    updateCloakIconVisiblity();
     String msg = client.getPlayerRoundInfo();
     victory_msg.setText(msg);
     if(client.checkGameOver()==true){

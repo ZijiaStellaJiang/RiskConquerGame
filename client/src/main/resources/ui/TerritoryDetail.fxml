@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="550.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.TerritoryDetailController">
+<AnchorPane prefHeight="628.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.TerritoryDetailController">
    <children>
-      <ImageView fitHeight="586.0" fitWidth="632.0" layoutX="-32.0" layoutY="-36.0">
+      <ImageView fitHeight="668.0" fitWidth="634.0" layoutX="-32.0" layoutY="-36.0">
          <image>
             <Image url="@../pic/background1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="500.0" fitWidth="542.0" layoutX="43.0" layoutY="46.0">
+      <ImageView fitHeight="573.0" fitWidth="542.0" layoutX="43.0" layoutY="46.0">
          <image>
             <Image url="@../pic/info/back.png" />
          </image>
@@ -64,7 +64,7 @@
       </Group>
 
 
-      <Group layoutX="80.0" layoutY="400.0" fx:id="group4">
+      <Group fx:id="group4" layoutX="80.0" layoutY="400.0">
          <children>
             <ImageView fx:id="unit4_img" fitHeight="165.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
             <Text fx:id="unit4" layoutX="40.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="unit_css" wrappingWidth="17.0" />
@@ -82,6 +82,8 @@
             <Text fx:id="unit6" layoutX="40.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="unit_css" wrappingWidth="17.0" />
          </children>
       </Group>
+      <Text layoutX="123.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cloak" styleClass="text_css"/>
+      <Text fx:id="cloak_num" layoutX="208.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css"/>
 <!--      <Group layoutX="467.0" layoutY="247.0">-->
 <!--         <children>-->
 <!--            <ImageView fitHeight="110.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" fx:id="unit3_img"/>-->

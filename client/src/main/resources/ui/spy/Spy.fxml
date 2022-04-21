@@ -19,7 +19,7 @@
             <Image url="@../../pic/move/back.png" />
          </image>
       </ImageView>
-      <Button layoutX="124.0" layoutY="166.0" mnemonicParsing="false" styleClass="transparent_btn" onAction="#moveAction">
+      <Button fx:id="move_btn" layoutX="124.0" layoutY="166.0" mnemonicParsing="false" styleClass="transparent_btn" onAction="#moveAction">
          <graphic>
             <ImageView fitHeight="94.0" fitWidth="169.0" preserveRatio="true">
                <image>

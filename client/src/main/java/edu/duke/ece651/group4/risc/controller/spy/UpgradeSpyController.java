@@ -32,8 +32,10 @@ public class UpgradeSpyController implements Controller {
     @FXML
     Text alert;
     private ObservableList<String> sources;
-    public UpgradeSpyController(Client client){
+    private Stage former_stage;
+    public UpgradeSpyController(Client client, Stage stage){
         this.client = client;
+        former_stage = stage;
     }
 
     /**
@@ -126,6 +128,7 @@ public class UpgradeSpyController implements Controller {
         }else{
             Stage primaryStage = (Stage) source.getScene().getWindow();
             primaryStage.close();
+            former_stage.close();
         }
     }
 

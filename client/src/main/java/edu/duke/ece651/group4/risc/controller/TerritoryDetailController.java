@@ -57,16 +57,20 @@ public class TerritoryDetailController {
     Group group2;
     @FXML
     Group group6;
+    @FXML
+    Text cloak_num;
     private Territory<Character> terr;
     private int player_id;
     private boolean ifMine;
+    private int cNum;
     public TerritoryDetailController(){
 
     }
-    public TerritoryDetailController(Territory<Character> terr, int player_id, boolean ifMine){
+    public TerritoryDetailController(Territory<Character> terr, int player_id, boolean ifMine, int cloak_num){
         this.terr = terr;
         this.player_id = player_id;
         this.ifMine = ifMine;
+        this.cNum = cloak_num;
     }
 
 
@@ -81,6 +85,10 @@ public class TerritoryDetailController {
     public void setup(){
         //show unit
         showUnit();
+        if(ifMine){
+            showCloak();
+        }
+
 
     }
     public void adjustImageSize(ImageView image, int width, int height, Image images){
@@ -88,77 +96,7 @@ public class TerritoryDetailController {
         image.setFitHeight(height);
         image.setFitWidth(width);
     }
-    public void addMyUnit(){
-        if((player_id==1)){
-            Image image1= new Image("pic/unit_icon/blue/jocker.png", 480, 360, true, false);
-            unit0.setText(""+terr.getLevelUnitNum(0));
-            adjustImageSize(unit0_img, 102, 132, image1);
 
-            Image image2= new Image("pic/unit_icon/blue/headsman.png", 400, 300, true, false);
-            unit1.setText(""+terr.getLevelUnitNum(1));
-            unit1_img.setImage(image2);
-
-            Image image3= new Image("pic/unit_icon/blue/archer.png", 400, 300, true, false);
-            unit2.setText(""+terr.getLevelUnitNum(2));
-            unit2_img.setImage(image3);
-            Image image4= new Image("pic/unit_icon/blue/swordsman3_1.png", 400, 300, true, false);
-            unit3.setText(""+terr.getLevelUnitNum(3));
-            unit3_img.setImage(image4);
-
-            Image image5 =new Image("pic/unit_icon/blue/knight4_1.png", 400, 300, true, false);
-            unit4.setText(""+terr.getLevelUnitNum(4));
-            unit4_img.setImage(image5);
-
-            Image image6= new Image("pic/unit_icon/blue/ship5_1.png", 400, 300, true, false);
-            unit5.setText(""+terr.getLevelUnitNum(5));
-            unit5_img.setImage(image6);
-
-            Image image7= new Image("pic/unit_icon/blue/wizard6_1.png", 400, 300, true, false);
-            unit6.setText(""+terr.getLevelUnitNum(6));
-            unit6_img.setImage(image7);
-        }
-
-        if(player_id==0){
-            Image image1= new Image("pic/unit_icon/green/acrobat_1.png", 400, 300, true, false);
-            unit0.setText(""+terr.getLevelUnitNum(0));
-            unit0_img.setImage(image1);
-            unit0.setLayoutX(35);
-
-            Image image2= new Image("pic/unit_icon/green/2.png", 560, 420, true, false);
-            unit1.setText(""+terr.getLevelUnitNum(1));
-            adjustImageSize(unit1_img, 119, 152, image2);
-            group2.setLayoutX(190);
-            group2.setLayoutY(242);
-            unit1.setLayoutY(120);
-
-            Image image3= new Image("pic/unit_icon/green/3.png", 400, 300, true, false);
-            unit2.setText(""+terr.getLevelUnitNum(2));
-            unit2_img.setImage(image3);
-            unit2.setLayoutX(40);
-            Image image4= new Image("pic/unit_icon/green/4.png", 300, 225, true, false);
-            unit3.setText(""+terr.getLevelUnitNum(3));
-            unit3_img.setImage(image4);
-
-            Image image5 =new Image("pic/unit_icon/green/5.png", 480, 360, true, false);
-            unit4.setText(""+terr.getLevelUnitNum(4));
-            unit4_img.setImage(image5);
-            adjustImageSize(unit4_img, 102, 132, image5);
-            group4.setLayoutY(370);
-            unit4.setLayoutY(140);
-
-            Image image6= new Image("pic/unit_icon/green/6.png", 400, 300, true, false);
-            unit5.setText(""+terr.getLevelUnitNum(5));
-            adjustImageSize(unit5_img, 112, 145, image6);
-            group6.setLayoutX(200);
-            unit5.setLayoutX(50);
-            unit5.setLayoutY(115);
-
-            Image image7= new Image("pic/unit_icon/green/7.png", 400, 300, true, false);
-            unit6.setText(""+terr.getLevelUnitNum(6));
-            unit6_img.setImage(image7);
-            unit6.setLayoutX(30);
-        }
-    }
     public void addUnit(ArrayList<Integer> units, boolean ifMySelf){
         if((player_id==1 && ifMySelf==true) || (player_id==0 && ifMySelf==false)){
             Image image1= new Image("pic/unit_icon/blue/jocker.png", 480, 360, true, false);
@@ -231,7 +169,9 @@ public class TerritoryDetailController {
         }
 
     }
-
+    public void showCloak(){
+        cloak_num.setText(String.valueOf(cNum));
+    }
 
     public void showUnit(){
         String text;

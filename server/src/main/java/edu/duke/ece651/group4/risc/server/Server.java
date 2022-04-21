@@ -167,7 +167,8 @@ public class Server {
     for (int i = 0; i < player_num; i++) {
       map.getPlayer(i).updateResource();
     }
-
+    //update cloak info
+    map.updateOneRound();
     // sending updating map
     for (int i = 0; i < player_num; i++) {
       send_to_client(map, i);

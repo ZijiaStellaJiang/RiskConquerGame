@@ -30,6 +30,7 @@ public class MoveSpyController implements Controller {
     @FXML
     Text cost;
 
+    private Stage former_stage;
     public void setup(){
         source.getSelectionModel().selectedIndexProperty().addListener(
                 (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
@@ -45,11 +46,12 @@ public class MoveSpyController implements Controller {
     }
     @FXML
     public void initialize(){
-        ObservableList<String> terrs = FXCollections.observableArrayList("Horgwarts", "Morder", "Oz", "Narnia", "Elantris", "Gondor");
+        ObservableList<String> terrs = FXCollections.observableArrayList("Hogwarts", "Mordor", "Oz", "Narnia", "Elantris", "Gondor");
         destination.setItems(terrs);
         source.setItems(terrs);
     }
-    public MoveSpyController(Client client){
+    public MoveSpyController(Client client, Stage stage){
+        this.former_stage = stage;
         this.client = client;
     }
 
@@ -79,6 +81,7 @@ public class MoveSpyController implements Controller {
                 String source_terr = source.getValue();
                 String dest_terr = destination.getValue();
                 Integer num = Integer.parseInt(unit_num.getText());
+                System.out.println("spy move cost:" + source_terr + ", " + dest_terr + ", " + num);
                 ActionParser parser = new ActionParser("SMOVE", source_terr, dest_terr, num, 0, 0);
                 String cost_val = parser.getCost(client.getMap());
                 cost.setText(cost_val);
@@ -103,6 +106,7 @@ public class MoveSpyController implements Controller {
         String dest_terr =destination.getValue();
         String num = unit_num.getText();
         try {
+            System.out.println("spy move:" + source_terr + ", " + dest_terr + ", " + num);
             ActionParser newAction = new ActionParser("SMOVE", source_terr, dest_terr, Integer.parseInt(num), 0, 0);
             String result = client.addOrder(newAction);
             if(result!=null){
@@ -111,6 +115,7 @@ public class MoveSpyController implements Controller {
             }else{
                 Stage primaryStage = (Stage) source.getScene().getWindow();
                 primaryStage.close();
+                former_stage.close();
             }
         }catch (IllegalArgumentException e) {
             alert.setText("Invalid input");

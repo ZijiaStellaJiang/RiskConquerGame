@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -13,8 +14,12 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.HashMap;
 
-
+/**
+ * Let user choose move or upgrade
+ */
 public class SpyController implements Controller {
+    @FXML
+    Button move_btn;
     private HashMap<Class<?>, Object> controllers;
     private Client client;
     public SpyController(Client client){
@@ -33,8 +38,13 @@ public class SpyController implements Controller {
         stage.setScene(scene);
         stage.show();
     }
+
     public void setup(){
 
+    }
+    public void hide_stage() {
+        Stage primaryStage = (Stage) move_btn.getScene().getWindow();
+        primaryStage.hide();
     }
     /**
      * Jump to move spy page
@@ -44,7 +54,7 @@ public class SpyController implements Controller {
     public void moveAction(ActionEvent ae) throws IOException {
         URL xmlResource = getClass().getResource("/ui/spy/MoveSpy.fxml");
         FXMLLoader loader = new FXMLLoader(xmlResource);
-        controllers.put(MoveSpyController.class, new MoveSpyController(client));// create a new controller and
+        controllers.put(MoveSpyController.class, new MoveSpyController(client, (Stage) move_btn.getScene().getWindow()));// create a new controller and
         // add it
         loader.setControllerFactory((c) -> {
             return controllers.get(c);
@@ -60,7 +70,7 @@ public class SpyController implements Controller {
     public void upgradeAction(ActionEvent ae) throws IOException {
         URL xmlResource = getClass().getResource("/ui/spy/UpgradeSpy.fxml");
         FXMLLoader loader = new FXMLLoader(xmlResource);
-        controllers.put(UpgradeSpyController.class, new UpgradeSpyController(client));// create a new controller and
+        controllers.put(UpgradeSpyController.class, new UpgradeSpyController(client, (Stage) move_btn.getScene().getWindow()));// create a new controller and
         // add it
         loader.setControllerFactory((c) -> {
             return controllers.get(c);
