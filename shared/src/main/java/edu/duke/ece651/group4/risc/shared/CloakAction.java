@@ -10,7 +10,7 @@ public class CloakAction<T> extends Action<T> {
      * this function will do all the update spy action for ONE player
      * server should apply this function for each player inthe game
      * @param parser: the order which this update action is going to perform.
-     * @param theMap: the whole map.
+     * @param map: the whole map.
      * @param thePlayer: the player who issue this update action.
      * @return null if action success
      * @return error message if action is invalid

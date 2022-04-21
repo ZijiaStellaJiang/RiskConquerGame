@@ -314,5 +314,10 @@ public class Client {
     }
   }
 
+  public int cloakRemain(String terriName) {
+    Territory<Character> t = map.findTerritory(terriName);
+    return t.cloakgetCount();
+  }
+
 }
 
