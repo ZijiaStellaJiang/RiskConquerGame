@@ -4,7 +4,8 @@ public class SUpdateNumChecker<T> extends ActionRuleChecker<T>   {
     public SUpdateNumChecker(ActionRuleChecker<T> next) {super(next);}
 	@Override
 	protected String checkMyRule(ActionParser parse, Map<T> map, Player<T> p) {
-        int level = 0;
+        int level = parse.getLevel();
+        if (level < 1) return "That action is invalid: the unit level must be above 0";
         int num = parse.getUnit();
         Integer ter_num = null;
         for(Territory<T> source : p.getMyTerritories()){
