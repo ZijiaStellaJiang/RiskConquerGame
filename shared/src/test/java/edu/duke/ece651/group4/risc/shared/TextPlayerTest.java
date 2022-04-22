@@ -149,6 +149,7 @@ public class TextPlayerTest {
         assertTrue(attack.contains(o));
         assertFalse(attack.contains(n));
         assertFalse(attack.contains(a));
+        assertNull(green.findDestinations(null,true));
     }
 
     @Test
@@ -247,5 +248,35 @@ public class TextPlayerTest {
         p2.updatePlayerTerritoriesInfo();
         assertEquals(1,b2.getEnemyInfo().get(5));
         assertTrue(b2.checkLatest());
+    }
+
+    @Test
+    public void test_visibility_debug() {
+        Territory<Character> nar = new Territory<>("N",2,3,3);
+        Territory<Character> hog = new Territory<>("H",5,6,6);
+        nar.addNeigh(hog);
+        Player<Character> p1 = new TextPlayer("p1",300,300);
+        Player<Character> p2 = new TextPlayer("p2",300,300);
+        p1.addToTerritory(nar);
+        p2.addToTerritory(hog);
+        Map<Character> map = new Map<>();
+        map.addPlayer(p1);
+        map.addPlayer(p2);
+        map.addTerritory(nar);
+        map.addTerritory(hog);
+
+        map.updateOneRound();
+        assertEquals(0,nar.getEnemyInfo().get(0));
+
+        Action<Character> reCloak = new ResearchCloakAction<>();
+        Action<Character> cloak = new CloakAction<>();
+        ActionParser parser_rc = new ActionParser("RCLOAK",null,null,0);
+        reCloak.doAction(parser_rc,map,p1);
+        ActionParser parser_c = new ActionParser("CLOAK","N",null,0);
+        cloak.doAction(parser_c,map,p1);
+
+        map.updateOneRound();
+        assertEquals(0,nar.getEnemyInfo().get(0));
+        assertFalse(nar.checkLatest());
     }
 }

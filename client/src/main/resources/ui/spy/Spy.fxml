@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane fx:id="pane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.spy.SpyController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0">
+         <image>
+            <Image url="@../../pic/background1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="280.0" fitWidth="465.0" layoutX="68.0" layoutY="60.0">
+         <image>
+            <Image url="@../../pic/move/back.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="move_btn" layoutX="124.0" layoutY="166.0" mnemonicParsing="false" styleClass="transparent_btn" onAction="#moveAction">
+         <graphic>
+            <ImageView fitHeight="94.0" fitWidth="169.0" preserveRatio="true">
+               <image>
+                  <Image url="@../../pic/map/move_btn.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="upgrade_btn" layoutX="324.0" layoutY="165.0" mnemonicParsing="false" styleClass="transparent_btn" onAction="#upgradeAction">
+         <graphic>
+            <ImageView fitHeight="97.0" fitWidth="273.0" preserveRatio="true">
+               <image>
+                  <Image url="@../../pic/map/upgrade_btn.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Label layoutX="101.0" layoutY="89.0" text="Do you want to spy" styleClass="text_css"/>
+   </children>
+</AnchorPane>

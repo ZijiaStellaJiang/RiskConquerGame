@@ -1,10 +1,94 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="285.0" prefWidth="329.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.TerritoryDetailController">
+<AnchorPane fx:id="pane" prefHeight="628.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.TerritoryDetailController">
    <children>
-      <TextArea fx:id="detail" layoutX="79.0" layoutY="69.0" prefHeight="148.0" prefWidth="172.0" />
+      <ImageView fitHeight="668.0" fitWidth="634.0" layoutX="-32.0" layoutY="-36.0">
+         <image>
+            <Image url="@../pic/background1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="573.0" fitWidth="542.0" layoutX="43.0" layoutY="46.0">
+         <image>
+            <Image url="@../pic/info/back.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="detail" layoutX="74.0" layoutY="125.0" styleClass="text_css" />
+      <ImageView fitHeight="37.0" fitWidth="182.0" layoutX="74.0" layoutY="69.0">
+         <image>
+            <Image url="@../pic/info/title.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="117.0" fitWidth="172.0" layoutX="403.0" layoutY="10.0">
+         <image>
+            <Image url="@../pic/info/pic.png" />
+         </image>
+      </ImageView>
+      <Text layoutX="64.0" layoutY="179.0" styleClass="text_css" text="Territory Name:" />
+      <Text fx:id="name" layoutX="250.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="alert_css" />
+      <Text layoutX="380.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" text="Size:" />
+      <Text layoutX="64.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" text="Food:" />
+      <Text layoutX="380.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" text="Wood:" />
+      <Text fx:id="size" layoutX="500.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" wrappingWidth="26.40625" />
+      <Text fx:id="food" layoutX="162.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" wrappingWidth="39.38720703125" />
+      <Text fx:id="wood" layoutX="500.0" layoutY="219.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" wrappingWidth="51.0" />
+
+      <Group layoutX="80.0" layoutY="247.0">
+         <children>
+            <ImageView fx:id="unit0_img" fitHeight="110.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="unit0" layoutX="55.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="unit_css" wrappingWidth="17.0" />
+         </children>
+      </Group>
+      <Group fx:id="group2" layoutX="210" layoutY="247.0">
+         <children>
+            <ImageView fx:id="unit1_img" fitHeight="110.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="unit1" layoutX="55.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="unit_css" wrappingWidth="17.0" />
+         </children>
+      </Group>
+      <Group layoutX="337.0" layoutY="247.0">
+         <children>
+            <ImageView fx:id="unit2_img" fitHeight="110.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="unit2" layoutX="55.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="unit_css" wrappingWidth="17.0" />
+         </children>
+      </Group>
+      <Group layoutX="467.0" layoutY="247.0">
+         <children>
+            <ImageView fx:id="unit3_img" fitHeight="110.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="unit3" layoutX="40.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="unit_css" wrappingWidth="17.0" />
+         </children>
+      </Group>
+
+
+      <Group fx:id="group4" layoutX="80.0" layoutY="400.0">
+         <children>
+            <ImageView fx:id="unit4_img" fitHeight="165.0" fitWidth="128.0" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="unit4" layoutX="40.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="unit_css" wrappingWidth="17.0" />
+         </children>
+      </Group>
+      <Group fx:id="group6" layoutX="210" layoutY="400.0">
+         <children>
+            <ImageView fx:id="unit5_img" fitHeight="110.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="unit5" layoutX="40.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="unit_css" wrappingWidth="17.0" />
+         </children>
+      </Group>
+      <Group layoutX="337.0" layoutY="400.0">
+         <children>
+            <ImageView fx:id="unit6_img" fitHeight="110.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" />
+            <Text fx:id="unit6" layoutX="40.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="unit_css" wrappingWidth="17.0" />
+         </children>
+      </Group>
+      <Text layoutX="123.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" text="Cloak" />
+      <Text fx:id="cloak_num" layoutX="208.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" />
+<!--      <Group layoutX="467.0" layoutY="247.0">-->
+<!--         <children>-->
+<!--            <ImageView fitHeight="110.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" fx:id="unit3_img"/>-->
+<!--            <Text fx:id="unit7" layoutX="55.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="17.0" styleClass="unit_css"/>-->
+<!--         </children>-->
+<!--      </Group>-->
    </children>
 </AnchorPane>

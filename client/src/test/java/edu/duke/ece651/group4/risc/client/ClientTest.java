@@ -213,4 +213,56 @@ public class ClientTest {
     testMap.addPlayer(p2);
     return testMap;
   }
+
+  @Test
+  public void test_utility() throws InterruptedException, IOException{
+    int port = 6070;
+    Thread th = new Thread() {
+      @Override()
+      public void run() {
+        try {
+          ServerSocket server = new ServerSocket(port);
+          Socket server_socket = server.accept();
+          ObjectOutputStream os = new ObjectOutputStream(server_socket.getOutputStream());
+          ObjectInputStream is = new ObjectInputStream(new BufferedInputStream(server_socket.getInputStream()));
+
+          Map<Character> mymap = generateTestMap();
+          os.writeObject(mymap);
+          os.flush();
+          os.writeObject(1);
+          os.flush();
+          // receive order lists
+          ArrayList<ActionParser> order_list = (ArrayList<ActionParser>) is.readObject();
+          assertEquals(0, order_list.size());
+          // send map
+          os.writeObject(mymap);
+          os.flush();
+
+        } catch (Exception e) {
+        }
+      }
+    };
+    th.start();
+    Thread.sleep(200);
+    // client part
+    Client client = new Client("localhost", 6070, new BufferedReader(new InputStreamReader(System.in)), System.out);
+    assertEquals("localhost/127.0.0.1:6070", client.getSocket().getRemoteSocketAddress().toString());
+    // finish test successfully and start test transimitting data
+    client.initializeGame();
+
+    client.oneRoundBegin();
+    assertEquals(200,client.getPlayerFood());
+    assertEquals(200,client.getPlayerWood());
+    assertEquals(1,client.getPlayerId());
+    assertEquals(new ArrayList<String>(Collections.singleton("Oz")),client.getClientTerritories());
+    assertEquals(new ArrayList<String>(),client.getClientCanReach("Oz",true));
+    assertEquals(new ArrayList<String>(Collections.singleton("Narnia")),client.getClientCanReach("Oz",false));
+    assertTrue(client.territoryIsMine("oz"));
+    assertFalse(client.territoryIsMine("narnia"));
+    assertFalse(client.cloakIsResearch());
+    assertEquals(0,client.cloakRemain("oz"));
+    assertEquals(0,client.getMySpyNum("oz"));
+    assertEquals(0,client.getEnemySpyNum("oz"));
+    assertEquals(generateTestMap().getMyPlayers(),client.getMap().getMyPlayers());
+  }
 }

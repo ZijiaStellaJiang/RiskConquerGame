@@ -9,7 +9,6 @@ import javafx.application.Application;
 import java.net.*;
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Locale;
 
 public class Client {
   private Map<Character> map;
@@ -26,6 +25,7 @@ public class Client {
   private Action<Character> supdate;
   private Action<Character> rcloak;
   private Action<Character> cloak;
+  private Action<Character> smove;
   private ArrayList<ActionParser> order_list;
   private MapTextView displayInfo;
 
@@ -41,8 +41,9 @@ public class Client {
     attack = new AttackAction<>();
     update = new UpdateAction<>();
     supdate = new SUpdateAction<>();
-    rcloak = new CloakAction<>();
+    rcloak = new ResearchCloakAction<>();
     cloak = new CloakAction<>();
+    smove = new SMoveAction<>();
     order_list =  new ArrayList<ActionParser>();
     displayInfo = null;
     try {
@@ -67,6 +68,7 @@ public class Client {
   public Socket getSocket(){
     return player_skd;
   }
+
   public static Socket connectServer(String serverName, int port) {
     Socket client_skd = null;
     try {
@@ -74,7 +76,7 @@ public class Client {
       client_skd = new Socket(serverName, port);
       System.out.println("Just connected to " + client_skd.getRemoteSocketAddress());
     } catch (IOException e) {
-      e.printStackTrace();
+      System.err.println("Fail to connect to server");
     }
     return client_skd;
   }
@@ -191,6 +193,7 @@ public class Client {
         result = supdate.doAction(order, map, player);
       } else if (order.getType().equals("SMOVE")) {
         // TODO
+        result = smove.doAction(order, map, player);
       } else if (order.getType().equals("CLOAK")) {
         result = cloak.doAction(order, map, player);
       } else if (order.getType().equals("RCLOAK")) {
@@ -304,15 +307,20 @@ public class Client {
     return player.cloakIsResearch();
   }
 
-  public void updateOneRoundNeeded() {
-    Player<Character> thePlayer = map.getPlayer(player_id);
-    thePlayer.handleVisibility();
-    thePlayer.updatePlayerTerritoriesInfo();
-    thePlayer.setMoveSpyInEnemy(false);
-    for (Territory<Character> t: thePlayer.getMyTerritories()) {
-      t.cloakcountDown();
-    }
+
+  public int cloakRemain(String terriName) {
+    Territory<Character> t = map.findTerritory(terriName);
+    return t.cloakgetCount();
   }
 
+  public int getMySpyNum(String terriName) {
+    Territory<Character> t = map.findTerritory(terriName);
+    return t.getSpyNumber();
+  }
+
+  public int getEnemySpyNum (String terriName) {
+    Territory<Character> t = map.findTerritory(terriName);
+    return t.getEnemySpyNumber();
+  }
 }
 

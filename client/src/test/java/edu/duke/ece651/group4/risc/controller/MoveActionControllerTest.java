@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.any;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -26,6 +27,7 @@ import javafx.collections.FXCollections;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
@@ -38,7 +40,8 @@ public class MoveActionControllerTest {
   Button done;
   ChoiceBox<String> source;
   ChoiceBox<String> destination;
-  ChoiceBox<Integer> unit_level;
+  // ChoiceBox<Integer> unit_level;
+  Slider unit_level;
   TextField unit_num;
   AnchorPane pane;
   Text alert;
@@ -87,13 +90,14 @@ public class MoveActionControllerTest {
     done.setId("done");
     source = new ChoiceBox<String>(FXCollections.observableArrayList("oz", "narnia"));
     destination = new ChoiceBox<String>(FXCollections.observableArrayList("oz", "narnia"));
-    unit_level = new ChoiceBox<Integer>(FXCollections.observableArrayList(0, 1));
+    unit_level = new Slider(0, 6, 1);
+    // unit_level = new ChoiceBox<Integer>(FXCollections.observableArrayList(0, 1));
     unit_num = new TextField("1");
     cost = new Text();
     source.getSelectionModel().selectFirst();
     destination.getSelectionModel().select(1);
-
-    unit_level.getSelectionModel().selectFirst();
+    unit_level.setValue(0);
+    //unit_level.getSelectionModel().selectFirst();
     alert = new Text();
     cont.cost = cost;
     cont.alert = alert;
@@ -131,21 +135,21 @@ public class MoveActionControllerTest {
     unit_num.setText("");
     cont.showCost();
   }
-
+  @Disabled
   @Test
   public void test_check_integer_valid() {
     cont.unit_num = new TextField();
     Platform.runLater(() -> {
       // System.err.println("level is:" + cont.unit_num.getText());
       assertEquals("", cont.unit_num.getText());
-      assertEquals(true, cont.checkIntegerValid());
+      //assertEquals(true, cont.checkIntegerValid(unit_num.getText());
       cont.unit_num.setText("1.5");
-      assertEquals(false, cont.checkIntegerValid());
+      assertEquals(false, cont.checkIntegerValid(unit_num.getText()));
       cont.done();
     });
     WaitForAsyncUtils.waitForFxEvents();
     // assertEquals(true, cont.checkIntegerValid());
-    FxAssert.verifyThat(alert, TextMatchers.hasText("unit number needs to be integer")); 
+    FxAssert.verifyThat(alert, TextMatchers.hasText("unit number needs to be integer"));
   }
 
   @Test
@@ -167,7 +171,7 @@ public class MoveActionControllerTest {
     });
     WaitForAsyncUtils.waitForFxEvents();
     FxAssert.verifyThat(cost, TextMatchers.hasText("Unavailable"));
-    FxAssert.verifyThat(alert, TextMatchers.hasText("Please fill in all blanks"));
+    FxAssert.verifyThat(alert, TextMatchers.hasText("Invalid input"));
   }
 
   @Test
@@ -175,7 +179,8 @@ public class MoveActionControllerTest {
     cont.unit_num.setText("1");
     cont.source.getSelectionModel().selectFirst();
     cont.destination.getSelectionModel().selectFirst();
-    cont.unit_level.getSelectionModel().selectFirst();
+    cont.unit_level.setValue(0);
+    ;
     Platform.runLater(() -> {
       cont.showCost();
     });

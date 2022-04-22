@@ -8,8 +8,10 @@ import edu.duke.ece651.group4.risc.client.Client;
 import edu.duke.ece651.group4.risc.client.MapGUIView;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
@@ -26,13 +28,19 @@ public class ChooseServerController {
     TextField select;
     @FXML
     AnchorPane pane;
+    @FXML
+    Button connect;
     /**
      * Constructor
      */
     public ChooseServerController(){
 
     }
-
+    @FXML
+    public void initialize(){
+        connect.addEventHandler(MouseEvent.MOUSE_ENTERED, e->connect.setCursor(Cursor.HAND));
+        //connect.addEventHandler(MouseEvent.MOUSE_EXITED,e->connect.setStyle("-fx-border-color: black;-fx-background-color: transparent;-fx-text-fill: black"));
+    }
     /**
      * After user click connect to server, create a new client and connect it to server
      * @param ae click connect button behavior

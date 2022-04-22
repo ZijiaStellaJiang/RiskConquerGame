@@ -180,7 +180,7 @@ public abstract class Player<T> implements java.io.Serializable{
       }
     }
     // 2nd condition: if the territory is cloaked
-    if(finalVisibility && toCheck.cloakgetCount()!=0) finalVisibility = false;
+    if(toCheck.cloakgetCount()!=0) finalVisibility = false;
     // 3rd condition: if there's am enemy spy, then enemy can see
     if (toCheck.hasEnemySpy()) finalVisibility = true;
     return finalVisibility;

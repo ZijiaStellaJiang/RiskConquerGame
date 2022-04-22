@@ -1,17 +1,66 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" styleClass="background" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.StartPageController">
-    <Text id="title" fx:id="title" layoutX="41.0" layoutY="80.0" text="Welcome to RISC game" GridPane.columnIndex="2" GridPane.columnSpan="2" GridPane.rowIndex="1">
-      <font>
-         <Font name="System Italic" size="35.0" />
-      </font></Text>
-        <Button fx:id="start_btn" layoutX="230.0" layoutY="179.0" onAction="#onButtonStart" prefHeight="69.0" prefWidth="160.0" style="-fx-background-color: transparent; -fx-border-color: #000000;-fx-text-fill: black" styleClass="fancytext" text="START" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-        <Button fx:id="exit_btn" layoutX="230.0" layoutY="291.0" onAction="#onButtonExit" prefHeight="69.0" prefWidth="160.0" style="-fx-background-color: transparent; -fx-border-color: #000000;-fx-text-fill: black" styleClass="fancytext" text="EXIT" GridPane.columnIndex="2" GridPane.rowIndex="4">
-        </Button>
+<AnchorPane prefHeight="510.0" prefWidth="643.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.StartPageController">
+   <ImageView fitHeight="510.0" fitWidth="643.0">
+      <image>
+         <Image url="@../pic/background1.png" />
+      </image>
+   </ImageView>
+        <Button fx:id="start_btn" layoutX="243.0" layoutY="212.0" onAction="#onButtonStart" prefHeight="69.0" prefWidth="160.0" styleClass="transparent_btn" GridPane.columnIndex="2" GridPane.rowIndex="3">
+      <graphic>
+         <ImageView fitHeight="59.0" fitWidth="155.0">
+            <image>
+               <Image url="@../pic/start_btn.png" />
+            </image>
+         </ImageView>
+      </graphic></Button>
+        <Button fx:id="exit_btn" layoutX="234.0" layoutY="294.0" onAction="#onButtonExit" prefHeight="69.0" prefWidth="160.0" styleClass="transparent_btn" GridPane.columnIndex="2" GridPane.rowIndex="4">
+      <graphic>
+         <ImageView fitHeight="101.0" fitWidth="193.0">
+            <image>
+               <Image url="@../pic/exit_btn.png" />
+            </image>
+         </ImageView>
+      </graphic></Button>
+   <ImageView fitHeight="109.0" fitWidth="507.0" layoutX="68.0" layoutY="43.0">
+      <image>
+         <Image url="@../pic/game_title_back.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="50.0" fitWidth="200.0" layoutX="75.0" layoutY="43.0">
+      <image>
+         <Image url="@../pic/welcome.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="109.0" fitWidth="482.0" layoutX="93.0" layoutY="60.0">
+      <image>
+         <Image url="@../pic/title.png" />
+      </image>
+   </ImageView>
+   <ImageView fx:id="volumn_up" fitHeight="69.0" fitWidth="69.0" layoutX="470.0" layoutY="435.0" smooth="false">
+      <image>
+         <Image url="@../pic/volumn_up.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="69.0" fitWidth="69.0" layoutX="505.0" layoutY="435.0">
+      <image>
+         <Image url="@../pic/volumn_down.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="69.0" fitWidth="69.0" layoutX="540.0" layoutY="435.0">
+      <image>
+         <Image url="@../pic/mute.png" />
+      </image>
+   </ImageView>
+   <ImageView fitHeight="69.0" fitWidth="69.0" layoutX="574.0" layoutY="435.0">
+      <image>
+         <Image url="@../pic/star.png" />
+      </image>
+   </ImageView>
 </AnchorPane>

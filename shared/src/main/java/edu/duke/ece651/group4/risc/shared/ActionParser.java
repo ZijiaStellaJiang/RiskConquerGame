@@ -1,7 +1,5 @@
 package edu.duke.ece651.group4.risc.shared;
 
-import java.util.Objects;
-
 /**
  * This class is used to parse user input like move source destination #ofunits
  */
@@ -135,24 +133,49 @@ public class ActionParser implements java.io.Serializable{
     Territory<Character> source = theMap.getTerritory(source_name);
     Territory<Character> dest = theMap.getTerritory(dest_name);
     Player<Character> player = theMap.findPlayer(source);
-    if(type.equals("MOVE")){
+    if (type.equals("MOVE")) {
       MinCostFinder<Character> finder = new MinCostFinder<>();
-      int cost = finder.findMinCost(source,dest,player);
+      int cost = finder.findMinCost(source, dest, player);
       theMap.resetDistance();
-      return "food: "+cost*numofUnit;
+      return "food: " + cost * numofUnit;
     }
-    else if(type.equals("ATTACK")){
+    else if (type.equals("ATTACK")) {
       int cost = 1;
-      return "food: "+cost*numofUnit;
+      return "food: " + cost * numofUnit;
     }
-    else {
-      //TODO
+    else if (type.equals("UPDATE")) {
       int cost = 0;
-      for (int i=levelofUnit; i<levelofUnit+levelUp; i++){
+      for (int i = levelofUnit; i < levelofUnit + levelUp; i++) {
         Unit<Character> unit = new SimpleUnit<>(i);
         cost = cost + unit.updateCost();
       }
-      return "wood: "+cost*numofUnit;
+      return "wood: " + cost * numofUnit;
+    }
+    else if (type.equals("SUPDATE")) {
+      int cost = 20;
+      return "wood: " + cost * numofUnit;
+    }
+    else if (type.equals("SMOVE")) {
+      boolean moveToSame = player.checkMyTerritory(source) && player.checkMyTerritory(dest);
+      int cost;
+      MinCostFinder<Character> finder = new MinCostFinder<>();
+      if (source.checkNeigh(dest)) cost = source.getSize() + dest.getSize();
+      else if (moveToSame) cost = finder.findMinCost(source, dest, player);
+      else {
+        //from mine to enemy
+        cost = finder.costForMoveBetweenDifferentPlayer(dest, source, player);
+      }
+      theMap.resetDistance();
+      if(cost==-1) return "food: "+cost;
+      return "food: " + cost * numofUnit;
+    }
+    else if (type.equals("CLOAK")) {
+      int cost = 20;
+      return "wood: " + cost;
+    }
+    else {
+      int cost = 100;
+      return "wood: " + cost;
     }
   }
 }
