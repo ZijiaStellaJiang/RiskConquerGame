@@ -38,6 +38,7 @@ public class StartPageControllerTest {
     stage.show();
   }
 
+  @Disabled
   @Test
   public void test_start_button_pressed(FxRobot robot) throws IOException {
     Platform.runLater(() -> {

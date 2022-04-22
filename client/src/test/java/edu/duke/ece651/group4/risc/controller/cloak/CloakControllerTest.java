@@ -2,6 +2,7 @@ package edu.duke.ece651.group4.risc.controller.cloak;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.testfx.matcher.base.NodeMatchers.isVisible;
 
 import edu.duke.ece651.group4.risc.client.Client;
 import edu.duke.ece651.group4.risc.controller.TestMapGenerator;
@@ -112,8 +113,6 @@ public class CloakControllerTest {
           }
       });
       WaitForAsyncUtils.waitForFxEvents();
-
-
   }
 
 }

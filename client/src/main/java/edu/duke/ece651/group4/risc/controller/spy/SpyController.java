@@ -20,6 +20,10 @@ import java.util.HashMap;
 public class SpyController implements Controller {
     @FXML
     Button move_btn;
+    @FXML
+    Button upgrade_btn;
+    @FXML
+    AnchorPane pane;
     private HashMap<Class<?>, Object> controllers;
     private Client client;
     public SpyController(Client client){
@@ -77,6 +81,6 @@ public class SpyController implements Controller {
         loader.setControllerFactory((c) -> {
             return controllers.get(c);
         });
-        loadNewPage(loader, "/ui/button.css", 650, 450);
+        loadNewPage(loader, "/ui/button.css", 600, 400);
     }
 }

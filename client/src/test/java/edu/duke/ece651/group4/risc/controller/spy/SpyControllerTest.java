@@ -1,4 +1,4 @@
-package edu.duke.ece651.group4.risc.controller.cloak;
+package edu.duke.ece651.group4.risc.controller.spy;
 
 import edu.duke.ece651.group4.risc.client.Client;
 import edu.duke.ece651.group4.risc.controller.TestMapGenerator;
@@ -8,7 +8,6 @@ import javafx.event.ActionEvent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,62 +18,51 @@ import org.testfx.framework.junit5.Start;
 import org.testfx.matcher.control.TextMatchers;
 import org.testfx.util.WaitForAsyncUtils;
 
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
 import static org.testfx.matcher.base.NodeMatchers.isVisible;
 
 @ExtendWith(ApplicationExtension.class)
-class ResearchCloakControllerTest {
+class SpyControllerTest {
+    private SpyController cont;
     private Client mockClient;
-    private ResearchCloakController cont;
-    private Text alert;
-    private Button yes_btn;
-    private AnchorPane pane;
+    Button move_btn;
+    Button upgrade_btn;
+    AnchorPane pane;
+
     @Start
     private void start(Stage stage){
         mockClient = Mockito.mock(Client.class);
         Map<Character> testMap = TestMapGenerator.generateTestMap();
         Mockito.when(mockClient.getMap()).thenReturn(testMap);
+        //Mockito.when(mockClient.getClientTerritories()).thenReturn(terr);
         Mockito.when(mockClient.getPlayerId()).thenReturn(0);
-
-        cont = new ResearchCloakController(mockClient);
-        alert = new Text();
-        Button yes_btn = new Button();
+        cont = new SpyController(mockClient);
+        move_btn = new Button();
+        upgrade_btn = new Button();
         pane = new AnchorPane();
-        cont.yes_btn = yes_btn;
-        cont.alert = alert;
+        cont.move_btn = move_btn;
+        cont.upgrade_btn = upgrade_btn;
+        pane = new AnchorPane();
+        pane.getChildren().addAll(move_btn, upgrade_btn);
         cont.pane = pane;
-        pane.getChildren().addAll(alert, yes_btn);
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.show();
-
     }
 
-    @Test
-    void test_research_clock_failure() throws IOException {
-        String expected = "failure";
-        Mockito.when(mockClient.addOrder(any())).thenReturn(expected);
-        cont.researchCloak();
-        FxAssert.verifyThat(cont.alert, TextMatchers.hasText(expected));
-    }
 
     @Test
-    void test_research_clock_success() throws IOException {
+    public void test_upgrade_action(){
         Platform.runLater(() -> {
             try {
-                Mockito.when(mockClient.addOrder(any())).thenReturn(null);
-                cont.researchCloak();
-                cont.exit();
+                cont.upgradeAction(new ActionEvent(upgrade_btn, null));
+                //FxAssert.verifyThat(cont.alert, TextMatchers.hasText("Please enter territory"));
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
         WaitForAsyncUtils.waitForFxEvents();
-        //FxAssert.verifyThat("#showMove", isVisible());
+        FxAssert.verifyThat("#unit_level", isVisible());
     }
-
 
 }

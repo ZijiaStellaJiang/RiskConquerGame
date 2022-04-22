@@ -425,18 +425,34 @@ public class MainMapController {
           System.out.println("Find cloak in territory: " + terr_names.get(i) + "with turn: " + client.cloakRemain(terr_names.get(i)));
           cloak_icons.get(i).setVisible(true);
           Tooltip.install(cloak_icons.get(i), new Tooltip(""+client.cloakRemain(terr_names.get(i))));
+        }else{
+          cloak_icons.get(i).setVisible(false);
         }
       }
     }
   }
 
-  //TODO update
+  /**
+   * First find whether it is "my" territory
+   */
   public void updateSpyVisibility(){
     for(int i=0; i<terr_names.size(); i++){
-      if(client.getMySpyNum(terr_names.get(i))>0){
-        spy_icons.get(i).setVisible(true);
-        Tooltip.install(spy_icons.get(i), new Tooltip(""+client.getMySpyNum(terr_names.get(i))));
+      if(client.territoryIsMine(terr_names.get(i))){
+        if(client.getMySpyNum(terr_names.get(i))>0){
+          spy_icons.get(i).setVisible(true);
+          Tooltip.install(spy_icons.get(i), new Tooltip(""+client.getMySpyNum(terr_names.get(i))));
+        }else{
+          spy_icons.get(i).setVisible(false);
+        }
+      }else{
+        if(client.getEnemySpyNum(terr_names.get(i))>0){
+          spy_icons.get(i).setVisible(true);
+          Tooltip.install(spy_icons.get(i), new Tooltip(""+client.getEnemySpyNum(terr_names.get(i))));
+        }else{
+          spy_icons.get(i).setVisible(false);
+        }
       }
+
     }
 
   }

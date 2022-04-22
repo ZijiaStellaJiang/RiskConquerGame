@@ -5,6 +5,7 @@ import edu.duke.ece651.group4.risc.controller.Controller;
 import edu.duke.ece651.group4.risc.shared.ActionParser;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -19,6 +20,8 @@ public class ResearchCloakController implements Controller {
     Button no_btn;
     @FXML
     Text alert;
+    @FXML
+    AnchorPane pane;
     private Client client;
     private HashMap<Class<?>, Object> controllers;
 
@@ -33,11 +36,19 @@ public class ResearchCloakController implements Controller {
         Stage primaryStage = (Stage) yes_btn.getScene().getWindow();
         primaryStage.close();
     }
+
+    /**
+     * When user click no
+     */
     @FXML
     public void exit(){
         exit_page();
     }
 
+    /**
+     * When user click yes
+     * @throws IOException
+     */
     @FXML
     public void researchCloak() throws IOException {
         ActionParser parser = new ActionParser("RCLOAK", null, null, 0,0,0);

@@ -317,5 +317,10 @@ public class Client {
     Territory<Character> t = map.findTerritory(terriName);
     return t.getSpyNumber();
   }
+
+  public int getEnemySpyNum (String terriName) {
+    Territory<Character> t = map.findTerritory(terriName);
+    return t.getEnemySpyNumber();
+  }
 }
 
