@@ -179,7 +179,9 @@ public class Server {
       return "over";
     return null;
   }
-
+  public Map<Character> getMap(){
+    return this.map;
+  }
   /*
    * <<<<<<< HEAD public void run() { // initialize game: receive connection and
    * send the map initializeGame();
@@ -201,9 +203,10 @@ public class Server {
     }
     // initialize game: receive connection and send the map
     server.initializeGame();
-
+    server.getMap().updateOneRound();
     // play one round
     while (true) {
+
       if (server.playOneRound() != null)
         break;
     }

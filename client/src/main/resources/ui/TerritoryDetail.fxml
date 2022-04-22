@@ -82,8 +82,8 @@
             <Text fx:id="unit6" layoutX="40.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="unit_css" wrappingWidth="17.0" />
          </children>
       </Group>
-      <Text layoutX="123.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Cloak" styleClass="text_css"/>
-      <Text fx:id="cloak_num" layoutX="208.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css"/>
+      <Text layoutX="123.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" text="Cloak" />
+      <Text fx:id="cloak_num" layoutX="208.0" layoutY="578.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" />
 <!--      <Group layoutX="467.0" layoutY="247.0">-->
 <!--         <children>-->
 <!--            <ImageView fitHeight="110.0" fitWidth="85.0" pickOnBounds="true" preserveRatio="true" fx:id="unit3_img"/>-->

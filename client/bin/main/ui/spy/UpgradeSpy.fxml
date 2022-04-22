@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.spy.UpgradeSpyController">
+   <children>
+      <ImageView fitHeight="400.0" fitWidth="600.0">
+         <image>
+            <Image url="@../../pic/background1.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="359.0" fitWidth="524.0" layoutX="41.0" layoutY="35.0">
+         <image>
+            <Image url="@../../pic/map/info.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="23.0" fitWidth="200.0" layoutX="103.0" layoutY="118.0" preserveRatio="true">
+         <image>
+            <Image url="@../../pic/upgrade/choose_territory.png" />
+         </image>
+      </ImageView>
+      <ChoiceBox fx:id="source" layoutX="334.0" layoutY="117.0" prefWidth="150.0" styleClass="text_css" />
+      <Button layoutX="236.0" layoutY="298.0" mnemonicParsing="false" onAction="#done" styleClass="transparent_btn">
+         <graphic>
+            <ImageView fitHeight="43.0" fitWidth="116.0" preserveRatio="true">
+               <image>
+                  <Image url="@../../pic/done_btn.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ImageView fitHeight="26.0" fitWidth="166.0" layoutX="103.0" layoutY="200.0" preserveRatio="true">
+         <image>
+            <Image url="@../../pic/upgrade/number.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="26.0" fitWidth="122.0" layoutX="103.0" layoutY="247.0" preserveRatio="true">
+         <image>
+            <Image url="@../../pic/upgrade/cost.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="23.0" fitWidth="197.0" layoutX="103.0" layoutY="157.0">
+         <image>
+            <Image url="@../../pic/upgrade/upgrade_from.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="cost" layoutX="334.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" />
+      <Slider fx:id="unit_level" layoutX="334.0" layoutY="161.0" styleClass="slider_css" />
+      <TextField fx:id="unit_num" layoutX="329.0" layoutY="201.0" prefHeight="26.0" prefWidth="140.0" styleClass="text_css" />
+      <Text fx:id="alert" layoutX="103.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" />
+   </children>
+</AnchorPane>

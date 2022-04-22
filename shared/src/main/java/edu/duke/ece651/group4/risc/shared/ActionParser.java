@@ -1,8 +1,5 @@
 package edu.duke.ece651.group4.risc.shared;
 
-import java.awt.*;
-import java.util.Objects;
-
 /**
  * This class is used to parse user input like move source destination #ofunits
  */

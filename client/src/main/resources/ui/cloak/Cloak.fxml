@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.cloak.CloakController">
+<AnchorPane fx:id="pane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.cloak.CloakController">
    <children>
       <ImageView fitHeight="400.0" fitWidth="600.0">
          <image>
@@ -51,6 +51,6 @@
             </ImageView>
          </graphic>
       </Button>
-      <Text fx:id="alert" layoutX="116.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css"/>
+      <Text fx:id="alert" layoutX="116.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" wrappingWidth="200"/>
    </children>
 </AnchorPane>

@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="background" prefHeight="533.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.MainMapController">
+<AnchorPane fx:id="background" prefHeight="533.0" prefWidth="750.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.MainMapController">
    <children>
       <ImageView fitHeight="560.0" fitWidth="786.0" layoutX="-10.0" layoutY="-21.0">
          <image>
@@ -77,11 +77,11 @@
             </ImageView>
          </graphic></Button>
       <Text fx:id="player_color" layoutX="210.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" text="" />
-      <Text fx:id="wait_msg" layoutX="161.0" layoutY="498.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="wait_msg" layoutX="161.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" />
       <Text fx:id="result_msg" layoutX="150.0" layoutY="15.0" strokeType="OUTSIDE" strokeWidth="0.0" />
       <Text fx:id="food" layoutX="420.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" />
       <Text fx:id="wood" layoutX="642.0" layoutY="45.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" />
-      <Text fx:id="victory_msg" layoutX="624.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text fx:id="victory_msg" layoutX="624.0" layoutY="137.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" wrappingWidth="100" />
       <ImageView fitHeight="40.0" fitWidth="139.0" layoutX="61.0" layoutY="17.0" preserveRatio="true">
          <image>
             <Image url="@../pic/map/player_icon.png" />
@@ -95,6 +95,85 @@
       <ImageView fitHeight="40.0" fitWidth="139.0" layoutX="493.0" layoutY="17.0">
          <image>
             <Image url="@../pic/map/wood_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="player_img" fitHeight="200.0" fitWidth="250.0" layoutX="500.0" layoutY="66.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="cloak_btn" layoutX="35.0" layoutY="349.0" mnemonicParsing="false" onAction="#cloakAction" styleClass="transparent_btn">
+         <graphic>
+            <ImageView fitHeight="65.0" fitWidth="86.0" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/map/cloak_btn.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <Button fx:id="spy_btn" layoutX="149.0" layoutY="349.0" mnemonicParsing="false" onAction="#spyAction" styleClass="transparent_btn">
+         <graphic>
+            <ImageView fitHeight="65.0" fitWidth="86.0" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/map/spy_btn.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ImageView fx:id="cloak1" fitHeight="58.0" fitWidth="51.0" layoutX="87.0" layoutY="274.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/map/cloak_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="cloak3" fitHeight="58.0" fitWidth="51.0" layoutX="271.0" layoutY="205.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/map/cloak_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="cloak4" fitHeight="58.0" fitWidth="51.0" layoutX="393.0" layoutY="66.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/map/cloak_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="cloak2" fitHeight="58.0" fitWidth="51.0" layoutX="271.0" layoutY="66.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/map/cloak_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="cloak5" fitHeight="58.0" fitWidth="51.0" layoutX="419.0" layoutY="205.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/map/cloak_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="cloak6" fitHeight="58.0" fitWidth="51.0" layoutX="419.0" layoutY="274.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/map/cloak_icon.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="spy1" fitHeight="72.0" fitWidth="51.0" layoutX="149.0" layoutY="263.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/unit_icon/green/spy.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="spy2" fitHeight="72.0" fitWidth="51.0" layoutX="332.0" layoutY="66.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/unit_icon/green/spy.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="spy3" fitHeight="72.0" fitWidth="51.0" layoutX="332.0" layoutY="205.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/unit_icon/green/spy.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="spy4" fitHeight="72.0" fitWidth="51.0" layoutX="452.0" layoutY="55.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/unit_icon/green/spy.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="spy6" fitHeight="72.0" fitWidth="51.0" layoutX="490.0" layoutY="335.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/unit_icon/green/spy.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="spy5" fitHeight="72.0" fitWidth="51.0" layoutX="531.0" layoutY="217.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/unit_icon/green/spy.png" />
          </image>
       </ImageView>
    </children>

@@ -1,17 +1,36 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane fx:id="pane" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.EndGameController">
+<AnchorPane fx:id="pane" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.EndGameController">
    <children>
-      <Text fx:id="end_msg" layoutX="248.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <ImageView fitHeight="400.0" fitWidth="702.0" preserveRatio="true">
+         <image>
+            <Image url="@../pic/back2.png" />
+         </image>
+      </ImageView>
+      <ImageView fitHeight="289.0" fitWidth="416.0" layoutX="57.0" layoutY="56.0">
+         <image>
+            <Image url="@../pic/map/light.png" />
+         </image>
+      </ImageView>
+      <Text fx:id="end_msg" layoutX="248.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="200" styleClass="text_css">
          <font>
             <Font size="35.0" />
          </font>
       </Text>
-      <Button fx:id="btn" layoutX="248.0" layoutY="306.0" mnemonicParsing="false" text="JUMP TO MAIN" onAction="#backToMain"/>
+      <Button fx:id="btn" layoutX="209.0" layoutY="274.0" mnemonicParsing="false" onAction="#backToMain" styleClass="transparent_btn">
+         <graphic>
+            <ImageView fitHeight="76.0" fitWidth="116.0" preserveRatio="true">
+               <image>
+                  <Image url="@../pic/start_btn.png" />
+               </image>
+            </ImageView>
+         </graphic></Button>
    </children>
 </AnchorPane>

@@ -9,6 +9,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -22,6 +23,8 @@ public class CloakController implements Controller {
     Button done_btn;
     @FXML
     Text alert;
+    @FXML
+    AnchorPane pane;
     private Client client;
 
     public CloakController(Client client){
@@ -58,7 +61,7 @@ public class CloakController implements Controller {
             System.out.println(result);
             alert.setText(result);
         }else{
-            Stage primaryStage = (Stage) territory.getScene().getWindow();
+            Stage primaryStage = (Stage) cost.getScene().getWindow();
             primaryStage.close();
         }
     }

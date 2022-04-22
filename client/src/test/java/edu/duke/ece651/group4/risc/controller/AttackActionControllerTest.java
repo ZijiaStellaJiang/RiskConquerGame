@@ -64,8 +64,6 @@ public class AttackActionControllerTest {
     destination = new ChoiceBox<String>(FXCollections.observableArrayList("oz", "narnia"));
     destination.getSelectionModel().select(1);
     unit_level = new Slider(0,6,1);
-    //unit_level = new ChoiceBox<Integer>(FXCollections.observableArrayList(0, 1));
-    //unit_level.getSelectionModel().selectFirst();
     unit_level.setValue(0);
     unit_num = new TextField("1");
     cont.source = source;
@@ -79,17 +77,12 @@ public class AttackActionControllerTest {
     pane.getChildren().add(source);
     cont.pane = pane;
     Scene scene = new Scene(pane);
-    // Stage primarystage = stage;
     stage.setScene(scene);
     stage.show();
   }
 
   @Test
   public void test_done() {
-    // cont.source.getSelectionModel().selectFirst();
-    // cont.destination.getSelectionModel().select(1);;
-
-    // cont.unit_level.getSelectionModel().selectFirst();
     Platform.runLater(() -> {
       try {
         Mockito.when(mockClient.addOrder(any())).thenReturn("wrong"); 

@@ -34,7 +34,7 @@ public class SpyController implements Controller {
         URL cssResource = getClass().getResource(css);
         Scene scene = new Scene(gp, width, height);
         scene.getStylesheets().add(cssResource.toString());
-        Stage stage = new Stage();
+        Stage stage = (Stage) move_btn.getScene().getWindow();
         stage.setScene(scene);
         stage.show();
     }
@@ -52,6 +52,7 @@ public class SpyController implements Controller {
      */
     @FXML
     public void moveAction(ActionEvent ae) throws IOException {
+        hide_stage();
         URL xmlResource = getClass().getResource("/ui/spy/MoveSpy.fxml");
         FXMLLoader loader = new FXMLLoader(xmlResource);
         controllers.put(MoveSpyController.class, new MoveSpyController(client, (Stage) move_btn.getScene().getWindow()));// create a new controller and
@@ -59,7 +60,7 @@ public class SpyController implements Controller {
         loader.setControllerFactory((c) -> {
             return controllers.get(c);
         });
-        loadNewPage(loader, "/ui/button.css", 600, 400);
+        loadNewPage(loader, "/ui/button.css", 650, 450);
     }
 
     /**
@@ -68,6 +69,7 @@ public class SpyController implements Controller {
      */
     @FXML
     public void upgradeAction(ActionEvent ae) throws IOException {
+        hide_stage();
         URL xmlResource = getClass().getResource("/ui/spy/UpgradeSpy.fxml");
         FXMLLoader loader = new FXMLLoader(xmlResource);
         controllers.put(UpgradeSpyController.class, new UpgradeSpyController(client, (Stage) move_btn.getScene().getWindow()));// create a new controller and
@@ -75,6 +77,6 @@ public class SpyController implements Controller {
         loader.setControllerFactory((c) -> {
             return controllers.get(c);
         });
-        loadNewPage(loader, "/ui/button.css", 600, 400);
+        loadNewPage(loader, "/ui/button.css", 650, 450);
     }
 }

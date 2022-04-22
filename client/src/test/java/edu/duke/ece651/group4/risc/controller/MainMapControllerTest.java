@@ -107,8 +107,6 @@ public class MainMapControllerTest {
     Platform.runLater(() -> {
       try {
         cont.displayTerritoryBorder();
-
-        // FxAssert.verifyThat("#oz", );
       } catch (Exception e) {
         e.printStackTrace();
       }
@@ -141,7 +139,6 @@ public class MainMapControllerTest {
     //robot.clickOn("#showMove");
     Platform.runLater(() -> {
       try {
-
         cont.showMove(new ActionEvent(move, null));
         cont.showAttack(new ActionEvent(attack, null));
         cont.showUpgrade(new ActionEvent(upgrade, null));
@@ -151,7 +148,6 @@ public class MainMapControllerTest {
         e.printStackTrace();
       }
       });
-    //robot.clickOn("#showMove");
     WaitForAsyncUtils.waitForFxEvents();
   }
 

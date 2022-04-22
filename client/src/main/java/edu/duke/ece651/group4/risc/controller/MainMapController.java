@@ -95,15 +95,35 @@ public class MainMapController {
   ImageView cloak5;
   @FXML
   ImageView cloak6;
+  @FXML
+  ImageView spy1;
+  @FXML
+  ImageView spy2;
+  @FXML
+  ImageView spy3;
+  @FXML
+  ImageView spy4;
+  @FXML
+  ImageView spy5;
+  @FXML
+  ImageView spy6;
+  private ArrayList<Tooltip> cloak_tip;
+  private ArrayList<Tooltip> spy_tip;
   private ArrayList<ImageView> cloak_icons;
   private ArrayList<String> terr_names;
+  private ArrayList<ImageView> spy_icons;
   public MainMapController(Client client) {
     this.client = client;
     System.out.println(client.getPlayerId());
     controllers = new HashMap<>();
     name_set1 = new HashMap<>();
     name_set2 = new HashMap<>();
+
     cloak_icons = new ArrayList<ImageView>();
+    spy_icons = new ArrayList<ImageView>();
+    cloak_tip = new ArrayList<Tooltip>();
+    spy_tip = new ArrayList<Tooltip>();
+
     terr_names = new ArrayList<>();
     terr_names.add("Oz");
     terr_names.add("Narnia");
@@ -127,11 +147,19 @@ public class MainMapController {
     cloak_icons.add(cloak4);
     cloak_icons.add(cloak5);
     cloak_icons.add(cloak6);
+    spy_icons.add(spy1);
+    spy_icons.add(spy2);
+    spy_icons.add(spy3);
+    spy_icons.add(spy4);
+    spy_icons.add(spy5);
+    spy_icons.add(spy6);
     for(int i=0; i<cloak_icons.size(); i++){
       cloak_icons.get(i).setVisible(false);
+      spy_icons.get(i).setVisible(false);
     }
-//    client.updateOneRoundNeeded();
     client.getMap().updateOneRound();
+//    tooltipInit();
+//    tooltipInstall();
   }
   /**
    * tell user they are green player or blue player
@@ -148,8 +176,6 @@ public class MainMapController {
 
     Image player_title = new Image(image_path, 800, 600, true, false);
     player_img.setImage(player_title);
-
-
   }
 
   /**
@@ -167,6 +193,9 @@ public class MainMapController {
 
   }
 
+  /**
+   * Updates food and wood resources
+   */
   public void updateFoodAndWood(){
     food.setText(""+client.getPlayerFood());
     wood.setText(""+client.getPlayerWood());
@@ -188,7 +217,6 @@ public class MainMapController {
               String btn_name = btn.getText().toUpperCase();
               if (btn_name.equals(terr_name)) {
                 String player_name = p.getName().toUpperCase();
-                //TODO needs update
                 if (player_name.equals("GREEN")) {
                   btn.setStyle("-fx-border-color: green");
                 } else {
@@ -258,6 +286,22 @@ public class MainMapController {
     stage.show();
   }
 
+  public void tooltipInit(){
+    for(int i=0; i<cloak_icons.size(); i++){
+      spy_tip.add(new Tooltip());
+      cloak_tip.add(new Tooltip());
+
+    }
+
+  }
+
+
+  public void tooltipInstall(){
+    for(int i=0; i <cloak_icons.size(); i++){
+      Tooltip.install(cloak_icons.get(i), cloak_tip.get(i));
+      Tooltip.install(spy_icons.get(i), spy_tip.get(i));
+    }
+  }
   /**
    * Show the territory details in fog war
    * @param terr
@@ -330,6 +374,7 @@ public class MainMapController {
     stage.show();
     listenStageClose(stage);
   }
+
   /**
    * Actions after move button is clicked
    * @param ae
@@ -381,9 +426,15 @@ public class MainMapController {
         if(client.cloakRemain(terr_names.get(i))>0){//TODO show details of cloak turn
           System.out.println("Find cloak in territory: " + terr_names.get(i) + "with turn: " + client.cloakRemain(terr_names.get(i)));
           cloak_icons.get(i).setVisible(true);
+          Tooltip.install(cloak_icons.get(i), new Tooltip(""+client.cloakRemain(terr_names.get(i))));
         }
       }
     }
+  }
+
+  //TODO update
+  public void updateSpyVisibility(){
+
   }
   public void listenStageClose(Stage stage){
 
@@ -414,13 +465,13 @@ public class MainMapController {
    * Set button disabled
    * @param whether
    */
-  public void setButtonsDisable(boolean whether){
+  /*public void setButtonsDisable(boolean whether){
     showMove.setDisable(whether);
     showAttack.setDisable(whether);
     showUpgrade.setDisable(whether);
     commit_btn.setDisable(whether);
 
-  }
+    }*/
 
   /**
    * Commit game
@@ -436,7 +487,7 @@ public class MainMapController {
 
     System.out.println("commit clicked");
     //disable all button
-    setButtonsDisable(true);
+    //setButtonsDisable(true);
     Button source = (Button) ae.getSource();
     // receive connection
     ArrayList<ActionParser> actions = client.getOrder_list();
@@ -451,7 +502,7 @@ public class MainMapController {
     System.out.println("updated!!!");
     wait_msg.setText("Please enter your next actions");
     //client.getMap().updateOneRound();
-    setButtonsDisable(false);
+    //setButtonsDisable(false);
     // display new map
 
     displayTerritoryBorder();

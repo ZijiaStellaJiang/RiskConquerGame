@@ -81,7 +81,6 @@ public class MoveSpyController implements Controller {
                 String source_terr = source.getValue();
                 String dest_terr = destination.getValue();
                 Integer num = Integer.parseInt(unit_num.getText());
-                System.out.println("spy move cost:" + source_terr + ", " + dest_terr + ", " + num);
                 ActionParser parser = new ActionParser("SMOVE", source_terr, dest_terr, num, 0, 0);
                 String cost_val = parser.getCost(client.getMap());
                 cost.setText(cost_val);
@@ -106,7 +105,6 @@ public class MoveSpyController implements Controller {
         String dest_terr =destination.getValue();
         String num = unit_num.getText();
         try {
-            System.out.println("spy move:" + source_terr + ", " + dest_terr + ", " + num);
             ActionParser newAction = new ActionParser("SMOVE", source_terr, dest_terr, Integer.parseInt(num), 0, 0);
             String result = client.addOrder(newAction);
             if(result!=null){

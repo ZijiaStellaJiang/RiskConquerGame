@@ -59,6 +59,8 @@ public class TerritoryDetailController {
     Group group6;
     @FXML
     Text cloak_num;
+    @FXML
+    ImageView spy_img;
     private Territory<Character> terr;
     private int player_id;
     private boolean ifMine;
@@ -87,6 +89,7 @@ public class TerritoryDetailController {
         showUnit();
         if(ifMine){
             showCloak();
+            setSpyImg();
         }
 
 
@@ -97,6 +100,23 @@ public class TerritoryDetailController {
         image.setFitWidth(width);
     }
 
+    public void setSpyImg(){
+        String icon_path = "pic/unit_icon";
+        if(player_id==1){
+            icon_path += "/blue/";
+        }else{
+            icon_path += "/green/";
+        }
+        icon_path += "spy.png";
+        Image image = new Image(icon_path, 400, 300, true, false);
+        spy_img.setImage(image);
+    }
+
+    /**
+     * Display Unit Icon and image
+     * @param units
+     * @param ifMySelf
+     */
     public void addUnit(ArrayList<Integer> units, boolean ifMySelf){
         if((player_id==1 && ifMySelf==true) || (player_id==0 && ifMySelf==false)){
             Image image1= new Image("pic/unit_icon/blue/jocker.png", 480, 360, true, false);
