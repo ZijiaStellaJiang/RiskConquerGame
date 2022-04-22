@@ -38,4 +38,24 @@ public class MinCostFinder<T> {
         //but should not happen, because we check path first
         return -1;
     }
+
+    /**
+     * helper function for move cost
+     * @param findAdjacent: find all direct adjacent territories which is not the same player as
+     * @param endPoint: calculate distance between endPoint and neigh of findAdjacent
+     * @param player: the player
+     * @return the minCost
+     */
+    public int costForMoveBetweenDifferentPlayer (Territory<T> findAdjacent, Territory<T> endPoint,
+                                                   Player<T> player) {
+        int minCost = 300;
+        MinCostFinder<T> finder = new MinCostFinder<>();
+        for(Territory<T> neigh: findAdjacent.getMyNeigh()) {
+            if(!player.checkMyTerritory(neigh)) continue;
+            int cost = finder.findMinCost(neigh,endPoint,player);
+            if(cost<minCost) minCost = cost;
+        }
+        if(minCost==300) return -1;
+        return minCost + findAdjacent.getSize();
+    }
 }

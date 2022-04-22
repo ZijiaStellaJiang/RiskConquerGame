@@ -163,7 +163,7 @@ public class ActionParser implements java.io.Serializable{
       else if (moveToSame) cost = finder.findMinCost(source, dest, player);
       else {
         //from mine to enemy
-        cost = costForMoveBetweenDifferentPlayer(dest, source, player);
+        cost = finder.costForMoveBetweenDifferentPlayer(dest, source, player);
       }
       theMap.resetDistance();
       if(cost==-1) return "food: "+cost;
@@ -177,17 +177,5 @@ public class ActionParser implements java.io.Serializable{
       int cost = 100;
       return "wood: " + cost;
     }
-  }
-  private int costForMoveBetweenDifferentPlayer (Territory<Character> findAdjacent, Territory<Character> endPoint,
-                                                 Player<Character> player) {
-    int minCost = 300;
-    MinCostFinder<Character> finder = new MinCostFinder<>();
-    for(Territory<Character> neigh: findAdjacent.getMyNeigh()) {
-      if(!player.checkMyTerritory(neigh)) continue;
-      int cost = finder.findMinCost(neigh,endPoint,player);
-      if(cost<minCost) minCost = cost;
-    }
-    if (minCost==300) return -1;
-    return minCost + findAdjacent.getSize();
   }
 }
