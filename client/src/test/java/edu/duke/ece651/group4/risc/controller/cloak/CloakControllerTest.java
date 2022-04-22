@@ -17,6 +17,7 @@ import javafx.scene.control.ChoiceBox;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import org.checkerframework.dataflow.qual.TerminatesExecution;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -67,12 +68,27 @@ public class CloakControllerTest {
       stage.setScene(scene);
       stage.show();
   }
+
+    /**
+     * Tests there is no selection of choice box
+     */
+  @Test
+  public void test_failure_done() {
+      Platform.runLater(() -> {
+          try {
+              cont.done(new ActionEvent(done_btn, null));
+              FxAssert.verifyThat(cont.alert, TextMatchers.hasText("Please enter territory"));
+          } catch (Exception e) {
+              e.printStackTrace();
+          }
+      });
+      WaitForAsyncUtils.waitForFxEvents();
+  }
   @Test
   public void test_done() {
       Platform.runLater(() -> {
           try {
               cont.territory.getSelectionModel().selectFirst();
-              String ans = cont.territory.getValue();
               cont.done(new ActionEvent(done_btn, null));
               FxAssert.verifyThat(cont.cost, TextMatchers.hasText("20"));
           } catch (Exception e) {
@@ -80,6 +96,24 @@ public class CloakControllerTest {
           }
       });
       WaitForAsyncUtils.waitForFxEvents();
+  }
+
+  @Test
+  public void test_add_order_failure(){
+      Platform.runLater(() -> {
+          try {
+              cont.territory.getSelectionModel().selectFirst();
+              String expected = "add order failure";
+              Mockito.when(mockClient.addOrder(any())).thenReturn(expected);
+              cont.done(new ActionEvent(done_btn, null));
+              FxAssert.verifyThat(cont.alert, TextMatchers.hasText(expected));
+          } catch (Exception e) {
+              e.printStackTrace();
+          }
+      });
+      WaitForAsyncUtils.waitForFxEvents();
+
+
   }
 
 }

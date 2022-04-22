@@ -3,11 +3,9 @@ package edu.duke.ece651.group4.risc.controller;
 import edu.duke.ece651.group4.risc.shared.Territory;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
-import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
-import org.checkerframework.dataflow.qual.TerminatesExecution;
 
 import java.util.ArrayList;
 
@@ -177,10 +175,18 @@ public class TerritoryDetailController {
         }
 
     }
+
+    /**
+     * Shows cloak info
+     */
     public void showCloak(){
         cloak_num.setText(String.valueOf(cNum));
     }
 
+
+    /**
+     * Show number of each unit
+     */
     public void showUnit(){
         String text;
         if(ifMine){
