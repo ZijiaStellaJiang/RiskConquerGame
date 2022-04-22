@@ -99,4 +99,42 @@ public class AttackActionTest {
         assertEquals(108,p2.getFoodNum());
         assertEquals(112,p2.getWoodNum());
     }
+    @Test
+    public void test_attack_with_spy() {
+        Territory<Character> nar = new Territory<>("narnia",2,3,3);
+        Territory<Character> hog = new Territory<>("hogwarts",4,2,2);
+        nar.addNeigh(hog);
+        Player<Character> p1 = new TextPlayer("p1",300,300);
+        Player<Character> p2 = new TextPlayer("p2", 300,300);
+        p1.addToTerritory(nar);
+        p2.addToTerritory(hog);
+        Map<Character> map = new Map<>();
+        map.addTerritory(nar);
+        map.addTerritory(hog);
+        map.addPlayer(p1);
+        map.addPlayer(p2);
+        nar.addGroupUnit(new ArrayList<>(Collections.nCopies(4,new SimpleUnit<>(1))));
+        hog.addMySpy();
+        hog.addMySpy();
+        hog.addEnemySpy();
+        assertEquals(2,hog.getSpyNumber());
+        assertEquals(1,hog.getEnemySpyNumber());
+
+        Action<Character> rcloak = new ResearchCloakAction<>();
+        ActionParser parser_r = new ActionParser("rcloak",null,null,0);
+        assertNull(rcloak.doAction(parser_r,map,p2));
+        Action<Character> cloak = new CloakAction<>();
+        ActionParser parser_cloak = new ActionParser("cloak", hog.getName(), null, 0);
+        assertNull(cloak.doAction(parser_cloak,map,p2));
+        assertEquals(3,hog.cloakgetCount());
+
+        Action<Character> attack_move = new MoveAction<>(false);
+        Action<Character> attack = new AttackAction<>();
+        ActionParser parser = new ActionParser("attack","narnia","hogwarts",3,1);
+        attack_move.doAction(parser,map,p1);
+        assertNull(attack.doAction(parser,map,p1));
+        assertEquals(2,hog.getEnemySpyNumber());
+        assertEquals(1,hog.getSpyNumber());
+        assertEquals(0,hog.cloakgetCount());
+    }
 }
