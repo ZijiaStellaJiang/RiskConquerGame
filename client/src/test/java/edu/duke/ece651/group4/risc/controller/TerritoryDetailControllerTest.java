@@ -1,6 +1,5 @@
 package edu.duke.ece651.group4.risc.controller;
 
-import edu.duke.ece651.group4.risc.client.Client;
 import edu.duke.ece651.group4.risc.shared.Territory;
 import javafx.application.Platform;
 import javafx.scene.Group;
@@ -11,7 +10,6 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.testfx.api.FxAssert;
 import org.testfx.framework.junit5.ApplicationExtension;
@@ -258,6 +256,7 @@ class TerritoryDetailControllerTest {
                 ans.add(1);
                 cont.setPlayer_id(0);
                 Mockito.when(terr.getEnemyInfo()).thenReturn(ans);
+                Mockito.when(terr.getMyInfo()).thenReturn(ans);
                 Mockito.when(terr.checkLatest()).thenReturn(false);
                 cont.setIfMine(true);
                 cont.setup();

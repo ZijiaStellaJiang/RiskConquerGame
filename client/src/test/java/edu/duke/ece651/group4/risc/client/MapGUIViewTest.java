@@ -5,6 +5,7 @@ import static org.testfx.matcher.base.NodeMatchers.isVisible;
 
 import java.io.IOException;
 
+import edu.duke.ece651.group4.risc.controller.TestMapGenerator;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -29,9 +30,10 @@ public class MapGUIViewTest {
     // mock client
     mockClient = Mockito.mock(Client.class);
     Mockito.when(mockClient.getPlayerId()).thenReturn(0);
-    testMap = (Map<Character>) Mockito.mock(Map.class);
+    testMap = TestMapGenerator.generateTestMap();
     Mockito.when(mockClient.getMap()).thenReturn(testMap);
-    Mockito.when(mockClient.getMap().getPlayerName(anyInt())).thenReturn("Green");
+    Mockito.when(mockClient.getPlayerId()).thenReturn(0);
+    //Mockito.when(mockClient.getMap().getPlayerName(anyInt())).thenReturn("Green");
   }
 
   @Test

@@ -517,8 +517,6 @@ public class MainMapController {
     client.oneRoundUpdate();
     System.out.println("updated!!!");
     wait_msg.setText("Please enter your next actions");
-    //client.getMap().updateOneRound();
-    //setButtonsDisable(false);
     // display new map
 
     displayTerritoryBorder();
@@ -535,6 +533,8 @@ public class MainMapController {
       loader.setControllerFactory((c) -> {
         return controllers.get(c);
       });
+
+      URL cssResource = getClass().getResource("/ui/button.css");
       AnchorPane gp = loader.load();
       EndGameController cont = loader.getController();
       cont.setup(end_msg);
@@ -542,6 +542,7 @@ public class MainMapController {
       client.close_connection();
       primaryStage.close();
       Scene scene = new Scene(gp);
+      scene.getStylesheets().add(cssResource.toString());
       Stage stage = new Stage();
       stage.setScene(scene);
       stage.show();
