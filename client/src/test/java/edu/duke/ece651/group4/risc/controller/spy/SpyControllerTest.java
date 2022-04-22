@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mockito;
@@ -50,7 +51,7 @@ class SpyControllerTest {
         stage.show();
     }
 
-
+    @Disabled
     @Test
     public void test_upgrade_action(){
         Platform.runLater(() -> {
