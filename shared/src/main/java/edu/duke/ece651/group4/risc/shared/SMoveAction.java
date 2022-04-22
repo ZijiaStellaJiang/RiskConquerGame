@@ -51,12 +51,14 @@ public class SMoveAction<T> extends Action<T> {
     private int costForMoveBetweenDifferentPlayer (Territory<T> findAdjacent, Territory<T> endPoint,
                                                    Player<T> player) {
         int minCost = 300;
+        //todo
         MinCostFinder<T> finder = new MinCostFinder<>();
         for(Territory<T> neigh: findAdjacent.getMyNeigh()) {
             if(!player.checkMyTerritory(neigh)) continue;
             int cost = finder.findMinCost(neigh,endPoint,player);
             if(cost<minCost) minCost = cost;
         }
+        if(minCost==300) return -1;
         return minCost + findAdjacent.getSize();
     }
 }

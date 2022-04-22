@@ -313,5 +313,9 @@ public class Client {
     return t.cloakgetCount();
   }
 
+  public int getMySpyNum(String terriName) {
+    Territory<Character> t = map.findTerritory(terriName);
+    return t.getSpyNumber();
+  }
 }
 
