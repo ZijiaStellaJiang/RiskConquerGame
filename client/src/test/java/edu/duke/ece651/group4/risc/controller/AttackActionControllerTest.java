@@ -89,7 +89,6 @@ public class AttackActionControllerTest {
         cont.done();
         Mockito.when(mockClient.addOrder(any())).thenReturn(null);
         cont.done();
-        // FxAssert.verifyThat("#oz", );
       } catch (Exception e) {
         e.printStackTrace();
       }

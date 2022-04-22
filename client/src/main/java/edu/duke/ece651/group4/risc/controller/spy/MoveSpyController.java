@@ -11,6 +11,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -29,8 +30,13 @@ public class MoveSpyController implements Controller {
     Text alert;
     @FXML
     Text cost;
-
+    @FXML
+    AnchorPane pane;
     private Stage former_stage;
+
+    /**
+     * Add listener to source, destination and unit num of each territory
+     */
     public void setup(){
         source.getSelectionModel().selectedIndexProperty().addListener(
                 (ObservableValue<? extends Number> ov, Number old_val, Number new_val) -> {
@@ -44,12 +50,19 @@ public class MoveSpyController implements Controller {
             showCost();
         });
     }
+
     @FXML
     public void initialize(){
         ObservableList<String> terrs = FXCollections.observableArrayList("Hogwarts", "Mordor", "Oz", "Narnia", "Elantris", "Gondor");
         destination.setItems(terrs);
         source.setItems(terrs);
     }
+
+    /**
+     * Constructor
+     * @param client client
+     * @param stage stage
+     */
     public MoveSpyController(Client client, Stage stage){
         this.former_stage = stage;
         this.client = client;
@@ -91,6 +104,10 @@ public class MoveSpyController implements Controller {
         cost.setText("Unavailable");
     }
 
+    /**
+     * Actions after click done button
+     * @param ae
+     */
     @FXML
     public void done(ActionEvent ae){
         if((!(source.getValue()!=null)&&(destination.getValue()!=null)&&(unit_num.getText()!=null))) {

@@ -149,6 +149,8 @@ public class MainMapControllerTest {
       }
       });
     WaitForAsyncUtils.waitForFxEvents();
+
+
   }
 
 }
