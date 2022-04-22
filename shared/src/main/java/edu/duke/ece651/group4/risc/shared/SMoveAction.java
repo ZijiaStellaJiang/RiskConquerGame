@@ -34,31 +34,10 @@ public class SMoveAction<T> extends Action<T> {
         else if(moveFromMy==moveToMy) cost = finder.findMinCost(source,dest,player);
         else {
             //from mine to enemy
-            cost = costForMoveBetweenDifferentPlayer(dest,source,player);
+            cost = finder.costForMoveBetweenDifferentPlayer(dest,source,player);
         }
         player.consumeResource(new FoodResource<>(cost*toMove));
         map.resetDistance();
         return null;
-    }
-
-    /**
-     * helper function for move cost
-     * @param findAdjacent: find all direct adjacent territories which is not the same player as
-     * @param endPoint: calculate distance between endPoint and neigh of findAdjacent
-     * @param player: the player
-     * @return the minCost
-     */
-    private int costForMoveBetweenDifferentPlayer (Territory<T> findAdjacent, Territory<T> endPoint,
-                                                   Player<T> player) {
-        int minCost = 300;
-        //todo
-        MinCostFinder<T> finder = new MinCostFinder<>();
-        for(Territory<T> neigh: findAdjacent.getMyNeigh()) {
-            if(!player.checkMyTerritory(neigh)) continue;
-            int cost = finder.findMinCost(neigh,endPoint,player);
-            if(cost<minCost) minCost = cost;
-        }
-        if(minCost==300) return -1;
-        return minCost + findAdjacent.getSize();
     }
 }

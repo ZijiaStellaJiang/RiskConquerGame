@@ -149,6 +149,7 @@ public class TextPlayerTest {
         assertTrue(attack.contains(o));
         assertFalse(attack.contains(n));
         assertFalse(attack.contains(a));
+        assertNull(green.findDestinations(null,true));
     }
 
     @Test

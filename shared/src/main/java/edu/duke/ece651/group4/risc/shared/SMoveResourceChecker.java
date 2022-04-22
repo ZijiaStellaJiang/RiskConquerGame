@@ -18,24 +18,12 @@ public class SMoveResourceChecker<T> extends ActionRuleChecker<T> {
         else if(moveFromMy==moveToMy) cost = finder.findMinCost(source,dest,p);
         else {
             //from mine to enemy
-            cost = costForMoveBetweenDifferentPlayer(dest,source,p);
+            cost = finder.costForMoveBetweenDifferentPlayer(dest,source,p);
         }
         map.resetDistance();
         if(cost*toMove > p.getFoodNum()) {
             return "That action is invalid: you don't have enough food to move the spy.";
         }
         return null;
-    }
-
-    private int costForMoveBetweenDifferentPlayer (Territory<T> findAdjacent, Territory<T> endPoint,
-                                                   Player<T> player) {
-        int minCost = 300;
-        MinCostFinder<T> finder = new MinCostFinder<>();
-        for(Territory<T> neigh: findAdjacent.getMyNeigh()) {
-            if(!player.checkMyTerritory(neigh)) continue;
-            int cost = finder.findMinCost(neigh,endPoint,player);
-            if(cost<minCost) minCost = cost;
-        }
-        return minCost + findAdjacent.getSize();
     }
 }

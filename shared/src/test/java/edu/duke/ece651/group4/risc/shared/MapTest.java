@@ -37,7 +37,8 @@ public class MapTest {
         assertEquals(expected,map.getMyPlayers());
         assertNotEquals(falseAns, map.getMyPlayers());
         assertEquals(p2,map.findPlayer(t));
-        assertEquals(null,map.findPlayer(none));
+        assertNull(map.findPlayer(none));
+        assertEquals(p1,map.getOnePlayer(0));
     }
     @Test
     public void test_get_my_territories(){
@@ -51,6 +52,7 @@ public class MapTest {
         myTerri.add(t1);
         myTerri.add(t2);
         assertEquals(myTerri,map.getMyTerritories());
+        assertNull(map.findTerritory(null));
     }
     @Test
     public void test_player_id(){

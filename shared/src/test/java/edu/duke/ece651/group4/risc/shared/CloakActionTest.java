@@ -19,7 +19,7 @@ public class CloakActionTest {
     Map<Character> map = new Map<Character>();
     map.addTerritory(t_test);
     map.addTerritory(t1);
-    TextPlayer p1 = new TextPlayer("Green");
+    TextPlayer p1 = new TextPlayer("Green",100,100);
     p1.addToTerritory(t_test);
     p1.addToTerritory(t1);
     map.addPlayer(p1);
@@ -32,10 +32,18 @@ public class CloakActionTest {
     parse = new ActionParser("cloak", "t1", null, 5, 0, 1);
     cloak = new CloakAction<>();
     result = cloak.doAction(parse, map , p1);
+    assertEquals("That action is invalid: Cloaking is not being researched",result);
+
+    Action<Character> rcloak = new ResearchCloakAction<>();
+    parse = new ActionParser("rcloak",null,null,0);
+    assertNull(rcloak.doAction(parse,map,p1));
+
+    parse = new ActionParser("cloak", "t1", null, 5, 0, 1);
+    result = cloak.doAction(parse,map,p1);
     assertEquals("That action is invalid: The technology resources are not enough for cloaking.", result);
     p1.updateResource();
     assertEquals(1002, p1.getWoodNum());
-    assertEquals(false, p1.cloakIsResearch());
+    assertTrue(p1.cloakIsResearch());
     assertEquals(0, t1.cloakgetCount());
 
     // valid 
