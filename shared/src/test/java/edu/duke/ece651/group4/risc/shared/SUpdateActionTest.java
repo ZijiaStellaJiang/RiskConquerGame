@@ -29,21 +29,32 @@ public class SUpdateActionTest {
     ActionParser parse = null;
     Action<Character> update;
     // check resource
-    parse = new ActionParser("supdate", "t1", null, 5, 0, 1);
+    parse = new ActionParser("supdate", "t1", null, 5, 3, 1);
     update = new SUpdateAction<>();
     result = update.doAction(parse, map , p1);
     assertEquals("That action is invalid: The technology resources are not enough for updating spy.", result);
     p1.updateResource();
     // check number
-    parse = new ActionParser("supdate", "t1", null, 6, 0, 1);
+    parse = new ActionParser("supdate", "t1", null, 6, 3, 1);
     update = new SUpdateAction<>();
     result = update.doAction(parse, map , p1);
     assertEquals("That action is invalid: not enough units for upgrading to spies", result);
-    // valid 
-    parse = new ActionParser("supdate", "t1", null, 5, 0, 5);
+
+    // check level
+    parse = new ActionParser("supdate", "t1", null, 5, 0, 1);
     update = new SUpdateAction<>();
     result = update.doAction(parse, map , p1);
-    assertEquals(0, t1.getLevelUnitNum(0));
+    assertEquals("That action is invalid: the unit level must be above 0", result);
+    // valid 
+    parse = new ActionParser("update", "t1", null, 5, 0, 5);
+    update = new UpdateAction<>();
+    result = update.doAction(parse, map , p1);
+    assertEquals(null, result);
+    parse = new ActionParser("supdate", "t1", null, 5, 5, 5);
+    update = new SUpdateAction<>();
+    result = update.doAction(parse, map , p1);
+    assertEquals(null, result);
+    assertEquals(0, t1.getLevelUnitNum(5));
     assertEquals(5, t1.getSpyNumber());
   }
 

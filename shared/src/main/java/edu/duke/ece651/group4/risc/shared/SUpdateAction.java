@@ -2,7 +2,7 @@ package edu.duke.ece651.group4.risc.shared;
 
 public class SUpdateAction<T> extends Action<T> {
     public SUpdateAction() {
-        super(new SUpdateNumChecker<T>(new SUpdateResourceChecker<T>(null)));
+        super(new SUpdateResourceChecker<T>(new SUpdateNumChecker<T>(null)));
     }
 
 
@@ -23,7 +23,8 @@ public class SUpdateAction<T> extends Action<T> {
         for(Territory<T> source: thePlayer.getMyTerritories()){
             if(source.getName().toUpperCase().equals(parser.getSource())){
                 int updateNum = parser.getUnit();
-                updateUnits(source, thePlayer, updateNum, 0);
+                int curLevel = parser.getLevel();
+                updateUnits(source, thePlayer, updateNum, curLevel);
                 break;
             }
         }
@@ -34,7 +35,7 @@ public class SUpdateAction<T> extends Action<T> {
 
     private void updateUnits(Territory<T> territory, Player<T> player, int updateNum, int curLevel) {
         for (int i = 0; i < updateNum; i++) {
-            territory.removeMyUnit(new SimpleUnit<T>(0));
+            territory.removeMyUnit(new SimpleUnit<T>(curLevel));
             territory.addMySpy();
         }
         player.consumeResource(new WoodResource<>(updateNum * 20));

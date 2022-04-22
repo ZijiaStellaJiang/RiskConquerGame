@@ -54,6 +54,6 @@
       <Text fx:id="cost" layoutX="334.0" layoutY="265.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" />
       <Slider fx:id="unit_level" layoutX="334.0" layoutY="161.0" styleClass="slider_css" />
       <TextField fx:id="unit_num" layoutX="329.0" layoutY="201.0" prefHeight="26.0" prefWidth="140.0" styleClass="text_css" />
-      <Text fx:id="alert" layoutX="103.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" />
+      <Text fx:id="alert" layoutX="103.0" layoutY="363.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" wrappingWidth="200"/>
    </children>
 </AnchorPane>

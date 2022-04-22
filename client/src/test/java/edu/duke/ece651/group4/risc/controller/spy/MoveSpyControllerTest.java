@@ -144,20 +144,6 @@ class MoveSpyControllerTest {
     }
 
     @Test
-    public void test_done_no_enter1(){
-        Platform.runLater(() -> {
-            try {
-                source.getSelectionModel().clearSelection();
-                cont.done(new ActionEvent(done_btn, null));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        WaitForAsyncUtils.waitForFxEvents();
-        FxAssert.verifyThat(alert, TextMatchers.hasText("Invalid input"));
-    }
-
-    @Test
     public void test_done_no_integer(){
         Platform.runLater(() -> {
             try {
