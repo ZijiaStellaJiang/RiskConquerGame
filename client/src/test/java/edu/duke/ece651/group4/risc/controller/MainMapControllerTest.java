@@ -193,7 +193,7 @@ public class MainMapControllerTest {
 //    });
 //    WaitForAsyncUtils.waitForFxEvents();
 //  }
-  @Disabled
+
   @Test
   public void test_show_move(FxRobot robot) {
     //robot.clickOn("#showMove");
