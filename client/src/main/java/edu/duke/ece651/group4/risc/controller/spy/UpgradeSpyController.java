@@ -11,9 +11,11 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -31,6 +33,10 @@ public class UpgradeSpyController implements Controller {
     Slider unit_level;
     @FXML
     Text alert;
+    @FXML
+    AnchorPane pane;
+    @FXML
+    Button done_btn;
     private ObservableList<String> sources;
     private Stage former_stage;
     public UpgradeSpyController(Client client, Stage stage){

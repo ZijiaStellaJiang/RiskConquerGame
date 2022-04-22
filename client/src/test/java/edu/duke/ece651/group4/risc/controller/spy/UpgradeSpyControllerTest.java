@@ -3,18 +3,20 @@ package edu.duke.ece651.group4.risc.controller.spy;
 import edu.duke.ece651.group4.risc.client.Client;
 import edu.duke.ece651.group4.risc.controller.TestMapGenerator;
 import edu.duke.ece651.group4.risc.shared.Map;
+import edu.duke.ece651.group4.risc.shared.Territory;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.testfx.api.FxAssert;
 import org.testfx.framework.junit5.ApplicationExtension;
@@ -22,69 +24,84 @@ import org.testfx.framework.junit5.Start;
 import org.testfx.matcher.control.TextMatchers;
 import org.testfx.util.WaitForAsyncUtils;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.testfx.matcher.base.NodeMatchers.isVisible;
-
 
 @ExtendWith(ApplicationExtension.class)
-class MoveSpyControllerTest {
-    AnchorPane pane;
-    private MoveSpyController cont;
-    private Client mockClient;
-    private TextField unit_num;
-    Text cost;
-    Button done_btn;
+class UpgradeSpyControllerTest {
+    private UpgradeSpyController cont;
     ChoiceBox<String> source;
-    ChoiceBox<String> dest;
+    Text cost;
+    TextField unit_num;
+    Slider unit_level;
     Text alert;
+    AnchorPane pane;
+    Button done_btn;
+    private Client mockClient;
+
     @Start
     private void start(Stage stage){
         mockClient = Mockito.mock(Client.class);
         Map<Character> testMap = TestMapGenerator.generateTestMap();
         Mockito.when(mockClient.getMap()).thenReturn(testMap);
         Mockito.when(mockClient.getPlayerId()).thenReturn(0);
-
-        pane = new AnchorPane();
-        unit_num = new TextField();
-        source = new ChoiceBox<String>();
-        dest = new ChoiceBox<String>();
+        cont = new UpgradeSpyController(mockClient, stage);
+        //add fxml element
+        source = new ChoiceBox<>();
         cost = new Text();
+        unit_num = new TextField();
         alert = new Text();
+        unit_level = new Slider();
+        pane = new AnchorPane();
         done_btn = new Button();
-        cont = new MoveSpyController(mockClient, stage);
-        pane.getChildren().addAll(unit_num, source, dest, cost, alert, done_btn);
-        cont.unit_num = unit_num;
-        cont.pane = pane;
-        cont.done_btn = done_btn;
-        cont.destination = dest;
-        cont.source = source;
-        cont.cost = cost;
+        pane.getChildren().addAll(source, cost, unit_num, alert, unit_level, done_btn);
+        cont.unit_level = unit_level;
         cont.alert = alert;
+        cont.cost = cost;
+        cont.source = source;
+        cont.unit_num =unit_num;
+        cont.done_btn = done_btn;
+        cont.pane = pane;
         Scene scene = new Scene(pane);
         stage.setScene(scene);
         stage.show();
         cont.initialize();
-        cont.setup();
+
     }
 
-
     @Test
-    public void test_write_unit_num(){
+    void checkIntegerValid() {
         Platform.runLater(() -> {
             try {
-                assertEquals(true, cont.checkIntegerValid(""));
-                assertEquals(false, cont.checkIntegerValid("a"));
-                assertEquals(true, cont.checkIntegerValid("123"));
+                FxAssert.verifyThat(cost, TextMatchers.hasText("Unavailable"));
+                assertEquals(false, cont.checkIntegerValid());
+                unit_num.setText("1");
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
         WaitForAsyncUtils.waitForFxEvents();
+
+        assertEquals(true, cont.checkIntegerValid());
+       // unit_num.setText("ab");
+        //assertEquals(false, cont.checkIntegerValid());
+
+        Platform.runLater(() -> {
+            try {
+                unit_num.setText("ab");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        WaitForAsyncUtils.waitForFxEvents();
+        assertEquals(false, cont.checkIntegerValid());
+
     }
 
     @Test
-    public void test_show_cost_avaibale(){
+    void showCost_avai() {
         Platform.runLater(() -> {
             try {
                 cont.showCost();
@@ -97,75 +114,45 @@ class MoveSpyControllerTest {
     }
 
     @Test
-    public void test_show_cost_not_integer(){
+    void showCost_integer() {
         Platform.runLater(() -> {
             try {
+                unit_level.setValue(1.5);
+                cont.showCost();
+                unit_level.setValue(1);
+                unit_num.setText("1");
                 source.getSelectionModel().selectFirst();
-                dest.getSelectionModel().select(0);
-                unit_num.setText("abc");
                 cont.showCost();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
         WaitForAsyncUtils.waitForFxEvents();
-        FxAssert.verifyThat(cost, TextMatchers.hasText("unit number needs to be integer"));
+        FxAssert.verifyThat(cost, TextMatchers.hasText("20"));
     }
 
     @Test
-    public void test_correct_cost(){
+    void showCost_unit_num_err() {
         Platform.runLater(() -> {
             try {
-                source.getSelectionModel().select("Narnia");
-                dest.getSelectionModel().select("Narnia");
-                unit_num.setText("1");
+                unit_num.setText("abc");
+                source.getSelectionModel().selectFirst();
                 cont.showCost();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         });
         WaitForAsyncUtils.waitForFxEvents();
-        FxAssert.verifyThat(cost, TextMatchers.hasText("food: 5"));
-    }
-
-
-    @Test
-    public void test_done_no_enter(){
-        Platform.runLater(() -> {
-            try {
-                unit_num.setText("");
-                cont.done(new ActionEvent(done_btn, null));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        WaitForAsyncUtils.waitForFxEvents();
-        FxAssert.verifyThat(alert, TextMatchers.hasText("Invalid input"));
+        FxAssert.verifyThat(cost, TextMatchers.hasText("Level up or num needs to be integer"));
     }
 
     @Test
-    public void test_done_no_integer(){
+    void done_err() {
         Platform.runLater(() -> {
             try {
-                source.getSelectionModel().select("Narnia");
-                dest.getSelectionModel().select("Narnia");
-                unit_num.setText("abc");
-                cont.done(new ActionEvent(done_btn, null));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        });
-        WaitForAsyncUtils.waitForFxEvents();
-        FxAssert.verifyThat(alert, TextMatchers.hasText("unit number needs to be integer"));
-    }
-
-    @Test
-    public void test_done_add_order_failure(){
-        Platform.runLater(() -> {
-            try {
-                source.getSelectionModel().select("Narnia");
-                dest.getSelectionModel().select("Narnia");
                 unit_num.setText("1");
+                unit_level.setValue(1);
+                source.getSelectionModel().selectFirst();
                 Mockito.when(mockClient.addOrder(any())).thenReturn("failure");
                 cont.done(new ActionEvent(done_btn, null));
             } catch (Exception e) {
@@ -175,14 +162,13 @@ class MoveSpyControllerTest {
         WaitForAsyncUtils.waitForFxEvents();
         FxAssert.verifyThat(alert, TextMatchers.hasText("failure"));
     }
-
     @Test
-    public void test_done_add_order_success(){
+    public void done_correct(){
         Platform.runLater(() -> {
             try {
-                source.getSelectionModel().select("Narnia");
-                dest.getSelectionModel().select("Narnia");
                 unit_num.setText("1");
+                unit_level.setValue(1);
+                source.getSelectionModel().selectFirst();
                 Mockito.when(mockClient.addOrder(any())).thenReturn(null);
                 cont.done(new ActionEvent(done_btn, null));
             } catch (Exception e) {
@@ -191,5 +177,4 @@ class MoveSpyControllerTest {
         });
         WaitForAsyncUtils.waitForFxEvents();
     }
-
 }

@@ -5,12 +5,14 @@ import javafx.fxml.FXML;
 import javafx.scene.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
 
 public class TerritoryDetailController {
-
+    @FXML
+    AnchorPane pane;
     @FXML
     Text detail;
     @FXML
@@ -57,12 +59,11 @@ public class TerritoryDetailController {
     Group group6;
     @FXML
     Text cloak_num;
-    @FXML
-    ImageView spy_img;
     private Territory<Character> terr;
     private int player_id;
     private boolean ifMine;
     private int cNum;
+
     public TerritoryDetailController(){
 
     }
@@ -96,7 +97,12 @@ public class TerritoryDetailController {
         image.setFitHeight(height);
         image.setFitWidth(width);
     }
-
+    public void setIfMine(boolean ans){
+        ifMine = ans;
+    }
+    public void setPlayer_id(int id){
+        this.player_id = id;
+    }
 
     /**
      * Display Unit Icon and image
@@ -190,13 +196,11 @@ public class TerritoryDetailController {
     public void showUnit(){
         String text;
         if(ifMine){
-            System.out.println("Showing my territory");
             text = "This is your territory info";
             ArrayList<Integer> myUnits = terr.getMyInfo();
             showOtherInfo(text);
             addUnit(myUnits, true);
         }else{
-            System.out.println("Showing enemy territory");
             ArrayList<Integer> enemyUnits = terr.getEnemyInfo();
             if(enemyUnits==null){
                 detail.setText("you can not see the territory details");

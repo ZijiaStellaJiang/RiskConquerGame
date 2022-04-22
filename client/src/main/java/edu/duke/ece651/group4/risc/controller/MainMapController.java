@@ -284,7 +284,7 @@ public class MainMapController {
     stage.show();
   }
 
-  public void tooltipInit(){
+  /*public void tooltipInit(){
     for(int i=0; i<cloak_icons.size(); i++){
       spy_tip.add(new Tooltip());
       cloak_tip.add(new Tooltip());
@@ -299,7 +299,7 @@ public class MainMapController {
       Tooltip.install(cloak_icons.get(i), cloak_tip.get(i));
       Tooltip.install(spy_icons.get(i), spy_tip.get(i));
     }
-  }
+  }*/
   /**
    * Show the territory details in fog war
    * @param terr
