@@ -89,28 +89,16 @@ public class TerritoryDetailController {
         showUnit();
         if(ifMine){
             showCloak();
-            setSpyImg();
         }
-
-
     }
+
+
     public void adjustImageSize(ImageView image, int width, int height, Image images){
         image.setImage(images);
         image.setFitHeight(height);
         image.setFitWidth(width);
     }
 
-    public void setSpyImg(){
-        String icon_path = "pic/unit_icon";
-        if(player_id==1){
-            icon_path += "/blue/";
-        }else{
-            icon_path += "/green/";
-        }
-        icon_path += "spy.png";
-        Image image = new Image(icon_path, 400, 300, true, false);
-        spy_img.setImage(image);
-    }
 
     /**
      * Display Unit Icon and image

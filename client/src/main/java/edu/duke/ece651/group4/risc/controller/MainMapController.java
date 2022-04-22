@@ -158,8 +158,6 @@ public class MainMapController {
       spy_icons.get(i).setVisible(false);
     }
     client.getMap().updateOneRound();
-//    tooltipInit();
-//    tooltipInstall();
   }
   /**
    * tell user they are green player or blue player
@@ -423,7 +421,7 @@ public class MainMapController {
   public void updateCloakIconVisiblity(){
     if(client.cloakIsResearch()){
       for(int i=0; i<terr_names.size(); i++){
-        if(client.cloakRemain(terr_names.get(i))>0){//TODO show details of cloak turn
+        if(client.cloakRemain(terr_names.get(i))>0){
           System.out.println("Find cloak in territory: " + terr_names.get(i) + "with turn: " + client.cloakRemain(terr_names.get(i)));
           cloak_icons.get(i).setVisible(true);
           Tooltip.install(cloak_icons.get(i), new Tooltip(""+client.cloakRemain(terr_names.get(i))));
@@ -434,11 +432,17 @@ public class MainMapController {
 
   //TODO update
   public void updateSpyVisibility(){
+    for(int i=0; i<terr_names.size(); i++){
+      if(client.getMySpyNum(terr_names.get(i))>0){
+        spy_icons.get(i).setVisible(true);
+        Tooltip.install(spy_icons.get(i), new Tooltip(""+client.getMySpyNum(terr_names.get(i))));
+      }
+    }
 
   }
   public void listenStageClose(Stage stage){
 
-    stage.setOnHidden(event -> {updateFoodAndWood();updateCloakIconVisiblity();
+    stage.setOnHidden(event -> {updateFoodAndWood();updateCloakIconVisiblity();updateSpyVisibility();
     });
   }
 
@@ -507,6 +511,7 @@ public class MainMapController {
 
     displayTerritoryBorder();
     updateCloakIconVisiblity();
+    updateSpyVisibility();
     String msg = client.getPlayerRoundInfo();
     victory_msg.setText(msg);
     if(client.checkGameOver()==true){
