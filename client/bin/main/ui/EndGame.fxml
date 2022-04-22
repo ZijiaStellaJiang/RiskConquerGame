@@ -9,17 +9,17 @@
 
 <AnchorPane fx:id="pane" prefHeight="400.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="edu.duke.ece651.group4.risc.controller.EndGameController">
    <children>
-      <ImageView fitHeight="400.0" fitWidth="702.0" preserveRatio="true">
+      <ImageView fitHeight="400.0" fitWidth="546.0" preserveRatio="true">
          <image>
-            <Image url="@../pic/back2.png" />
+            <Image url="@../pic/background1.png" />
          </image>
       </ImageView>
-      <ImageView fitHeight="289.0" fitWidth="416.0" layoutX="57.0" layoutY="56.0">
+      <ImageView fitHeight="339.0" fitWidth="500.0" layoutX="20.0" layoutY="31.0" preserveRatio="true">
          <image>
-            <Image url="@../pic/map/light.png" />
+            <Image url="@../pic/map/info.png" />
          </image>
       </ImageView>
-      <Text fx:id="end_msg" layoutX="248.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="200" styleClass="text_css">
+      <Text fx:id="end_msg" layoutX="248.0" layoutY="184.0" strokeType="OUTSIDE" strokeWidth="0.0" styleClass="text_css" wrappingWidth="200">
          <font>
             <Font size="35.0" />
          </font>

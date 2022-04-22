@@ -67,6 +67,14 @@ public class TerritoryDetailController {
     public TerritoryDetailController(){
 
     }
+
+    /**
+     * Constructor
+     * @param terr territory
+     * @param player_id player id
+     * @param ifMine indicate if mine
+     * @param cloak_num cloak number
+     */
     public TerritoryDetailController(Territory<Character> terr, int player_id, boolean ifMine, int cloak_num){
         this.terr = terr;
         this.player_id = player_id;
@@ -74,7 +82,10 @@ public class TerritoryDetailController {
         this.cNum = cloak_num;
     }
 
-
+    /**
+     * Shows name, food, wood, info
+     * @param content content to display
+     */
     public void showOtherInfo(String content){
         detail.setText(content);
         name.setText(terr.getName());
@@ -83,6 +94,9 @@ public class TerritoryDetailController {
         wood.setText(""+terr.getWoodAbility());
     }
 
+    /**
+     * Set up page
+     */
     public void setup(){
         //show unit
         showUnit();
@@ -91,15 +105,31 @@ public class TerritoryDetailController {
         }
     }
 
-
+    /**
+     * Adjust image for better apparencec
+     * @param image
+     * @param width
+     * @param height
+     * @param images
+     */
     public void adjustImageSize(ImageView image, int width, int height, Image images){
         image.setImage(images);
         image.setFitHeight(height);
         image.setFitWidth(width);
     }
+
+    /**
+     * Set if mine for test case
+     * @param ans
+     */
     public void setIfMine(boolean ans){
         ifMine = ans;
     }
+
+    /**
+     * Set player id for test case
+     * @param id
+     */
     public void setPlayer_id(int id){
         this.player_id = id;
     }

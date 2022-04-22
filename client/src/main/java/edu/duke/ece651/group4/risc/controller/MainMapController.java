@@ -107,8 +107,6 @@ public class MainMapController {
   ImageView spy5;
   @FXML
   ImageView spy6;
-  private ArrayList<Tooltip> cloak_tip;
-  private ArrayList<Tooltip> spy_tip;
   private ArrayList<ImageView> cloak_icons;
   private ArrayList<String> terr_names;
   private ArrayList<ImageView> spy_icons;
@@ -121,8 +119,6 @@ public class MainMapController {
 
     cloak_icons = new ArrayList<ImageView>();
     spy_icons = new ArrayList<ImageView>();
-    cloak_tip = new ArrayList<Tooltip>();
-    spy_tip = new ArrayList<Tooltip>();
 
     terr_names = new ArrayList<>();
     terr_names.add("Oz");
@@ -235,54 +231,54 @@ public class MainMapController {
    * @param toDisplay territory
    * @return the details of this territory
    */
-  public String displayTerritoryInfo(Territory<Character> toDisplay) {
-    StringBuilder sb = new StringBuilder(toDisplay.getName());
-    sb.append("\n--------------------\nSize : ");
-    sb.append(toDisplay.getSize());
-    sb.append("\nFood Ability : ");
-    sb.append(toDisplay.getFoodAbility());
-    sb.append("\nWood Ability : ");
-    sb.append(toDisplay.getWoodAbility());
-    sb.append("\nUnits :\n   Level 0 : ");
-    sb.append(toDisplay.getLevelUnitNum(0));
-    sb.append("\n   Level 1 : ");
-    sb.append(toDisplay.getLevelUnitNum(1));
-    sb.append("\n   Level 2 : ");
-    sb.append(toDisplay.getLevelUnitNum(2));
-    sb.append("\n   Level 3 : ");
-    sb.append(toDisplay.getLevelUnitNum(3));
-    sb.append("\n   Level 4 : ");
-    sb.append(toDisplay.getLevelUnitNum(4));
-    sb.append("\n   Level 5 : ");
-    sb.append(toDisplay.getLevelUnitNum(5));
-    sb.append("\n   Level 6 : ");
-    sb.append(toDisplay.getLevelUnitNum(6));
-    return sb.toString();
-  }
+//  public String displayTerritoryInfo(Territory<Character> toDisplay) {
+//    StringBuilder sb = new StringBuilder(toDisplay.getName());
+//    sb.append("\n--------------------\nSize : ");
+//    sb.append(toDisplay.getSize());
+//    sb.append("\nFood Ability : ");
+//    sb.append(toDisplay.getFoodAbility());
+//    sb.append("\nWood Ability : ");
+//    sb.append(toDisplay.getWoodAbility());
+//    sb.append("\nUnits :\n   Level 0 : ");
+//    sb.append(toDisplay.getLevelUnitNum(0));
+//    sb.append("\n   Level 1 : ");
+//    sb.append(toDisplay.getLevelUnitNum(1));
+//    sb.append("\n   Level 2 : ");
+//    sb.append(toDisplay.getLevelUnitNum(2));
+//    sb.append("\n   Level 3 : ");
+//    sb.append(toDisplay.getLevelUnitNum(3));
+//    sb.append("\n   Level 4 : ");
+//    sb.append(toDisplay.getLevelUnitNum(4));
+//    sb.append("\n   Level 5 : ");
+//    sb.append(toDisplay.getLevelUnitNum(5));
+//    sb.append("\n   Level 6 : ");
+//    sb.append(toDisplay.getLevelUnitNum(6));
+//    return sb.toString();
+//  }
 
   /**
    * Show details of the territory
    * @param text
    * @throws IOException
    */
-  public void  showDetails(String text) throws IOException {
-    URL xmlResource = getClass().getResource("/ui/TerritoryDetail.fxml");
-    URL cssResource = getClass().getResource("/ui/button.css");
-    FXMLLoader loader = new FXMLLoader(xmlResource);
-    // setup controller
-    controllers.put(TerritoryDetailController.class, new TerritoryDetailController());
-    loader.setControllerFactory((c) -> {
-      return controllers.get(c);
-    });
-    AnchorPane gp = loader.load();
-    TerritoryDetailController territoryDetailController = loader.getController();
-    territoryDetailController.setup();
-    Scene scene = new Scene(gp);
-    scene.getStylesheets().add(cssResource.toString());
-    Stage stage = new Stage();
-    stage.setScene(scene);
-    stage.show();
-  }
+//  public void  showDetails(String text) throws IOException {
+//    URL xmlResource = getClass().getResource("/ui/TerritoryDetail.fxml");
+//    URL cssResource = getClass().getResource("/ui/button.css");
+//    FXMLLoader loader = new FXMLLoader(xmlResource);
+//    // setup controller
+//    controllers.put(TerritoryDetailController.class, new TerritoryDetailController());
+//    loader.setControllerFactory((c) -> {
+//      return controllers.get(c);
+//    });
+//    AnchorPane gp = loader.load();
+//    TerritoryDetailController territoryDetailController = loader.getController();
+//    territoryDetailController.setup();
+//    Scene scene = new Scene(gp);
+//    scene.getStylesheets().add(cssResource.toString());
+//    Stage stage = new Stage();
+//    stage.setScene(scene);
+//    stage.show();
+//  }
 
   /*public void tooltipInit(){
     for(int i=0; i<cloak_icons.size(); i++){
@@ -521,8 +517,6 @@ public class MainMapController {
     client.oneRoundUpdate();
     System.out.println("updated!!!");
     wait_msg.setText("Please enter your next actions");
-    //client.getMap().updateOneRound();
-    //setButtonsDisable(false);
     // display new map
 
     displayTerritoryBorder();
@@ -539,6 +533,8 @@ public class MainMapController {
       loader.setControllerFactory((c) -> {
         return controllers.get(c);
       });
+
+      URL cssResource = getClass().getResource("/ui/button.css");
       AnchorPane gp = loader.load();
       EndGameController cont = loader.getController();
       cont.setup(end_msg);
@@ -546,6 +542,7 @@ public class MainMapController {
       client.close_connection();
       primaryStage.close();
       Scene scene = new Scene(gp);
+      scene.getStylesheets().add(cssResource.toString());
       Stage stage = new Stage();
       stage.setScene(scene);
       stage.show();
