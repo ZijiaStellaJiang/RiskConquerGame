@@ -227,7 +227,7 @@ public class MainMapControllerTest {
     FxAssert.verifyThat("#detail", isVisible());
   }
 
-  @Disabled
+
   @Test
   public void test_show_map(){
     Platform.runLater(() -> {
